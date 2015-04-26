@@ -1,0 +1,131 @@
+\subsection{Matriz banda}
+
+Una vez obtenida la discretizaci\'on de nuestro sistema y la posici\'on de los puntos de calor en esta versi\'on como se mencion\'o con anterioridad, planteamos las ecuaciones que nos permitir\'an resolverlo. Consideremos $r$ al radio de alcance de los puntos de calor producidos por las sanguijuelas, $T_c$ su temperatura y $C_1$, ... , $C_k$ los $k$ puntos de calor, con $C_i \in R^2$, $C_i = (x_i, y_i)$.\\
+
+Sabemos que si $ x = 0 \vee y = 0 \vee x = m \vee y = n \Rightarrow T(x,y) = -100$. \\
+Tambi\'en que si $\exists \: C_j, \: C_j = (x_j, y_j) \: / \: \sqrt[2]{(x-x_j)^2 + (y-y_j)^2} \le r \Rightarrow T(x,y) = T_c$. \\
+Luego, nos falta definir $T(x,y)$ para todos los $(x,y)$ que no son alcanzados por estas condiciones.\\
+Ahora plantearemos $n \times m$ ecuaciones con $n \times m$ inc\'ognitas, que ser\'an el sistema que luego resolveremos. Las inc\'ognitas ser\'an los $T(x,y)$, y sus constantes correspondientes $a_{ij}$.\\
+
+Sea $(\alpha,\beta)$ un punto de la grilla:
+\begin{enumerate}
+ \item Si es parte del borde, entonces su ecuaci\'on ser\'a $a_{ij}$ = -100 por la temperatura por defecto que toma esta secci\'on.
+ \item Si es un punto donde existe una sanguijuela, este toma el valor de la constante de temperatura otorgado por esta. $a_{ij}$ = k donde K representa la temperatura pasada como input para dicha sanguijuela.
+ \item Si en cambio es un punto del interior del plano que no se corresponde con la posici\'on de ninguna sanguijuela, su ecuaci\'on ser\'a, como mencionamos con anterioridad, 
+\begin{equation}
+t_{ij} \ =\ \frac{ t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}}{4}.
+\end{equation}
+ Teniendo en cuenta esta informaci\'on, podremos despejar la inc\'ognita para introducir dicha ecuaci\'on dentro de nuestra matriz, de la siguiente manera:
+\begin{equation}
+0 \ =\ \ -4t_{ij} + t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}.
+\end{equation}
+logrando as\'i igualar la ecuaci\'on a cero.
+\end{enumerate}
+
+N\'otese que si cada fila de nuestra matriz de resoluci\'on representa las ecuaciones del sistema y los $t_{ii}$ representan el valor puntual que representa dicha ecuaci\'on, entonces cada $t_{ij}$ que forme parte de esta estar\'a a una distancia $x$ constante.
+Llevando esta idea al gr\'afico de la matriz, puede empezarse a entrever como, al completar estas ecuaciones, la matriz banda empieza a tomar forma.
+
+Una vez obtenida esta matriz, ya estamos listos para comenzar con la resoluci\'on del sistema.
+
+\subsection{Almacenamiento de la matriz banda}
+
+Debido a que la representaci\'on matricial del problema que atacamos posee una estructura donde los elemenos no nulos se concentran en la diagonal, pudimos representar esta matriz de $(nxm)x(nxm)$ usando otra estructura de $nx(2m+1)$ elementos, sabiendo que m\'as all\'a de la banda diagonal de $pxq$ elementos, el resto de la matriz se completa con 0.
+
+Inicialmente utilizamos un arreglo unidimiensional para almacenar la estructura, amparandonos en una caracter\'istica presente en gcc y c99 que permite definir el tama\~no de un arreglo en tiempo de ejecuci\'on. (Cuando lo corrimos en clang esto fallaba).
+Si bien esta estructura de datos es muy eficiente, decidimos movernos a la representaci\'on en un vector unidimiensional, obteniendo mayor comodidad de manipulaci\'on. La diferencia en tama\~no de la estructura del vector frente al arreglo es despreciable frente al almacenamiento general que requiere el problema.
+
+
+\subsection{Eliminacion gaussiana sobre matriz banda}
+
+Como primer forma de resolver el sistema de ecuaciones, se implemento un Gauss sobre el que se realizaron algunas mejoras. La idea general del algoritmo se mantiene, en el paso $k$ diagonalizamos la columna $k$ de la matriz $A$ y todos los elementos en la columna k-esima a partir del $a_{k,k}$ seran $0$.
+\\
+La mejora que implementaremos ser\'a que, sabiendo que la matriz A es banda, a partir del elemento $a_{k+p,k}$ (donde $p$ es el limite de la banda) los siguientes seran $0$ y a partir del elemento $a_{k,k+p}$ tambien seran $0$.
+\\
+Luego para la columna $k$ no ser\'a necesario chequear hasta el final de la matriz, sino hasta el valor $k+p$.
+\\
+Lo mismo pasa con las filas. En el gauss estandar, luego de diagonalizar una columna, todos los elementos de esa fila deben ser actualizados. Pero al trabajar con una matriz banda, solo es necesario actualizar los $p$ valores que siguen a la diagonal, ya que tenemos asegurado que todos los valores siguientes seran $0$.
+\\
+Escrito de manera mas formal el algoritmo ser\'a el siguiente:
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void Gauss(matriz A, vector b)}
+  \STATE{Para i=$1...n$}
+  \STATE{\quad Tomo el elemento $a_{i,i}$ como pivote}
+  \STATE{\quad Para $k = i+1,...i+p$}  
+  \STATE{\quad \quad Para $w = i+1,...k+p$}
+  \STATE{\quad \quad \quad $a_{k,w}  = a_{k,w} - a_{i,w} * (a_{k,i} / a_{w,w})$}
+  \STATE{\quad \quad $a_{i,i} = 0$}
+\end{algorithmic}
+\end{algorithm}
+
+De este algoritmo se desprende que este algoritmo tiene una mejor complegidad comparado con el Gauss estandard, siendo la misma de $O(n*p^2)$ siendo $n$ la cantidad de incognitas de nuestra matriz, y $p$ el tamaño de la banda.
+
+Una vez concluido el proceso de eliminaci\'on gaussiana sobre la matriz banda, utilizamos backwards substitution para resolver las ecuaciones y conseguir as\'i el valor de cada uno de los puntos de calor del plano discretizado. Aqu\'i tambien es posible realizar una optimizacion, ya que en cada paso no es necesario ir hasta la ultima columna sin\'o hasta la columna donde sabemos que comienza la banda.
+
+De esta manera habremos disminuimos la complegidad del backwards substitution de $O(n^2)$ a una menor de $O(n*p)$.
+
+\subsection{Descomposicion LU}
+
+La segunda forma que desarrollamos para resolver el problema es realizando una descomposicion LU a la matriz original. La ventaja de esto es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en O(n^2).
+
+Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussiana, este tambien puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones ser\'an similares a las de Gauss. Expresandolo de manera algoritmica, la descomposicion $LU$ optimizada ser\'a asi:
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void Gauss(matriz A, vector b)}
+  \STATE{Inicializo una matriz $L$ con unos en la diagonal}
+  \STATE{Para i=$1...n$}
+  \STATE{\quad Tomo el elemento $a_{i,i}$ como pivote}
+  \STATE{\quad Para $k = i+1,...i+p$}  
+  \STATE{\quad \quad Para $w = i+1,...k+p$}
+  \STATE{\quad \quad \quad $a_{k,w}  = a_{k,w} - a_{i,w} * (a_{k,i} / a_{w,w})$}
+  \STATE{\quad \quad $a_{i,i} = 0$}
+  \STATE{\quad \quad $L_{i,i} = a_{i,w} * (a_{k,i} / a_{w,w}$}
+\end{algorithmic}
+\end{algorithm}
+
+Luego en la matriz $A$ obtengo la matriz diagonal superior y en el L la diagonal inferior.
+
+Puede verse que siendo el algoritmo muy similar al de eliminacion gaussiana, tambien posee la misma complegidad, esto es $O(n*p^2)$.
+
+Este algoritmo sera utilizado mas adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
+
+\subsection{No hay tiempo que perder}
+
+En esta parte del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto critico a travez de la eliminacion de una sanguijuela. Dado que esto nos afecta el sistema de ecuaciones, en primera instancia, ser\'a necesario recalcular todo el sistema otra vez, lo que podria resultar muy costoso. Plantear otra vez las ecuaciones, ahora con esta variaci\'on, y volver a calcular las inc\'ognitas mediante el algoritmo de eliminaci\'on gaussiana tomar\'ia otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opci\'on no sea la mas adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una granularidad muy fina. Para esto, entonces, hacemos uso de una variaci\'on de la f\'ormula de Sherman–Morrison, evitando replantear todo el sistema desde cero, permitiendo reutilizar informacion de la ejecucion con todas las sanguijuelas y disminuyendo la complegidad a una mas adecuada.
+
+Comencemos definiendo de manera mas adecuada la implementacion mas simple.
+
+\subsection{Implementacion Simple}
+
+Como ya hemos adelantado, la idea detras de este algoritmo sera quitar una sanguijuela del sistema, aplicarle eliminacion Gaussiana a la matriz obtenida y utilizar backwads substitution para obtener la solucion deseada.
+
+Mas formalizado en pseudocidigo:
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void Ultimo_disparo()}
+\STATE{ Para cada sanguijuela}
+\STATE{ \quad La quito de la matriz $A$}
+\STATE{ \quad Quito su b en $0$}
+\STATE{ \quad Aplico $Gauss(A,b)$}
+\STATE{ \quad Aplico $Backwards_substitution(A,b)$}
+\STATE{ \quad Restablezco los valores originales en la matriz A y paso a la siguiente}
+\end{algorithmic}
+\end{algorithm}
+
+Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resoluci\'on $n$ y el tamaño de la banda $p$. La complegidad de este algoritmo sera $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
+
+Ahora intentaremos mejorar esta complegidad a travez de la utlizacion de la formula de sherman morrison.
+
+\subsection{Implementacion Sherman-Morrison}
+
+
+Entonces, sean $A$, $A^*$ la matriz original del problema y la matriz modificada sin una de sus sanguijuelas respectivamente, queremos resolver $A^*$ = $A + uv^t$ donde $uv^t$ representa la matriz que introduce los cambios debido a la modificacion. Sea entonces
+$(A^*)x = b$. Resolvemos las siguientes ecuaciones, $Ay = b$ y $Az = u$ y obtenemos la nueva $x$ a partir del siguiente c\'alculo:
+\begin{equation}
+x = y - \frac{zv^ty}{1+v^tz}.
+\end{equation}
+As\'i entonces, podemos obtener los resultados a partir de multiplicaciones de complejidad cuadr\'atica y evitamos volver a usar el algoritmo de eliminaci\'on gaussiana de complejidad c\'ubica.
+

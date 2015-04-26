@@ -1,0 +1,19 @@
+En este trabajo practico intentaremos modelizar y resolver el problema de una superficie a la que se le aplica calor en ciertos puntos, teniendo como condiciones ademas que los bordes permanecen a temperatura constante. Para modelizar este problema utiizaremos la ecuacion del calor:
+
+\begin{equation}
+\frac{\partial^2T(x,y)}{\partial x^{2}}+\frac{\partial^2 T(x,y)}{\partial y^{2}} = 0.
+\end{equation}\\
+
+Con esta ecuacion diferencial, es posible calcular la temperatura en cualquier punto de la superficie. Sin embargo, dado que queremos resolver el sistema bajo un modelo que no sea continuo, ser\'a necesario discretizar la ecuacion diferencial de alguna manera adecuada. Para ello, discretizaremos esta superficie en segmentos de superficie, que afectaran la presicion de las respuestas. Parece intuitivo pensar que mientras mas pequeños sean los segmentos, el sistema discreto mas se asemejar\'a con el continuo, obteniendo as\'i respuestas mas parecidas a este.\\
+
+Aprovechando la discretizacion del sistema y que este es un problema lineal, lo modelizaremos como un problema $Ax=b$ sobre la cual aplicaremos diversas tecnicas, como eliminacion gaussiana o descomposicion LU, que nos permitiran resolver las incognitas de una manera mas comoda.
+
+Para decirlo mas formalmente, dados $a$ y $b$ el ancho y el alto de nuestra superficie, respectivamente, $h$ la granularidad con la que discretizaremos, y valiendo que  $a = m\times h$ y $b = n \times h$, obtendremos una grilla de $(n+1)\times(m+1)$ puntos (donde el punto $(0,0)$ se corresponde con el extremo inferior izquierdo).\\
+
+Llamemos $t_{ij} = T(x_j,y_i)$ al valor (desconocido) de la funci\'on $T$ en el punto $(x_j, y_i) = (ih, jh)$. La aproximaci\'on finita (que es posible gracias a la discretizaci\'on realizada sobre el sistema) afirma que
+
+\begin{equation}
+t_{ij} \ =\ \frac{ t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}}{4}.
+\end{equation}
+
+De esta forma, es posible plantear un sistema en donde cada punto est\'e en funci\'on de otros y as\'i resolver todas las ecuaciones nos dar\'a la temperatura en el punto cr\'itico.

@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{section.1}{Introduccion teorica}{}% 1
+\BOOKMARK [1][-]{section.2}{Desarrollo}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Matriz banda}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Almacenamiento de la matriz banda}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Eliminacion gaussiana sobre matriz banda}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Descomposicion LU}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{No hay tiempo que perder}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.6}{Implementacion Simple}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.7}{Implementacion Sherman-Morrison}{section.2}% 9
+\BOOKMARK [1][-]{section.3}{Discusion}{}% 10
+\BOOKMARK [2][-]{subsection.3.1}{Manipulaci\363n de estructura interna de la matriz}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Resultados}{}% 12
+\BOOKMARK [2][-]{subsection.4.1}{An\341lisis de temperatura y tiempos en funci\363n de las discretizaciones}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Optimizaci\363n del c\363mputo para cambios leves del sistema}{section.4}% 14
+\BOOKMARK [1][-]{section.5}{Conclusiones}{}% 15
+\BOOKMARK [2][-]{subsection.5.1}{Ventajas en el uso de una matriz banda}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.2}{Discretizaci\363n de un problema continuo}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.3}{P\351rdida de precisi\363n en el uso de aritm\351tica de punto flotante}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.4}{Otras aplicaciones}{section.5}% 19
+\BOOKMARK [1][-]{section.6}{Apendice}{}% 20
