@@ -31,7 +31,7 @@ vectorNum *vectorNum::resta(vectorNum *otroVector){
 
 int vectorNum::get(int coordenada)
 {
-	if(coordenada > 0 && coordenada < dim)
+	if(coordenada >= 0 && coordenada < dim)
 		return valores[coordenada];
 	else
 		throw 1;
@@ -39,7 +39,7 @@ int vectorNum::get(int coordenada)
 
 void vectorNum::set(int coordenada, int valor)
 {
-	if(coordenada > 0 && coordenada < dim)
+	if(coordenada >= 0 && coordenada < dim)
 		valores[coordenada] = valor;
 	else
 		throw 1;

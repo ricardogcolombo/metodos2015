@@ -1,44 +1,51 @@
 #include "knn.h"
 
-void calcularknn(vector<entrada> &etiquetados, vector<entrada> sinEtiquetar, string salida, int cantidadDeVecinosMasCercanos)
+void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
 {
+	int *etiqueta = new int[sinEtiquetar.size()];
 	for(int i = 0; i < sinEtiquetar.size(); i++)
 	{
-		int etiqueta = encontrarEtiqueta(etiquetados, sinEtiquetar[i], cantidadDeVecinosMasCercanos);
+		etiqueta[i] = encontrarEtiqueta(etiquetados, sinEtiquetar[i], cantidadDeVecinosMasCercanos);
+		cout << etiqueta[i] << endl;
 	}
 }
 
-
-bool comp(const resultado& s1, const resultado& s2)
+class mycomparison
 {
-   return s1.norma < s2.norma;
-}
-
+  bool reverse;
+public:
+  mycomparison(const bool& revparam=false)
+    {reverse=revparam;}
+  bool operator() (resultado lhs,resultado rhs) const
+  {
+  	//comprobar que es asi y no con el signo al reves
+    return lhs.norma > rhs.norma;
+  }
+};
 
 
 int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int cantidadDeVecinosMasCercanos){
 
-	std::vector<resultado> resultados;
+	priority_queue<resultado, vector<resultado>,mycomparison> resultados;
+
 	for(int i= 0; i < etiquetados.size(); i++)
 	{
 		vectorNum* restaVectores = etiquetados[i].vect->resta(instancia.vect);
 		resultado result;
 		result.norma  = restaVectores->norma2();
 		result.clase = etiquetados[i].label;
-		resultados.push_back(result);
+		resultados.push(result);
 	}
 
 	//No se que mierda le pasa acá
 
-	make_heap(resultados.begin(), resultados.end(), comp);
-	
 	int *numeros = new int[10];
 
 	for(int i = 0; i < cantidadDeVecinosMasCercanos; i++)
 	{
-		resultado result = resultados.front();
+		resultado result = resultados.top();
 		numeros[result.clase]++;
-		pop_heap(resultados.begin(),resultados.end()); resultados.pop_back();
+		resultados.pop();
 	}
 
 	int max = 0;

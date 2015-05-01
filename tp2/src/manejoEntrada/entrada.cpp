@@ -1,7 +1,7 @@
 #include "entrada.h"
 
 
-vector<entrada> procesarEntrada(string archivo){
+vector<entrada> procesarEntrada(string archivo, bool entrenamiento){
 	vector<entrada> instancias;
 
 	ifstream file (archivo.c_str());
@@ -16,9 +16,8 @@ vector<entrada> procesarEntrada(string archivo){
 	getline(file, value);
 
 	while(getline(file, value)) {
-		entrada instancia;		
+		entrada instancia;
 		instancia.vect = new vectorNum(784);
-		
 		//pos numera la entrada, 0 = label, [1..784] = valores
 		int pos = 0;
 		
@@ -26,16 +25,25 @@ vector<entrada> procesarEntrada(string archivo){
 		string token;
 		while ((i = value.find(delimiter)) != string::npos) {
 			token = value.substr(0, pos);
-			if(pos == 0) {
-				instancia.label = atoi(value.c_str());
-			} else {
-				instancia.vect->set(pos-1, atoi(value.c_str()));
-			}
+			if(entrenamiento)
+				instancia.vect->set(pos, atoi(value.c_str()));
+			else
+				if(pos == 0) {
+					instancia.label = atoi(value.c_str());
+				} else {
+					instancia.vect->set(pos-1, atoi(value.c_str()));
+				}
 			value.erase(0, i + delimiter.length());
 			pos++;
 		}
 		//Leo la posicion 784 que no tiene delimitador
-		instancia.vect->set(pos-1, atoi(value.c_str()));
+		if(entrenamiento)
+		{
+			instancia.vect->set(pos, atoi(value.c_str()));
+			instancia.label = -1;
+		}
+		else
+			instancia.vect->set(pos-1, atoi(value.c_str()));
 			
 		//Guardo el vector
 		instancias.push_back(instancia);

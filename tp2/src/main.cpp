@@ -1,5 +1,5 @@
 #include "manejoEntrada/entrada.h"
-
+#include "knn/knn.h"
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
@@ -26,14 +26,19 @@ int main(int argc, char *argv[]) {
 	string archivoDeSalida (argv[2]);
 	string metodo (argv[3]);
 
-	vector<entrada> entradas = procesarEntrada("minitrain.csv");
-	
+	cout << "Cargando Base de datos..." << endl;
+	vector<entrada> entradas = procesarEntrada("minitrain.csv", false);
+	cout << "Cargando imagenes a testear..." << endl;
+	vector<entrada> test = procesarEntrada("test.csv", true);
 
+	//no estoy devolviendo nada por salida, cuidado
+	string salida;
 
 	//knn
-	if(metodo.compare("0"))
+	if(metodo.compare(1,1,"0"))
 	{
-
+		cout << "Ejecutando metodo knn..." << endl;
+		calcularknn(entradas,test, salida, 6);
 	}
 
 	//pca + knn
