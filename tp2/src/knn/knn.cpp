@@ -28,8 +28,6 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 		resultados.push_back(result);
 	}
 
-	//No se que mierda le pasa acá
-
 	make_heap(resultados.begin(), resultados.end(), comp);
 
 	int *numeros = new int[10];
