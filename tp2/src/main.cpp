@@ -42,11 +42,12 @@ int main(int argc, char *argv[]) {
 		calcularknn(entradas,test, salida, 6);
 	}
 */
+
 	//pca + knn
 	if(metodo.compare(1,1,"1"))
 	{
-    vector<double> lambdas = calcularPca(entradas,test, salida, 6);
-    for(int i = 0; i < lambdas.size(); i++) cout << "lambda[] " << lambdas[i] << endl;
+    calcularPca(entradas,test, salida, 6);
+		calcularknn(entradas, test, salida, 6);
 	}
 
 

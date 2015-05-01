@@ -1,27 +1,41 @@
 
 #include "pca.h"
 
-vector<double> calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
+void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
 {
   vector< vector<double> > covarianza = vector< vector<double> >(etiquetados[0].vect->dim, vector<double>(etiquetados[0].vect->dim, 0));
   vector<double> lambdas = vector<double>(etiquetados[0].vect->dim, 0);
-  vector<double> potencias = vector<double>(etiquetados[0].vect->dim, 1);
+  vector< vector<double> > potencias = vector< vector<double> >(etiquetados[0].vect->dim, vector<double>(etiquetados[0].vect->dim, 0));
+  double aux = .0;
 
   // calculamos la matriz de covarianza
   matrizDeCovarianza(etiquetados, covarianza);
 
   for(int i = 0; i < covarianza.size(); i++) {
 
-    lambdas[i] = metodoDeLasPotencias(covarianza, potencias);
+    metodoDeLasPotencias(covarianza, potencias[i]);
 
     for(int j = 0; j < covarianza.size(); j++) {
       for(int k = 0; k < covarianza.size(); k++) {
-        covarianza[j][k] -= lambdas[i]*potencias[j]*potencias[k];
+        covarianza[j][k] -= lambdas[i]*potencias[i][j]*potencias[i][k];
       }
     }
   }
+  
+  // TODO COPIAR ETIQUETADOS A ETIQUETADOS2 PARA NO PISAR LOS VALORES DE ETIQUETADOS
 
-  return lambdas;
+  
+  for(int i = 0; i < etiquetados.size(); i++) {
+    // le hago un cambio de `coordenadas`
+    for(int j = 0; j < etiquetados[i].vect->dim; j++) {
+      aux = .0;
+      for(int k = 0; k < etiquetados[i].vect->dim; k++) {
+        aux += etiquetados[i].vect->get(k) * potencias[k][j];
+      }
+      etiquetados[i].vect->set(j, (int) round(aux));
+    }
+  }
+
 }
 
 double metodoDeLasPotencias(vector< vector<double> > &covarianza, vector<double> &potencias)
