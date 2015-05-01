@@ -1,5 +1,6 @@
 #include "manejoEntrada/entrada.h"
 #include "knn/knn.h"
+#include "pca/pca.h"
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
@@ -33,18 +34,19 @@ int main(int argc, char *argv[]) {
 
 	//no estoy devolviendo nada por salida, cuidado
 	string salida;
-
+/*
 	//knn
 	if(metodo.compare(1,1,"0"))
 	{
 		cout << "Ejecutando metodo knn..." << endl;
 		calcularknn(entradas,test, salida, 6);
 	}
-
+*/
 	//pca + knn
-	if(metodo.compare("1"))
+	if(metodo.compare(1,1,"1"))
 	{
-
+    vector<double> lambdas = calcularPca(entradas,test, salida, 6);
+    for(int i = 0; i < lambdas.size(); i++) cout << "lambda[] " << lambdas[i] << endl;
 	}
 
 

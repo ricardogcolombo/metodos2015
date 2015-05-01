@@ -1,17 +1,36 @@
 
 #include "pca.h"
 
-void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
+vector<double> calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
 {
   vector< vector<double> > covarianza = vector< vector<double> >(etiquetados[0].vect->dim, vector<double>(etiquetados[0].vect->dim, 0));
+  vector<double> lambdas = vector<double>(etiquetados[0].vect->dim, 0);
+  vector<double> potencias = vector<double>(1);
+
+  // calculamos la matriz de covarianza
   matrizDeCovarianza(etiquetados, covarianza);
 
-  vector<double> potencias = vector<double>(1);
-  vector<double> aux = vector<double>(0);
-  double norma = 0;
+  for(int i = 0; i < etiquetados.size(); i++) {
+    lambdas[i] = metodoDeLasPotencias(covarianza, potencias);
 
-  // iteraciones del metodo de potencias
+
+    for(int j = 0; j < etiquetados.size(); j++) {
+      for(int k = 0; j < etiquetados.size(); k++) {
+        covarianza[j][k] -= lambdas[i]*potencias[j]*potencias[k];
+      }
+    }
+  }
+
+  return lambdas;
+}
+
+double metodoDeLasPotencias(vector< vector<double> > &covarianza, vector<double> &potencias)
+{
   for(int i = 0; i < 10; i++) {
+    vector<double> aux = vector<double>(0);
+    double norma = 0;
+
+    // iteraciones del metodo de potencias
     norma = 0;  
 
     for(int j = 0; j < covarianza.size(); j++) {
@@ -27,9 +46,16 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, st
     for(int k = 0; k < potencias.size(); k++) {
       potencias[k] = aux[k] / norma;
     }
-
   }
 
+  // ya tenemos xk
+  double lambda = .0;
+  for(int i = 0; i < covarianza[0].size(); i++) {
+    lambda += covarianza[0][i] * potencias[i];
+  }
+  
+  // lambda TODO chequear que potencias[0] != 0
+  return lambda / potencias[0];
 }
 
 void matrizDeCovarianza(vector<entrada> &etiquetados, vector< vector<double> > &covarianza)
@@ -49,7 +75,6 @@ void matMedia(vector<entrada> &v, vector<double> &media)
       aux += v[i].vect->get(j);
     }
     media[i] = aux / v.size(); 
-    cout << "media " << i << " " << media[i] << endl;
   }
 }
 
