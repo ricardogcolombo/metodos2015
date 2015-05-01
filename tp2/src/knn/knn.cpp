@@ -37,8 +37,6 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 		resultados.push(result);
 	}
 
-	//No se que mierda le pasa acá
-
 	int *numeros = new int[10];
 
 	for(int i = 0; i < cantidadDeVecinosMasCercanos; i++)
@@ -58,7 +56,6 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 			claseMax = i;
 		}
 	}
-
 	return claseMax;
 }
 
