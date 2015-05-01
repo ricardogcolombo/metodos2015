@@ -20,6 +20,8 @@ private:
 	double valorNorma2;
 public:
 	vectorNum(int dimencion);
+	~vectorNum();
+
 	//calcula la norma
 	double norma2();
 	//Realiza la resta entre este vector y otro
