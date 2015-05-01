@@ -2,7 +2,7 @@
 #define _PCA_H
 
 #include <iostream>
-#include <cmath.h>
+#include <math.h>
 #include "../manejoEntrada/entrada.h"
 
 void matMedia(vector<entrada> &v, vector<double> &media);
