@@ -16,9 +16,9 @@ using namespace std;
 class vectorNum{
 private:
 	int *valores;
-	int dim;
 	double valorNorma2;
 public:
+	int dim;
 	vectorNum(int dimencion);
 	~vectorNum();
 
