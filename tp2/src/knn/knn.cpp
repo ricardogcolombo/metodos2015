@@ -48,7 +48,7 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 
 	int max = 0;
 	int claseMax = -1;
-	for(int i = 0; i < 0; i++)
+	for(int i = 0; i < 10; i++)
 	{
 		if(max < numeros[i])
 		{
