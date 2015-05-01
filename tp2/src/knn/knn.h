@@ -1,3 +1,6 @@
+#ifndef _KNN_H
+#define _KNN_H
+
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
@@ -24,3 +27,4 @@ struct resultado
  	int clase;
 };
 
+#endif

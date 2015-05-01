@@ -31,14 +31,15 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 	//No se que mierda le pasa acá
 
 	make_heap(resultados.begin(), resultados.end(), comp);
-	
+
 	int *numeros = new int[10];
 
 	for(int i = 0; i < cantidadDeVecinosMasCercanos; i++)
 	{
 		resultado result = resultados.front();
 		numeros[result.clase]++;
-		pop_heap(resultados.begin(),resultados.end()); resultados.pop_back();
+		pop_heap(resultados.begin(),resultados.end(), comp);
+        resultados.pop_back();
 	}
 
 	int max = 0;
@@ -51,7 +52,6 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 			claseMax = i;
 		}
 	}
-
 	return claseMax;
 }
 
