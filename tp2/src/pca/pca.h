@@ -11,4 +11,5 @@ vectorNum *calcularMedias(vector<entrada> &v);
 matrizNum * matrizDeCovarianza(vector<entrada> &etiquetados);
 matrizNum *matCovarianza(vector<entrada> &v, vectorNum *medias);
 vectorNum *metodoDeLasPotencias(matrizNum *covarianza);
+vectorNum *crearVectorInicial(int dim);
 #endif

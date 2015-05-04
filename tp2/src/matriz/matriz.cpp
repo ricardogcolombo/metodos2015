@@ -7,7 +7,7 @@ matrizNum::matrizNum(int dimencion)
 	valores = new double*[dim];
 	for(int i = 0; i < dim; i++)
 	{
-		valores[i] = new double(dim);
+		valores[i] = new double[dim];
 	}
 }
 matrizNum::~matrizNum()

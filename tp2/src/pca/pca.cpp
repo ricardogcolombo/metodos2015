@@ -6,28 +6,16 @@
 
 void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
 {
-
   // calculamos la matriz de covarianza
-  cout << "1" << endl;
   matrizNum *covarianza = matrizDeCovarianza(etiquetados);
-
   //Empiezo a conseguir autovectores
-
-  cout << "2" << endl;
-
   for(int i = 0; i < CANTIDAD_AUTOVECTORES; i++) {
-    cout << "3" << endl;
-
     vectorNum * autovector = metodoDeLasPotencias(covarianza);
-    cout << "4" << endl;
-
     //falta agregar el lamda
     autovector->print();
     covarianza->resta( autovector->multiplicacionVectTrans(autovector));
-
-    cout << "5" << endl;
-
     }
+    exit(0);
   }
   
   // TODO COPIAR ETIQUETADOS A ETIQUETADOS2 PARA NO PISAR LOS VALORES DE ETIQUETADOS
@@ -49,22 +37,11 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, st
 vectorNum *metodoDeLasPotencias(matrizNum *covarianza)
 {
   int dimencion = covarianza->size();
-  vectorNum *vectorInicial = new vectorNum(dimencion);
-  for(int i = 0; i < dimencion;i++)
-  {
-    int random = rand() % 100 + 1;
-    vectorInicial->set(i, random);
-  }
-
-  // int h;
-  // covarianza->print();
-  // cin >> h;
+  
+  vectorNum *vectorInicial = crearVectorInicial(dimencion);
 
   for(int i = 0; i < CANTIDAD_ITERACIONES; i++)
   {
-    covarianza->print();
-    int p;
-    cin >> p;
     vectorNum *nuevoVector = covarianza->producto(vectorInicial);
     int norma = nuevoVector->norma2();
     nuevoVector->multiplicacionEscalar((1/(double)norma));
@@ -74,6 +51,17 @@ vectorNum *metodoDeLasPotencias(matrizNum *covarianza)
   return vectorInicial;
 }
 
+
+vectorNum *crearVectorInicial(int dim)
+{
+  vectorNum *vectorInicial = new vectorNum(dim);
+  for(int w = 0; w < dim;w++)
+  {
+    int random = rand() % 100 + 1;
+    vectorInicial->set(w,(double)random);
+  }
+  return vectorInicial;
+}
 
 matrizNum *matCovarianza(vector<entrada> &v, vectorNum *medias)
 {
