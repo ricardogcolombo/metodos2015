@@ -12,4 +12,5 @@ matrizNum * matrizDeCovarianza(vector<entrada> &etiquetados);
 matrizNum *matCovarianza(vector<entrada> &v, vectorNum *medias);
 vectorNum *metodoDeLasPotencias(matrizNum *covarianza);
 vectorNum *crearVectorInicial(int dim);
+void trasponerEntrada(vector<entrada> etiquetados, std::vector<vectorNum*> autovectores);
 #endif

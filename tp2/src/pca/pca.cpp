@@ -8,30 +8,34 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, st
 {
   // calculamos la matriz de covarianza
   matrizNum *covarianza = matrizDeCovarianza(etiquetados);
+  
+  std::vector<vectorNum*> autovectores;
+
   //Empiezo a conseguir autovectores
   for(int i = 0; i < CANTIDAD_AUTOVECTORES; i++) {
     vectorNum * autovector = metodoDeLasPotencias(covarianza);
-    //falta agregar el lamda
-    autovector->print();
+    //guardo los actovectores en un vector
+    autovectores.push_back(autovector);
+    //falta mutliplicar el lamda
     covarianza->resta( autovector->multiplicacionVectTrans(autovector));
     }
-    exit(0);
+    trasponerEntrada(etiquetados,autovectores);
+    trasponerEntrada(sinEtiquetar,autovectores);
   }
   
-  // TODO COPIAR ETIQUETADOS A ETIQUETADOS2 PARA NO PISAR LOS VALORES DE ETIQUETADOS
+void trasponerEntrada(vector<entrada> etiquetados, std::vector<vectorNum*> autovectores)
+{
+    for(int j = 0; j < etiquetados.size(); j++)
+    {
+      vectorNum* vectorAux = new vectorNum(CANTIDAD_AUTOVECTORES);
+      for(int i= 0; i < autovectores.size();i++)
+      {
+        vectorAux->set(i, autovectores[i]->multiplicacionVect(etiquetados[j].vect));
+      }
+      etiquetados[j].vect = vectorAux;
+    }
 
-  
-  // double aux = .0;
-  // for(int i = 0; i < etiquetados.size(); i++) {
-  //   // le hago un cambio de `coordenadas`
-  //   for(int j = 0; j < etiquetados[i].vect->dim; j++) {
-  //     aux = .0;
-  //     for(int k = 0; k < etiquetados[i].vect->dim; k++) {
-  //       aux += etiquetados[i].vect->get(k) * potencias[k][j];
-  //     }
-  //     etiquetados[i].vect->set(j, (int) round(aux));
-  //   }
-  // }
+}
 
 //devuelve el mayor autovalor
 vectorNum *metodoDeLasPotencias(matrizNum *covarianza)
@@ -65,21 +69,26 @@ vectorNum *crearVectorInicial(int dim)
 matrizNum *matCovarianza(vector<entrada> &v, vectorNum *medias)
 {
   int dimencion = medias->size();
-  matrizNum *covarianza = new matrizNum(v.size());
-  for(int j = 0 ; j < v.size(); j++) {
-    for(int k = 0 ; k < v.size(); k++) {
-      vectorNum *resta1 = v[k].vect->resta(medias);
-      vectorNum *resta2 = v[j].vect->resta(medias);
-      double mult = resta1->multiplicacionVect(resta2);
-      mult = mult* (1 / (double)(resta1->size() - 1));
-      covarianza->set(k,j, mult);
-      delete resta1;
-      delete resta2;
+  matrizNum *covarianza = new matrizNum(dimencion);
+
+  //Aca nos creamos el X del slide
+  vector<vectorNum*> X;
+  for(int i = 0; i < v.size(); i++){
+    vectorNum* nuevoVector = new vectorNum(v.size());
+    for(int j = 0; j < v.size(); j++){
+      nuevoVector->set(j, v[j].vect->get(i) - medias->get(i));
+    X.push_back(nuevoVector);
     }
   }
-
+  //ahora Armamos la matriz Mx
+  for(int i = 0 ; i < dimencion; i++) {
+    for(int k = 0 ; k < dimencion; k++) {
+      covarianza->set(i,k,X[i]->multiplicacionVect(X[k])/(double)(dimencion - 1 ));
+    }
+  }
   return covarianza;
 }
+
 
 matrizNum *matrizDeCovarianza(vector<entrada> &etiquetados)
 {
