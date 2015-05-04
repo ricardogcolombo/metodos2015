@@ -37,7 +37,6 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, st
 vectorNum *metodoDeLasPotencias(matrizNum *covarianza)
 {
   int dimencion = covarianza->size();
-  
   vectorNum *vectorInicial = crearVectorInicial(dimencion);
 
   for(int i = 0; i < CANTIDAD_ITERACIONES; i++)
@@ -66,13 +65,13 @@ vectorNum *crearVectorInicial(int dim)
 matrizNum *matCovarianza(vector<entrada> &v, vectorNum *medias)
 {
   int dimencion = medias->size();
-  matrizNum *covarianza = new matrizNum(dimencion);
-  for(int j = 0 ; j < 3; j++) {
-    for(int k = 0 ; k < 3; k++) {
+  matrizNum *covarianza = new matrizNum(v.size());
+  for(int j = 0 ; j < v.size(); j++) {
+    for(int k = 0 ; k < v.size(); k++) {
       vectorNum *resta1 = v[k].vect->resta(medias);
       vectorNum *resta2 = v[j].vect->resta(medias);
-      int mult = resta1->multiplicacionVect(resta2);
-      mult = mult* (1 / (resta1->size() - 1));
+      double mult = resta1->multiplicacionVect(resta2);
+      mult = mult* (1 / (double)(resta1->size() - 1));
       covarianza->set(k,j, mult);
       delete resta1;
       delete resta2;

@@ -66,7 +66,7 @@ double vectorNum::multiplicacionVect(vectorNum *otroVector)
 {
 	double aux = 0;
 	for(int i = 0; i < dim; i++)
-		aux += valores[i]* otroVector->valores[i];
+		aux = aux + (valores[i]* otroVector->valores[i]);
 	return aux;
 }
 
