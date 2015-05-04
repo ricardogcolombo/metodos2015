@@ -2,9 +2,14 @@
 
 vectorNum::vectorNum(int dimencion){
 	dim = dimencion;
-	valores = new int[dim];
+	valores = new double[dim];
 	valorNorma2 = -1;
 }
+
+vectorNum::~vectorNum(){
+	delete valores;
+}
+
 
 double vectorNum::norma2() {
 
@@ -29,7 +34,7 @@ vectorNum *vectorNum::resta(vectorNum *otroVector){
 	return nuevoVector;
 }
 
-int vectorNum::get(int coordenada)
+double vectorNum::get(int coordenada)
 {
 	if(coordenada >= 0 && coordenada < dim)
 		return valores[coordenada];
@@ -37,7 +42,7 @@ int vectorNum::get(int coordenada)
 		throw 1;
 }
 
-void vectorNum::set(int coordenada, int valor)
+void vectorNum::set(int coordenada, double valor)
 {
 	if(coordenada >= 0 && coordenada < dim)
 		valores[coordenada] = valor;
@@ -50,4 +55,34 @@ void vectorNum::print()
 	for(int i = 0; i < dim; i++)
 		cout << valores[i] << " ";
 	cout << endl;
+}
+
+int vectorNum::size()
+{
+	return dim;
+}
+
+double vectorNum::multiplicacionVect(vectorNum *otroVector)
+{
+	double aux = 0;
+	for(int i = 0; i < dim; i++)
+		aux += valores[i]* otroVector->valores[i];
+	return aux;
+}
+
+void vectorNum::multiplicacionEscalar(double escalar)
+{
+	for(int i = 0; i < dim; i++)
+		valores[i] = valores[i]*escalar;
+}
+
+matrizNum* vectorNum::multiplicacionVectTrans(vectorNum *otroVector)
+{
+	if(otroVector->dim != dim)
+		throw -1;
+	matrizNum* matriz = new matrizNum(dim);
+	for(int i = 0; i < dim; i++)
+		for(int j = 0; j < dim; j++)
+			matriz->set(i,j, valores[i]*otroVector->valores[j]);
+	return matriz;
 }

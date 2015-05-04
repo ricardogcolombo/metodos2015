@@ -33,6 +33,7 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 		vectorNum* restaVectores = etiquetados[i].vect->resta(instancia.vect);
 		resultado result;
 		result.norma  = restaVectores->norma2();
+		delete restaVectores;
 		result.clase = etiquetados[i].label;
 		resultados.push(result);
 	}

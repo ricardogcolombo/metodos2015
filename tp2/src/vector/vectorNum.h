@@ -1,3 +1,6 @@
+#ifndef __vectorNum_H_INCLUDED__   
+#define __vectorNum_H_INCLUDED__   
+
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
@@ -7,18 +10,17 @@
 #include <string>
 #include <vector>
 #include <cmath>
-
+#include "../matriz/matriz.h"
 using namespace std;
 
-#ifndef __vectorNum_H_INCLUDED__   
-#define __vectorNum_H_INCLUDED__   
+class matrizNum;
 
 class vectorNum{
 private:
-	int *valores;
+	double *valores;
 	double valorNorma2;
-public:
 	int dim;
+public:
 	vectorNum(int dimencion);
 	~vectorNum();
 
@@ -27,10 +29,15 @@ public:
 	//Realiza la resta entre este vector y otro
 	vectorNum *resta(vectorNum *otroVector);
 
-	int get(int pos);
-	void set(int pos, int val);
+	int size();
+
+	double get(int pos);
+	void set(int pos, double val);
 
 	void print();
+	double multiplicacionVect(vectorNum *otroVector);
+	void multiplicacionEscalar(double escalar);
+	matrizNum* multiplicacionVectTrans(vectorNum *otroVector);
 };
 
 #endif
