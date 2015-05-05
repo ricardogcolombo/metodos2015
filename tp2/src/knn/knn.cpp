@@ -2,12 +2,15 @@
 
 void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
 {
+	int lepegue = 0;
 	int *etiqueta = new int[sinEtiquetar.size()];
 	for(int i = 0; i < sinEtiquetar.size(); i++)
 	{
 		etiqueta[i] = encontrarEtiqueta(etiquetados, sinEtiquetar[i], cantidadDeVecinosMasCercanos);
-		cout << etiqueta[i] << endl;
+		if(etiqueta[i] == sinEtiquetar[i].label)
+			lepegue++;
 	}
+	cout << "Cantidad De Aciertos " << lepegue << endl;
 }
 
 class mycomparison
