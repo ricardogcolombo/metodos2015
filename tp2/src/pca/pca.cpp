@@ -16,13 +16,16 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, st
     //guardo los actovectores en un vector
     autovectores.push_back(autovector);
     //falta mutliplicar el lamda
-    covarianza->resta( autovector->multiplicacionVectTrans(autovector));
+    double lamda = encontrarAutovalor(autovector,covarianza);
+    vectorNum *autovectorAux = autovector->copy();
+    autovector->multiplicacionEscalar(lamda);
+    covarianza->resta(autovector->multiplicacionVectTrans(autovectorAux));
     }
     trasponerEntrada(etiquetados,autovectores,cantidadAutovectores);
     trasponerEntrada(sinEtiquetar,autovectores,cantidadAutovectores);
   }
   
-void trasponerEntrada(vector<entrada> etiquetados, std::vector<vectorNum*> autovectores, int cantidadAutovectores)
+void trasponerEntrada(vector<entrada> &etiquetados, std::vector<vectorNum*> &autovectores, int cantidadAutovectores)
 {
     for(int j = 0; j < etiquetados.size(); j++)
     {
@@ -31,9 +34,10 @@ void trasponerEntrada(vector<entrada> etiquetados, std::vector<vectorNum*> autov
       {
         vectorAux->set(i, autovectores[i]->multiplicacionVect(etiquetados[j].vect));
       }
+      //Borro el vector viejo y le pongo el de las nuevas dimenciones
+      delete etiquetados[j].vect;
       etiquetados[j].vect = vectorAux;
     }
-
 }
 
 //devuelve el mayor autovalor
@@ -45,7 +49,7 @@ vectorNum *metodoDeLasPotencias(matrizNum *covarianza)
   for(int i = 0; i < CANTIDAD_ITERACIONES; i++)
   {
     vectorNum *nuevoVector = covarianza->producto(vectorInicial);
-    int norma = nuevoVector->norma2();
+    double norma = nuevoVector->norma2();
     nuevoVector->multiplicacionEscalar((1/(double)norma));
     delete vectorInicial;
     vectorInicial = nuevoVector;
@@ -75,9 +79,10 @@ matrizNum *matCovarianza(vector<entrada> &v, vectorNum *medias)
   for(int i = 0; i < dimencion; i++){
     vectorNum* nuevoVector = new vectorNum(v.size());
     for(int j = 0; j < v.size(); j++){
-      nuevoVector->set(j, v[j].vect->get(i) - medias->get(i));
-    X.push_back(nuevoVector);
+      nuevoVector->set(j, (double) v[j].vect->get(i) - medias->get(i));
     }
+    //nuevoVector->print();
+    X.push_back(nuevoVector);
   }
   //ahora Armamos la matriz Mx
   for(int i = 0 ; i < dimencion; i++) {
@@ -99,13 +104,24 @@ matrizNum *matrizDeCovarianza(vector<entrada> &etiquetados)
 vectorNum *calcularMedias(vector<entrada> &v)
 {
   vectorNum *medias = new vectorNum(v[0].vect->size());
-  double aux = 0.0;
-  for(int i = 0 ; i < medias->size(); i++) {
-    aux = 0.0;
-    for(int j = 0; j < v.size(); j++) {
-      aux += v[j].vect->get(i);
-    }
-    medias->set(i, aux / v.size()); 
+  for(int j = 0; j < v.size(); j++){
+    medias->suma(v[j].vect); 
   }
+  medias->multiplicacionEscalar((double)1 / (double) v.size());
   return medias;
+}
+
+double encontrarAutovalor(vectorNum *autovector, matrizNum *covarianza)
+{
+  vectorNum * aux = covarianza->producto(autovector);
+  for(int i = 0; i < autovector->size(); i++)
+  {
+    if(aux->get(i) != 0){
+
+        double lamda = aux->get(i)/autovector->get(i);
+        return lamda;
+    }
+  }
+  //si llegue acá es que el autovector es 0 lo que es absurdo.
+  throw -1;
 }

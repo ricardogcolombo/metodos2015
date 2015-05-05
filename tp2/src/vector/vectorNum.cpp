@@ -4,6 +4,8 @@ vectorNum::vectorNum(int dimencion){
 	dim = dimencion;
 	valores = new double[dim];
 	valorNorma2 = -1;
+	for(int i = 0; i < dim; i++)
+		valores[i] = 0;
 }
 
 vectorNum::~vectorNum(){
@@ -85,4 +87,19 @@ matrizNum* vectorNum::multiplicacionVectTrans(vectorNum *otroVector)
 		for(int j = 0; j < dim; j++)
 			matriz->set(i,j, valores[i]*otroVector->valores[j]);
 	return matriz;
+}
+
+void vectorNum::suma(vectorNum *otroVector){
+	if(dim != otroVector->dim)
+		throw -1;
+	for(int i = 0; i < dim; i++)
+		valores[i] = valores[i] + otroVector->valores[i];
+}
+
+vectorNum *vectorNum::copy()
+{
+	vectorNum *aux = new vectorNum(dim);
+	for(int i = 0; i < dim; i++)
+		aux->valores[i]	= valores[i];
+	return aux;
 }

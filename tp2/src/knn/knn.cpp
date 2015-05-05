@@ -2,14 +2,25 @@
 
 void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
 {
+	fstream myfile(salida.c_str(),ios::out | ios::app);
 	int lepegue = 0;
 	int *etiqueta = new int[sinEtiquetar.size()];
+
+
 	for(int i = 0; i < sinEtiquetar.size(); i++)
 	{
+		//etiquetados[i].vect->print();
+
 		etiqueta[i] = encontrarEtiqueta(etiquetados, sinEtiquetar[i], cantidadDeVecinosMasCercanos);
+
+
+		//cout <<  etiqueta[i] << sinEtiquetar[i].label << endl;
+		
+		myfile << i << " , " << etiqueta[i] << endl;
 		if(etiqueta[i] == sinEtiquetar[i].label)
 			lepegue++;
 	}
+	myfile.close();
 	cout << "Cantidad De Aciertos " << lepegue << endl;
 }
 

@@ -34,10 +34,12 @@ public:
 	double get(int pos);
 	void set(int pos, double val);
 
+	void suma(vectorNum *otroVector);
 	void print();
 	double multiplicacionVect(vectorNum *otroVector);
 	void multiplicacionEscalar(double escalar);
 	matrizNum* multiplicacionVectTrans(vectorNum *otroVector);
+	vectorNum *copy();
 };
 
 #endif

@@ -14,7 +14,7 @@
 #include <string> 
 using namespace std;
 
-void ejecutar(int metodo,vector<entrada> entradas,vector<entrada> test, int lamda, int vecinos);
+void ejecutar(int metodo,vector<entrada> entradas,vector<entrada> test, int lamda, int vecinos, string archivoDeSalida);
 int **kfolds(string archivo, int &cantidadDePruebas,int &lamda, int &vecinos);
 void arreglarEntrada(vector<entrada> entradaOriginal,vector<entrada> &entradaNueva, vector<entrada> &testeo,int *kfold);
 
@@ -41,8 +41,6 @@ int main(int argc, char *argv[]) {
 
 	//Esto es para hacer el K folds
 	int cantidadDePruebas,lamda,vecinos;
-	cout << "Cargando Base de datos..." << endl;
-	vector<entrada> entradas = procesarEntrada("train.csv", false);
 	vector<entrada> testeo,entrenamiento ;
 	int **kfold = kfolds(archivoDeEntrada, cantidadDePruebas,lamda,vecinos);
 	cout << "Iniciando Kfolds...." << endl;
@@ -50,12 +48,14 @@ int main(int argc, char *argv[]) {
 	cout << "Lamda: " << lamda << endl;
 	cout << "Vecinos para el KNN: " << vecinos << endl;
 	for(int i = 0; i < cantidadDePruebas; i++){
+		cout << "Cargando Base de datos..." << endl;
+		vector<entrada> entradas = procesarEntrada("train.csv", false);
 		cout << "Corriendo test: " << i+1 << endl;
 		arreglarEntrada(entradas, entrenamiento,testeo,kfold[i]);
-		ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos);
+		ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, archivoDeSalida);
 		entrenamiento.erase(entrenamiento.begin(),entrenamiento.end());
 		testeo.erase(testeo.begin(),testeo.end());
-
+		entradas.erase(entradas.begin(), entradas.end());
 	}
 	//Esto es para hacer el K folds
 
@@ -63,21 +63,21 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void ejecutar(int metodo,vector<entrada> entradas,vector<entrada> test, int lamda, int vecinos)
+void ejecutar(int metodo,vector<entrada> entradas,vector<entrada> test, int lamda, int vecinos, string archivoDeSalida)
 {
-	string salida;
 	//knn
 	if(metodo == 0)
 	{
-		cout << "Ejecutando metodo knn..." << endl;
-		calcularknn(entradas,test, salida, vecinos);
+		cout << "Ejecutando metodo KNN..." << endl;
+		calcularknn(entradas,test, archivoDeSalida, vecinos);
 	}
 	//pca + knn
 	if(metodo == 1)
 	{
 		cout << "Ejecutando metodo PCA..." << endl;
-	   	calcularPca(entradas,test, salida, lamda);
-		calcularknn(entradas, test, salida, vecinos);
+	   	calcularPca(entradas,test, archivoDeSalida, lamda);
+		cout << "Ejecutando KNN sobre el PCA..." << endl;
+		calcularknn(entradas, test, archivoDeSalida, vecinos);
 	}
 }
 
@@ -99,6 +99,7 @@ int **kfolds(string archivo, int &cantidadDePruebas,int &lamda, int &vecinos)
 			myfile >> kfold[i][j]; 
 		}
 	}
+	myfile.close();
 	return kfold;
 }
 
