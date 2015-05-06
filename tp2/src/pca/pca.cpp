@@ -108,6 +108,7 @@ vectorNum *calcularMedias(vector<entrada> &v)
     medias->suma(v[j].vect); 
   }
   medias->multiplicacionEscalar((double)1 / (double) v.size());
+  medias->print();
   return medias;
 }
 

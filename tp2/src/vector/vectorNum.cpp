@@ -55,8 +55,8 @@ void vectorNum::set(int coordenada, double valor)
 void vectorNum::print()
 {
 	for(int i = 0; i < dim; i++)
-		cout << valores[i] << " ";
-	cout << endl;
+		cout << valores[i] << endl;
+	//cout << endl;
 }
 
 int vectorNum::size()

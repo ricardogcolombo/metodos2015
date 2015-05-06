@@ -44,7 +44,10 @@ vector<entrada> procesarEntrada(string archivo, bool entrenamiento){
 		}
 		else
 			instancia.vect->set(pos-1, atoi(value.c_str()));
-			
+		
+		instancia.vect->print();
+		int hola;
+		cin >> hola;	
 		//Guardo el vector
 		instancias.push_back(instancia);
 		nline++;
