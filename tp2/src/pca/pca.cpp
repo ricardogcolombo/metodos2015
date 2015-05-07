@@ -104,11 +104,15 @@ matrizNum *matrizDeCovarianza(vector<entrada> &etiquetados)
 vectorNum *calcularMedias(vector<entrada> &v)
 {
   vectorNum *medias = new vectorNum(v[0].vect->size());
-  for(int j = 0; j < v.size(); j++){
-    medias->suma(v[j].vect); 
+  for(int j = 0; j < v[0].vect->size(); j++){
+	  double media = 0;
+	  for(int i = 0; i < v.size(); i++){
+		media += v[i].vect->get(j);
+	  }
+	  medias->set(j, (double)media / (double)v.size());
   }
-  medias->multiplicacionEscalar((double)1 / (double) v.size());
-  medias->print();
+
+  //medias->print();
   return medias;
 }
 

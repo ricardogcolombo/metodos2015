@@ -6,6 +6,7 @@ vectorNum::vectorNum(int dimencion){
 	valorNorma2 = -1;
 	for(int i = 0; i < dim; i++)
 		valores[i] = 0;
+
 }
 
 vectorNum::~vectorNum(){
@@ -55,7 +56,7 @@ void vectorNum::set(int coordenada, double valor)
 void vectorNum::print()
 {
 	for(int i = 0; i < dim; i++)
-		cout << valores[i] << endl;
+		cout << valores[i] << ',';
 	//cout << endl;
 }
 
