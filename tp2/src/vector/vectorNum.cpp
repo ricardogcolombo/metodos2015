@@ -57,7 +57,7 @@ void vectorNum::print()
 {
 	for(int i = 0; i < dim; i++)
 		cout << valores[i] << ',';
-	//cout << endl;
+	cout << endl;
 }
 
 int vectorNum::size()
@@ -103,4 +103,15 @@ vectorNum *vectorNum::copy()
 	for(int i = 0; i < dim; i++)
 		aux->valores[i]	= valores[i];
 	return aux;
+}
+
+double vectorNum::normaInfinito()
+{
+	double max = 0;
+	for(int i = 0; i < dim; i++)
+	{
+		if(abs(valores[i]) > max)
+			max = valores[i];
+	}
+	return max;
 }

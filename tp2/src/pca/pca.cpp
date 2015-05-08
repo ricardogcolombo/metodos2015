@@ -1,6 +1,6 @@
 
 #include "pca.h"
-#define CANTIDAD_ITERACIONES 10
+#define CANTIDAD_ITERACIONES 100
 
 
 void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadAutovectores)
@@ -15,7 +15,6 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, st
     vectorNum * autovector = metodoDeLasPotencias(covarianza);
     //guardo los actovectores en un vector
     autovectores.push_back(autovector);
-    //falta mutliplicar el lamda
     double lamda = encontrarAutovalor(autovector,covarianza);
     vectorNum *autovectorAux = autovector->copy();
     autovector->multiplicacionEscalar(lamda);
@@ -87,7 +86,7 @@ matrizNum *matCovarianza(vector<entrada> &v, vectorNum *medias)
   //ahora Armamos la matriz Mx
   for(int i = 0 ; i < dimencion; i++) {
     for(int k = 0 ; k < dimencion; k++) {
-      covarianza->set(i,k,X[i]->multiplicacionVect(X[k])/(double)(dimencion - 1 ));
+      covarianza->set(i,k,X[i]->multiplicacionVect(X[k])/(double)(v.size() - 1 ));
     }
   }
   return covarianza;
@@ -98,6 +97,7 @@ matrizNum *matrizDeCovarianza(vector<entrada> &etiquetados)
 {
   vectorNum *medias = calcularMedias(etiquetados);
   matrizNum *matrizCovarianza = matCovarianza(etiquetados, medias);
+  delete medias;
   return matrizCovarianza;
 }
 
@@ -105,14 +105,12 @@ vectorNum *calcularMedias(vector<entrada> &v)
 {
   vectorNum *medias = new vectorNum(v[0].vect->size());
   for(int j = 0; j < v[0].vect->size(); j++){
-	  double media = 0;
+	  double media = 0.0;
 	  for(int i = 0; i < v.size(); i++){
 		media += v[i].vect->get(j);
 	  }
 	  medias->set(j, (double)media / (double)v.size());
   }
-
-  //medias->print();
   return medias;
 }
 

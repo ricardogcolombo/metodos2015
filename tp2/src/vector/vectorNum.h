@@ -40,6 +40,7 @@ public:
 	void multiplicacionEscalar(double escalar);
 	matrizNum* multiplicacionVectTrans(vectorNum *otroVector);
 	vectorNum *copy();
+	double normaInfinito();
 };
 
 #endif

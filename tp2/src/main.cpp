@@ -32,33 +32,33 @@ int main(int argc, char *argv[]) {
 
 
 	//Esto es para competir
-	int lamda = 10;
-	int vecinos = 10;
-	cout << "Cargando Base de datos..." << endl;
-	vector<entrada> entrenamiento = procesarEntrada("train.csv", false);
-	cout << "Cargando imagenes a testear..." << endl;
-	vector<entrada> testeo = procesarEntrada("test.csv", true);
-	ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, archivoDeSalida);
+	// int lamda = 10;
+	// int vecinos = 10;
+	// cout << "Cargando Base de datos..." << endl;
+	// vector<entrada> entrenamiento = procesarEntrada("train.csv", false);
+	// cout << "Cargando imagenes a testear..." << endl;
+	// vector<entrada> testeo = procesarEntrada("test.csv", true);
+	// ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, archivoDeSalida);
 	//Esto es para competir
 
 	//Esto es para hacer el K folds
-	// int cantidadDePruebas,lamda,vecinos;
-	// vector<entrada> testeo,entrenamiento ;
-	// int **kfold = kfolds(archivoDeEntrada, cantidadDePruebas,lamda,vecinos);
-	// cout << "Iniciando Kfolds...." << endl;
-	// cout << "Cantidad De Pruebas: " << cantidadDePruebas << endl;
-	// cout << "Lamda: " << lamda << endl;
-	// cout << "Vecinos para el KNN: " << vecinos << endl;
-	// for(int i = 0; i < cantidadDePruebas; i++){
-	// 	cout << "Cargando Base de datos..." << endl;
-	// 	vector<entrada> entradas = procesarEntrada("train.csv", false);
-	// 	cout << "Corriendo test: " << i+1 << endl;
-	// 	arreglarEntrada(entradas, entrenamiento,testeo,kfold[i]);
-	// 	ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, archivoDeSalida);
-	// 	entrenamiento.erase(entrenamiento.begin(),entrenamiento.end());
-	// 	testeo.erase(testeo.begin(),testeo.end());
-	// 	entradas.erase(entradas.begin(), entradas.end());
-	// }
+	int cantidadDePruebas,lamda,vecinos;
+	vector<entrada> testeo,entrenamiento ;
+	int **kfold = kfolds(archivoDeEntrada, cantidadDePruebas,lamda,vecinos);
+	cout << "Iniciando Kfolds...." << endl;
+	cout << "Cantidad De Pruebas: " << cantidadDePruebas << endl;
+	cout << "Lamda: " << lamda << endl;
+	cout << "Vecinos para el KNN: " << vecinos << endl;
+	for(int i = 0; i < cantidadDePruebas; i++){
+		cout << "Cargando Base de datos..." << endl;
+		vector<entrada> entradas = procesarEntrada("train.csv", false);
+		cout << "Corriendo test: " << i+1 << endl;
+		arreglarEntrada(entradas, entrenamiento,testeo,kfold[i]);
+		ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, archivoDeSalida);
+		entrenamiento.erase(entrenamiento.begin(),entrenamiento.end());
+		testeo.erase(testeo.begin(),testeo.end());
+		entradas.erase(entradas.begin(), entradas.end());
+	}
 	//Esto es para hacer el K folds
 
 	cout << "Fin!" << endl;

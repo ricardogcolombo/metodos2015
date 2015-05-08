@@ -9,13 +9,7 @@ void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, st
 
 	for(int i = 0; i < sinEtiquetar.size(); i++)
 	{
-		//etiquetados[i].vect->print();
-
 		etiqueta[i] = encontrarEtiqueta(etiquetados, sinEtiquetar[i], cantidadDeVecinosMasCercanos);
-
-
-		//cout <<  etiqueta[i] << sinEtiquetar[i].label << endl;
-		
 		myfile << i << " , " << etiqueta[i] << endl;
 		if(etiqueta[i] == sinEtiquetar[i].label)
 			lepegue++;
@@ -52,7 +46,9 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 		resultados.push(result);
 	}
 
-	int *numeros = new int[10];
+	int numeros[10];
+	for(int i = 0; i < 10; i++)
+		numeros[i] = 0;
 
 	for(int i = 0; i < cantidadDeVecinosMasCercanos; i++)
 	{
@@ -71,6 +67,8 @@ int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int canti
 			claseMax = i;
 		}
 	}
+	if(claseMax == -1)
+		cout << "Error determinando clase" << endl;
 	return claseMax;
 }
 
