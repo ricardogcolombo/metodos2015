@@ -1,3 +1,4 @@
 \subsection{Algortimo de kNN}
+Como primera aproximaci\'on para la resoluci\'on del problema de OCR, implementamos el algoritmo de $K vecinos mas cercanos$ (o $kNN$ por sus siglas en ingles). Este algoritmo consiste basicamente en la idea de que entradas parecidas, a partir de una metrica definida en la implementacion (que para este caso podria variar desde, por ejemplo, desde la cantidad de puntos arriba de cierto valor para contabilizar la cantidad de valores $negros$ y $blancos$ hasta la norma de cada matriz digito) presentaran caracteristicas definidas y al ser ubicadas sobre un plano se agruparan de acuerdo a estas. Luego, para clasificar un nuevo objeto, basta con ubicarlo dentro de este plano y promediar la etiqueta de los $k$ vecinos mas cercanos para obtener una clasificaci\'on.
 
-\subsection{An\'alisis de componentes principales}
+\subsection{Optimizacion mediante An\'alisis de componentes principales}
