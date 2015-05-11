@@ -55,9 +55,13 @@ int main(int argc, char *argv[]) {
 		cout << "Corriendo test: " << i+1 << endl;
 		arreglarEntrada(entradas, entrenamiento,testeo,kfold[i]);
 		ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, archivoDeSalida);
+
+		//Elimino todos los vectores creados
+		for(int i = 0; i < entradas.size(); i++)
+			delete entradas[i].vect;
+		entradas.erase(entradas.begin(), entradas.end());
 		entrenamiento.erase(entrenamiento.begin(),entrenamiento.end());
 		testeo.erase(testeo.begin(),testeo.end());
-		entradas.erase(entradas.begin(), entradas.end());
 	}
 	//Esto es para hacer el K folds
 
