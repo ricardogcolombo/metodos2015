@@ -87,7 +87,10 @@ void ejecutar(int metodo,vector<entrada> entradas,vector<entrada> test, int lamd
 int **kfolds(string archivo, int &cantidadDePruebas,int &lamda, int &vecinos)
 {
 	int **kfold;
+	string hola;
 	fstream myfile(archivo.c_str(),ios_base::in);
+	//fix
+	myfile >> hola;
 	myfile >> vecinos;
 	myfile >> lamda;
 	myfile >> cantidadDePruebas;
