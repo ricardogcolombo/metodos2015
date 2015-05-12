@@ -1,4 +1,5 @@
 #include "manejoEntrada/entrada.h"
+
 #include "knn/knn.h"
 #include "pca/pca.h"
 #include <fstream>
@@ -43,7 +44,7 @@ int main(int argc, char *argv[]) {
 
 	//Esto es para hacer el K folds
 	int cantidadDePruebas,lamda,vecinos;
-	vector<entrada> testeo,entrenamiento ;
+	//vector<entrada> testeo,entrenamiento ;
 	int **kfold = kfolds(archivoDeEntrada, cantidadDePruebas,lamda,vecinos);
 	cout << "Iniciando Kfolds...." << endl;
 	cout << "Cantidad De Pruebas: " << cantidadDePruebas << endl;
@@ -52,13 +53,16 @@ int main(int argc, char *argv[]) {
 	for(int i = 0; i < cantidadDePruebas; i++){
 		cout << "Cargando Base de datos..." << endl;
 		vector<entrada> entradas = procesarEntrada("train.csv", false);
+		vector<entrada> testeo;
+		vector<entrada> entrenamiento;
+
 		cout << "Corriendo test: " << i+1 << endl;
 		arreglarEntrada(entradas, entrenamiento,testeo,kfold[i]);
 		ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, archivoDeSalida);
 
 		//Elimino todos los vectores creados
-		for(int i = 0; i < entradas.size(); i++)
-			delete entradas[i].vect;
+		//for(int i = 0; i < entradas.size(); i++)
+			//delete entradas[i].vect;
 		entradas.erase(entradas.begin(), entradas.end());
 		entrenamiento.erase(entrenamiento.begin(),entrenamiento.end());
 		testeo.erase(testeo.begin(),testeo.end());
