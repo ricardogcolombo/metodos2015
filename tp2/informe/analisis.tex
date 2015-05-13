@@ -4,7 +4,7 @@ Análisis de KNN
 Vamos a analizar el algoritmo KNN (k vecinos mas cercanos) para distintos valores de k, fijando un valor de $\lambda$, para ver como varía la efectividad (cantidad de aciertos) del algoritmo.
 Vamos a probar el algoritmo KNN para los siguientes valores:
 
-$\alpha$: 10  y $k$: 5, 50, 250.\\
+$\alpha$: 10  y $k$: 1, 5, 20, 50, 250.\\
 
 También vamos a ejecutar para los valores anteriores, 5 pruebas iguales para cada uno, ya que el algoritmo varía la cantidad de aciertos dependiendo de la base de datos que analice y no siempre da el mismo resultado.
 
@@ -17,7 +17,17 @@ Por lo tanto, a mayor cantidad de vecinos (o sea, k) menor va a ser la cantidad 
 El algoritmo $KNN$ es muy efectivo ya que tiene aproximadamente entre 85\% y 90\% de aciertos. Pero su \'déficit\' es que es muy lento a comparación del algoritmo $PCA$. 
 
 \subsubsection{Cantidad de vecinos}
-Mover el k y presentar un análisis
+Cantidad de vecinos para el KNN.\\ 
+Vamos a analizar para el algoritmo KNN cual es el mejor número de vecinos para el cual da una mayor cantidad de aciertos.
+Vamos a probar el algoritmo KNN para los valores siguientes:\\
+k: 1, 5, 20, 50, 250.\\
+
+A continuaci\'on vamos a mostrar los resultados para los valores reci\'en mencionados en forma de graficos.
+
+Una de las cosas que podemos observar es que a menor cantidad de vecinos recorridos, mayor va a ser la cantidad de aciertos, ya que como estoy eligiendo los mejores de la cola de prioridad, voy a obtener mayor presici\'on debido a que los primeros de la cola son los que menos difieren de las im\'agenes de la base de datos.
+Por lo tanto, si elijo $k = 1$ voy a obtener la im\'agen del d\'igito que m\'as cerca estuvo de la imágen que me pasaron por parámetro, así que no me interesa saber cuales son los resultados de las siguientes imágenes de la cola ya que el primero es el mejor caso posible.
+
+
 
 \subsubsection{Mejoras en kNN}
 Cortar el dataset en x valor y comparar para ver si mejora
