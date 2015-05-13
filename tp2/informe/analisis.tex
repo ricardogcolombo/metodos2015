@@ -8,8 +8,8 @@ $\alpha$: 10  y $k$: 1, 5, 20, 50, 250.\\
 
 También vamos a ejecutar para los valores anteriores, 5 pruebas iguales para cada uno, ya que el algoritmo varía la cantidad de aciertos dependiendo de la base de datos que analice y no siempre da el mismo resultado.
 
-Este algoritmo lo que hace es, por cada imagen que queremos averiguar a que dígito pertenece, vectorizarla, restarla a cada uno de los vectores imagen y calcular la norma 2 para saber en cuanto difieren con cada una de las imágenes.
-Todos esos resultados los vamos metiendo en una cola de prioridad que los ordena de menor a mayor, según la diferencias entre la imagen que quiero averiguar a que dígito pertenece y todas las imágenes de la base de datos.
+Este algoritmo lo que hace es, por cada imágen que queremos averiguar a que dígito pertenece, vectorizarla, restarla a cada uno de los vectores imágen y calcular la norma 2 para saber en cuanto difieren con cada una de las imágenes.
+Todos esos resultados los vamos metiendo en una cola de prioridad que los ordena de menor a mayor, según las diferencias entre la imágen que quiero averiguar a que dígito pertenece y todas las imágenes de la base de datos.
 \\
 Luego lo que hacemos es agarrar los k primeros de la cola de prioridad y verificar a que dígito se corresponden para luego saber cual es el dígito que recibió mas \'votos\' y ver si se produjo un acierto o no.
 Por lo tanto, a mayor cantidad de vecinos (o sea, k) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que mas difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan.
@@ -44,15 +44,15 @@ $\alpha$: 700 y k: 5, 20.\\
 $\alpha$: 50  y k: 5, 25, 50, 100.\\
 
 Lo que vamos a probar es, fijando un valor de $\lambda$, para que cantidad de vecinos vamos a tener la mayor cantidad de aciertos y así maximizar la cantidad de aciertos.
-Después de aplicar el algoritmo $PCA$, aplicamos el $KNN$ y armamos una cola de prioridad para los resultados de aplicar el algoritmo $KNN$. Lo que se hace es tomar dos imágenes, restarlas y aplicarle la norma 2 para saber en cuanto difiere una imagen de la otra. En la cola de prioridad estan adelante los valores más chicos, o sea, las imágenes del test que áas cerca de coincidir están con respecto a la imagen de la base de datos.
+Después de aplicar el algoritmo $PCA$, aplicamos el $KNN$ y armamos una cola de prioridad para los resultados de aplicar el algoritmo $KNN$. Lo que se hace es tomar dos imágenes, restarlas y aplicarle la norma 2 para saber en cuanto difiere una imágen de la otra. En la cola de prioridad estan adelante los valores más chicos, o sea, las imágenes del test que más cerca de coincidir están con respecto a la imágen de la base de datos.
 Por lo tanto, si elegimos una mayor cantidad de vecinos, pueden pasar dos cosas:
 
 \begin{itemize}
   \item Que sea beneficioso ya que a mayor cantidad de pruebas vamos a tener mas aciertos
-  \item Que sea malicioso ya que a mayor cantidad de pruebas vamos a obtener peores datos, o sea, vamos a mirar las imagenes que menos coiciden con la imagen de prueba de la base de datos.
+  \item Que sea malicioso ya que a mayor cantidad de pruebas vamos a obtener peores datos, o sea, vamos a mirar las imagenes que menos coiciden con la imágen de prueba de la base de datos.
 \end{itemize}
 
-La conclusión que se desprende es que a mayor cantidad de vecinos, el algoritmo empieza a funcionar peor, ya que estamos mirando los vecinos que menos coinciden con la base de datos, debido a que la cola de prioridad los ordena según la menor cantidad de diferencias entre la imagen obtenida y las imágenes de la base de datos. 
+La conclusión que se desprende es que a mayor cantidad de vecinos, el algoritmo empieza a funcionar peor, ya que estamos mirando los vecinos que menos coinciden con la base de datos, debido a que la cola de prioridad los ordena según la menor cantidad de diferencias entre la imágen obtenida y las imágenes de la base de datos. 
 
 Por lo tanto, cuanto mas vecinos se exploran, menor cantidad de aciertos hay. Eso se puede ver a través de las siguientes mediciones realizadas para distintos $k$ vecinos y fijando un valor de $\lambda$.
 
@@ -61,10 +61,17 @@ Por lo tanto, cuanto mas vecinos se exploran, menor cantidad de aciertos hay. Es
 \includegraphics[scale=0.75]{lamda200.jpg}\\
 \includegraphics[scale=0.75]{lamda700.jpg}\\
 
+Las pruebas para $\lambda = 10$, $\lambda = 50$ y $\lambda = 200$ las corrimos 10 veces y calculamos un promedio de esas diez. Ese es el valor que se refleja en la cantidad de aciertos. \\
 
-Otra conclusión que sacamos es que $k = 5$ vecinos es la mejor cantidad de vecinos para obtener la mayor cantidad de aciertos. 
-Ahora, ¿No sería mejor agarrar solo el primero de la cola de prioridad, es decir, $k = 1$? 
-Lo que podría pasar es que el único vecino que utilicemos sea el mejor pero no alcance para saber cuál es el dígito de la imagen, ya que si no se acierta con el único vecino que se elije,  podría fallar el dígito del resultado, reduciendo en un alto grado la cantidad de aciertos.
+Las pruebas para $\lambda = 700$ las corrimos 4 veces y calculamos un promedio de esas cuatros. Ese es el valor que se refleja en la cantidad de aciertos. \\
+
+Para verificar los datos anteriores, revisar el archivo "mediciones y graficos" en el directorio "informe-resultadostest".
+
+
+
+%Otra conclusión que sacamos es que $k = 5$ vecinos es la mejor cantidad de vecinos para obtener la mayor cantidad %de aciertos. 
+%Ahora, ¿No sería mejor agarrar solo el primero de la cola de prioridad, es decir, $k = 1$? 
+%Lo que podría pasar es que el único vecino que utilicemos sea el mejor pero no alcance para saber cuál es el %dígito de la imagen, ya que si no se acierta con el único vecino que se elije,  podría fallar el dígito del %resultado, reduciendo en un alto grado la cantidad de aciertos.
 
 \subsubsection{Lambda inicial}
 
