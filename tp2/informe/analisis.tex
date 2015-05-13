@@ -1,5 +1,26 @@
 \subsection{KNN}
 Analisis de KNN
+\\
+Ahora vamos a analizar el algoritmo KNN (k vecinos mas cercanos) para distintos valores de k, fijando un valor de lamda, para ver como varia la efectividad (cantidad de aciertos) del algoritmo.
+Vamos a probar el algormitmo KNN para los siguientes valores:
+
+$\alpha$: 10  y k: 5, 50, 250.\\
+
+Tambien, vamos a ejecutar para los valores anteriores, 5 pruebas iguales para cada uno, ya que el algoritmo varia la cantidad de aciertos segun que base de datos analice y no siempre da lo mismo.
+
+Este algoritmo lo que hace es por cada imagen que queremos averiguar a que digito pertenece, vectorizarla, restarla a cada uno de los vectores imagen y calcular la norma2 para saber en cuanto difieren con cada una de las imagenes.
+Todos esos resultados los vamos metiendo en una cola de prioridad que los ordena de menor a mayor, segun la diferencias entre la imagen que quiero averiguar a que digito pertenece y todas las imagenes de la base de datos.
+\\
+Luego lo que hacemos es agarrar los k primeros de la cola de prioridad y verificar a que digito se corresponden para luego saber cual es el digito que recibio mas 'votos' y ver si se produjo un acierto o no.
+Por lo tanto, a mayor cantidad de vecinos (o sea, k) menor va a ser la cantidad de aciertos, ya que voy a empezar a mirar los elementos de menor prioridad de la cola, eso significa, que voy a empezar a contar las imagenes que mas difieren y eso me puede hacer que las chances de acertar el digito correcto disminuyan.
+\\
+El algoritmo KNN es muy efectivo ya que tiene aproximadamente entre 85\% y 90\% de aciertos. Pero su 'deficit' es que es muy lento a comparacion del algoritmo PCA. 
+
+
+
+
+
+
 
 \subsubsection{Cantidad de vecinos}
 Mover el k y presentar un analisis
@@ -10,13 +31,16 @@ Cortar el dataset en x valor y comparar para ver si mejora
 \subsection{PCA}
 Analisis de PCA
 Ahora vamos a analizar el algoritmo del PCA.
-Vamos a probar el algoritmo para distintas medidas de k y $\alpha$, que van a ser:
-k: cantidad de vecinos a considerar en el algoritmo kNN.
+Vamos a probar el algoritmo para distintas medidas de k y $\alpha$, que van a ser:\\
+k: cantidad de vecinos a considerar en el algoritmo kNN.\\
 $\alpha$: a la cantidad de componentes principales a tomar.
 
-Vamos a probar el algoritmo para los siguientes valores:
-k:
-$\alpha$: 
+Vamos a probar el algoritmo para los siguientes valores:\\ \\
+$\alpha$: 10  y k: 5, 20.\\
+$\alpha$: 200 y k: 5, 20.\\
+$\alpha$: 700 y k: 5, 20.\\
+$\alpha$: 50  y k: 5, 25, 50, 100.\\
+
 
 Lo que vamos a probar es fijando un valor de lamda, para que cantidad de vecinos vamos a tener la mayor cantidad de aciertos, y asi, maximizar la cantidad de aciertos.
 Nosotros despues de aplicar el algoritmo pca, aplicamos el knn y armamos una cola de prioridad para los resultados de aplicar el algoritmo knn. Lo que se hace es agarrar dos imagenes, restarlas y aplicarle la norma2 para saber en cuanto difieren una imagen y la otra. El la cola de prioridad, estan adelante los valores mas chicos, o sea, las imagenes del test que mas cerca de coincidir estan con respecto a la imagen de la base de datos.

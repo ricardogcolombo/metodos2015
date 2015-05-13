@@ -9,10 +9,9 @@
 \contentsline {subsubsection}{\numberline {3.1.1}Cantidad de vecinos}{5}{subsubsection.3.1.1}
 \contentsline {subsubsection}{\numberline {3.1.2}Mejoras en kNN}{5}{subsubsection.3.1.2}
 \contentsline {subsection}{\numberline {3.2}PCA}{5}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Lambda inicial}{7}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}Algo mas que no me acuerde}{7}{subsubsection.3.2.2}
-\contentsline {section}{\numberline {4}Resultados}{8}{section.4}
-\contentsline {subsection}{\numberline {4.1}}{8}{subsection.4.1}
-\contentsline {section}{\numberline {5}Conclusiones}{9}{section.5}
-\contentsline {subsection}{\numberline {5.1}Aca tiramos tiros}{9}{subsection.5.1}
-\contentsline {section}{\numberline {6}Apendice}{10}{section.6}
+\contentsline {subsubsection}{\numberline {3.2.1}Lambda inicial}{8}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Algo mas que no me acuerde}{8}{subsubsection.3.2.2}
+\contentsline {section}{\numberline {4}Resultados}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}}{9}{subsection.4.1}
+\contentsline {section}{\numberline {5}Conclusiones}{10}{section.5}
+\contentsline {section}{\numberline {6}Apendice}{11}{section.6}

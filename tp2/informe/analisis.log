@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.10)  12 MAY 2015 14:09
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.10)  13 MAY 2015 11:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -454,7 +454,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.17 V
-      amos a probar el algoritmo para los siguientes valores:
+      amos a probar el algoritmo para los siguientes valores:\\ \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -506,17 +506,82 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no : in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
 Missing character: There is no k in font nullfont!
 Missing character: There is no : in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no . in font nullfont!
 Missing character: There is no : in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no 7 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 17--20
+Overfull \hbox (20.0pt too wide) in paragraph at lines 17--23
 []
  []
 
 
-Overfull \hbox (6.43404pt too wide) in paragraph at lines 17--20
-\OML/cmm/m/it/10 $ 
+Overfull \hbox (6.43404pt too wide) in paragraph at lines 17--23
+\OML/cmm/m/it/10 $
+ []
+
+
+Overfull \hbox (6.43404pt too wide) in paragraph at lines 17--23
+\OML/cmm/m/it/10 $
+ []
+
+
+Overfull \hbox (6.43404pt too wide) in paragraph at lines 17--23
+\OML/cmm/m/it/10 $
+ []
+
+
+Overfull \hbox (6.43404pt too wide) in paragraph at lines 17--23
+\OML/cmm/m/it/10 $
  []
 
 
@@ -526,7 +591,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.21 L
+l.25 L
       o que vamos a probar es fijando un valor de lamda, para que cantidad d...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -1319,7 +1384,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 21--26
+Overfull \hbox (20.0pt too wide) in paragraph at lines 25--30
 []
  []
 
@@ -1330,7 +1395,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.27 L
+l.31 L
       a conclusion que llegamos es que a mayor cantidad de vecinos, el algor...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -1751,12 +1816,12 @@ Missing character: There is no d in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 27--29
+Overfull \hbox (20.0pt too wide) in paragraph at lines 31--33
 []
  []
 
 ! Undefined control sequence.
-l.30 \includegraphics
+l.34 \includegraphics
                      [scale=0.75]{lamda10.jpg}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1771,7 +1836,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.30 \includegraphics[
+l.34 \includegraphics[
                       scale=0.75]{lamda10.jpg}\\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1802,7 +1867,7 @@ Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
 <recently read> \includegraphics 
                                  
-l.31 \includegraphics
+l.35 \includegraphics
                      [scale=0.75]{lamda50.jpg}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1836,7 +1901,7 @@ Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
 <recently read> \includegraphics 
                                  
-l.32 \includegraphics
+l.36 \includegraphics
                      [scale=0.75]{lamda200.jpg}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1871,7 +1936,7 @@ Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
 <recently read> \includegraphics 
                                  
-l.33 \includegraphics
+l.37 \includegraphics
                      [scale=0.75]{lamda700.jpg}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1904,7 +1969,7 @@ Missing character: There is no j in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no g in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 30--34
+Overfull \hbox (20.0pt too wide) in paragraph at lines 34--38
 [] 
  []
 
@@ -1915,7 +1980,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.36 O
+l.40 O
       tra conclusion que sacamos es que para k=5 vecinos es la mejor cantida...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -2321,12 +2386,12 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 36--39
+Overfull \hbox (20.0pt too wide) in paragraph at lines 40--43
 []
  []
 
 ! Undefined control sequence.
-l.40 \subsubsection
+l.44 \subsubsection
                    {Lambda inicial}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2341,7 +2406,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.40 \subsubsection{L
+l.44 \subsubsection{L
                      ambda inicial}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2360,12 +2425,12 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no l in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 40--41
+Overfull \hbox (20.0pt too wide) in paragraph at lines 44--45
 []
  []
 
 ! Undefined control sequence.
-l.42 \subsubsection
+l.46 \subsubsection
                    {Algo mas que no me acuerde}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2380,7 +2445,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.42 \subsubsection{A
+l.46 \subsubsection{A
                      lgo mas que no me acuerde}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
