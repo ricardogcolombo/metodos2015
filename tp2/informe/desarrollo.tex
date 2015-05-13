@@ -18,7 +18,7 @@ Esta transformacion esta definida de tal manera que la primera componente princi
 \\
 De esta manera será facil quedarnos con los $\lambda$ componentes principales que concentren toda la varianza y quitar el resto. En la seccion de experimentacion, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor cantidad de varianza de manera tal de optimizar el numero de predicciones. 
 \\
-A fines practicos, lo que haremos, será a partir de nuestra base de datos de elementos etiquetados, construir la matriz  de cobarianza $M$ de tal manera que en la coordenada $M_i_j$ obtenga el valor de la cobarianza del pixel $i$ contra el pixel $j$.
+A fines practicos, lo que haremos, será a partir de nuestra base de datos de elementos etiquetados, construir la matriz  de cobarianza $M$ de tal manera que en la coordenada $M_ij$ obtenga el valor de la cobarianza del pixel $i$ contra el pixel $j$.
 \\
 Luego utilizando el metodo de la potencia, procederemos a calcular $\lambda$ autovectores de esta matriz. Luego, multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
 \\
