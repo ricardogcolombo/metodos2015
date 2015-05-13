@@ -1,2 +1,11 @@
-INTRO!!
-
+El objetivo de este trabajo será reconocer imágenes que contienen dígitos a través de la utilización de técnicas simples de Machine learning.
+\\
+La metodología consiste en lo siguiente: 
+\\
+Tendremos una base de datos con imágenes ya etiquetadas y una base de datos con otras imágenes sin etiquetas. El objetivo se centrará en que el sistema pueda utilizar la base de datos para poder etiquetar de manera correcta la base de datos sin etiquetar.
+\\
+Para ello utilizaremos primero el método mas intuitivo posible. Esto sucede con cada imagen a etiquetar, buscamos la que más se le parezca en la base de datos etiquetada, y la marcamos con la misma etiqueta. Por supuesto, todavía queda determinar cual es el criterio para decir que dos imagenes se 'parecen'. Eso será descripto en mayor profundidad en el siguiente apartado.
+\\
+Como segunda idea intuitiva podemos pensar que tal vez tenemos mucha mala suerte (o la base de entrenamiento no es muy buena) y la imagen mas parecida es la de una etiqueta erronea, luego la manera de resolver esto es, en vez de tomar un solo vecino, tomar $k$ vecinos y de esos $k$ vecinos mas cercanos ver que etiqueta es la que más veces se repite. Esta idea básica, es la de $KNN$ que será explicada en mas detalle en el próximo apartado de este trabajo.
+\\
+Luego, a esta idea intentaremos aplicarle una mejora sustancial utilizando un método probabilístico conocido como $PCA$ que consiste en aplicarle una transformación a la imagen de tal manera de solo quedarnos con aquellas de mayor variabilidad y desechar aquello que pueda estar introduciendo ruido.

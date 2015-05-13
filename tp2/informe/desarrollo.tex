@@ -1,13 +1,32 @@
 \subsection{Algortimo de kNN}
-Como primera aproximaci\'on para la resoluci\'on del problema de OCR, implementamos el algoritmo de $K vecinos mas cercanos$ (o $kNN$ por sus siglas en ingles). Este algoritmo consiste basicamente en la idea de que entradas parecidas, a partir de una metrica definida en la implementacion (que para este caso podria variar desde, por ejemplo, desde la cantidad de puntos arriba de cierto valor para contabilizar la cantidad de valores $negros$ y $blancos$ hasta la norma de cada vector digito) presentaran caracteristicas definidas y al ser ubicadas sobre un plano se agruparan de acuerdo a estas. Luego, para clasificar un nuevo objeto, basta con ubicarlo dentro de este plano y promediar la etiqueta de los $k$ vecinos mas cercanos para obtener una clasificaci\'on. Sin embargo, y mas alla de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un poco de dispersion entre las distintas clases de clasificacion, hace empeorar rapidamente los resultados.
-Analizaremos en la segunda etapa del trabajo practico, una forma de solucionar este incoveniente mediante el an\'alisis de componentes principales.
-
+Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre sus vecinos los k más parecidos (habiendo que definir que es ser "parecido"), y luego de estos k vecinos, determinar cual es la moda. 
+\\
+Para nuestro trabajo en particular, tomamos las imágenes como vectores numéricos y definimos que dos imágenes son "parecidas" si la norma dos entre ellas es pequeña. Luego la idea del $knn$ será tomar todas las imágenes etiquetadas, compararlas contra la nueva imagen a reconocer, ver cuales son las $k$ imágenes cuya norma es la menor posible y, entre esos k vecinos, ver a que clase pertenecen. La etiqueta para esta imagen vendrá dada por la moda. 
+\\
 //ACA UN PSEUDOCODIGO?
+\\
+Preliminarmente pensamos en diferentes maneras de mejorar el procesamiento de las imágenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imágenes, ya que en ellos no hay demasiada información útil (en todas las imágenes vale 0).
+\\
+Sin embargo, y mas allá de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un cierto grado de dispersión entre las distintas clases de clasificación hace empeorar rápidamente los resultados.
+\\
+En el siguiente apartado pasaremos a describir una metodología más sofisticada para resolver este problema que mejore de alguna manera tanto los tiempos de ejecución como la tasa de reconocimiento con respecto al método descripto anteriormente.
 
-\subsection{Optimizacion mediante An\'alisis de componentes principales}
-En esta segunda parte, utilizaremos una tecnica conocida como $analisis de componentes principales$ como una forma de optimizar los resultados de la primera etapa. El analisis de componentes principales (o PCA) consiste basicamente en conseguir una descomposicion de los datos en sus matrices ortogonales de valores principales para obtener una transformacion lineal que resuma la informaci\'on mas relevante de cada imagen, descartando aquellos valores que no aportan datos y resultan redundantes.
-Para realizar este procedimiento tomamos la matriz de covarianza como una forma de expresar la relacion de dependecia intrinseca entre cada variable. A partir de esta informaci\'on y mediante el metodo de la potencia, obtenemos un vector $P$ que, al multiplicarlo por nuestros valores originales, realiza el cambio de coordenadas minimizando la covarianza.
-
+\subsection{Optimización mediante Análisis de componentes principales}
+El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación ortogonal para convertir un conjunto de variables, posiblemente correlacionadas, en un conjunto de variables linealmente independientes llamadas componentes principales.
+\\
+Esta transformación está definida de tal manera que la primera componente principal tenga la varianza más grande posible, la segunda componente tenga la segunda varianza más grande posible (quitando la primera) y así sucesivamente.
+\\
+De esta manera será fácil quedarnos con los $\lambda$ componentes principales que concentren toda la varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el numero de predicciones. 
+\\
+A fines prácticos, lo que haremos será a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
+\\
+Luego, utilizando el método de la potencia, procederemos a calcular $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
+\\
+Sobre este set de datos, ahora aplicamos knn nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos y mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad.
+\\
 //ACA UN PSEUDOCODIGO?
 
 \subsection{Cross-validation}
+Para medir la precisión de nuestros resultados utilizaremos la metodología de cross-validation. Esta consiste en tomar nuestra base de entrenamiento y dividirla en $k$ bloques. Ahora tomamos el primer bloque para testear y los demas bloques para entrenar a nuestro modelo y ver que resultados obtenemos. Luego se toma el segundo bloque para testear y los demas de entrenamiento.
+\\
+De esta manera evitamos testear contra datos propios del modelo, lo que podría resultar en que el modelo solo reconozca sus propias imágenes de entrenamiento pero no imágenes fuera de él, que es justamente el propósito de este trabajo.
