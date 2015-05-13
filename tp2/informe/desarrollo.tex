@@ -1,13 +1,32 @@
 \subsection{Algortimo de kNN}
-Como primera aproximaci\'on para la resoluci\'on del problema de OCR, implementamos el algoritmo de $K vecinos mas cercanos$ (o $kNN$ por sus siglas en ingles). Este algoritmo consiste basicamente en la idea de que entradas parecidas, a partir de una metrica definida en la implementacion (que para este caso podria variar desde, por ejemplo, desde la cantidad de puntos arriba de cierto valor para contabilizar la cantidad de valores $negros$ y $blancos$ hasta la norma de cada vector digito) presentaran caracteristicas definidas y al ser ubicadas sobre un plano se agruparan de acuerdo a estas. Luego, para clasificar un nuevo objeto, basta con ubicarlo dentro de este plano y promediar la etiqueta de los $k$ vecinos mas cercanos para obtener una clasificaci\'on. Sin embargo, y mas alla de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un poco de dispersion entre las distintas clases de clasificacion, hace empeorar rapidamente los resultados.
-Analizaremos en la segunda etapa del trabajo practico, una forma de solucionar este incoveniente mediante el an\'alisis de componentes principales.
-
+Como primera aproximaci\'on para la resoluci\'on del problema de OCR, implementamos el algoritmo de $K$-vecinos mas cercanos (o $kNN$ por sus siglas en ingles). Este metodo de clasificación consiste basicamente en dado un dato del que no conocemos a que clase pertenece, buscar entre los vecinos los k mas parecidos (habiendo que definir que es ser "parecido"), y luego de estos k vecinos, determinar cual es la moda. 
+\\
+Para nuestro trabajo en particular, tomaremos las imagenes como vectores numericos y definimos que dos imagenes son "parecidas", si la norma dos entre ellas es chica. Luego la idea de el $knn$ será tomar todas las imagenes etiquetadas, compararlas contra la nueva imagen a reconocer, ver cuales son las k imagenes cuya norma es la menor posible y de esos k vecinos ver a que clase pertenecen. La etiqueta para esta imagen vendrá dada por la moda. 
+\\
 //ACA UN PSEUDOCODIGO?
+\\
+Preliminarmente pensamos en diferentes maneras de mejorar el procesamiento de las imagenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imagenes, ya que en ellos no hay demaciada informacion util (en todas las imagenes vale 0).
+\\
+Sin embargo, y mas alla de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un poco de dispersion entre las distintas clases de clasificacion, hace empeorar rapidamente los resultados.
+\\
+En el siguiente apartado pasaremos a describir una metodologia mas sofisticada para resolver este problema que mejore de alguna manera tanto los tiempos de ejecución como la tasa de reconocimiento con respecto a este metodo.
 
 \subsection{Optimizacion mediante An\'alisis de componentes principales}
-En esta segunda parte, utilizaremos una tecnica conocida como $analisis de componentes principales$ como una forma de optimizar los resultados de la primera etapa. El analisis de componentes principales (o PCA) consiste basicamente en conseguir una descomposicion de los datos en sus matrices ortogonales de valores principales para obtener una transformacion lineal que resuma la informaci\'on mas relevante de cada imagen, descartando aquellos valores que no aportan datos y resultan redundantes.
-Para realizar este procedimiento tomamos la matriz de covarianza como una forma de expresar la relacion de dependecia intrinseca entre cada variable. A partir de esta informaci\'on y mediante el metodo de la potencia, obtenemos un vector $P$ que, al multiplicarlo por nuestros valores originales, realiza el cambio de coordenadas minimizando la covarianza.
-
+Analisis de Componentes Principales o $PCA$ es un procedimiento probabilistico que utiliza una transformacion ortogonal para convertir un conjunto de variables, posiblemente correlacionadas, en un conjunto de variables linealmente independientes llamadas componentes principales.
+\\
+Esta transformacion esta definida de tal manera que la primera componente principal tenga la varianza mas grande posible, la segunda componente tenga la segunda varianza mas grande posible y asi sucesivamente.
+\\
+De esta manera será facil quedarnos con los $\lambda$ componentes principales que concentren toda la varianza y quitar el resto. En la seccion de experimentacion, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor cantidad de varianza de manera tal de optimizar el numero de predicciones. 
+\\
+A fines practicos, lo que haremos, será a partir de nuestra base de datos de elementos etiquetados, construir la matriz  de cobarianza $M$ de tal manera que en la coordenada $M_i_j$ obtenga el valor de la cobarianza del pixel $i$ contra el pixel $j$.
+\\
+Luego utilizando el metodo de la potencia, procederemos a calcular $\lambda$ autovectores de esta matriz. Luego, multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
+\\
+Sobre este set de datos, ahora aplicamos knn nuevamente y lo que esperariamos ver es un mayor numero de aciertos, ya que hemos quitado ruido del set de datos y mejores tiempos de ejecución, ya que hemor reducido la dimencionalidad.
+\\
 //ACA UN PSEUDOCODIGO?
 
 \subsection{Cross-validation}
+Para medir cuan precisos son nuestros resultados utilizaremos la metodologia de cross-validation. Esto consiste en tomar nuestra base de entrenamiento y dividirla en k bloques. Ahora tomamos el primer bloque para testear y los demas bloques para entrenar a nuestro modelo y vemos que resultados obtenemos. Luego se toma el segundo bloque para testear y los demas de entrenamiento.
+\\
+De esta manera evitamos testear contra datos propios del modelo, lo que podria resultar en que el modelo solo reconozca sus propias imagenes de entrenamiento pero no imagenes fuera de el, que es justamente el proposito de este trabajo.
