@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 	cout << "Lamda: " << lamda << endl;
 	cout << "Vecinos para el KNN: " << vecinos << endl;
 
-	fstream myfile(archivoDeSalida.c_str(),ios::out | ios::app);
+	fstream myfile(archivoDeSalida.c_str(),ios::out | ios::trunc);
 
 	for(int i = 0; i < cantidadDePruebas; i++){
 		cout << "Cargando Base de datos..." << endl;
