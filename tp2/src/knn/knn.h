@@ -17,7 +17,7 @@
 
 using namespace std;
 
-void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos);
+void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, int cantidadDeVecinosMasCercanos);
 
 int encontrarEtiqueta(vector<entrada> &etiquetados, entrada &instancia,int cantidadDeVecinosMasCercanos);
 

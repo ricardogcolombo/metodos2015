@@ -1,16 +1,16 @@
 #include "knn.h"
 
-void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadDeVecinosMasCercanos)
+void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, int cantidadDeVecinosMasCercanos)
 {
-	fstream myfile(salida.c_str(),ios::out | ios::app);
+	fstream myfile("Resultados.csv",ios::out | ios::app);
 	int lepegue = 0;
 	int *etiqueta = new int[sinEtiquetar.size()];
 
-
+	myfile << "ImageId,Label" << endl;
 	for(int i = 0; i < sinEtiquetar.size(); i++)
 	{
 		etiqueta[i] = encontrarEtiqueta(etiquetados, sinEtiquetar[i], cantidadDeVecinosMasCercanos);
-		myfile << i << " , " << etiqueta[i] << endl;
+		myfile << i+1 << "," << etiqueta[i] << endl;
 		if(etiqueta[i] == sinEtiquetar[i].label)
 			lepegue++;
 	}
