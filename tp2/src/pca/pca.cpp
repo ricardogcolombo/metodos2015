@@ -3,25 +3,33 @@
 #define CANTIDAD_ITERACIONES 100
 
 
-void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadAutovectores)
+void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, fstream &myfile, int cantidadAutovectores)
 {
   // calculamos la matriz de covarianza
   matrizNum *covarianza = matrizDeCovarianza(etiquetados);
-  
   std::vector<vectorNum*> autovectores;
 
+  myfile.precision(7);
+  myfile << scientific;
   //Empiezo a conseguir autovectores
   for(int i = 0; i < cantidadAutovectores; i++) {
-    vectorNum * autovector = metodoDeLasPotencias(covarianza);
-    //guardo los actovectores en un vector
-    autovectores.push_back(autovector);
-    double lamda = encontrarAutovalor(autovector,covarianza);
-    vectorNum *autovectorAux = autovector->copy();
-    autovector->multiplicacionEscalar(lamda);
-    covarianza->resta(autovector->multiplicacionVectTrans(autovectorAux));
+      vectorNum * autovector = metodoDeLasPotencias(covarianza);
+      //guardo los actovectores en un vector
+      autovectores.push_back(autovector);
+      double lamda = encontrarAutovalor(autovector,covarianza);
+
+      myfile << lamda << endl;
+
+      vectorNum *autovectorAux = autovector->copy();
+      autovector->multiplicacionEscalar(lamda);
+      covarianza->resta(autovector->multiplicacionVectTrans(autovectorAux));
     }
     trasponerEntrada(etiquetados,autovectores,cantidadAutovectores);
     trasponerEntrada(sinEtiquetar,autovectores,cantidadAutovectores);
+
+    delete covarianza;
+    for(int i = 0; i < autovectores.size(); i++)
+      delete autovectores[i];
   }
   
 void trasponerEntrada(vector<entrada> &etiquetados, std::vector<vectorNum*> &autovectores, int cantidadAutovectores)
