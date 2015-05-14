@@ -75,14 +75,14 @@ Sobre este set de datos, ahora aplicamos knn nuevamente y lo que esperamos ver e
 \STATE{matriz covarianza, vector nuevo}\\
 \FOR{i=1 \TO size(medias)}\\
 	\FOR{j=1 \TO cant\_filas(entrada)}\\
-		\STATE{\quad nuevoVector_j = entrada_{(j,i)}- medias_i }
-	\ENDFOR
+		\STATE{\quad nuevoVector_j $=$ entrada_{(j,i)}- medias_i }\\
+	\ENDFOR\\
 	\STATE{agregar(covarianza,nuevoVector)}
 \ENDFOR
-\FOR{i=1 \TO cant\_filas(entrada)}
-	\FOR{k=1 \TO cant\_filas(entrada)}
-		\STATE{covarianza_i = multiplicarVectorEscalar(covarianza_k, cantidad_filas(entrada)}
-	\ENDFOR
+\FOR{i=1 \TO cant\_filas(entrada)}\\
+	\FOR{k=1 \TO cant\_filas(entrada)}\\
+		\STATE{covarianza_i $=$ multiplicarVectorEscalar(covarianza_k, cantidad_filas(entrada)}\\
+	\ENDFOR\\
 \ENDFOR
 \RETURN{covarianza}
 \end{algorithmic}
@@ -109,10 +109,10 @@ Sobre este set de datos, ahora aplicamos knn nuevamente y lo que esperamos ver e
 \FOR{i$=$1 \TO cant\_columnas(entrada)}
 	\STATE{suma $=$ 0}\\
 	\FOR{j$=$1 \TO cant\_columnas(entrada)}\\
-		\STATE{\quad suma $+=$ entrada_{i,j}}
-	\ENDFOR
-	\STATE{medias_i$ =$ suma/cant\_filas(entrada)}
-\ENDFOR
+		\STATE{\quad suma $+=$ entrada_{i,j}}\\
+	\ENDFOR\\
+	\STATE{medias_i$ =$ suma/cant\_filas(entrada)}\\
+\ENDFOR\\
 \RETURN{vectorInicial}
 \end{algorithmic}
 \end{algorithm}
