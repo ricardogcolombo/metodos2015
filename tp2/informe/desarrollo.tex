@@ -56,7 +56,7 @@ Sobre este set de datos, ahora aplicamos knn nuevamente y lo que esperamos ver e
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void PCA(matriz etiquetados, matriz sinetiquetar,int cantidadAutovectores)}
-\STATE{matriz covarianza $=$  matrizDeCovarianza(etiquetados)}
+\STATE{matriz covarianza $=$  obtenerCovarianza(etiquetados)}
 \STATE{vector(vector) autovectores}  
 \FOR{1 \TO cantidadAutovectores}
 	\STATE{vector autovector$ = $metodoDeLasPotencias(covarianza)}
@@ -67,28 +67,15 @@ Sobre este set de datos, ahora aplicamos knn nuevamente y lo que esperamos ver e
 \ENDFOR\\
 \end{algorithmic}
 \end{algorithm}
-
-\begin{algorithm}
-\begin{algorithmic}[1]\parskip=1mm
-\caption{Vector metodoDeLasPotencias(matriz covarianza,cantIteraciones)}
-\STATE{vector vectorInicial$=$  vector(cant_filas(covarianza))}
-\FOR{1 \TO cantIteraciones}
-	\STATE{vector nuevo $=$ multiplicar(covarianza,vectorInicial)}
-	\STATE{multiplicarEscalar(nuevo,1/norma(nuevo)}
-	\STATE{vectorInicial $=$ nuevo}
-\ENDFOR\\
-\RETURN{vectorInicial}
-\end{algorithmic}
-\end{algorithm}
+\\
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{matriz obtenerCovarianza(matriz entrada,vector medias)}
-\STATE{matriz covarianza}
-\STATE{vector nuevo}
-\FOR{i=1 \TO size(medias)}
-	\FOR{j=1 \TO cant\_filas(entrada)}
-		\STATE{nuevoVector_j = entrada_{(j,i)}- medias_i }
+\STATE{matriz covarianza, vector nuevo}\\
+\FOR{i=1 \TO size(medias)}\\
+	\FOR{j=1 \TO cant\_filas(entrada)}\\
+		\STATE{\quad nuevoVector_j = entrada_{(j,i)}- medias_i }
 	\ENDFOR
 	\STATE{agregar(covarianza,nuevoVector)}
 \ENDFOR
@@ -104,14 +91,27 @@ Sobre este set de datos, ahora aplicamos knn nuevamente y lo que esperamos ver e
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
+\caption{Vector metodoDeLasPotencias(matriz covarianza,cantIteraciones)}
+\STATE{vector vectorInicial$=$  vector(cant\_filas(covarianza))}\\
+\FOR{1 \TO cantIteraciones}
+	\STATE{vector nuevo $=$ multiplicar(covarianza,vectorInicial)}
+	\STATE{multiplicarEscalar(nuevo,1/norma(nuevo))}
+	\STATE{vectorInicial $=$ nuevo}
+\ENDFOR\\
+\RETURN{vectorInicial}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
 \caption{Vector medias(matriz entrada)}
-\STATE{vector medias =  vector(cant_columnas(entrada))}
-\FOR{i=1 \TO cant\_columnas(entrada)}
-	\STATE{suma = 0}
-	\FOR{j=1 \TO cant\_columnas(entrada)}
-		\STATE{suma + = entrada_{i,j}}
+\STATE{vector medias$ =  $vector(cant_columnas(entrada))}\\
+\FOR{i$=$1 \TO cant\_columnas(entrada)}
+	\STATE{suma $=$ 0}\\
+	\FOR{j$=$1 \TO cant\_columnas(entrada)}\\
+		\STATE{\quad suma $+=$ entrada_{i,j}}
 	\ENDFOR
-	\STATE{medias_i = suma/cant\_filas(entrada)}
+	\STATE{medias_i$ =$ suma/cant\_filas(entrada)}
 \ENDFOR
 \RETURN{vectorInicial}
 \end{algorithmic}
