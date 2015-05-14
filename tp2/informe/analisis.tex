@@ -25,6 +25,7 @@ Una de las cosas que podemos observar es que a menor cantidad de vecinos recorri
 Por lo tanto, si elijo $k = 1$ voy a obtener la im\'agen del d\'igito que m\'as cerca estuvo de la imágen que me pasaron por parámetro, así que no me interesa saber cuales son los resultados de las siguientes imágenes de la cola ya que el primero es el mejor caso posible.
 
 \subsection{PCA}
+\subsubsection{Cantidad de vecinos}
 Vamos a probar el algoritmo para distintas medidas de k y $\alpha$, que van a ser:\\
 k: cantidad de vecinos a considerar en el algoritmo $kNN$.\\
 $\alpha$: a la cantidad de componentes principales a tomar.
@@ -35,7 +36,7 @@ $\alpha$: 200 y k: 5, 20.\\
 $\alpha$: 700 y k: 5, 20.\\
 $\alpha$: 50  y k: 5, 25, 50, 100.\\
 
-Lo que vamos a probar es, fijando un valor de $\lambda$, para que cantidad de vecinos vamos a tener la mayor cantidad de aciertos y así maximizar la cantidad de aciertos.
+Lo que vamos a probar es, fijando un valor de $\alpha$, para que cantidad de vecinos vamos a tener la mayor cantidad de aciertos y así maximizar la cantidad de aciertos.
 Después de aplicar el algoritmo $PCA$, aplicamos el $KNN$ y armamos una cola de prioridad para los resultados de aplicar el algoritmo $KNN$. Lo que se hace es tomar dos imágenes, restarlas y aplicarle la norma 2 para saber en cuanto difiere una imágen de la otra. En la cola de prioridad estan adelante los valores más chicos, o sea, las imágenes del test que más cerca de coincidir están con respecto a la imágen de la base de datos.
 Por lo tanto, si elegimos una mayor cantidad de vecinos, pueden pasar dos cosas:
 
@@ -46,18 +47,16 @@ Por lo tanto, si elegimos una mayor cantidad de vecinos, pueden pasar dos cosas:
 
 La conclusión que se desprende es que a mayor cantidad de vecinos, el algoritmo empieza a funcionar peor, ya que estamos mirando los vecinos que menos coinciden con la base de datos, debido a que la cola de prioridad los ordena según la menor cantidad de diferencias entre la imágen obtenida y las imágenes de la base de datos. 
 
-Por lo tanto, cuanto mas vecinos se exploran, menor cantidad de aciertos hay. Eso se puede ver a través de las siguientes mediciones realizadas para distintos $k$ vecinos y fijando un valor de $\lambda$.
+\subsubsection{Alpha inicial}
+A continuacion, enfocamos nuestro analisis en obtener un valor optimo de alpha. Para este fin, realizamos varias corridas tratando de maximizar la performance del algoritmo. Dado que este parametro representa la cantidad de componentes principales a tener en cuenta y teniendo en mente el funcionamiento del algoritmo de PCA, es esperable que valores chicos no sean beneficiosos (teniendo en cuenta que el maximo a considerar es bastante elevado), pero que, dado que PCA las ordena en base a su relevancia, se alcance un valor optimo sin necesidad de considerarlas todas. A continuacion presentamos algunas de las mediciones realizadas.
 
 \includegraphics[scale=0.75]{lamda10.jpg}\\
 \includegraphics[scale=0.75]{lamda50.jpg}\\
 \includegraphics[scale=0.75]{lamda200.jpg}\\
 \includegraphics[scale=0.75]{lamda700.jpg}\\
 
-Las pruebas para $\lambda = 10$, $\lambda = 50$ y $\lambda = 200$ las corrimos 10 veces y calculamos un promedio de esas diez. Ese es el valor que se refleja en la cantidad de aciertos. \\
-
-Las pruebas para $\lambda = 700$ las corrimos 4 veces y calculamos un promedio de esas cuatros. Ese es el valor que se refleja en la cantidad de aciertos. \\
-
-Para verificar los datos anteriores, revisar el archivo "mediciones y graficos" en el directorio "informe-resultadostest".
+Es la primer corrida, con un valor minimo de $\alpha$ (seteado en 10) se obtiene un resultado cercano a los 32200 aciertos. A medida que este valor se aumenta, se puede apreciar como se obtiene una mejora considerable, cercana a los 33000 aciertos, pero como enseguida se alcanza un maximo y sin importar cuantas mas componentes se tengan en cuenta para la ejecucion, no se presenta una mejora significante de los resultados.
+Es importante destacar, que se realizaron 10 corridas para cada variacion del parametro utilizando el algoritmo de cross-validation para minimizar los sesgos producimos por el sobre ajustamiento de los parametros y se promediaron los resultados.
 
 %Otra conclusión que sacamos es que $k = 5$ vecinos es la mejor cantidad de vecinos para obtener la mayor cantidad %de aciertos. 
 %Ahora, ¿No sería mejor agarrar solo el primero de la cola de prioridad, es decir, $k = 1$? 
