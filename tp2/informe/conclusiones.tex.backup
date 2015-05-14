@@ -1,0 +1,6 @@
+
+1) El algoritmo KNN es muy efectivo ya que tiene aproximadamente entre 85\% y 90\% de aciertos. Pero su 'deficit' es que es muy lento a comparacion del algoritmo PCA.\\ 
+\\
+2) El algoritmo PCA tiene un pequeño menor porcentaje de efectividad con respecto al algoritmo KNN pero es muchisimo mas rapido en tiempo de ejecucion, por lo que vale la pena perder un poquito de efectividad a cambio de muchisimo menor tiempo de ejecucion del PCA.\\ \\
+3) Cuanto mas vecinos exploro, menor es la cantidad de aciertos ya que estoy mirando los vecinos que mas difieren entre si y eso hace que pueda equivocarme a la hora de elegir el digito correcto. 
+\\ \\
