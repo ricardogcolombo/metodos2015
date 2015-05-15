@@ -1,5 +1,5 @@
 \subsection{Algortimo de kNN}
-Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre las imágenes del dataset etiquetado las $k$ más parecidos, llamados también como sus \"vecinos\" (habiendo que definir que es ser \"parecido\"), y luego de estos $k$ vecinos, determinar cual es la moda. 
+Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre las imágenes del dataset etiquetado las $k$ más parecidos, llamados también como sus "vecinos" (habiendo que definir que es ser "parecido"), y luego de estos $k$ vecinos, determinar cual es la moda. 
 \\
 \subsubsection{Similitud entre imágenes}
 Para este trabajo en particular, tomamos las imágenes como vectores numéricos y definimos que dos imágenes son "parecidas" si la norma dos entre ellas es pequeña. Luego la idea del $knn$ será tomar todas las imágenes etiquetadas, compararlas contra la nueva imagen a reconocer, ver cuales son las $k$ imágenes cuya norma es la menor posible y, entre esos k vecinos, ver a que clase pertenecen. La etiqueta para esta imagen vendrá dada por la moda. 
@@ -47,7 +47,7 @@ Esta transformación está definida de tal manera que la primera componente prin
 \\
 De esta manera será fácil quedarnos con los $\lambda$ componentes principales que concentren la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
 \\
-A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
+A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_i_j$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
 \\
 Luego, utilizando el método de la potencia, procedemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
 \\
