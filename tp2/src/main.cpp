@@ -108,7 +108,7 @@ int **kfolds(string archivo, int &cantidadDePruebas,int &lamda, int &vecinos)
 	myfile >> lamda;
 	myfile >> cantidadDePruebas;
 
-	cout << "la puta madre:" << hola << endl;
+	cout << "ejecutando:" << hola << endl;
 
 	kfold = new int*[cantidadDePruebas]; 
 	for(int i = 0; i < cantidadDePruebas; i++)
