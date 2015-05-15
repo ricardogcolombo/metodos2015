@@ -1,13 +1,124 @@
 \subsection{Algortimo de kNN}
-Como primera aproximaci\'on para la resoluci\'on del problema de OCR, implementamos el algoritmo de $K vecinos mas cercanos$ (o $kNN$ por sus siglas en ingles). Este algoritmo consiste basicamente en la idea de que entradas parecidas, a partir de una metrica definida en la implementacion (que para este caso podria variar desde, por ejemplo, desde la cantidad de puntos arriba de cierto valor para contabilizar la cantidad de valores $negros$ y $blancos$ hasta la norma de cada vector digito) presentaran caracteristicas definidas y al ser ubicadas sobre un plano se agruparan de acuerdo a estas. Luego, para clasificar un nuevo objeto, basta con ubicarlo dentro de este plano y promediar la etiqueta de los $k$ vecinos mas cercanos para obtener una clasificaci\'on. Sin embargo, y mas alla de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un poco de dispersion entre las distintas clases de clasificacion, hace empeorar rapidamente los resultados.
-Analizaremos en la segunda etapa del trabajo practico, una forma de solucionar este incoveniente mediante el an\'alisis de componentes principales.
+Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre las imágenes del dataset etiquetado las $k$ más parecidos, llamados también como sus \"vecinos\" (habiendo que definir que es ser \"parecido\"), y luego de estos $k$ vecinos, determinar cual es la moda. 
+\\
+\subsubsection{Similitud entre imágenes}
+Para este trabajo en particular, tomamos las imágenes como vectores numéricos y definimos que dos imágenes son "parecidas" si la norma dos entre ellas es pequeña. Luego la idea del $knn$ será tomar todas las imágenes etiquetadas, compararlas contra la nueva imagen a reconocer, ver cuales son las $k$ imágenes cuya norma es la menor posible y, entre esos k vecinos, ver a que clase pertenecen. La etiqueta para esta imagen vendrá dada por la moda. 
 
-//ACA UN PSEUDOCODIGO?
+Para los siguientes pseudocódigos será necesario asumir que todas las estructuras utilizadas almacenan datos enteros a menos que se indique lo contrario, esto se indica agregando entre paréntesis el tipo de dato que almacena.
+\\
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{Vector KNN(matriz etiquetados, matriz sinEtiquietar,int cantidadVecinos)}
+\STATE{vector etiquetas =  vector(cant$\_$filas(sinEtiquetar))}
+\FOR{1 \TO cant$\_$filas(sinEtiquetar)}
+	\STATE{etiquetas_i = encontrarEtiquetas(etiquetados,sinEtiquetar$_{i}$,cantidadVecinos)}
+\ENDFOR
+\RETURN{etiquetas}
+\end{algorithmic}
+\end{algorithm}
 
-\subsection{Optimizacion mediante An\'alisis de componentes principales}
-En esta segunda parte, utilizaremos una tecnica conocida como $analisis de componentes principales$ como una forma de optimizar los resultados de la primera etapa. El analisis de componentes principales (o PCA) consiste basicamente en conseguir una descomposicion de los datos en sus matrices ortogonales de valores principales para obtener una transformacion lineal que resuma la informaci\'on mas relevante de cada imagen, descartando aquellos valores que no aportan datos y resultan redundantes.
-Para realizar este procedimiento tomamos la matriz de covarianza como una forma de expresar la relacion de dependecia intrinseca entre cada variable. A partir de esta informaci\'on y mediante el metodo de la potencia, obtenemos un vector $P$ que, al multiplicarlo por nuestros valores originales, realiza el cambio de coordenadas minimizando la covarianza.
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{int encontrarEtiquetas(matriz etiquetados, vector incognito,int cantidadVecinos)}
+\STATE{colaPrioridad(norma,etiqueta,vectorResultado)  resultados}
+\FOR{1 \TO size(incognito)}
+	\STATE{resParcial $=$ restaVectores(etiquetados_i,incognita)\\}
+	\STATE{colaPrioridad.push((norma(resParcial),etiqueta(etiquetados_i))}
+\ENDFOR
+\STATE{vector numeros = vector(10)}
+\WHILE{cantidadVecinos$>$0 $\&$  noesVacia(resultados)}
+	\STATE{int elemento $= $primero(resultados.etiqueta)  \\}
+	\STATE{numeros_{elemento} ++ }
+\ENDWHILE\\
+\RETURN{maximo(numeros)}
+\end{algorithmic}
+\end{algorithm}
+\\
+Al comienzo del desarrollo de los experimentos pensamos en diferentes maneras de mejorar el procesamiento de las imágenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imágenes, ya que en ellos no hay demasiada información útil (en todas las imágenes vale 0).
+\\
+Sin embargo, y mas allá de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un cierto grado de dispersión entre las distintas clases de clasificación hace empeorar rápidamente los resultados.
+\\
+En el siguiente apartado pasaremos a describir una metodología más sofisticada para resolver este problema que mejora tanto los tiempos de ejecución como la tasa de reconocimiento con respecto al método descripto anteriormente.
 
-//ACA UN PSEUDOCODIGO?
+\subsection{Optimización mediante Análisis de componentes principales}
+El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación ortogonal para convertir un conjunto de variables, posiblemente correlacionadas, en un conjunto de variables linealmente independientes llamadas componentes principales.
+\\
+Esta transformación está definida de tal manera que la primera componente principal tenga la varianza más grande posible, la segunda componente tenga la segunda varianza más grande posible y así sucesivamente hasta encontrarse con la componente de menor varianza en la última posición.
+\\
+De esta manera será fácil quedarnos con los $\lambda$ componentes principales que concentren la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
+\\
+A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
+\\
+Luego, utilizando el método de la potencia, procedemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
+\\
+Sobre este set de datos, ahora aplicamos el algoritmo $KNN$ nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos, sumado a mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad del problema.
+\\
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void PCA(matriz etiquetados, matriz sinetiquetar,int cantidadAutovectores)}
+\STATE{matriz covarianza $=$  obtenerCovarianza(etiquetados)}
+\STATE{vector(vector) autovectores}  
+\FOR{1 \TO cantidadAutovectores}
+	\STATE{vector autovector$ = $metodoDeLasPotencias(covarianza)}
+	\STATE{agregar(autovectores,autovector)}
+	\STATE{double lamda = encontrarAutovalor(auovector,covarianza)}
+	\STATE{multiplicarXEscalar(auovector,lamda)}
+	\STATE{restaMatrizVector(covarianza,auovector,lamda)}
+\ENDFOR\\
+\end{algorithmic}
+\end{algorithm}
+\\
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{matriz obtenerCovarianza(matriz entrada,vector medias)}
+\STATE{matriz covarianza, vector nuevo}\\
+\FOR{i=1 \TO size(medias)}\\
+	\FOR{j=1 \TO cant\_filas(entrada)}\\
+		\STATE{\quad nuevoVector_j $=$ entrada_{(j,i)}- medias_i }\\
+	\ENDFOR\\
+	\STATE{agregar(covarianza,nuevoVector)}
+\ENDFOR
+\FOR{i=1 \TO cant\_filas(entrada)}\\
+	\FOR{k=1 \TO cant\_filas(entrada)}\\
+		\STATE{covarianza_i $=$ multiplicarVectorEscalar(covarianza_k, cantidad_filas(entrada)}\\
+	\ENDFOR\\
+\ENDFOR
+\RETURN{covarianza}
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{Vector metodoDeLasPotencias(matriz covarianza,cantIteraciones)}
+\STATE{vector vectorInicial$=$  vector(cant\_filas(covarianza))}\\
+\FOR{1 \TO cantIteraciones}
+	\STATE{vector nuevo $=$ multiplicar(covarianza,vectorInicial)}
+	\STATE{multiplicarEscalar(nuevo,1/norma(nuevo))}
+	\STATE{vectorInicial $=$ nuevo}
+\ENDFOR\\
+\RETURN{vectorInicial}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{Vector medias(matriz entrada)}
+\STATE{vector medias$ =  $vector(cant_columnas(entrada))}\\
+\FOR{i$=$1 \TO cant\_columnas(entrada)}
+	\STATE{suma $=$ 0}\\
+	\FOR{j$=$1 \TO cant\_columnas(entrada)}\\
+		\STATE{\quad suma $+=$ entrada_{i,j}}\\
+	\ENDFOR\\
+	\STATE{medias_i$ =$ suma/cant\_filas(entrada)}\\
+\ENDFOR\\
+\RETURN{vectorInicial}
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{Cross-validation}
+Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. Primero se toma el primer bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. Luego se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. Esto se realiza sucesivamente siempre y cuando queden datasets sin ser testeados.
+\\
+De esta manera evitamos testear contra datos propios del modelo, lo que podría resultar en que el modelo solo reconozca sus propias imágenes de entrenamiento pero no imágenes fuera de él, que es justamente el propósito de este trabajo.

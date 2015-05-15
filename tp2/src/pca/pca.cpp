@@ -1,27 +1,35 @@
 
 #include "pca.h"
-#define CANTIDAD_ITERACIONES 100
+#define CANTIDAD_ITERACIONES 500
 
 
-void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, string &salida, int cantidadAutovectores)
+void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, fstream &myfile, int cantidadAutovectores)
 {
   // calculamos la matriz de covarianza
   matrizNum *covarianza = matrizDeCovarianza(etiquetados);
-  
   std::vector<vectorNum*> autovectores;
 
+  myfile.precision(6);
+  myfile << scientific;
   //Empiezo a conseguir autovectores
   for(int i = 0; i < cantidadAutovectores; i++) {
-    vectorNum * autovector = metodoDeLasPotencias(covarianza);
-    //guardo los actovectores en un vector
-    autovectores.push_back(autovector);
-    double lamda = encontrarAutovalor(autovector,covarianza);
-    vectorNum *autovectorAux = autovector->copy();
-    autovector->multiplicacionEscalar(lamda);
-    covarianza->resta(autovector->multiplicacionVectTrans(autovectorAux));
+      vectorNum * autovector = metodoDeLasPotencias(covarianza);
+      //guardo los actovectores en un vector
+      autovectores.push_back(autovector);
+      double lamda = encontrarAutovalor(autovector,covarianza);
+
+      myfile << sqrt(lamda) << endl;
+
+      vectorNum *autovectorAux = autovector->copy();
+      autovector->multiplicacionEscalar(lamda);
+      covarianza->resta(autovector->multiplicacionVectTrans(autovectorAux));
     }
     trasponerEntrada(etiquetados,autovectores,cantidadAutovectores);
     trasponerEntrada(sinEtiquetar,autovectores,cantidadAutovectores);
+
+    delete covarianza;
+    for(int i = 0; i < autovectores.size(); i++)
+      delete autovectores[i];
   }
   
 void trasponerEntrada(vector<entrada> &etiquetados, std::vector<vectorNum*> &autovectores, int cantidadAutovectores)
@@ -117,14 +125,7 @@ vectorNum *calcularMedias(vector<entrada> &v)
 double encontrarAutovalor(vectorNum *autovector, matrizNum *covarianza)
 {
   vectorNum * aux = covarianza->producto(autovector);
-  for(int i = 0; i < autovector->size(); i++)
-  {
-    if(aux->get(i) != 0){
-
-        double lamda = aux->get(i)/autovector->get(i);
-        return lamda;
-    }
-  }
-  //si llegue acá es que el autovector es 0 lo que es absurdo.
-  throw -1;
+  double lamda = aux->norma2();
+  delete aux;
+  return lamda;
 }
