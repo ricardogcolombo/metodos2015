@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.30)  14 MAY 2015 23:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.30)  14 MAY 2015 23:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1179,10 +1179,60 @@ Package babel Info: Redefining spanish shorthand "!
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 43.
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--56
+! Double subscript.
+l.50 ...$ de tal manera que en la coordenada $M_i_
+                                                  j$ obtenga el valor de la ...
+I treat `x_1_2' essentially like `x_1{}_2'.
 
- []
-
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 55.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 55.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 55.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 55.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 55.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 55.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 60.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 60.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 60.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 60.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 60.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 60.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 62.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 62.
+[5]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -1190,7 +1240,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.72 
+l.78 
      
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1203,7 +1253,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.77 \FOR{i=1 \TO size(medias)}\\
+l.83 \FOR{i=1 \TO size(medias)}\\
                                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1216,7 +1266,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.78 	\FOR{j=1 \TO cant\_filas(entrada)}\\
+l.84 	\FOR{j=1 \TO cant\_filas(entrada)}\\
                                           
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1225,13 +1275,13 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.79 		\STATE{\quad nuevoVector_
+l.85 		\STATE{\quad nuevoVector_
                                 j $=$ entrada_{(j,i)}- medias_i }\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.79 ...voVector_j $=$ entrada_{(j,i)}- medias_i }
+l.85 ...voVector_j $=$ entrada_{(j,i)}- medias_i }
                                                   \\
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1246,7 +1296,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.79 ...Vector_j $=$ entrada_{(j,i)}- medias_i }\\
+l.85 ...Vector_j $=$ entrada_{(j,i)}- medias_i }\\
                                                   
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1255,7 +1305,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.79 ...Vector_j $=$ entrada_{(j,i)}- medias_i }\\
+l.85 ...Vector_j $=$ entrada_{(j,i)}- medias_i }\\
                                                   
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1263,7 +1313,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.79 ...Vector_j $=$ entrada_{(j,i)}- medias_i }\\
+l.85 ...Vector_j $=$ entrada_{(j,i)}- medias_i }\\
                                                   
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1278,7 +1328,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.83 \FOR{i=1 \TO cant\_filas(entrada)}\\
+l.89 \FOR{i=1 \TO cant\_filas(entrada)}\\
                                          
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1291,7 +1341,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.84 	\FOR{k=1 \TO cant\_filas(entrada)}\\
+l.90 	\FOR{k=1 \TO cant\_filas(entrada)}\\
                                           
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1300,13 +1350,13 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.85 		\STATE{covarianza_
+l.91 		\STATE{covarianza_
                          i $=$ multiplicarVectorEscalar(covarianza_k, cantid...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.85 ...lar(covarianza_k, cantidad_filas(entrada)}
+l.91 ...lar(covarianza_k, cantidad_filas(entrada)}
                                                   \\
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1321,7 +1371,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.85 ...r(covarianza_k, cantidad_filas(entrada)}\\
+l.91 ...r(covarianza_k, cantidad_filas(entrada)}\\
                                                   
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1330,7 +1380,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.85 ...r(covarianza_k, cantidad_filas(entrada)}\\
+l.91 ...r(covarianza_k, cantidad_filas(entrada)}\\
                                                   
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1338,7 +1388,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.85 ...r(covarianza_k, cantidad_filas(entrada)}\\
+l.91 ...r(covarianza_k, cantidad_filas(entrada)}\\
                                                   
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1349,13 +1399,13 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.109 \STATE{vector medias$ =  $vector(cant_
+l.115 \STATE{vector medias$ =  $vector(cant_
                                             columnas(entrada))}\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.109 ...dias$ =  $vector(cant_columnas(entrada))}
+l.115 ...dias$ =  $vector(cant_columnas(entrada))}
                                                   \\
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1370,7 +1420,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.109 ...as$ =  $vector(cant_columnas(entrada))}\\
+l.115 ...as$ =  $vector(cant_columnas(entrada))}\\
                                                   
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1379,7 +1429,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.109 ...as$ =  $vector(cant_columnas(entrada))}\\
+l.115 ...as$ =  $vector(cant_columnas(entrada))}\\
                                                   
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1387,7 +1437,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.109 ...as$ =  $vector(cant_columnas(entrada))}\\
+l.115 ...as$ =  $vector(cant_columnas(entrada))}\\
                                                   
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1402,7 +1452,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.112 	\FOR{j$=$1 \TO cant\_columnas(entrada)}\\
+l.118 	\FOR{j$=$1 \TO cant\_columnas(entrada)}\\
                                                 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1411,13 +1461,13 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.113 		\STATE{\quad suma $+=$ entrada_
+l.119 		\STATE{\quad suma $+=$ entrada_
                                        {i,j}}\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.113 		\STATE{\quad suma $+=$ entrada_{i,j}}
+l.119 		\STATE{\quad suma $+=$ entrada_{i,j}}
                                              \\
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1432,7 +1482,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.113 		\STATE{\quad suma $+=$ entrada_{i,j}}\\
+l.119 		\STATE{\quad suma $+=$ entrada_{i,j}}\\
                                                
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1441,7 +1491,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.113 		\STATE{\quad suma $+=$ entrada_{i,j}}\\
+l.119 		\STATE{\quad suma $+=$ entrada_{i,j}}\\
                                                
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1449,7 +1499,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.113 		\STATE{\quad suma $+=$ entrada_{i,j}}\\
+l.119 		\STATE{\quad suma $+=$ entrada_{i,j}}\\
                                                
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1460,13 +1510,13 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.115 	\STATE{medias_
+l.121 	\STATE{medias_
                      i$ =$ suma/cant\_filas(entrada)}\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.115 ...E{medias_i$ =$ suma/cant\_filas(entrada)}
+l.121 ...E{medias_i$ =$ suma/cant\_filas(entrada)}
                                                   \\
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1481,7 +1531,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.115 ...medias_i$ =$ suma/cant\_filas(entrada)}\\
+l.121 ...medias_i$ =$ suma/cant\_filas(entrada)}\\
                                                   
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1490,7 +1540,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.115 ...medias_i$ =$ suma/cant\_filas(entrada)}\\
+l.121 ...medias_i$ =$ suma/cant\_filas(entrada)}\\
                                                   
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1498,7 +1548,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.115 ...medias_i$ =$ suma/cant\_filas(entrada)}\\
+l.121 ...medias_i$ =$ suma/cant\_filas(entrada)}\\
                                                   
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1506,18 +1556,6 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 121.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 121.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 121.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 121.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 121.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 121.
 )
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 82.
@@ -1543,57 +1581,7 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 82.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 82.
- [5]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 82.
  [6]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 82.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 82.
- [7]
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 82.
 Package babel Info: Redefining spanish shorthand >>
@@ -1646,7 +1634,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--25
 
  []
 
-<ejecucionesknn.jpg, id=170, 420.54257pt x 309.72858pt>
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 25.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 25.
+[7] <ejecucionesknn.jpg, id=171, 420.54257pt x 309.72858pt>
 File: ejecucionesknn.jpg Graphic file (type jpg)
 
 <use ejecucionesknn.jpg>
@@ -1658,31 +1670,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--27
  []
 
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 27.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 27.
-[8]
-Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 31.
 Package babel Info: Redefining spanish shorthand >>
 (babel)             in language  on input line 31.
@@ -1706,7 +1693,6 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 32.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 32.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 32.
@@ -1730,52 +1716,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--42
  []
 
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 50.
+(babel)             in language  on input line 49.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 50.
-[9 <./ejecucionesknn.jpg>]
-<imagenes/lamda10.jpg, id=179, 607.26875pt x 341.275pt>
+(babel)             in language  on input line 49.
+[8 <./ejecucionesknn.jpg>]
+<imagenes/lamda10.jpg, id=176, 607.26875pt x 341.275pt>
 File: imagenes/lamda10.jpg Graphic file (type jpg)
 
 <use imagenes/lamda10.jpg>
 Package pdftex.def Info: imagenes/lamda10.jpg used on input line 54.
 (pdftex.def)             Requested size: 455.45045pt x 255.95561pt.
 
-<imagenes/lamda50.jpg, id=180, 607.26875pt x 341.275pt>
+<imagenes/lamda50.jpg, id=177, 607.26875pt x 341.275pt>
 File: imagenes/lamda50.jpg Graphic file (type jpg)
 
 <use imagenes/lamda50.jpg>
 Package pdftex.def Info: imagenes/lamda50.jpg used on input line 55.
 (pdftex.def)             Requested size: 455.45045pt x 255.95561pt.
 
-<imagenes/lamda200.jpg, id=181, 607.26875pt x 341.275pt>
+<imagenes/lamda200.jpg, id=178, 607.26875pt x 341.275pt>
 File: imagenes/lamda200.jpg Graphic file (type jpg)
 
 <use imagenes/lamda200.jpg>
 Package pdftex.def Info: imagenes/lamda200.jpg used on input line 56.
 (pdftex.def)             Requested size: 455.45045pt x 255.95561pt.
 
-<imagenes/lamda700.jpg, id=182, 607.26875pt x 341.275pt>
+<imagenes/lamda700.jpg, id=179, 607.26875pt x 341.275pt>
 File: imagenes/lamda700.jpg Graphic file (type jpg)
 
 <use imagenes/lamda700.jpg>
@@ -1810,7 +1796,7 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 58.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 58.
-[10 <./imagenes/lamda10.jpg> <./imagenes/lamda50.jpg>])
+[9 <./imagenes/lamda10.jpg> <./imagenes/lamda50.jpg>])
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 87.
 Package babel Info: Redefining spanish shorthand >>
@@ -1835,7 +1821,7 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 87.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 87.
- [11 <./imagenes/lamda200.jpg> <./imagenes/lamda700.jpg>]
+ [10 <./imagenes/lamda200.jpg> <./imagenes/lamda700.jpg>]
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 87.
 Package babel Info: Redefining spanish shorthand >>
@@ -1874,7 +1860,7 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 91.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 91.
- [12]
+ [11]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 91.
  (./main.aux
 LaTeX Info: Redefining \. on input line 23.
@@ -1882,14 +1868,21 @@ LaTeX Info: Redefining \% on input line 23.
 )
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 91.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 91.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: DDB3FB2425B619ED5B16D9C03A721ACE;790.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: DDB3FB2425B619ED5B16D9C03A721ACE;790
+(rerunfilecheck)             After:  B9451E28168F41EA1EFB9D10F13A4C47;853.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 91.
  ) 
 Here is how much of TeX's memory you used:
  9589 strings out of 493117
- 137878 string characters out of 6135433
- 253006 words of memory out of 5000000
+ 137906 string characters out of 6135433
+ 248006 words of memory out of 5000000
  12809 multiletter control sequences out of 15000+600000
  11179 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1906,10 +1899,10 @@ exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/t
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (12 pages, 556925 bytes).
+Output written on main.pdf (11 pages, 556683 bytes).
 PDF statistics:
- 256 PDF objects out of 1000 (max. 8388607)
- 220 compressed objects within 3 object streams
+ 253 PDF objects out of 1000 (max. 8388607)
+ 218 compressed objects within 3 object streams
  86 named destinations out of 1000 (max. 500000)
  132 words of extra memory for PDF output out of 10000 (max. 10000000)
 

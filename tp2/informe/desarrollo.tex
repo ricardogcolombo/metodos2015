@@ -52,8 +52,14 @@ A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elem
 Luego, utilizando el método de la potencia, procedemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
 \\
 Sobre este set de datos, ahora aplicamos el algoritmo $KNN$ nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos, sumado a mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad del problema.
+\subsection{Cross-validation}
+Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. Primero se toma el primer bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. Luego se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. Esto se realiza sucesivamente siempre y cuando queden datasets sin ser testeados.
 \\
+De esta manera evitamos testear contra datos propios del modelo, lo que podría resultar en que el modelo solo reconozca sus propias imágenes de entrenamiento pero no imágenes fuera de él, que es justamente el propósito de este trabajo.
 
+\subsection{Algoritmo PCA}
+
+\newpage
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void PCA(matriz etiquetados, matriz sinetiquetar,int cantidadAutovectores)}
@@ -118,7 +124,3 @@ Sobre este set de datos, ahora aplicamos el algoritmo $KNN$ nuevamente y lo que 
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Cross-validation}
-Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. Primero se toma el primer bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. Luego se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. Esto se realiza sucesivamente siempre y cuando queden datasets sin ser testeados.
-\\
-De esta manera evitamos testear contra datos propios del modelo, lo que podría resultar en que el modelo solo reconozca sus propias imágenes de entrenamiento pero no imágenes fuera de él, que es justamente el propósito de este trabajo.
