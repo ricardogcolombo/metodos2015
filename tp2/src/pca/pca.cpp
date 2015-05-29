@@ -1,6 +1,6 @@
 
 #include "pca.h"
-#define CANTIDAD_ITERACIONES 100
+#define CANTIDAD_ITERACIONES 500
 
 
 void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, fstream &myfile, int cantidadAutovectores)
@@ -9,7 +9,7 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, fs
   matrizNum *covarianza = matrizDeCovarianza(etiquetados);
   std::vector<vectorNum*> autovectores;
 
-  myfile.precision(7);
+  myfile.precision(6);
   myfile << scientific;
   //Empiezo a conseguir autovectores
   for(int i = 0; i < cantidadAutovectores; i++) {
@@ -18,7 +18,7 @@ void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, fs
       autovectores.push_back(autovector);
       double lamda = encontrarAutovalor(autovector,covarianza);
 
-      myfile << lamda << endl;
+      myfile << sqrt(lamda) << endl;
 
       vectorNum *autovectorAux = autovector->copy();
       autovector->multiplicacionEscalar(lamda);
@@ -125,14 +125,7 @@ vectorNum *calcularMedias(vector<entrada> &v)
 double encontrarAutovalor(vectorNum *autovector, matrizNum *covarianza)
 {
   vectorNum * aux = covarianza->producto(autovector);
-  for(int i = 0; i < autovector->size(); i++)
-  {
-    if(aux->get(i) != 0){
-
-        double lamda = aux->get(i)/autovector->get(i);
-        return lamda;
-    }
-  }
-  //si llegue acá es que el autovector es 0 lo que es absurdo.
-  throw -1;
+  double lamda = aux->norma2();
+  delete aux;
+  return lamda;
 }

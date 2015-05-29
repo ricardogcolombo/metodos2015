@@ -6,10 +6,17 @@ El trabajo consiste en una serie de experimentaciones. El desarrollo de estas en
 
   \item Se parte de una base de datos de imágenes ya etiquetadas y otra con imágenes sin etiquetar. Usando la base de datos etiquetada como información de entrenamiento del algoritmo, se intenta etiquetar de modo correcto los dígitos de la base de datos sin etiquetas.
 
-  \item La primera aproximación a la resolución del problema utiliza el método más intuitivo encontrado: Por cada imagen de la base de datos sin etiquetas, se busca la que más se le parece en la base de datos etiquetada y se marca a la imagen sin etiqueta con la etiqueta de aquella que denominamos como la más parecida. Por supuesto, todavía queda determinar cual es el criterio para decir que dos imágenes se \"parecen\". Esta definición está dada con profundidad en la sección de desarrollo.
+  \item La primera aproximación a la resolución del problema utiliza el método más intuitivo encontrado: Por cada imagen de la base de datos sin etiquetas, se busca la que más se le parece en la base de datos etiquetada y se marca a la imagen sin etiqueta con la etiqueta de aquella que denominamos como la más parecida. Por supuesto, todavía queda determinar cual es el criterio para decir que dos imágenes se "parecen". Esta definición está dada con profundidad en la sección de desarrollo.
 
   \item Surge entonces la pregunta acerca de que pasa si, por una particularidad de la imagen, la etiqueta más parecida no es la correcta para el dígito a averiguar. Para mitigar este problema parcialmente se pueden tomar las $k$ imágenes más parecidas (que a partir de ahora llamaremos vecinos) y elegir como etiqueta aquella que se repita más entre los $k$ vecinos. Detrás de esta idea se encuentra el algoritmo $KNN$, que se utiliza para mejorar el comportamiento en estos casos donde el vecino más cercano no pertenece necesariamente a la misma clase que la imagen a etiquetar.
 
   \item Por último, a esta idea se le puede aplicar una mejora sustancial utilizando un método probabilístico conocido como $PCA$. Este consiste en aplicar una transformación a las imágenes, de tal manera de solo tener en cuenta aquellas de mayor variabilidad y desechar aquella información que pueda estar introduciendo ruido.
 
 \end{itemize}
+
+\\
+Para entender las diferencias y similitudes entre los métodos y sus variantes, se realizan los experimentos con variaciones en los parámetros. En el caso de
+$KNN$ se varía la cantidad de vecinos, esto ayuda a entender que valores ayudan a la optimización del algoritmo.
+\\
+Para el caso de la mejora utilizando el algoritmo de $PCA$ también hay que tener en cuenta el $\alpha$ utilizado. Vamos a ver como modificar este valor
+conlleva diferentes tiempos de ejecución y pérdida o ganancia de precisión.
