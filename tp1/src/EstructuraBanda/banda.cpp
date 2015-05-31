@@ -16,28 +16,33 @@ using namespace std;
  */
 
 MatrizB::MatrizB(int _n, int banda) {
-	m = n = _n;
+  m = n = _n;
   kl = ku = banda;
-
-	// Seteo el tamano del vector que representa la matriz
-	// con tamano banda*2 + 1
-  matrix.resize(2*banda+1);
-
-	//inicializo la matriz de manera segura (evitando problemas de manejo de memoria)
-	for(int i = 0; i < kl+ku+1; i++) {
-    matrix[i].resize(n);
-		for(int j= 0; j < n; j++) {
+  // Seteo el tamano del vector que representa la matriz
+  // con tamano banda*2 + 1
+  matrix = new double*[2 * banda + 1];
+  //inicializo la matriz de manera segura (evitando problemas de manejo de memoria)
+  for (int i = 0; i < kl + ku + 1; i++) {
+    matrix[i] = new double[n];
+    for (int j = 0; j < n; j++) {
       matrix[i][j] = 0.0;
     }
   }
+}
+
+MatrizB::~MatrizB() {
+  for (int i = 0; i < kl + ku + 1; i++) {
+    delete matrix[i];
+  }
+  delete matrix;
 }
 
 /**
  * matrix getter
  */
 
-std::vector <std::vector< double > > MatrizB::getMatrix() {
-	return matrix;
+double** MatrizB::getMatrix() {
+  return matrix;
 }
 
 /**
@@ -45,7 +50,7 @@ std::vector <std::vector< double > > MatrizB::getMatrix() {
  */
 
 int MatrizB::getP() {
-	return kl;
+  return kl;
 }
 
 /**
@@ -53,7 +58,7 @@ int MatrizB::getP() {
  */
 
 int MatrizB::getQ() {
-	return ku;
+  return ku;
 }
 
 /**
@@ -61,7 +66,7 @@ int MatrizB::getQ() {
  */
 
 int MatrizB::getN() {
-	return n;
+  return n;
 }
 
 /**
@@ -69,7 +74,7 @@ int MatrizB::getN() {
  */
 
 int MatrizB::getM() {
-	return m;
+  return m;
 }
 
 
@@ -82,21 +87,21 @@ int MatrizB::getM() {
  *
  * @return {double} m(x, y)
  *
- * x1 	x2 	0  	0 	0
- * x3 	x4 	x5 	0 	0
- * 0 	  x6	x7 	x8 	0
- * 0 	  0 	x9 	x10 x11
+ * x1   x2  0   0   0
+ * x3   x4  x5  0   0
+ * 0    x6  x7  x8  0
+ * 0    0   x9  x10 x11
  *
  * Para ahorrar los 0s lo transformo en =>
  * x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11
  */
 
 double MatrizB::getVal(int x, int y) {
-	if(posicionValida(x,y)) {
-    return matrix[ku+x-y][y];
-	} else {
+  if (posicionValida(x, y)) {
+    return matrix[ku + x - y][y];
+  } else {
     return 0.0;
-	}
+  }
 }
 
 /**
@@ -108,13 +113,13 @@ double MatrizB::getVal(int x, int y) {
  */
 
 void MatrizB::setVal(int x, int y, double val) {
-	if(posicionValida(x,y)) {
-		matrix[ku+x-y][y] = val;
+  if (posicionValida(x, y)) {
+    matrix[ku + x - y][y] = val;
   } else {
-		// Si x, y están fuera de rango tira una excepcion
-		cout << "Intento de seteo en cordenadas: (" << x << "," << y << ")" << endl;
-		throw 0;
-	}
+    // Si x, y están fuera de rango tira una excepcion
+    cout << "Intento de seteo en cordenadas: (" << x << "," << y << ")" << endl;
+    throw 0;
+  }
 }
 
 /**
@@ -125,24 +130,24 @@ void MatrizB::setVal(int x, int y, double val) {
  *
  * @return {boo} true si es valida, false si no
  *
- * x1 	x2 	0 	0 	0 	0
- * 0 	  x5  x6  0 	0 	0
- * 0    0 	x9  x10 0 	0
+ * x1   x2  0   0   0   0
+ * 0    x5  x6  0   0   0
+ * 0    0   x9  x10 0   0
  */
 
 bool MatrizB::posicionValida(int x, int y) {
   // si alguna coordenada es negativa, es falso
-	if(x < 0 || y < 0) return  false;
+  if (x < 0 || y < 0) return  false;
 
-  // si alguna coordenada es mayor al rango, es falso 
-	if(y >= m || x >= n) return false;
+  // si alguna coordenada es mayor al rango, es falso
+  if (y >= m || x >= n) return false;
 
   // si alguna coordenada no cumple con las reglas propuestas
   // por el storage banda, es falso
-	if(!(max(0, y-ku) <= x && x <= min(m -1, y+kl))) return false;
+  if (!(max(0, y - ku) <= x && x <= min(m - 1, y + kl))) return false;
 
   // Si no cumple ninguna de las condiciones previas, es verdadero
-	return true;
+  return true;
 }
 
 /**
@@ -154,9 +159,9 @@ void MatrizB::printM() {
   int i, j;
   int n = this->getN();
   int m = this->getM();
-  for(i = 0; i < n; i++) {
-    for(j = 0; j < n; j++) {
-      if(this->getVal(i, j) == 0) {
+  for (i = 0; i < n; i++) {
+    for (j = 0; j < n; j++) {
+      if (this->getVal(i, j) == 0) {
         cout <<  this->getVal(i, j);
       } else {
         cout <<  this->getVal(i, j);

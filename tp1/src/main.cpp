@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
 		elapsed_seconds = endSalvacion.tv_sec - startSalvacion.tv_sec;
 		elapsed_useconds = endSalvacion.tv_usec - startSalvacion.tv_usec;
 		double timeSalvacion =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
+		cout << timeSalvacion << endl;
 		//archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
 		//archivoDeSalida << " "  <<  nuevaInstancia->intervalo << " ";
 		//archivoDeSalida << timeSalvacion << endl;
@@ -94,36 +95,13 @@ int main(int argc, char *argv[])
 	//Eliminacion de Sang con sherman morrison
 	if (strcmp(argv[3], "3") == 0) {
 		cout << "Corriendo Metodo eliminacion de Sanguijuelas sherman morrison..." << endl;
-		/*
-				sacarSang(nuevaInstancia);
-				MatrizB *L = DescompLU(nuevaInstancia->m);
-				double *y = foward_substitution(L, nuevaInstancia->b);
-				gettimeofday(&startSalvacion,NULL);
-				double *respuestaGauss =  buscarSalvacion(nuevaInstancia,false,y);
-				gettimeofday(&endSalvacion,NULL);
-				elapsed_seconds = endSalvacion.tv_sec - startSalvacion.tv_sec;
-				elapsed_useconds = endSalvacion.tv_usec - startSalvacion.tv_usec;
-				double timeSalvacion =  ((elapsed_seconds) * 1000 + elapsed_useconds/1000.0) + 0.5;
-				gettimeofday(&startSherman,NULL);
-				double *respuesta =  buscarSalvacion(nuevaInstancia,true,y);
-				gettimeofday(&endSherman,NULL);
-				//double * respuestaSherman = resolverShermanMorrison(nuevaInstancia->m,y,12,10,700,nuevaInstancia->m->getN());
-				elapsed_seconds = endSherman.tv_sec - startSherman.tv_sec;
-				elapsed_useconds = endSherman.tv_usec - startSherman.tv_usec;
-				double timeSherman =  ((elapsed_seconds) * 1000 + elapsed_useconds/1000.0) + 0.5;
-				//for(int i = 0; i < nuevaInstancia->m->getP(); i++)
-				//for(int w = 0; w < nuevaInstancia->m->getP(); w++)
-				//archivoDeSalida << i <<"\t" << w << "\t" << respuestaSherman[w + (i * nuevaInstancia->m->getP())] << endl;
-				archivoDeSalida << "Salvacion gauss " << timeSalvacion << endl;
-				archivoDeSalida << "Salvacion sherman " << timeSherman << endl;
-				elapsed_mtime = ((elapsed_seconds) * 1000 + elapsed_useconds/1000.0) + 0.5;
-		*/
 		gettimeofday(&startSherman, NULL);
 		double *respuesta = salvacionSM(nuevaInstancia, nuevaInstancia->b);
 		gettimeofday(&endSherman, NULL);
 		elapsed_seconds = endSherman.tv_sec - startSherman.tv_sec;
 		elapsed_useconds = endSherman.tv_usec - startSherman.tv_usec;
 		double timeSherman =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
+		cout << timeSherman << endl;
 		//		archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
 		//		archivoDeSalida << " "  <<  nuevaInstancia->intervalo << " ";
 		//	archivoDeSalida << timeSherman << endl;

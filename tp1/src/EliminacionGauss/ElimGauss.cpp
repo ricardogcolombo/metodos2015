@@ -97,5 +97,6 @@ MatrizB* DescompLU(MatrizB *m) {
       }
     }
   }
+  delete b;
   return L;
 }

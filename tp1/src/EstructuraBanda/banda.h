@@ -4,24 +4,25 @@
 #include <vector>
 
 class MatrizB {
-  private:
-	  int ku;
-	  int kl;
-	  int m;
-	  int n;
-	  std::vector <std::vector< double > > matrix;
-	  bool posicionValida(int x, int y);
+private:
+	int ku;
+	int kl;
+	int m;
+	int n;
+	double** matrix;
+	bool posicionValida(int x, int y);
 
-  public:
-	  MatrizB(int a, int b);
-	  int getQ();
-	  int getP();
-	  int getM();
-	  int getN();
-	  std::vector <std::vector< double > > getMatrix();
-    void setVal(int x, int y, double val);
-    double getVal(int x, int y);
- 	  void printM();
+public:
+	MatrizB(int a, int b);
+	~MatrizB();
+	int getQ();
+	int getP();
+	int getM();
+	int getN();
+	double** getMatrix();
+	void setVal(int x, int y, double val);
+	double getVal(int x, int y);
+	void printM();
 };
 
 #endif
