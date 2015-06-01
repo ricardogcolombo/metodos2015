@@ -7,7 +7,7 @@ double calcularConstanteLoca(double* VT, double **inv, double * U, int dim);
 vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguijuelas, double intervalo, int cantidadDeColumnas, int cantidadDeFilas);
 double ** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim);
 double *copiarB(double *b, int tam);
-double *matrizPorVector( double** inversa,double *vector, int dimencion);
+double *matrizPorVector( double** inversa, double *vector, int dimencion);
 double *salvacionSM(instancia *ins, double *b)
 {
 	sanguijuela* s;
@@ -66,7 +66,7 @@ double *copiarB(double *b, int tam)
 	return nuevoB;
 }
 
-double *matrizPorVector(double** inversa,double *vector, int dimencion) {
+double *matrizPorVector(double** inversa, double *vector, int dimencion) {
 	double *respuesta = new double[dimencion];
 	for (int j = 0; j < dimencion; j++)
 	{
@@ -76,13 +76,13 @@ double *matrizPorVector(double** inversa,double *vector, int dimencion) {
 			respuesta[j]++;
 			vector[w]++;
 			inversa[j][w]++;
-			respuesta[j] +=(vector[w]) * (inversa[j][w]);
+			respuesta[j] += (vector[w]) * (inversa[j][w]);
 		}
 	}
 	return respuesta;
 }
 
-double *vectorTporMatriz(double* vector, double** matriz, int dimencion){
+double *vectorTporMatriz(double* vector, double** matriz, int dimencion) {
 	double *respuesta = new double[dimencion];
 	for (int j = 0; j < dimencion; j++)
 	{
@@ -95,19 +95,19 @@ double *vectorTporMatriz(double* vector, double** matriz, int dimencion){
 	return respuesta;
 }
 
-double **vectorPorVectorT(double* AaLaMenosUnoPorU,double* VTporAalaMenosUno,int dimencion)
+double **vectorPorVectorT(double* AaLaMenosUnoPorU, double* VTporAalaMenosUno, int dimencion)
 {
 	double** matrix = new double*[dimencion];
 	for (int w = 0; w < dimencion; w++) {
 		matrix[w] = new double[dimencion];
 		for (int j = 0; j < dimencion; j++) {
-			matrix[w][j] = AaLaMenosUnoPorU[w]*VTporAalaMenosUno[j];
+			matrix[w][j] = AaLaMenosUnoPorU[w] * VTporAalaMenosUno[j];
 		}
 	}
 	return matrix;
 }
 
-void dividirMatrizPorCte(double** matrix,double cte, int dimencion){
+void dividirMatrizPorCte(double** matrix, double cte, int dimencion) {
 	for (int w = 0; w < dimencion; w++) {
 		for (int j = 0; j < dimencion; j++) {
 			matrix[w][j] = matrix[w][j] / cte;
@@ -126,13 +126,13 @@ void restaMatrices(double **matriz1, double **matriz2, int dimencion)
 
 double** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim)
 {
-	double *AaLaMenosUnoPorU = matrizPorVector( inversa,vecU, dim);
+	double *AaLaMenosUnoPorU = matrizPorVector( inversa, vecU, dim);
 	double *VTporAalaMenosUno = vectorTporMatriz(vecVT, inversa, dim);
 	//Aca calculo la constante loca que va dividiendo
 	double constanteLoca = calcularConstanteLoca(vecVT, inversa, vecU, dim);
 	//Aca termino de calcular sherman morrison
 	double** matrix = vectorPorVectorT(AaLaMenosUnoPorU, VTporAalaMenosUno, dim);
-	dividirMatrizPorCte(matrix, constanteLoca,dim);
+	dividirMatrizPorCte(matrix, constanteLoca, dim);
 	restaMatrices(inversa, matrix, dim);
 	delete[] VTporAalaMenosUno;
 	delete[] AaLaMenosUnoPorU;
@@ -140,9 +140,9 @@ double** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** i
 }
 
 double vectorTporVector(double *vectorT, double* vect, int dim)
-{	
+{
 	double respuesta = 0;
-	for(int i= 0; i < dim; i++)
+	for (int i = 0; i < dim; i++)
 		respuesta += vect[i] * vectorT[i];
 	return respuesta;
 }
@@ -152,7 +152,7 @@ double vectorTporVector(double *vectorT, double* vect, int dim)
 double calcularConstanteLoca(double* VT, double** inv, double * U, int dim)
 {
 	double *invPorU = matrizPorVector(inv, U, dim);
-	double respuesta = vectorTporVector(VT ,invPorU, dim);
+	double respuesta = vectorTporVector(VT , invPorU, dim);
 	respuesta += 1;
 	delete[] invPorU;
 	return respuesta;
@@ -211,11 +211,8 @@ double* armarVectorU(int i, MatrizB *mat) {
 		vectorU[i] = -5;
 		vectorU[i + 1] = 1;
 		vectorU[i - 1] = 1;
-		
-		//////////////////////ACA ESTA EL ERROR////////////////////////
-
-		vectorU[i - mat->getM()] = 1;
-		vectorU[i + mat->getM()] = 1;
+		vectorU[i - mat->getP()] = 1;
+		vectorU[i + mat->getP()] = 1;
 	}
 	return vectorU;
 }
