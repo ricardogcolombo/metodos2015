@@ -1,4 +1,5 @@
 #include "SM.h"
+#define INFINITO 10000000000
 using namespace std;
 double** encontrarMatrizInversa(MatrizB *m);
 double* armarVectorU(int i, MatrizB *mat);
@@ -8,12 +9,11 @@ vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguij
 double ** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim);
 double *copiarB(double *b, int tam);
 double *matrizPorVector( double** inversa, double *vector, int dimencion);
-double *salvacionSM(instancia *ins, double *b)
-{
-	sanguijuela* s;
+double *salvacionSM(instancia *ins, double *b) {
+	int sanguijuelaParaEliminar = -1;
 	sanguijuela* a_eliminar = NULL;
 	//Queria ponerle el valor mas grande, pero c es caprichoso
-	double punto_critico_global = 10000000000;
+	double punto_critico_global = INFINITO;
 	double punto_critico_local = 0;
 	double *mejorRespuesta;
 	int posPuntoCritico = ins->m->getP() / 2 + (ins->m->getP()) * (ins->m->getP() / 2);
@@ -21,82 +21,72 @@ double *salvacionSM(instancia *ins, double *b)
 	double** inversa = encontrarMatrizInversa(ins->m);
 	vector<sanguijuelaDiscretizada*> *sangDiscretizadas = discretizarSangs(ins->sanguijuelas, ins->intervalo, ins->m->getP(), ins->m->getP());
 	int dimencion = ins->m->getN();
-	for (int i = 0; i < sangDiscretizadas->size() ; i++)
-	{
-		double * vecU = armarVectorU((*sangDiscretizadas)[i]->x, ins->m);
-		double * vecVT = armarVectorVT((*sangDiscretizadas)[i]->y, ins->m);
-		//Ahora hago la ecuacion horrible de sherman morrison
-		double** ShermanMorris = calcularMatrizDeShermanMorrison(vecU, vecVT, inversa, dimencion);
-		delete[] vecU;
-		delete[] vecVT;
+	for (int i = 0; i < sangDiscretizadas->size() ; i++) {
 		//Obtengo una copia de B y modifico solo la fila donde esta la sanguijuela
 		double *nuevoB = copiarB(b, dimencion);
 		nuevoB[(*sangDiscretizadas)[i]->x] = 0;
+		//Creo los vectores
+		double * vecU = armarVectorU((*sangDiscretizadas)[i]->x, ins->m);
+		double * vecVT = armarVectorVT((*sangDiscretizadas)[i]->y, ins->m);
+		//Ahora utilizo la ecuación de sherman morrison
+		double** ShermanMorris = calcularMatrizDeShermanMorrison(vecU, vecVT, inversa, dimencion);
 		//hago x = A^(-1).b y obtengo la nueva respuesta
 		double *respuesta = matrizPorVector(ShermanMorris, nuevoB, dimencion);
 		//Si es la mejor respuesta obtenida hasta el momento, la guardo.
 		punto_critico_local = respuesta[posPuntoCritico];
-		if (punto_critico_local < punto_critico_global)
-		{
+		if (punto_critico_local < punto_critico_global) {
+			if (punto_critico_global != INFINITO) {
+				delete[] mejorRespuesta;
+			}
 			mejorRespuesta = respuesta;
 			punto_critico_global = punto_critico_local;
-			a_eliminar = s;
+			sanguijuelaParaEliminar = i;
 		}
 		//Limpio
-		for (int w = 0; w < dimencion; w++)
+		delete[] vecU;
+		delete[] vecVT;
+		for (int w = 0; w < dimencion; w++) {
 			delete[] ShermanMorris[w];
+		}
 		delete[] ShermanMorris;
 		delete[] nuevoB;
 		delete (*sangDiscretizadas)[i];
 	}
 	delete sangDiscretizadas;
-	for (int i = 0; i < dimencion; i++)
+	for (int i = 0; i < dimencion; i++) {
 		delete[] inversa[i];
+	}
 	delete[] inversa;
 	return mejorRespuesta;
 }
-
-double *copiarB(double *b, int tam)
-{
+double *copiarB(double *b, int tam) {
 	double *nuevoB = new double[tam];
-	for (int w = 0; w < tam; w++ )
-	{
+	for (int w = 0; w < tam; w++ ) {
 		nuevoB[w] = b[w];
 	}
 	return nuevoB;
 }
-
 double *matrizPorVector(double** inversa, double *vector, int dimencion) {
 	double *respuesta = new double[dimencion];
-	for (int j = 0; j < dimencion; j++)
-	{
+	for (int j = 0; j < dimencion; j++) {
 		respuesta[j] = 0;
-		for (int w = 0; w < dimencion; w++)
-		{
-			respuesta[j]++;
-			vector[w]++;
-			inversa[j][w]++;
+		for (int w = 0; w < dimencion; w++) {
 			respuesta[j] += (vector[w]) * (inversa[j][w]);
 		}
 	}
 	return respuesta;
 }
-
 double *vectorTporMatriz(double* vector, double** matriz, int dimencion) {
 	double *respuesta = new double[dimencion];
-	for (int j = 0; j < dimencion; j++)
-	{
+	for (int j = 0; j < dimencion; j++) {
 		respuesta[j] = 0;
-		for (int w = 0; w < dimencion; w++)
-		{
+		for (int w = 0; w < dimencion; w++) {
 			respuesta[j] += vector[w] * matriz[w][j];
 		}
 	}
 	return respuesta;
 }
-
-double **vectorPorVectorT(double* AaLaMenosUnoPorU, double* VTporAalaMenosUno, int dimencion)
-{
+double **vectorPorVectorT(double* AaLaMenosUnoPorU, double* VTporAalaMenosUno, int dimencion) {
 	double** matrix = new double*[dimencion];
 	for (int w = 0; w < dimencion; w++) {
 		matrix[w] = new double[dimencion];
@@ -106,7 +96,6 @@ double **vectorPorVectorT(double* AaLaMenosUnoPorU, double* VTporAalaMenosUno, i
 	}
 	return matrix;
 }
-
 void dividirMatrizPorCte(double** matrix, double cte, int dimencion) {
 	for (int w = 0; w < dimencion; w++) {
 		for (int j = 0; j < dimencion; j++) {
@@ -114,18 +103,14 @@ void dividirMatrizPorCte(double** matrix, double cte, int dimencion) {
 		}
 	}
 }
-
-void restaMatrices(double **matriz1, double **matriz2, int dimencion)
-{
+void restaMatrices(double **matriz1, double **matriz2, int dimencion) {
 	for (int w = 0; w < dimencion; w++) {
 		for (int j = 0; j < dimencion; j++) {
 			matriz2[w][j] = matriz1[w][j] - matriz2[w][j];
 		}
 	}
 }
-
-double** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim)
-{
+double** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim) {
 	double *AaLaMenosUnoPorU = matrizPorVector( inversa, vecU, dim);
 	double *VTporAalaMenosUno = vectorTporMatriz(vecVT, inversa, dim);
 	//Aca calculo la constante loca que va dividiendo
@@ -138,69 +123,83 @@ double** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** i
 	delete[] AaLaMenosUnoPorU;
 	return matrix;
 }
-
-double vectorTporVector(double *vectorT, double* vect, int dim)
-{
+double vectorTporVector(double *vectorT, double* vect, int dim) {
 	double respuesta = 0;
-	for (int i = 0; i < dim; i++)
+	for (int i = 0; i < dim; i++) {
 		respuesta += vect[i] * vectorT[i];
+	}
 	return respuesta;
 }
-
-
-
-double calcularConstanteLoca(double* VT, double** inv, double * U, int dim)
-{
+double calcularConstanteLoca(double* VT, double** inv, double * U, int dim) {
 	double *invPorU = matrizPorVector(inv, U, dim);
 	double respuesta = vectorTporVector(VT , invPorU, dim);
 	respuesta += 1;
 	delete[] invPorU;
 	return respuesta;
 }
-
-sanguijuelaDiscretizada::sanguijuelaDiscretizada(int _x, int _y, double _temp)
-{
+sanguijuelaDiscretizada::sanguijuelaDiscretizada(int _x, int _y, double _temp) {
 	x = _x;
 	y = _y;
 	temp = _temp;
 }
-
-double *generarCanonico(int i, int dim)
-{
+double *generarCanonico(int i, int dim) {
 	double* vectorCanonico = new double[dim];
-	for (int j = 0; j < dim; j++)
+	for (int j = 0; j < dim; j++) {
 		vectorCanonico[j] = 0;
+	}
 	vectorCanonico[i] = 1;
 	return vectorCanonico;
 }
 
+void test(double **mat1, double **mat2, int dim) {
+	double rta;
+	for (int i = 0; i < dim; i++) {
+		for (int j = 0; j < dim; j++) {
+			for (int w = 0; w < dim; w++) {
+				rta += mat1[i][w] * mat2[w][j];
+			}
+			cout << rta << "\t\t\t\t";
+			rta = 0;
+		}
+		cout << endl;
+	}
 
-double** encontrarMatrizInversa(MatrizB *m)
-{
+}
+
+double** encontrarMatrizInversa(MatrizB *m) {
 	int dim = m->getN();
+
+	double **matrixAUX = new double*[dim];
+	for (int i = 0; i < dim; i++) {
+		matrixAUX[i] = new double[dim];
+		for (int j = 0; j < dim; j++) {
+			matrixAUX[i][j] = m->getVal(i, j);
+		}
+	}
+
 	MatrizB *U = m;
 	MatrizB *L = DescompLU(U);
 	double** inversa = new double*[dim];
-	for (int i = 0; i < dim; i++)
+	for (int i = 0; i < dim; i++) {
 		inversa[i] = new double[dim];
-
-	for (int i = 0; i < dim; i++)
-	{
+	}
+	for (int i = 0; i < dim; i++) {
 		double* vectorCanonico = generarCanonico(i, dim);
 		double* y = foward_substitution(L, vectorCanonico);
 		delete[] vectorCanonico;
 		double *respuesta = backward_substitution(U, y);
 		delete[] y;
-		for (int j = 0; j < dim; j++)
-		{
+		for (int j = 0; j < dim; j++) {
 			inversa[j][i] = respuesta[j];
 		}
 		delete[] respuesta;
 	}
 	delete L;
+
+	//test(matrixAUX, inversa, dim);
+
 	return inversa;
 }
-
 double* armarVectorU(int i, MatrizB *mat) {
 	int tam = mat->getN();
 	double* vectorU = new double[tam];
@@ -225,8 +224,7 @@ double* armarVectorVT(int j, MatrizB *mat) {
 	vectorVT[j] = 1;
 	return vectorVT;
 }
-vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguijuelas, double intervalo, int cantidadDeColumnas, int cantidadDeFilas)
-{
+vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguijuelas, double intervalo, int cantidadDeColumnas, int cantidadDeFilas) {
 	vector<sanguijuelaDiscretizada*> *sanguDisc = new vector<sanguijuelaDiscretizada*>();
 	for (int i = 0; i < sanguijuelas->size(); i++) {
 		sanguijuela *s = (*sanguijuelas)[i];
