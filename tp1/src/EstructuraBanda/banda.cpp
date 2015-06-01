@@ -32,9 +32,9 @@ MatrizB::MatrizB(int _n, int banda) {
 
 MatrizB::~MatrizB() {
   for (int i = 0; i < kl + ku + 1; i++) {
-    delete matrix[i];
+    delete[] matrix[i];
   }
-  delete matrix;
+  delete[] matrix;
 }
 
 /**

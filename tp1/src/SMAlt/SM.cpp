@@ -7,6 +7,7 @@ double calcularConstanteLoca(double* VT, double **inv, double * U, int dim);
 vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguijuelas, double intervalo, int cantidadDeColumnas, int cantidadDeFilas);
 double ** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim);
 double *copiarB(double *b, int tam);
+double *matrizPorVector( double** inversa,double *vector, int dimencion);
 double *salvacionSM(instancia *ins, double *b)
 {
 	sanguijuela* s;
@@ -26,21 +27,13 @@ double *salvacionSM(instancia *ins, double *b)
 		double * vecVT = armarVectorVT((*sangDiscretizadas)[i]->y, ins->m);
 		//Ahora hago la ecuacion horrible de sherman morrison
 		double** ShermanMorris = calcularMatrizDeShermanMorrison(vecU, vecVT, inversa, dimencion);
-		delete vecU;
-		delete vecVT;
+		delete[] vecU;
+		delete[] vecVT;
 		//Obtengo una copia de B y modifico solo la fila donde esta la sanguijuela
 		double *nuevoB = copiarB(b, dimencion);
 		nuevoB[(*sangDiscretizadas)[i]->x] = 0;
 		//hago x = A^(-1).b y obtengo la nueva respuesta
-		double *respuesta = new double[dimencion];
-		for (int w = 0; w < dimencion; w++ )
-		{
-			respuesta[w] = 0;
-			for (int j = 0; j < dimencion; j++)
-			{
-				respuesta[w] = respuesta[w] + (nuevoB[j] * ShermanMorris[w][j]);
-			}
-		}
+		double *respuesta = matrizPorVector(ShermanMorris, nuevoB, dimencion);
 		//Si es la mejor respuesta obtenida hasta el momento, la guardo.
 		punto_critico_local = respuesta[posPuntoCritico];
 		if (punto_critico_local < punto_critico_global)
@@ -51,17 +44,18 @@ double *salvacionSM(instancia *ins, double *b)
 		}
 		//Limpio
 		for (int w = 0; w < dimencion; w++)
-			delete ShermanMorris[w];
-		delete ShermanMorris;
-		delete nuevoB;
+			delete[] ShermanMorris[w];
+		delete[] ShermanMorris;
+		delete[] nuevoB;
 		delete (*sangDiscretizadas)[i];
 	}
 	delete sangDiscretizadas;
 	for (int i = 0; i < dimencion; i++)
-		delete inversa[i];
-	delete inversa;
+		delete[] inversa[i];
+	delete[] inversa;
 	return mejorRespuesta;
 }
+
 double *copiarB(double *b, int tam)
 {
 	double *nuevoB = new double[tam];
@@ -71,93 +65,142 @@ double *copiarB(double *b, int tam)
 	}
 	return nuevoB;
 }
-double** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim)
+
+double *matrizPorVector(double** inversa,double *vector, int dimencion) {
+	double *respuesta = new double[dimencion];
+	for (int j = 0; j < dimencion; j++)
+	{
+		respuesta[j] = 0;
+		for (int w = 0; w < dimencion; w++)
+		{
+			respuesta[j]++;
+			vector[w]++;
+			inversa[j][w]++;
+			respuesta[j] +=(vector[w]) * (inversa[j][w]);
+		}
+	}
+	return respuesta;
+}
+
+double *vectorTporMatriz(double* vector, double** matriz, int dimencion){
+	double *respuesta = new double[dimencion];
+	for (int j = 0; j < dimencion; j++)
+	{
+		respuesta[j] = 0;
+		for (int w = 0; w < dimencion; w++)
+		{
+			respuesta[j] += vector[w] * matriz[w][j];
+		}
+	}
+	return respuesta;
+}
+
+double **vectorPorVectorT(double* AaLaMenosUnoPorU,double* VTporAalaMenosUno,int dimencion)
 {
-	int dimencion = dim;
-	double *AaLaMenosUnoPorU = new double[dimencion];
-	for (int j = 0; j < dimencion; j++)
-	{
-		AaLaMenosUnoPorU[j] = 0;
-		for (int w = 0; w < dimencion; w++)
-		{
-			AaLaMenosUnoPorU[j] = AaLaMenosUnoPorU[j] + vecU[w] * inversa[j][w];
-		}
-	}
-	double *VTporAalaMenosUno = new double[dimencion];
-	for (int j = 0; j < dimencion; j++)
-	{
-		VTporAalaMenosUno[j] = 0;
-		for (int w = 0; w < dimencion; w++)
-		{
-			VTporAalaMenosUno[j] += vecVT[w] * inversa[w][j];
-		}
-	}
-	//Aca calculo la constante loca que va dividiendo
-	double constanteLoca = calcularConstanteLoca(vecVT, inversa, vecU, dimencion);
-	//Aca termino de calcular sherman morrison
 	double** matrix = new double*[dimencion];
 	for (int w = 0; w < dimencion; w++) {
 		matrix[w] = new double[dimencion];
 		for (int j = 0; j < dimencion; j++) {
-			matrix[w][j] = inversa[w][j] - (AaLaMenosUnoPorU[w] * VTporAalaMenosUno[j]) / constanteLoca;
+			matrix[w][j] = AaLaMenosUnoPorU[w]*VTporAalaMenosUno[j];
 		}
 	}
-	delete VTporAalaMenosUno;
-	delete AaLaMenosUnoPorU;
 	return matrix;
 }
+
+void dividirMatrizPorCte(double** matrix,double cte, int dimencion){
+	for (int w = 0; w < dimencion; w++) {
+		for (int j = 0; j < dimencion; j++) {
+			matrix[w][j] = matrix[w][j] / cte;
+		}
+	}
+}
+
+void restaMatrices(double **matriz1, double **matriz2, int dimencion)
+{
+	for (int w = 0; w < dimencion; w++) {
+		for (int j = 0; j < dimencion; j++) {
+			matriz2[w][j] = matriz1[w][j] - matriz2[w][j];
+		}
+	}
+}
+
+double** calcularMatrizDeShermanMorrison(double *vecU, double* vecVT, double** inversa, int dim)
+{
+	double *AaLaMenosUnoPorU = matrizPorVector( inversa,vecU, dim);
+	double *VTporAalaMenosUno = vectorTporMatriz(vecVT, inversa, dim);
+	//Aca calculo la constante loca que va dividiendo
+	double constanteLoca = calcularConstanteLoca(vecVT, inversa, vecU, dim);
+	//Aca termino de calcular sherman morrison
+	double** matrix = vectorPorVectorT(AaLaMenosUnoPorU, VTporAalaMenosUno, dim);
+	dividirMatrizPorCte(matrix, constanteLoca,dim);
+	restaMatrices(inversa, matrix, dim);
+	delete[] VTporAalaMenosUno;
+	delete[] AaLaMenosUnoPorU;
+	return matrix;
+}
+
+double vectorTporVector(double *vectorT, double* vect, int dim)
+{	
+	double respuesta = 0;
+	for(int i= 0; i < dim; i++)
+		respuesta += vect[i] * vectorT[i];
+	return respuesta;
+}
+
+
+
 double calcularConstanteLoca(double* VT, double** inv, double * U, int dim)
 {
-	double *aux = new double[dim];
-	for (int i = 0; i < dim; i++)
-	{
-		aux[i] = 0;
-		for (int j = 0; j < dim; j++)
-			aux[i] += VT[j] * inv[i][j];
-	}
-	double resupesta = 0;
-	for (int i = 0; i < dim; i++)
-	{
-		resupesta += aux[i] * U[i];
-	}
-	delete aux;
-	return resupesta;
+	double *invPorU = matrizPorVector(inv, U, dim);
+	double respuesta = vectorTporVector(VT ,invPorU, dim);
+	respuesta += 1;
+	delete[] invPorU;
+	return respuesta;
 }
+
 sanguijuelaDiscretizada::sanguijuelaDiscretizada(int _x, int _y, double _temp)
 {
 	x = _x;
 	y = _y;
 	temp = _temp;
 }
+
+double *generarCanonico(int i, int dim)
+{
+	double* vectorCanonico = new double[dim];
+	for (int j = 0; j < dim; j++)
+		vectorCanonico[j] = 0;
+	vectorCanonico[i] = 1;
+	return vectorCanonico;
+}
+
+
 double** encontrarMatrizInversa(MatrizB *m)
 {
 	int dim = m->getN();
 	MatrizB *U = m;
 	MatrizB *L = DescompLU(U);
-	//parece que no es matriz bskkasd
 	double** inversa = new double*[dim];
 	for (int i = 0; i < dim; i++)
 		inversa[i] = new double[dim];
 
 	for (int i = 0; i < dim; i++)
 	{
-		double* vectorCanonico = new double[dim];
-		for (int j = 0; j < dim; j++)
-			vectorCanonico[j] = 0;
-		vectorCanonico[i] = 1;
+		double* vectorCanonico = generarCanonico(i, dim);
 		double* y = foward_substitution(L, vectorCanonico);
-		delete vectorCanonico;
+		delete[] vectorCanonico;
 		double *respuesta = backward_substitution(U, y);
-		delete y;
+		delete[] y;
 		for (int j = 0; j < dim; j++)
 		{
 			inversa[j][i] = respuesta[j];
 		}
-		delete respuesta;
+		delete[] respuesta;
 	}
 	delete L;
 	return inversa;
 }
+
 double* armarVectorU(int i, MatrizB *mat) {
 	int tam = mat->getN();
 	double* vectorU = new double[tam];
@@ -168,8 +211,11 @@ double* armarVectorU(int i, MatrizB *mat) {
 		vectorU[i] = -5;
 		vectorU[i + 1] = 1;
 		vectorU[i - 1] = 1;
+		
+		//////////////////////ACA ESTA EL ERROR////////////////////////
+
 		vectorU[i - mat->getM()] = 1;
-		vectorU[i - mat->getM()] = 1;
+		vectorU[i + mat->getM()] = 1;
 	}
 	return vectorU;
 }
