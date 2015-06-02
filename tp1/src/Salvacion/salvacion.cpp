@@ -30,6 +30,9 @@ double *buscarSalvacion(instancia *ins) {
 		punto_critico_local = respuesta[posPuntoCritico];
 		if (punto_critico_local < punto_critico_global)
 		{
+			if (punto_critico_global != 10000000000) {
+				delete[] mejorRespuesta;
+			}
 			mejorRespuesta = respuesta;
 			punto_critico_global = punto_critico_local;
 			a_eliminar = s;

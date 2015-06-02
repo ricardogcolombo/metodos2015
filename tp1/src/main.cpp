@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 		//archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
 		//archivoDeSalida << " "  <<  nuevaInstancia->intervalo << " ";
 		//archivoDeSalida << timeGauss << endl;
-		archivoTiempos.open("tiempos.txt");
+		archivoTiempos.open("TESTEADOR/tiempos0.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeGauss << endl;
 		archivoTiempos.close();
 		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 		//	archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
 		//	archivoDeSalida << " "  <<  nuevaInstancia->intervalo << " ";
 		//archivoDeSalida << timeLU << endl;
-		archivoTiempos.open("tiempos.txt");
+		archivoTiempos.open("TESTEADOR/tiempos1.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeLU << endl;
 		archivoTiempos.close();
 		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
@@ -90,6 +90,9 @@ int main(int argc, char *argv[]) {
 		//archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
 		//archivoDeSalida << " "  <<  nuevaInstancia->intervalo << " ";
 		//archivoDeSalida << timeSalvacion << endl;
+		archivoTiempos.open("TESTEADOR/tiempos2.txt", std::ofstream::out | std::ofstream::app);
+		archivoTiempos << timeSalvacion << endl;
+		archivoTiempos.close();
 		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
 			for (int w = 0; w < nuevaInstancia->m->getP(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
@@ -108,6 +111,9 @@ int main(int argc, char *argv[]) {
 		//		archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
 		//		archivoDeSalida << " "  <<  nuevaInstancia->intervalo << " ";
 		//	archivoDeSalida << timeSherman << endl;
+		archivoTiempos.open("TESTEADOR/tiempos3.txt", std::ofstream::out | std::ofstream::app);
+		archivoTiempos << timeSherman << endl;
+		archivoTiempos.close();
 		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
 			for (int w = 0; w < nuevaInstancia->m->getP(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;

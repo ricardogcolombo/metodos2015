@@ -65,10 +65,9 @@ double* calcularMatrizDeShermanMorrison(double *vecVT, double* vecU, MatrizB* L,
 	//double *b;
 	double *aux = foward_substitution(L, b);
 	double *y = backward_substitution(U, aux);
-
+	delete[] aux;
 	aux = foward_substitution(L, vecU);
 	double *z = backward_substitution(U, aux);
-
 	double n1 = vectorTporVector(vecVT, y, dim);
 	double divisor = vectorTporVector(vecVT, z, dim);
 	divisor = divisor + 1.0;
@@ -76,6 +75,8 @@ double* calcularMatrizDeShermanMorrison(double *vecVT, double* vecU, MatrizB* L,
 	for (int i = 0; i < dim; i++) {
 		z[i] = y[i] - (z[i] * n1);
 	}
+	delete[] y;
+	delete[] aux;
 	return z;
 }
 sanguijuelaDiscretizada::sanguijuelaDiscretizada(int _x, int _y, double _temp) {
