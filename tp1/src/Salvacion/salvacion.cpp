@@ -13,6 +13,7 @@ using namespace std;
 double *buscarSalvacion(instancia *ins) {
 	sanguijuela* s;
 	sanguijuela* a_eliminar = NULL;
+	int sanguijuelaParaEliminar;
 	instancia *ins_aux = generarInstMatriz(ins->ancho, ins->largo, ins->intervalo, ins->sanguijuelas);
 	//Queria ponerle el valor mas grande, pero c es caprichoso
 	double punto_critico_global = 10000000000;
@@ -32,9 +33,11 @@ double *buscarSalvacion(instancia *ins) {
 			mejorRespuesta = respuesta;
 			punto_critico_global = punto_critico_local;
 			a_eliminar = s;
+			sanguijuelaParaEliminar = i;
 		}
 		ins_aux->sanguijuelas->push_back(s);
 	}
+	cout << "MEJOR SANGIJUELA: CABEZA " << sanguijuelaParaEliminar << endl;
 	return mejorRespuesta;
 }
 void sacarSang(instancia *b) {
