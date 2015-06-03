@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
 		cout << "Corriendo Metodo de gauss..." << endl;
 		gettimeofday(&startGauss, NULL);
 		gauss(nuevaInstancia->m, nuevaInstancia->b);
-		gettimeofday(&endGauss, NULL);
 		respuesta = backward_substitution(nuevaInstancia->m, nuevaInstancia->b);
+		gettimeofday(&endGauss, NULL);
 		elapsed_seconds = endGauss.tv_sec - startGauss.tv_sec;
 		elapsed_useconds = endGauss.tv_usec - startGauss.tv_usec;
 		double timeGauss =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
@@ -50,8 +50,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos0.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeGauss << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
-			for (int w = 0; w < nuevaInstancia->m->getP(); w++) {
+		for (int i = 0; i < nuevaInstancia->largo + 1; i++)
+			for (int w = 0; w < nuevaInstancia->ancho + 1; w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -72,8 +72,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos1.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeLU << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
-			for (int w = 0; w < nuevaInstancia->m->getP(); w++) {
+		for (int i = 0; i < nuevaInstancia->largo + 1; i++)
+			for (int w = 0; w < nuevaInstancia->ancho + 1; w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -93,8 +93,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos2.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeSalvacion << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
-			for (int w = 0; w < nuevaInstancia->m->getP(); w++) {
+		for (int i = 0; i < nuevaInstancia->largo + 1; i++)
+			for (int w = 0; w < nuevaInstancia->ancho + 1; w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -114,8 +114,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos3.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeSherman << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->m->getP(); i++)
-			for (int w = 0; w < nuevaInstancia->m->getP(); w++) {
+		for (int i = 0; i < nuevaInstancia->largo + 1; i++)
+			for (int w = 0; w < nuevaInstancia->ancho + 1; w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}

@@ -62,6 +62,7 @@ void gauss(MatrizB *m, double *b) {
       }
     }
   }
+  delete L;
 }
 /**
  * Algoritmo de descomposicion LU

@@ -1,3 +1,23 @@
+\subsection{An\'alisis de temperatura y tiempos en funci\'on de los parametros de entrada}
+En esta seccion analizaremos de manera experimental como varían los tiempos de ejecución de los algoritmos descriptos, al variar el largo y el ancho de la matriz y la cantidad de sanguijuelas del sistema.
+\\
+Para comenzar, tomaremos un parabrisas con 50 sanguijuelas, tal que estas solo toquen un punto de la discretización, y para una granularidad fija de $1.0$ iremos variando tanto el largo como el ancho del parabrisas. De esta manera, comenzaremos con un parabrisas de $50x50$ luego uno de $60x60$ y asi aumentando de manera lineal ambos parametros hasta llegar a un parabrisas de $x$. Resolveremos cada uno de estos sistemas utilizando ambos metodos implementados (Gauss y Descomposición LU). Los resultados obtenidos pueden verse en el siguente grafico:
+
+%Grafico
+
+Ahora, utilizando la misma familia de parabrisas descripta anteriormente, veremos como se comportan ambos metodos de salvación. Dado que nos aseguramos que cada sanguijuela solo toque un punto de la discretización, nos aseguramos que podremos utilizar el metodo de Sherman Morrison. Para estos algoritmos, el grafico es el siguiente:
+
+%Grafico
+
+Para el siguente experimento, variaremos la cantidad de sanguijuelas y dejaremos fija tanto la granularidad como el largo y el ancho del parabrisas. Nuevamente, por una cuestión de simplicidad las sanguijuelas solo tocarán un punto de la discretización. Para el experimento tomamos un parabrisas de $100x100$, una granularidad igual a $1.0$, y variamos la cantidad de sanguijuelas desde $10$ hasta $100$. Resolviendo el sistema con el algoritmo de Gauss y Descomposicion LU, se obtuvo el siguiente grafico.
+
+%Grafico
+
+Ahora utilizando el mismo experimento para el problema del ultimo disparo, resolviendo este parabrisas con ambos algoritmos, se obtuvo este grafico:
+
+%Grafico
+
+
 \subsection{An\'alisis de temperatura y tiempos en funci\'on de las discretizaciones}
 A continuaci\'on presentamos el an\'alisis y las conclusiones obtenidas de acuerdo a la experimentaci\'on realizada.
 Como pudimos intuir en un primer momento, una mayor granularidad en la discretizaci\'on hace escalar r\'apidamente la cantidad de ecuaciones y variables involucradas, con lo que el tiempo de los algoritmos escala r\'apidamente. Como supusimos, ambos algoritmos (Lease, la Eliminaci\'on Gaussiana explotando la estructura banda y la factorizaci\'on LU) utilizados en el an\'alisis,  presentan diferencias de tiempo considerables, sobre todo a partir del \'ultimo caso analizado donde se termina resolviendo un sistema de ecuaciones representado en una matriz de $200 \times 200$
