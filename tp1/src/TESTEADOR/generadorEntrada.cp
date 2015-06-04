@@ -11,7 +11,7 @@
 using namespace std;
 //El programa requiere 3 parametros, el largo, el ancho y la cantidad de sanguijuelas del sistema
 int main(int argc, char *argv[]) {
-	if (argc != 4) {
+	if (argc != 5) {
 		cout << "Error, Faltan Argumentos" << endl;
 		return 1;
 	}
@@ -20,8 +20,8 @@ int main(int argc, char *argv[]) {
 	archivoDeSalida.open("TESTEADOR/instancia.txt");
 	double largo = strtod(argv[1], NULL);
 	double ancho = strtod(argv[2], NULL);
-	int cantidadSang = strtod(argv[3], NULL);;
-	double discretizacion = 1.0;
+	int cantidadSang = strtod(argv[3], NULL);
+	double discretizacion = strtod(argv[4], NULL);
 	int cantidadDeSanguijuelasMax = (largo - 2) * (ancho - 2);
 	if (cantidadDeSanguijuelasMax < cantidadSang) {
 		cout << "Error, El sistema no soporta esta cantida de sang" << endl;
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 	}
 	double x = 1;
 	double y = 1;
-	archivoDeSalida.precision(0);
+	archivoDeSalida.precision(1);
 	archivoDeSalida << largo << " "<< ancho << " " << discretizacion << " " << cantidadSang << endl;
 	archivoDeSalida.precision(1);
 	for (int i = 0; i < cantidadSang; i++) {
