@@ -16,7 +16,7 @@ class sanguijuela {
   public:
 	  double x,y,radio,temperatura;
 	  sanguijuela(double x, double y, double radio, double temperatura);
-	  ~sanguijuela();
+	  ~sanguijuela(){};
 };
 
 
@@ -26,6 +26,9 @@ class instancia {
 	  double *b;	
 	  double ancho, largo, intervalo;
 	  std::vector<sanguijuela*> *sanguijuelas;
+	  ~instancia();
+	  int cantidadDeColumnas();
+	  int cantidadDeFilas();
 };
 
 instancia* generarInst(std::ifstream &archivoDeEntrada);

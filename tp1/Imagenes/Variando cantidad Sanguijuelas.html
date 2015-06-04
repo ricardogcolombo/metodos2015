@@ -1,0 +1,418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title></title>
+	<meta name="generator" content="LibreOffice 4.2.8.2 (Linux)">
+	<meta name="created" content="0;0">
+	<meta name="changed" content="20150603;111739486613219">
+	
+	<style type="text/css"><!-- 
+		body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Liberation Sans"; font-size:x-small }
+		 -->
+	</style>
+	
+</head>
+
+<body text="#000000">
+<table cellspacing="0" border="0">
+	<colgroup width="59"></colgroup>
+	<colgroup span="16" width="85"></colgroup>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left">Gauss</td>
+		<td align="left">Descomp LU</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left">Ultimo Disparo Simple</td>
+		<td align="left">Sherman Morrison</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="10" sdnum="1033;">10</td>
+		<td align="right" sdval="3054.31" sdnum="1033;">3054.31</td>
+		<td align="right" sdval="3267.82" sdnum="1033;">3267.82</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="10" sdnum="1033;">10</td>
+		<td align="right" sdval="31171.9" sdnum="1033;">31171.9</td>
+		<td align="right" sdval="3995.56" sdnum="1033;">3995.56</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="20" sdnum="1033;">20</td>
+		<td align="right" sdval="3138.13" sdnum="1033;">3138.13</td>
+		<td align="right" sdval="3229.45" sdnum="1033;">3229.45</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="20" sdnum="1033;">20</td>
+		<td align="right" sdval="63488.1" sdnum="1033;">63488.1</td>
+		<td align="right" sdval="4961.2" sdnum="1033;">4961.2</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="30" sdnum="1033;">30</td>
+		<td align="right" sdval="3038.79" sdnum="1033;">3038.79</td>
+		<td align="right" sdval="3069.2" sdnum="1033;">3069.2</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="30" sdnum="1033;">30</td>
+		<td align="right" sdval="97960.2" sdnum="1033;">97960.2</td>
+		<td align="right" sdval="5860.68" sdnum="1033;">5860.68</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="40" sdnum="1033;">40</td>
+		<td align="right" sdval="3124.22" sdnum="1033;">3124.22</td>
+		<td align="right" sdval="3073.77" sdnum="1033;">3073.77</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="40" sdnum="1033;">40</td>
+		<td align="right" sdval="133960" sdnum="1033;">133960</td>
+		<td align="right" sdval="6936.57" sdnum="1033;">6936.57</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="50" sdnum="1033;">50</td>
+		<td align="right" sdval="3096.08" sdnum="1033;">3096.08</td>
+		<td align="right" sdval="3229.14" sdnum="1033;">3229.14</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="50" sdnum="1033;">50</td>
+		<td align="right" sdval="159405" sdnum="1033;">159405</td>
+		<td align="right" sdval="7841.87" sdnum="1033;">7841.87</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="60" sdnum="1033;">60</td>
+		<td align="right" sdval="3127.32" sdnum="1033;">3127.32</td>
+		<td align="right" sdval="3171.96" sdnum="1033;">3171.96</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="60" sdnum="1033;">60</td>
+		<td align="right" sdval="189268" sdnum="1033;">189268</td>
+		<td align="right" sdval="8824.87" sdnum="1033;">8824.87</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="70" sdnum="1033;">70</td>
+		<td align="right" sdval="3138.25" sdnum="1033;">3138.25</td>
+		<td align="right" sdval="3144.45" sdnum="1033;">3144.45</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="70" sdnum="1033;">70</td>
+		<td align="right" sdval="222637" sdnum="1033;">222637</td>
+		<td align="right" sdval="9553.79" sdnum="1033;">9553.79</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="80" sdnum="1033;">80</td>
+		<td align="right" sdval="3106.93" sdnum="1033;">3106.93</td>
+		<td align="right" sdval="3190.34" sdnum="1033;">3190.34</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="80" sdnum="1033;">80</td>
+		<td align="right" sdval="255347" sdnum="1033;">255347</td>
+		<td align="right" sdval="10366.6" sdnum="1033;">10366.6</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="90" sdnum="1033;">90</td>
+		<td align="right" sdval="3069.27" sdnum="1033;">3069.27</td>
+		<td align="right" sdval="3169.05" sdnum="1033;">3169.05</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="90" sdnum="1033;">90</td>
+		<td align="right" sdval="287991" sdnum="1033;">287991</td>
+		<td align="right" sdval="11375" sdnum="1033;">11375</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="100" sdnum="1033;">100</td>
+		<td align="right" sdval="3053.56" sdnum="1033;">3053.56</td>
+		<td align="right" sdval="3121.35" sdnum="1033;">3121.35</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="100" sdnum="1033;">100</td>
+		<td align="right" sdval="314466" sdnum="1033;">314466</td>
+		<td align="right" sdval="11787.7" sdnum="1033;">11787.7</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td colspan=8 rowspan=21 align="left"><br><img src="Variando%20cantidad%20Sanguijuelas_html_7a8d1961.png" width=606 height=340 hspace=42 vspace=19>
+		</td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+</table>
+<img src="Variando%20cantidad%20Sanguijuelas_html_fbc4c6da.png" width=606 height=340 hspace=42 vspace=19>
+<!-- ************************************************************************** -->
+</body>
+
+</html>

@@ -139,3 +139,19 @@ sanguijuela::sanguijuela(double _x, double _y, double _radio, double _temperatur
 	radio = _radio;
 	temperatura= _temperatura; 
 }
+
+instancia::~instancia(){
+	delete m;
+	delete b;
+	for(int i = 0; i < sanguijuelas->size(); i++)
+		delete (*sanguijuelas)[i];
+	delete sanguijuelas;
+}
+
+int instancia::cantidadDeColumnas(){
+	return (largo + 1)/intervalo;
+}
+
+int instancia::cantidadDeFilas(){
+	return (ancho + 1)/intervalo;
+}

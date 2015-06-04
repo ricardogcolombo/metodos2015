@@ -20,7 +20,7 @@ double *buscarSalvacion(instancia *ins) {
 	double punto_critico_local = 0;
 	double *respuesta;
 	double *mejorRespuesta;
-	int posPuntoCritico = (ins->ancho*((ins->largo/2))) + ((ins->ancho / 2)) + (ins->largo / 2) + 1;
+	int posPuntoCritico = (ins->cantidadDeFilas()*((ins->cantidadDeColumnas()/2))) + ((ins->cantidadDeFilas() / 2)) + (ins->cantidadDeColumnas() / 2) + 1;
 	for (int i = 0; i < ins->sanguijuelas->size() ; i++) {
 		s = ins_aux->sanguijuelas->front();
 		ins_aux->sanguijuelas->erase(ins_aux->sanguijuelas->begin());

@@ -13,7 +13,10 @@ double *salvacionSM(instancia *ins, double *b) {
 	double punto_critico_global = INFINITO;
 	double punto_critico_local = 0;
 	double *mejorRespuesta;
-	int posPuntoCritico = (ins->ancho*((ins->largo/2))) + ((ins->ancho / 2)) + (ins->largo / 2) + 1;
+	int posPuntoCritico = (ins->cantidadDeFilas()*((ins->cantidadDeColumnas()/2))) + ((ins->cantidadDeFilas() / 2)) + 1;
+	cout << posPuntoCritico << endl;
+	cout << ins->cantidadDeFilas() << endl;
+
 	vector<sanguijuelaDiscretizada*> *sangDiscretizadas = discretizarSangs(ins->sanguijuelas, ins->intervalo, ins->m->getP(), ins->m->getP());
 	int dimencion = ins->m->getN();
 	MatrizB* U = ins->m;

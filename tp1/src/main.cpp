@@ -44,14 +44,11 @@ int main(int argc, char *argv[]) {
 		elapsed_seconds = endGauss.tv_sec - startGauss.tv_sec;
 		elapsed_useconds = endGauss.tv_usec - startGauss.tv_usec;
 		double timeGauss =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
-		//archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
-		//archivoDeSalida << " "  <<  nuevaInstancia->nuevaInstancia->intervalo << " ";
-		//archivoDeSalida << timeGauss << endl;
 		archivoTiempos.open("TESTEADOR/tiempos0.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeGauss << endl;
 		archivoTiempos.close();
-for (int i = 0; i < (nuevaInstancia->largo + 1) / nuevaInstancia->intervalo; i++)
-			for (int w = 0; w < (nuevaInstancia->ancho + 1) / nuevaInstancia->intervalo; w++) {
+		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -66,14 +63,11 @@ for (int i = 0; i < (nuevaInstancia->largo + 1) / nuevaInstancia->intervalo; i++
 		elapsed_seconds = endLU.tv_sec - startLU.tv_sec;
 		elapsed_useconds = endLU.tv_usec - startLU.tv_usec;
 		double timeLU =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
-		//	archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
-		//	archivoDeSalida << " "  <<  nuevaInstancia->nuevaInstancia->intervalo << " ";
-		//archivoDeSalida << timeLU << endl;
 		archivoTiempos.open("TESTEADOR/tiempos1.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeLU << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < (nuevaInstancia->largo + 1) / nuevaInstancia->intervalo; i++)
-			for (int w = 0; w < (nuevaInstancia->ancho + 1) / nuevaInstancia->intervalo; w++) {
+		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -87,14 +81,11 @@ for (int i = 0; i < (nuevaInstancia->largo + 1) / nuevaInstancia->intervalo; i++
 		elapsed_useconds = endSalvacion.tv_usec - startSalvacion.tv_usec;
 		double timeSalvacion =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
 		cout << timeSalvacion << endl;
-		//archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
-		//archivoDeSalida << " "  <<  nuevaInstancia->nuevaInstancia->intervalo << " ";
-		//archivoDeSalida << timeSalvacion << endl;
 		archivoTiempos.open("TESTEADOR/tiempos2.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeSalvacion << endl;
 		archivoTiempos.close();
-for (int i = 0; i < (nuevaInstancia->largo + 1) / nuevaInstancia->intervalo; i++)
-			for (int w = 0; w < (nuevaInstancia->ancho + 1) / nuevaInstancia->intervalo; w++) {
+		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -108,21 +99,15 @@ for (int i = 0; i < (nuevaInstancia->largo + 1) / nuevaInstancia->intervalo; i++
 		elapsed_useconds = endSherman.tv_usec - startSherman.tv_usec;
 		double timeSherman =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
 		cout << timeSherman << endl;
-		//		archivoDeSalida << nuevaInstancia->ancho << " " <<  nuevaInstancia->largo;
-		//		archivoDeSalida << " "  <<  nuevaInstancia->nuevaInstancia->intervalo << " ";
-		//	archivoDeSalida << timeSherman << endl;
 		archivoTiempos.open("TESTEADOR/tiempos3.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeSherman << endl;
 		archivoTiempos.close();
-for (int i = 0; i < (nuevaInstancia->largo + 1) / nuevaInstancia->intervalo; i++)
-			for (int w = 0; w < (nuevaInstancia->ancho + 1) / nuevaInstancia->intervalo; w++) {
+		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
 	cout << "Fin!" << endl;
-	delete nuevaInstancia->m;
-	delete[] nuevaInstancia->b;
-	delete nuevaInstancia->sanguijuelas;
 	delete nuevaInstancia;
 	delete[] respuesta;
 	archivoDeSalida.close();
