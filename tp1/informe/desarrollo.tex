@@ -50,12 +50,12 @@ Escrito de manera mas formal el algoritmo ser\'a el siguiente:
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void Gauss(matriz A, vector b)}
-  \STATE{Para i=$1...n$}
+  \STATE{Para k=$1...n$}
   \STATE{\quad Tomo el elemento $a_{i,i}$ como pivote}
-  \STATE{\quad Para $k = i+1,...i+p$}  
-  \STATE{\quad \quad Para $w = i+1,...k+p$}
-  \STATE{\quad \quad \quad $a_{k,w}  = a_{k,w} - a_{i,w} * (a_{k,i} / a_{w,w})$}
-  \STATE{\quad \quad $a_{i,i} = 0$}
+  \STATE{\quad Para $i = k+1,...k+p$}  
+  \STATE{\quad \quad Para $j = k+1,...i+p$}
+  \STATE{\quad \quad \quad $a_{i,j}  = a_{i,j} - a_{k,j} * (a_{i,k} / a_{k,k})$}
+  \STATE{\quad \quad $a_{i,k} = 0$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -75,13 +75,13 @@ Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussia
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void Gauss(matriz A, vector b)}
   \STATE{Inicializo una matriz $L$ con unos en la diagonal}
-  \STATE{Para i=$1...n$}
-  \STATE{\quad Tomo el elemento $a_{i,i}$ como pivote}
-  \STATE{\quad Para $k = i+1,...i+p$}  
-  \STATE{\quad \quad Para $w = i+1,...k+p$}
-  \STATE{\quad \quad \quad $a_{k,w}  = a_{k,w} - a_{i,w} * (a_{k,i} / a_{w,w})$}
-  \STATE{\quad \quad $a_{i,i} = 0$}
-  \STATE{\quad \quad $L_{i,i} = a_{i,w} * (a_{k,i} / a_{w,w}$}
+  \STATE{Para k=$1...n$}
+  \STATE{\quad Tomo el elemento $a_{k,k}$ como pivote}
+  \STATE{\quad Para $i = k+1,...k+p$}  
+  \STATE{\quad \quad Para $w = k+1,...i+p$}
+  \STATE{\quad \quad \quad $a_{i,j}  = a_{i,j} - a_{k,j} * (a_{i,k} / a_{k,k})$}
+  \STATE{\quad \quad $a_{i,k} = 0$}
+  \STATE{\quad \quad $L_{i,k} = a_{k,j} * (a_{i,k} / a_{k,k}$}
 \end{algorithmic}
 \end{algorithm}
 
