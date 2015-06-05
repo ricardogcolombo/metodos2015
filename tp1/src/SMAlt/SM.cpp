@@ -64,6 +64,9 @@ double vectorTporVector(double *vectorT, double* vect, int dim) {
 	}
 	return respuesta;
 }
+
+// n^2 + n^2 + n^2 + n^2 +n+n+n
+//O(n^2)
 double* calcularMatrizDeShermanMorrison(double *vecVT, double* vecU, MatrizB* L, MatrizB* U , double* b, int dim) {
 	//double *b;
 	double *aux = foward_substitution(L, b);
