@@ -115,9 +115,9 @@ Mas formalizado en pseudocidigo:
 \end{algorithmic}
 \end{algorithm}
 
-Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resoluci\'on $n$ y el tamaño de la banda $p$. La complegidad de este algoritmo sera $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
+Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resoluci\'on $n$ y el tamaño de la banda $p$. La complejidad de este algoritmo sera $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
 
-Ahora intentaremos mejorar esta complegidad a travez de la utlizacion de la formula de sherman morrison.
+Ahora intentaremos mejorar esta complejidad a travez de la utlizacion de la formula de sherman morrison.
 
 \subsection{Implementacion Sherman-Morrison}
 Entonces, sean $A$, $A^*$ la matriz original del problema y la matriz modificada sin una de sus sanguijuelas respectivamente, queremos resolver $A^*$ = $A + uv^t$ donde $uv^t$ representa la matriz que introduce los cambios debido a la modificacion. Sea entonces
