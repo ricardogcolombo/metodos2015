@@ -2,7 +2,7 @@
 
 Al utilizar una estructura de menor espacio para representar la matriz del sistema, debimos lidiar con problemas de indexaci\'on. Gracias a una abstracci\'on \'util de la matriz bajo la clase $MatrizB$, entregando los m\'etodos p\'ublicos $getVal$ y $setVal$, que toman indices de la matriz original y los mapean a la respresentaci\'on interna que consta de un vector bidimensional, el problema pudo ser mitigado.
 
-\{Eficiencia temporal}
+\subsection{Eficiencia temporal}
 
 La resoluci\'on de este sistema de ecuaciones implica una gran cantidad de operaciones aritm\'eticas intervinientes. Trabajamos entonces en t\'ecnicas para disminuir el costo computacional sobre el algoritmo base de eliminaci\'on gaussiana a trav\'es de la explotaci\'on de caracter\'isticas particulares del problema.
 Algunas t\'ecnicas, como la factorizaci\'ion LU, permiten una resoluci\'on m\'as r\'apida del problema y funcionan para cualquier entrada. En cambio, otras t\'ecnicas aplican a un subconjunto de las posibles entradas.

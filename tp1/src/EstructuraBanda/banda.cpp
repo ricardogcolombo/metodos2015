@@ -172,3 +172,14 @@ void MatrizB::printM() {
     cout << endl;
   }
 }
+
+
+MatrizB *MatrizB::copy() {
+  MatrizB* aux = new MatrizB(n,ku);
+  for (int i = 0; i < kl + ku + 1; i++) {
+    for (int j = 0; j < n; j++) {
+      aux->matrix[i][j] = matrix[i][j];
+    }
+  }
+  return aux;
+}

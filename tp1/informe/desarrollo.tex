@@ -50,12 +50,12 @@ Escrito de manera mas formal el algoritmo ser\'a el siguiente:
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void Gauss(matriz A, vector b)}
-  \STATE{Para i=$1...n$}
+  \STATE{Para k=$1...n$}
   \STATE{\quad Tomo el elemento $a_{i,i}$ como pivote}
-  \STATE{\quad Para $k = i+1,...i+p$}  
-  \STATE{\quad \quad Para $w = i+1,...k+p$}
-  \STATE{\quad \quad \quad $a_{k,w}  = a_{k,w} - a_{i,w} * (a_{k,i} / a_{w,w})$}
-  \STATE{\quad \quad $a_{i,i} = 0$}
+  \STATE{\quad Para $i = k+1,...k+p$}  
+  \STATE{\quad \quad Para $j = k+1,...i+p$}
+  \STATE{\quad \quad \quad $a_{i,j}  = a_{i,j} - a_{k,j} * (a_{i,k} / a_{k,k})$}
+  \STATE{\quad \quad $a_{i,k} = 0$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -67,7 +67,7 @@ De esta manera habremos disminuimos la complegidad del backwards substitution de
 
 \subsection{Descomposicion LU}
 
-La segunda forma que desarrollamos para resolver el problema es realizando una descomposicion LU a la matriz original. La ventaja de esto es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en O(n^2).
+La segunda forma que desarrollamos para resolver el problema es realizando una descomposicion LU a la matriz original. La ventaja de esto es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en $O(n^2)$.
 
 Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussiana, este tambien puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones ser\'an similares a las de Gauss. Expresandolo de manera algoritmica, la descomposicion $LU$ optimizada ser\'a asi:
 
@@ -75,13 +75,13 @@ Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussia
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void Gauss(matriz A, vector b)}
   \STATE{Inicializo una matriz $L$ con unos en la diagonal}
-  \STATE{Para i=$1...n$}
-  \STATE{\quad Tomo el elemento $a_{i,i}$ como pivote}
-  \STATE{\quad Para $k = i+1,...i+p$}  
-  \STATE{\quad \quad Para $w = i+1,...k+p$}
-  \STATE{\quad \quad \quad $a_{k,w}  = a_{k,w} - a_{i,w} * (a_{k,i} / a_{w,w})$}
-  \STATE{\quad \quad $a_{i,i} = 0$}
-  \STATE{\quad \quad $L_{i,i} = a_{i,w} * (a_{k,i} / a_{w,w}$}
+  \STATE{Para k=$1...n$}
+  \STATE{\quad Tomo el elemento $a_{k,k}$ como pivote}
+  \STATE{\quad Para $i = k+1,...k+p$}  
+  \STATE{\quad \quad Para $w = k+1,...i+p$}
+  \STATE{\quad \quad \quad $a_{i,j}  = a_{i,j} - a_{k,j} * (a_{i,k} / a_{k,k})$}
+  \STATE{\quad \quad $a_{i,k} = 0$}
+  \STATE{\quad \quad $L_{i,k} = a_{k,j} * (a_{i,k} / a_{k,k}$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -105,7 +105,7 @@ Mas formalizado en pseudocidigo:
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
-\caption{void Ultimo_disparo()}
+\caption{void Ultimo\_disparo()}
 \STATE{ Para cada sanguijuela}
 \STATE{ \quad La quito de la matriz $A$}
 \STATE{ \quad Quito su b en $0$}
@@ -115,17 +115,38 @@ Mas formalizado en pseudocidigo:
 \end{algorithmic}
 \end{algorithm}
 
-Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resoluci\'on $n$ y el tamaño de la banda $p$. La complegidad de este algoritmo sera $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
+Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resoluci\'on $n$ y el tamaño de la banda $p$. La complejidad de este algoritmo sera $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
 
-Ahora intentaremos mejorar esta complegidad a travez de la utlizacion de la formula de sherman morrison.
+Ahora intentaremos mejorar esta complejidad a travez de la utlizacion de la formula de sherman morrison.
 
 \subsection{Implementacion Sherman-Morrison}
-
-
 Entonces, sean $A$, $A^*$ la matriz original del problema y la matriz modificada sin una de sus sanguijuelas respectivamente, queremos resolver $A^*$ = $A + uv^t$ donde $uv^t$ representa la matriz que introduce los cambios debido a la modificacion. Sea entonces
 $(A^*)x = b$. Resolvemos las siguientes ecuaciones, $Ay = b$ y $Az = u$ y obtenemos la nueva $x$ a partir del siguiente c\'alculo:
 \begin{equation}
-x = y - \frac{zv^ty}{1+v^tz}.
+x = y - \frac{z(v^ty)}{1+v^tz}.
 \end{equation}
-As\'i entonces, podemos obtener los resultados a partir de multiplicaciones de complejidad cuadr\'atica y evitamos volver a usar el algoritmo de eliminaci\'on gaussiana de complejidad c\'ubica.
+As\'i entonces, podemos obtener los resultados a partir de multiplicaciones vectoriales de complejidad lineal y evitamos volver a usar el algoritmo de eliminaci\'on gaussiana de complejidad c\'ubica.
+\\
+Formalizando el algoritmo:
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void Ultimo\_disparo\_Sherman\_Morrison()}
+\STATE{ \quad realizo la descomposición LU de A}
+\STATE{ Para cada sanguijuela}
+\STATE{ \quad modifico el valor de b en el lugar de la sanguijuela}
+\STATE{ \quad Calculo $x$ de la manera vista arriba}
+\STATE{ \quad Restablezco los valores originales en b y paso a la siguiente sangijuela}
+\end{algorithmic}
+\end{algorithm}
 
+Este algoritmo tendrá la siguiente complegidad:
+\begin{enumerate}
+ \item Descomposición LU: $O(np^2)$
+ \item Luego para cada sangijuela:
+\begin{enumerate}
+\item Modifico el valor de b en el lugar de la sanguijuela: $O(1)$
+\item Calculo $x$ de la manera vista arriba: $O(n^p)$
+\item Restablezco los valores originales en b: $O(1)$
+\end{enumerate}  
+\end{enumerate}
+Luego esto da una complejidad de $O(np^2 + wnp)$

@@ -17,3 +17,5 @@ t_{ij} \ =\ \frac{ t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}}{4}.
 \end{equation}
 
 De esta forma, es posible plantear un sistema en donde cada punto est\'e en funci\'on de otros y as\'i resolver todas las ecuaciones nos dar\'a la temperatura en el punto cr\'itico.
+
+Dado que estamos discretizando el sistema, puede ocurrir que el punto critico (que esta definido como el centro del parabrisas) puede ocurrir que no coincida con ningun punto de la discretización. En este caso, calcularemos un punto proximo a este que sí este en la discretización y lo consideraremos el punto critico. Nuestro razonamiento fue que para una granularidad apropiada, este vecino será suficientemente cercano y va a corresponderse con el valor que debería coincidir con la discretización.

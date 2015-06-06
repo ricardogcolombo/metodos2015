@@ -23,6 +23,7 @@ public:
 	void setVal(int x, int y, double val);
 	double getVal(int x, int y);
 	void printM();
+	MatrizB *copy();
 };
 
 #endif

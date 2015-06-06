@@ -1,0 +1,785 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title></title>
+	<meta name="generator" content="LibreOffice 4.2.8.2 (Linux)">
+	<meta name="created" content="20150603;205123659635446">
+	<meta name="changed" content="20150603;205649979958228">
+	
+	<style type="text/css"><!-- 
+		body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Liberation Sans"; font-size:x-small }
+		 -->
+	</style>
+	
+</head>
+
+<body text="#000000">
+<table cellspacing="0" border="0">
+	<colgroup span="17" width="85"></colgroup>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left">Gauss</td>
+		<td align="left">Descomp. LU</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left">Salvaciòn Simple</td>
+		<td align="left">Sherman Morrison</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="50" sdnum="1033;">50</td>
+		<td align="right" sdval="123.674" sdnum="1033;">123.674</td>
+		<td align="right" sdval="125.975" sdnum="1033;">125.975</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="50" sdnum="1033;">50</td>
+		<td align="right" sdval="1192.35" sdnum="1033;">1192.35</td>
+		<td align="right" sdval="155.821" sdnum="1033;">155.821</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="60" sdnum="1033;">60</td>
+		<td align="right" sdval="147.983" sdnum="1033;">147.983</td>
+		<td align="right" sdval="149.46" sdnum="1033;">149.46</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="60" sdnum="1033;">60</td>
+		<td align="right" sdval="1419.46" sdnum="1033;">1419.46</td>
+		<td align="right" sdval="193.06" sdnum="1033;">193.06</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="70" sdnum="1033;">70</td>
+		<td align="right" sdval="172.506" sdnum="1033;">172.506</td>
+		<td align="right" sdval="173.276" sdnum="1033;">173.276</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="70" sdnum="1033;">70</td>
+		<td align="right" sdval="1655.98" sdnum="1033;">1655.98</td>
+		<td align="right" sdval="226.838" sdnum="1033;">226.838</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="80" sdnum="1033;">80</td>
+		<td align="right" sdval="191.491" sdnum="1033;">191.491</td>
+		<td align="right" sdval="196.61" sdnum="1033;">196.61</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="80" sdnum="1033;">80</td>
+		<td align="right" sdval="1941.39" sdnum="1033;">1941.39</td>
+		<td align="right" sdval="259.029" sdnum="1033;">259.029</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="90" sdnum="1033;">90</td>
+		<td align="right" sdval="219.872" sdnum="1033;">219.872</td>
+		<td align="right" sdval="217.705" sdnum="1033;">217.705</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="90" sdnum="1033;">90</td>
+		<td align="right" sdval="2129.03" sdnum="1033;">2129.03</td>
+		<td align="right" sdval="287.427" sdnum="1033;">287.427</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="100" sdnum="1033;">100</td>
+		<td align="right" sdval="241.904" sdnum="1033;">241.904</td>
+		<td align="right" sdval="245.872" sdnum="1033;">245.872</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="100" sdnum="1033;">100</td>
+		<td align="right" sdval="2368.75" sdnum="1033;">2368.75</td>
+		<td align="right" sdval="325.578" sdnum="1033;">325.578</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="110" sdnum="1033;">110</td>
+		<td align="right" sdval="263.471" sdnum="1033;">263.471</td>
+		<td align="right" sdval="270.179" sdnum="1033;">270.179</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="110" sdnum="1033;">110</td>
+		<td align="right" sdval="2609.35" sdnum="1033;">2609.35</td>
+		<td align="right" sdval="378.363" sdnum="1033;">378.363</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="120" sdnum="1033;">120</td>
+		<td align="right" sdval="292.028" sdnum="1033;">292.028</td>
+		<td align="right" sdval="310.95" sdnum="1033;">310.95</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="120" sdnum="1033;">120</td>
+		<td align="right" sdval="2845.91" sdnum="1033;">2845.91</td>
+		<td align="right" sdval="404.878" sdnum="1033;">404.878</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="130" sdnum="1033;">130</td>
+		<td align="right" sdval="318.207" sdnum="1033;">318.207</td>
+		<td align="right" sdval="315.401" sdnum="1033;">315.401</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="130" sdnum="1033;">130</td>
+		<td align="right" sdval="3083.31" sdnum="1033;">3083.31</td>
+		<td align="right" sdval="446.055" sdnum="1033;">446.055</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="140" sdnum="1033;">140</td>
+		<td align="right" sdval="336.409" sdnum="1033;">336.409</td>
+		<td align="right" sdval="342.414" sdnum="1033;">342.414</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="140" sdnum="1033;">140</td>
+		<td align="right" sdval="3320.3" sdnum="1033;">3320.3</td>
+		<td align="right" sdval="485.716" sdnum="1033;">485.716</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="150" sdnum="1033;">150</td>
+		<td align="right" sdval="361.511" sdnum="1033;">361.511</td>
+		<td align="right" sdval="364.047" sdnum="1033;">364.047</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="150" sdnum="1033;">150</td>
+		<td align="right" sdval="3566.64" sdnum="1033;">3566.64</td>
+		<td align="right" sdval="490.129" sdnum="1033;">490.129</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="160" sdnum="1033;">160</td>
+		<td align="right" sdval="383.897" sdnum="1033;">383.897</td>
+		<td align="right" sdval="391.922" sdnum="1033;">391.922</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="160" sdnum="1033;">160</td>
+		<td align="right" sdval="3805.49" sdnum="1033;">3805.49</td>
+		<td align="right" sdval="578.575" sdnum="1033;">578.575</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="170" sdnum="1033;">170</td>
+		<td align="right" sdval="400.467" sdnum="1033;">400.467</td>
+		<td align="right" sdval="412.438" sdnum="1033;">412.438</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="170" sdnum="1033;">170</td>
+		<td align="right" sdval="4022.27" sdnum="1033;">4022.27</td>
+		<td align="right" sdval="570.19" sdnum="1033;">570.19</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="180" sdnum="1033;">180</td>
+		<td align="right" sdval="431.215" sdnum="1033;">431.215</td>
+		<td align="right" sdval="432.174" sdnum="1033;">432.174</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="180" sdnum="1033;">180</td>
+		<td align="right" sdval="4266.25" sdnum="1033;">4266.25</td>
+		<td align="right" sdval="660.069" sdnum="1033;">660.069</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="190" sdnum="1033;">190</td>
+		<td align="right" sdval="452.266" sdnum="1033;">452.266</td>
+		<td align="right" sdval="454.325" sdnum="1033;">454.325</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="190" sdnum="1033;">190</td>
+		<td align="right" sdval="4561.68" sdnum="1033;">4561.68</td>
+		<td align="right" sdval="704.243" sdnum="1033;">704.243</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="right" sdval="200" sdnum="1033;">200</td>
+		<td align="right" sdval="475.646" sdnum="1033;">475.646</td>
+		<td align="right" sdval="487.05" sdnum="1033;">487.05</td>
+		<td align="left"><br></td>
+		<td align="right" sdval="200" sdnum="1033;">200</td>
+		<td align="right" sdval="4743.85" sdnum="1033;">4743.85</td>
+		<td align="right" sdval="747.457" sdnum="1033;">747.457</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td colspan=8 rowspan=20 height="341" align="left"><br><img src="Var%20largo_html_1449cadc.png" width=605 height=340 hspace=42 vspace=10>
+		</td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+	</tr>
+	<tr>
+		<td align="left"><br></td>
+		<td colspan=8 rowspan=21 align="left"><br><img src="Var%20largo_html_42621877.png" width=605 height=340 hspace=42 vspace=19>
+		</td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+	<tr>
+		<td height="17" align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		<td align="left"><br></td>
+		</tr>
+</table>
+<!-- ************************************************************************** -->
+</body>
+
+</html>

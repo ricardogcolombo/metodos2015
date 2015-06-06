@@ -11,7 +11,7 @@ def build():
 
 def compile():
   for source in sources:
-    run(compiler,'-g', '-c', source+'.cpp', '-o', source+'.o')
+    run(compiler,'-g', '-O2', '-c', source+'.cpp', '-o', source+'.o')
 
 def link():
   objects = [s+'.o' for s in sources]
