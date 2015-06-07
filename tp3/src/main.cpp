@@ -10,15 +10,16 @@ void vecinos(Mat *image, Mat *imageRes, int k);
 
 int main( int argc, char** argv )
 {
-    if( argc != 3)
+    if( argc != 4)
     {
-     std::cout <<" Usage: display_image ImageToLoadAndDisplay" << std::endl;
+     std::cout <<" Usage: filename filter k" << std::endl;
      return -1;
     }
 
     Mat image;
     image = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
-    int k = atoi(argv[2]);
+    int method = atoi(argv[2]);
+    int k = atoi(argv[3]);
     int resRows = (image.rows-1)*k + image.rows;
     int resCols = (image.cols-1)*k + image.cols;
     Mat imageRes(resRows, resCols, DataType<uchar>::type);
@@ -29,17 +30,28 @@ int main( int argc, char** argv )
         return -1;
     }
 
-    //vecinos(&image, &imageRes, k);
-    bilineal(&image, &imageRes, k);
+    switch(method) {
+      case 1:
+        vecinos(&image, &imageRes, k);
+        break;
+      case 2:
+        bilineal(&image, &imageRes, k);
+        break;
+      case 3:
+        cout << "EJ3 no implementado" << endl;
+        break;
+    }
+
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Display window", imageRes );                   // Show our image inside it.
+    imwrite( "res.jpg", imageRes );
+
 
 	cout << "Tamano fila imagen fuente: " << image.rows << endl;
 	cout << "Tamano columna imagen fuente: " << image.cols << endl;
 
 	cout << "Tamano fila imagen destino: " << imageRes.rows << endl;
 	cout << "Tamano columna imagen destino: " << imageRes.cols << endl;
-
 
     waitKey(0);                                          // Wait for a keystroke in the window
     return 0;

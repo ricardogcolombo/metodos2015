@@ -8,18 +8,19 @@ void bilineal(Mat *image, Mat *imageRes, int k) {
   interpoladores *Q = (interpoladores *) malloc(sizeof(interpoladores));
 	for(int i=0; i<image->rows-1; i++){
 		for(int j=0; j<image->cols-1; j++){
-      Q->q11 = (point) {.x=i*(k+1), .y=j*(k+1), .val=image->at<uchar>(i, j)};
-      Q->q12 =  (point) {.x=i*(k+1), .y=j*(k+1)+k, .val=image->at<uchar>(i, j+1)};
-      Q->q21 =  (point) {.x=i*(k+1)+k, .y=j*(k+1), .val=image->at<uchar>(i+1, j)};
-      Q->q22 =  (point) {.x=j*(k+1)+k, .y=j*(k+1)+k, .val=image->at<uchar>(i+1, j+1)};
 
-      for(int x = i*(k+1); x <= i*(k+1) + k; x++) {
-        for(int y = j*(k+1); y <= j*(k+1) + k; y++) {
+      Q->q11 = (point) {.x=0, .y=0, .val=image->at<uchar>(i, j)};
+      Q->q12 =  (point) {.x=0, .y=k+1, .val=image->at<uchar>(i, j+1)};
+      Q->q21 =  (point) {.x=k+1, .y=0, .val=image->at<uchar>(i+1, j)};
+      Q->q22 =  (point) {.x=k+1, .y=k+1, .val=image->at<uchar>(i+1, j+1)};
+
+      for(int x = 0; x <= k+1; x++) {
+        for(int y = 0; y <= k+1; y++) {
           actual->x = x;
           actual->y = y;
           actual->val = 0;     
           polinomioInterpolador(actual, Q);
-          imageRes->at<uchar>(x, y) = actual->val;
+          imageRes->at<uchar>(i*(k+1) + x, j*(k+1) + y) = actual->val;
         }
       }
     }
