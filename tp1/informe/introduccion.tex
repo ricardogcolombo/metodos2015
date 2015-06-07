@@ -6,7 +6,7 @@ En este trabajo practico intentaremos modelizar y resolver el problema de una su
 
 Con esta ecuacion diferencial, es posible calcular la temperatura en cualquier punto de la superficie. Sin embargo, dado que queremos resolver el sistema bajo un modelo que no sea continuo, ser\'a necesario discretizar la ecuacion diferencial de alguna manera adecuada. Para ello, discretizaremos esta superficie en segmentos de superficie, que afectaran la presicion de las respuestas. Parece intuitivo pensar que mientras mas pequeños sean los segmentos, el sistema discreto mas se asemejar\'a con el continuo, obteniendo as\'i respuestas mas parecidas a este.\\
 
-Aprovechando la discretizacion del sistema y que este es un problema lineal, lo modelizaremos como un problema $Ax=b$ sobre la cual aplicaremos diversas tecnicas, como eliminacion gaussiana o descomposicion LU, que nos permitiran resolver las incognitas de una manera mas comoda.
+Aprovechando la discretizacion del sistema y que este es un problema lineal, lo modelizaremos como un problema $Ax=b$ sobre la cual aplicaremos diversas tecnicas para resolverlo, como eliminacion gaussiana o descomposicion LU, que nos permitiran resolver las incognitas de una manera mas comoda.
 
 Para decirlo mas formalmente, dados $a$ y $b$ el ancho y el alto de nuestra superficie, respectivamente, $h$ la granularidad con la que discretizaremos, y valiendo que  $a = m\times h$ y $b = n \times h$, obtendremos una grilla de $(n+1)\times(m+1)$ puntos (donde el punto $(0,0)$ se corresponde con el extremo inferior izquierdo).\\
 
