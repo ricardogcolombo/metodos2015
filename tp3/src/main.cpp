@@ -3,6 +3,7 @@
 #include <iostream>
 #include <opencv2/imgproc/imgproc.hpp>  // Gaussian Blur
 #include <opencv2/gpu/gpu.hpp>        // GPU structures and methods
+#include <cmath>
 //#include <string>   // for strings
 //#include <iomanip>  // for controlling float print precision
 //#include <sstream>  // string to number conversion
@@ -11,82 +12,54 @@ using namespace cv;
 using namespace std;
 
 double getPSNR(const Mat& I1, const Mat& I2);
+void vecinos(char *filename, int k);
 
 int main( int argc, char** argv )
 {
-    if( argc != 2)
+    if( argc != 3)
     {
      std::cout <<" Usage: display_image ImageToLoadAndDisplay" << std::endl;
      return -1;
     }
 
-    Mat image;
-    image = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
+    vecinos(argv[1], argv[2]);
+    waitKey(0);                                          // Wait for a keystroke in the window
+    return 0;
+}
 
+void vecinos(char *filename, int k) {
+    Mat image;
+    image = imread(filename, CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
 
     if(! image.data )                              // Check for invalid input
     {
         std::cout <<  "Could not open or find the image" << std::endl ;
-        return -1;
+        return;
     }
 	
-	int k=2;
-	Mat imageRes(((image.rows-1)*(k+1))+1, ((image.cols-1)*(k+1))+1, DataType<uchar>::type);
+  int halfK = ceil(k/2);
 		
+  int resRows = ((image.rows-1)*(k+1))+1;
+  int resCols = ((image.cols-1)*(k+1))+1;
+
+	Mat imageRes(resRows, resCols, DataType<uchar>::type);
 	
 	for(int i=0; i<image.rows; i++){
 		for(int j=0; j<image.cols; j++){
+      for(int l = -halfK; l<halfK;l++) {
+        for(int m = -halfK; l<halfK;l++) {
+          if(l >= 0 && l < resRows ) {
+            if(m >= 0 && m < resCols) {
+              imageRes.at<uchar>(l, m) = image.at<uchar>(i, j);
+            }
+          }
+        }
+      }
+    }
+  }
 
-			//cout << "I es: " << i << endl;
-			//cout << "J es: " << j << endl;			
-
-			int m = i*(k+1);
-			int l = j*(k+1);			
-			int finI = (i*(k+1))+1;
-			int finJ = (j*(k+1))+1;
-
-			// Proceso el último pixel
-			if(j == image.cols-1 && i == image.rows-1){
-				imageRes.at<uchar>(m,l) = image.at<uchar>(i,j);
-				break;
-			}
-
-			// Proceso la última columna
-			if(j == image.cols-1){
-				//cout << "Estoy en la ultima columna..." << endl;
-				//cout << "desde M: " << m << "  " << "hasta M: " << finI << endl;
-				int finI = m+k;
-				
-				for(m; m<=finI; m++){
-					imageRes.at<uchar>(m,l) = image.at<uchar>(i,j);
-				}
-
-				// Proceso la última fila
-			}else if(i == image.rows-1){			
-				//cout << "Estoy en la ultima fila..." << endl;
-				//cout << "desde L: " << l << "  " << "hasta L: " << finJ << endl;
-
-				int finJ = l+k;
-				for(l; l<=finJ; l++){
-					imageRes.at<uchar>(m,l) = image.at<uchar>(i,j);
-				}
-
-				// Resto de la imagen
-			}else{			
-					//cout << "desde M: " << m << "  " << "hasta M: " << finI << endl;
-					//cout << "desde L: " << l << "  " << "hasta L: " << finJ << endl;
-				
-				for(int m = i*(k+1); m<=finI; m++){
-					for(int l = j*(k+1); l<=finJ; l++){
-						//cout << "posicion: " << i << "  " << j << endl;
-						//cout << "Valor del pixel " << i << j << "es: " << image.at<uchar>(i,j) << endl;
-						imageRes.at<uchar>(m,l) = image.at<uchar>(i,j);		
-						//imageRes.at<uchar>(m,l) = 255.0;			
-					}
-				}
-			}
-		}
-	}
+    //cout << "I es: " << i << endl;
+    //cout << "J es: " << j << endl;			
 	
 	//cout << "termino el ciclo" << endl;
 
@@ -102,9 +75,8 @@ int main( int argc, char** argv )
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Display window", imageRes );                   // Show our image inside it.
 
-    waitKey(0);                                          // Wait for a keystroke in the window
-    return 0;
 }
+
 /*
 double getPSNR(const Mat& I1, const Mat& I2)
 {
