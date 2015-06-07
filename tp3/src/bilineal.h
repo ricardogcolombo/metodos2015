@@ -15,7 +15,7 @@ typedef struct interpoladores {
 
 
 void polinomioInterpolador(point *res, interpoladores *Q);
-void bilineal(Mat image, Mat imageRes, int k);
+void bilineal(Mat *image, Mat *imageRes, int k);
 
 
 #endif
