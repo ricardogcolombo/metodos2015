@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+using namespace cv;
+
 typedef struct interpoladores {
   point q11;
   point q21;
