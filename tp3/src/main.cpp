@@ -5,7 +5,7 @@
 using namespace cv;
 using namespace std;
 
-double getPSNR(const Mat& I1, const Mat& I2);
+float getPSNR(Mat *I1, Mat *I2, int k);
 void vecinos(Mat *image, Mat *imageRes, int k);
 
 int main( int argc, char** argv )
@@ -53,6 +53,9 @@ int main( int argc, char** argv )
 	cout << "Tamano fila imagen destino: " << imageRes.rows << endl;
 	cout << "Tamano columna imagen destino: " << imageRes.cols << endl;
 
+	float res = getPSNR(&image, &imageRes, k);
+	cout << "El error PSNR es: " << res << endl;
+
     waitKey(0);                                          // Wait for a keystroke in the window
     return 0;
 }
@@ -67,25 +70,36 @@ void vecinos(Mat *image, Mat *imageRes, int k) {
 	
 
 
-/*
-double getPSNR(const Mat& I1, const Mat& I2)
+
+float getPSNR(Mat *I1, Mat *I2, int k)
 {
-    Mat s1;
-    absdiff(I1, I2, s1);       // |I1 - I2|
+   // Mat s1;
+	int resRows = (I1->rows-1)*k + I1->rows;
+    int resCols = (I1->cols-1)*k + I1->cols;
+    Mat s1(resRows, resCols, DataType<float>::type);
+    absdiff(*I1, *I2, s1);       // |I1 - I2|
     s1.convertTo(s1, CV_32F);  // cannot make a square on 8 bits
     s1 = s1.mul(s1);           // |I1 - I2|^2
 
-    Scalar s = sum(s1);        // sum elements per channel
+    // Scalar s = sum(s1);        // sum elements per channel
 
-    double sse = s.val[0] + s.val[1] + s.val[2]; // sum channels
+    float res = 0;
 
-    if( sse <= 1e-10) // for small values return zero
+    for(int i=0; i < s1.rows; i++){
+    	for(int j=0; j < s1.cols; j++){
+    		res += s1.at<float>(i, j);
+    	}
+    }
+
+    // double sse = s.val[0] + s.val[1] + s.val[2]; // sum channels
+
+    if( res <= 1e-10) // for small values return zero
         return 0;
     else
     {
-        double mse  = sse / (double)(I1.channels() * I1.total());
-        double psnr = 10.0 * log10((255 * 255) / mse);
+        float mse  = res / (float)(I1->rows*I1->cols);
+        float psnr = 10.0 * log10((255 * 255) / mse);
         return psnr;
     }
 }
-*/
+
