@@ -1,6 +1,9 @@
 Para compilar:
 g++ main.cpp -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_objdetect
 
+para compilar en mac (al menos)
+g++ $(pkg-config --cflags --libs opencv) main.cpp bilineal.cpp -o Test  &&  ./Test teo.jpg 2 0
+
 Para ejecutar:
 ./a.out teo.jpg
 
