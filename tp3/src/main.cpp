@@ -1,18 +1,12 @@
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <iostream>
-#include <opencv2/imgproc/imgproc.hpp>  // Gaussian Blur
-#include <opencv2/gpu/gpu.hpp>        // GPU structures and methods
-#include <cmath>
-//#include <string>   // for strings
-//#include <iomanip>  // for controlling float print precision
-//#include <sstream>  // string to number conversion
+
+#include "common.h"
+#include "bilineal.h"
 
 using namespace cv;
 using namespace std;
 
 double getPSNR(const Mat& I1, const Mat& I2);
-void vecinos(char *filename, int k);
+void vecinos(Mat image, Mat imageRes, int k);
 
 int main( int argc, char** argv )
 {
@@ -22,34 +16,37 @@ int main( int argc, char** argv )
      return -1;
     }
 
-    vecinos(argv[1], argv[2]);
-    waitKey(0);                                          // Wait for a keystroke in the window
-    return 0;
-}
-
-void vecinos(char *filename, int k) {
     Mat image;
-    image = imread(filename, CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
+    image = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
+    int k = atoi(argv[2]);
+    int resRows = ((image.rows-1)*(k+1))+1;
+    int resCols = ((image.cols-1)*(k+1))+1;
+    Mat imageRes(resRows, resCols, DataType<uchar>::type);
 
     if(! image.data )                              // Check for invalid input
     {
         std::cout <<  "Could not open or find the image" << std::endl ;
-        return;
+        return -1;
     }
-	
-  int halfK = ceil(k/2);
-		
-  int resRows = ((image.rows-1)*(k+1))+1;
-  int resCols = ((image.cols-1)*(k+1))+1;
 
-	Mat imageRes(resRows, resCols, DataType<uchar>::type);
+    //vecinos(image, imageRes, k);
+    namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
+    imshow( "Display window", imageRes );                   // Show our image inside it.
+
+    waitKey(0);                                          // Wait for a keystroke in the window
+    return 0;
+}
+
+void vecinos(Mat image, Mat imageRes, int k) {
+	
+  int halfK = ceil(k/2);	
 	
 	for(int i=0; i<image.rows; i++){
 		for(int j=0; j<image.cols; j++){
       for(int l = -halfK; l<halfK;l++) {
         for(int m = -halfK; l<halfK;l++) {
-          if(l >= 0 && l < resRows ) {
-            if(m >= 0 && m < resCols) {
+          if(l >= 0 && l < imageRes.rows ) {
+            if(m >= 0 && m < imageRes.cols) {
               imageRes.at<uchar>(l, m) = image.at<uchar>(i, j);
             }
           }
@@ -71,10 +68,6 @@ void vecinos(char *filename, int k) {
 
 	//double res = getPSNR(imageRes, image);
 	//cout << "La diferencia es: " << res << endl;
-
-    namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-    imshow( "Display window", imageRes );                   // Show our image inside it.
-
 }
 
 /*
