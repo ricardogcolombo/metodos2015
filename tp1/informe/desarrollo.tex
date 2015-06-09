@@ -32,31 +32,32 @@ Ahora supongamos que tenemos un pequeño paravrisas de $3 \times 3$ que queremos
 
 \setcounter{MaxMatrixCols}{30}
 
-\[
-M = \begin{pmatrix}
-... \\
- 0 & 0 & 0 & 0 & 1 & 0 & 1 & -4 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
- 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & -4 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
- 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & -4 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\[\begin{pmatrix}
+ 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+ 0 & 1 & 0 & 0 & 0 & 1 & -4 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0& 0 \\
+ 0 & 0 & 1 & 0 & 1 & 0 & 1 & -4 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0& 0 \\
+ 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & -4 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0& 0 \\
 ...
 \end{pmatrix}
-\begin{pmatrix} \\... \\ x_{1,1} \\ x_{1,2} \\ x_{1,3} \\ ... \\ \end{pmatrix}
+\begin{pmatrix} \\ x_{0,0}\\ x_{0,1}\\ x_{0,2}\\ x_{0,3} \\ x_{0,4} \\ x_{1,0}\\ x_{1,1} \\ x_{1,2} \\ x_{1,3} \\ ... \\ \end{pmatrix}
 =
-\begin{pmatrix}  \\ ... \\ 0 \\ 0 \\ 0 \\ ... \\ \end{pmatrix}
+\begin{pmatrix}  \\ -100\\ -100\\ -100\\ -100\\ -100\\ -100 \\ 0 \\ 0 \\ 0 \\ ... \\ \end{pmatrix}
 \]
 
-Entonces la matriz resultante queda banda, con el tamaño de la banda igual a una columna del parabrisas. (En este caso particular 3).
+Donde todo $x_{i,j}$ con $i$ o $j$ igual a $0$ o $4$ es uno de los bordes del parabrisas.
 
-\EXPLICAR_MEJOR
-
+Entonces la matriz resultante queda banda, con el tamaño de la banda igual a una columna del parabrisas mas las dos columnas que representarian los bordes (en este caso las columnas 0 y 4).
 
 \subsection{Almacenamiento de la matriz banda}
 
 Debido a que la representaci\'on matricial del problema que atacamos posee una estructura donde los elemenos no nulos se concentran en la diagonal, pudimos representar esta matriz de $(nxm)x(nxm)$ usando otra estructura de $nx(2m+1)$ elementos, sabiendo que m\'as all\'a de la banda diagonal de $pxq$ elementos, el resto de la matriz se completa con 0.
 
-Inicialmente utilizamos un arreglo unidimiensional para almacenar la estructura, amparandonos en una caracter\'istica presente en gcc y c99 que permite definir el tama\~no de un arreglo en tiempo de ejecuci\'on. (Cuando lo corrimos en clang esto fallaba).
-Si bien esta estructura de datos es muy eficiente, decidimos movernos a la representaci\'on en un vector unidimiensional, obteniendo mayor comodidad de manipulaci\'on. La diferencia en tama\~no de la estructura del vector frente al arreglo es despreciable frente al almacenamiento general que requiere el problema.
-
+Todo este comportamiento de la matriz banda fue encapsulado en una clase para que fuera mas facil de utilizar y transparente al usuario, sin que este necesite conocer la manera exacta en la que se almacenan los valores internamente. (Aguante algo 2)
 
 \subsection{Eliminacion gaussiana sobre matriz banda}
 
@@ -82,11 +83,11 @@ Escrito de manera mas formal el algoritmo ser\'a el siguiente:
 \end{algorithmic}
 \end{algorithm}
 
-De este algoritmo se desprende que este algoritmo tiene una mejor complegidad comparado con el Gauss estandard, siendo la misma de $O(n*p^2)$ siendo $n$ la cantidad de incognitas de nuestra matriz, y $p$ el tamaño de la banda.
+De este algoritmo se desprende que este algoritmo tiene una mejor complejidad comparado con el Gauss estandard, siendo la misma de $O(n*p^2)$ siendo $n$ la cantidad de incognitas de nuestra matriz, y $p$ el tamaño de la banda.
 
 Una vez concluido el proceso de eliminaci\'on gaussiana sobre la matriz banda, utilizamos backwards substitution para resolver las ecuaciones y conseguir as\'i el valor de cada uno de los puntos de calor del plano discretizado. Aqu\'i tambien es posible realizar una optimizacion, ya que en cada paso no es necesario ir hasta la ultima columna sin\'o hasta la columna donde sabemos que comienza la banda.
 
-De esta manera habremos disminuimos la complegidad del backwards substitution de $O(n^2)$ a una menor de $O(n*p)$.
+De esta manera habremos disminuimos la complejidad del backwards substitution de $O(n^2)$ a una menor de $O(n*p)$.
 
 \subsection{Descomposicion LU}
 
@@ -110,13 +111,13 @@ Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussia
 
 Luego en la matriz $A$ obtengo la matriz diagonal superior y en el L la diagonal inferior.
 
-Puede verse que siendo el algoritmo muy similar al de eliminacion gaussiana, tambien posee la misma complegidad, esto es $O(n*p^2)$.
+Puede verse que siendo el algoritmo muy similar al de eliminacion gaussiana, tambien posee la misma complejidad, esto es $O(n*p^2)$.
 
 Este algoritmo sera utilizado mas adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
 
 \subsection{No hay tiempo que perder}
 
-En esta parte del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto critico a travez de la eliminacion de una sanguijuela. Dado que esto nos afecta el sistema de ecuaciones, en primera instancia, ser\'a necesario recalcular todo el sistema otra vez, lo que podria resultar muy costoso. Plantear otra vez las ecuaciones, ahora con esta variaci\'on, y volver a calcular las inc\'ognitas mediante el algoritmo de eliminaci\'on gaussiana tomar\'ia otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opci\'on no sea la mas adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una granularidad muy fina. Para esto, entonces, hacemos uso de una variaci\'on de la f\'ormula de Sherman–Morrison, evitando replantear todo el sistema desde cero, permitiendo reutilizar informacion de la ejecucion con todas las sanguijuelas y disminuyendo la complegidad a una mas adecuada.
+En esta parte del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto critico a travez de la eliminacion de una sanguijuela. Dado que esto nos afecta el sistema de ecuaciones, en primera instancia, ser\'a necesario recalcular todo el sistema otra vez, lo que podria resultar muy costoso. Plantear otra vez las ecuaciones, ahora con esta variaci\'on, y volver a calcular las inc\'ognitas mediante el algoritmo de eliminaci\'on gaussiana tomar\'ia otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opci\'on no sea la mas adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una granularidad muy fina. Para esto, entonces, hacemos uso de una variaci\'on de la f\'ormula de Sherman–Morrison, evitando replantear todo el sistema desde cero, permitiendo reutilizar informacion de la ejecucion con todas las sanguijuelas y disminuyendo la complejidad a una mas adecuada.
 
 Comencemos definiendo de manera mas adecuada la implementacion mas simple.
 
@@ -133,7 +134,7 @@ Mas formalizado en pseudocidigo:
 \STATE{ \quad La quito de la matriz $A$}
 \STATE{ \quad Quito su b en $0$}
 \STATE{ \quad Aplico $Gauss(A,b)$}
-\STATE{ \quad Aplico $Backwards_substitution(A,b)$}
+\STATE{ \quad Aplico $Backwards\_substitution(A,b)$}
 \STATE{ \quad Restablezco los valores originales en la matriz A y paso a la siguiente}
 \end{algorithmic}
 \end{algorithm}
@@ -162,13 +163,13 @@ Formalizando el algoritmo:
 \end{algorithmic}
 \end{algorithm}
 
-Este algoritmo tendrá la siguiente complegidad:
+Este algoritmo tendrá la siguiente complejidad:
 \begin{enumerate}
  \item Descomposición LU: $O(np^2)$
  \item Luego para cada sangijuela:
 \begin{enumerate}
 \item Modifico el valor de b en el lugar de la sanguijuela: $O(1)$
-\item Calculo $x$ de la manera vista arriba: $O(n^p)$
+\item Calculo $x$ de la manera vista arriba: $O(n*p)$
 \item Restablezco los valores originales en b: $O(1)$
 \end{enumerate}  
 \end{enumerate}

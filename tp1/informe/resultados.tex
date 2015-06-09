@@ -63,10 +63,9 @@ Por ultimo, veremos como afecta variar la granularidad de la discretización par
 En el grafico puede verse que una disminucion lineal de la granularidad produce un aumento cuadratico en el tiempo de ejecución. Esto se debe a que tanto la cantidad de filas y la cantidad de columnas viene dado por el largo/ancho del paravrisas, dividido por la granularidad. Dado que el tamaño de nuestra matriz de resolución del probema viene dado por $\text{Cantidad De filas} \times \text{Cantidad De Columnas}$ esto será lo mismo que  $(\text{Largo} \times \text{Ancho}) / \text{granularidad}^2$. En esta formula puede verse claramente que disminuir la granularidad de manera lineal produce un aumento cuadratico en el numero de incognitas de nuestro problema.
 
 \subsection{An\'alisis de temperatura funci\'on de las discretizaciones}
-A continuaci\'on presentamos el an\'alisis y las conclusiones obtenidas de acuerdo a la experimentaci\'on realizada.
-Como pudimos ver en el apartado anterior, una mayor granularidad en la discretizaci\'on hace escalar r\'apidamente la cantidad de ecuaciones y variables involucradas, con lo que el tiempo de los algoritmos escala r\'apidamente. 
-\\
 Partiendo de la base de que un aumento en la granularidad permite una mejor representaci\'on de las sanguijuelas (son circulos), notamos que con este aumento y mejora en la representaci\'on, las temperaturas del punto cr\'itico disminuyen considerablemente. Teniendo en cuenta esta informaci\'on, queda claro como una baja granularidad impacta directamente sobre la precisi\'on de los resultados (a expensas, como vimos con anterioridad, de los tiempos de c\'omputo).
+\\
+En el siguiente experimento, mostramos como varían los resultados al variar la granularidad:
 \begin{itemize}
  \item Matriz $20 \times 20$, granularidad 2.\\
   \includegraphics[width=400pt]{imagenes/imagen11.png}
@@ -80,3 +79,5 @@ Partiendo de la base de que un aumento en la granularidad permite una mejor repr
    \item Matriz $20 \times 20$, granularidad 0,1.\\
   \includegraphics[width=400pt]{imagenes/imagen41.png}
 \end{itemize}
+
+Puede notarse a simple vista que una granularidad mas pequeña produce resultados que aproximan mas exactamente a lo que uno creería es el resultado real de la ecuación diferencial de la que partimos en la introducción ya que para una granularidad de $2$ pueden verse grandes bloques discretos, pero para la discretización de $0.1$ puede verse que estos bloques desaparecen y puede notarse una sierta 'suavidad' en el resultado obtenido, propio de una función continua y derivable.
