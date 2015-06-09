@@ -1,6 +1,6 @@
 
 #include "pca.h"
-#define CANTIDAD_ITERACIONES 500
+#define CANTIDAD_ITERACIONES 40
 
 
 void calcularPca(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, fstream &myfile, int cantidadAutovectores)

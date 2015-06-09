@@ -126,7 +126,7 @@ int **kfolds(string archivo, int &cantidadDePruebas,int &lamda, int &vecinos)
 void arreglarEntrada(vector<entrada> entradaOriginal,vector<entrada> &entradaNueva, vector<entrada> &testeo,int *kfold){
 	int cantidadDeTests = 0;
 	for(int i = 0; i < 42000; i++){
-		if(kfold[i] == 0)
+		if(kfold[i] == 1)
 			entradaNueva.push_back(entradaOriginal[i]);
 		else
 		{
