@@ -118,8 +118,9 @@ Este algoritmo sera utilizado mas adelante, cuando queramos invertir una matriz 
 \subsection{No hay tiempo que perder}
 
 En esta parte del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto critico a travez de la eliminacion de una sanguijuela. Dado que esto nos afecta el sistema de ecuaciones, en primera instancia, ser\'a necesario recalcular todo el sistema otra vez, lo que podria resultar muy costoso. Plantear otra vez las ecuaciones, ahora con esta variaci\'on, y volver a calcular las inc\'ognitas mediante el algoritmo de eliminaci\'on gaussiana tomar\'ia otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opci\'on no sea la mas adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una granularidad muy fina. Para esto, entonces, hacemos uso de una variaci\'on de la f\'ormula de Sherman–Morrison, evitando replantear todo el sistema desde cero, permitiendo reutilizar informacion de la ejecucion con todas las sanguijuelas y disminuyendo la complejidad a una mas adecuada.
-
+\\
 Comencemos definiendo de manera mas adecuada la implementacion mas simple.
+
 
 \subsection{Implementacion Simple}
 
@@ -155,9 +156,9 @@ Formalizando el algoritmo:
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void Ultimo\_disparo\_Sherman\_Morrison()}
-\STATE{ \quad realizo la descomposición LU de A}
+\STATE{ Realizo la descomposición LU de A}
 \STATE{ Para cada sanguijuela}
-\STATE{ \quad modifico el valor de b en el lugar de la sanguijuela}
+\STATE{ \quad Modifico el valor de b en el lugar de la sanguijuela}
 \STATE{ \quad Calculo $x$ de la manera vista arriba}
 \STATE{ \quad Restablezco los valores originales en b y paso a la siguiente sangijuela}
 \end{algorithmic}
