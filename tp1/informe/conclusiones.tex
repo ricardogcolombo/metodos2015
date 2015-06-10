@@ -1,23 +1,28 @@
 \subsection{Ventajas en el uso de una matriz banda}
 
-Una particularidad del sistema de ecuaciones planteado es que el valor de cada elemento del vector de resoluci\'on depende exclusivamente de, como m\'aximo, otros 4 valores que adem\'as son \"cercanos\" al elemento a resolver, llamando cercano a un elemento que se encuentra a no m\'as de una fila de distancia, dejando una gran cantidad de elementos (la gran mayor\'ia en 0). Este problema en particular plantea una matriz banda con una cantidad de elementos no nulos mucho menor a aquellos que tienen un valor no nulo. Siendo m\'as precisos la matriz tiene $(n \times m) \times (n \times m)$ elementos, con menos de $5 \times (m \times n)$ elementos no nulos. Gracias a eso es que pudimos realocar los valores en un espacio f\'isico muy por debajo de lo que la representaci\'on matricial de un caso general requiere, mapeando los valores distintos de 0 a la matriz f\'isica y los valores nulos siendo entregados sin ser alojados en ninguna matriz.
+Como ya discutimos en el desarollo, pudimos plantear el problema a resolver como una matriz banda. Gracias a esto es que pudimos realocar los valores en un espacio f\'isico muy por debajo de lo que la representaci\'on matricial de un caso general requiere, ahorrando memoria, ya que fue suficiente con almacenar los valores dentro de la banda, y ahorrando tiempo de computo, ya que como tambien discutimos en la seccion de desarrollo, nos limitamos a aplicar los algoritmos en la banda, obteniendo complegidades teoricas mas pequeñas que aquellas que se obtienen con el algoritmo estandar.
 
 \subsection{Discretizaci\'on de un problema continuo}
 
-Durante la resoluci\'on del problema pudimos ver que cambiando el $h$, es decir, la medida de discretizaci\'on del continuo del parabrisas, obtenemos diferentes grados de error. A mayor $h$ esperamos un error m\'as pronunciado.
-Una posible definici\'on de $Probabilidad$ es el nivel de conocimiento sobre el sistema. An\'alogamente podemos decir que el nivel de discretizaci\'on de un sistema continuo nos da una idea del conocimiento sobre el mismo.
+En el apartado de experimentación pudimos ver que tomando un valor de discretización muy grande, el problema, que comenzo siendo continuo, pasa a ser discreto, pudiendose ver a simple vista los bloques que fueron discretizados. A medida que la discretización se vuelve mas pequeña el problema empieza a tener un comportamiento mas continuo (aunque sea de manera perceptual, ya que la solución continuna siendo discreta), lo que sugiere que aumentar la discretización aumenta la presición de todo el sistema.
 
-Por otro lado, una mayor discretizaci\'on del sistema impacta directamente sobre los tiempos de c\'omputo en su resoluci\'on. Queda entonces a criterio del desarrollador valorar ambos par\'ametros y balancear entre soluciones m\'as precisas y tiempos de resoluci\'on m\'as cortos. Esta elecci\'on est\'a condicionada por los problemas acarreados provinientes de la resoluci\'on a trav\'es de computadoras, que no tienen la posibilidad de representar todos los n\'umeros de la recta real, generando problemas de precisi\'on.
+Sin embargo esto viene con un tradeoff que resulta que para una discretización mas pequeña, y por lo tanto exacta, el tiempo de computo aumenta sustancialmente. Luego a la hora de simular este problema deberá prestarse sumo cuidado a esta relación tiempo-presición dependiendo del problema en particular y el grado de confianza que se desea obtener.
 
 \subsection{P\'erdida de precisi\'on en el uso de aritm\'etica de punto flotante}
 
 As\'i como la separaci\'on de los puntos del sistema queda, hasta cierto punto, a criterio de quien resuelve el problema, existe una gran limitaci\'on debido	a la representaci\'on de los n\'umeros de punto flotante en la computadora. Si bien C++ es independiente a la arquitectura, las arquitecturas modernas suelen utilizar el estandar IEEE754 para representar la recta num\'erica. Sabemos que realizando operaciones de punto flotante perdemos precisi\'on, si bien esta puede ser calculada y acotada. 
-
+\\
 Entonces es as\'i como la resoluci\'on del problema se ve afectado no solo por la reducci\'on de un subespacio $\mathbb{R}2$ en un conjunto finito de puntos, sino tambi\'en por la impresici\'on propia de la computadora al realizar los c\'omputos.
+
+\VER
+%en realidad no vimos mucho esto, o al menos no me acuerdo.
+%Lo sacamos?
 
 \subsection{Optimizaciones Algebraicas}
 
 Comparando ambos metodos de salvación del parabrisas pudimos ver como utilizar propiedades algebraicas y ordenar las operaciones de manera inteligente permite obtener tanto complejidades teoricas tanto como tiempos experimentales mejores.
+\\
+Luego, podemos concluir que para poder resolver un problema de manera optima es importante valerse de las propiedades especificas de las matrices con las que se trabaja, así tambien como la teoría del algebra lineal.
 
 \subsection{Otras aplicaciones}
 
