@@ -1,5 +1,6 @@
 
 #include "bilineal.h"
+#include "bicubic.h"
 #include "common.h"
 
 using namespace cv;
@@ -38,7 +39,7 @@ int main( int argc, char** argv )
         bilineal(&image, &imageRes, k);
         break;
       case 3:
-        cout << "EJ3 no implementado" << endl;
+        bicubic(&image, &imageRes, k);
         break;
     }
 
