@@ -17,7 +17,7 @@ Ahora, utilizando la misma familia de parabrisas descripta anteriormente, veremo
  \includegraphics[width=400pt]{imagenes/testeo/anchoSalv.png}
 \end{center}
 
-Como era de esperar, el algoritmo que utiliza la optimización de Sherman morrison es mucho mas rapido y escala mejor que la versión simple que debe calcular todo el sistema desde cero.
+Como era de esperar, el algoritmo que utiliza la optimización de Sherman morrison es mucho mas rapido y escala mejor que la versión simple que debe calcular todo el sistema desde cero, ademas el Sherman Morrison realiza operaciones sobre vectores y escalares haciendo la diferencia ahi en comparacion con el otro metodo.
 
 \subsubsection{Largo en función del tiempo}
 Ahora, analizaremos que sucede dejando fijo el ancho y variando el largo del parabrisas. Las condiciones son las mismas que en el test anterior, solo que ahora el ancho permaence constante igual a $50$ y se varía el largo de $50$ a $100$.
@@ -80,6 +80,6 @@ En el siguiente experimento, mostramos como varían los resultados al variar la 
   \includegraphics[width=400pt]{imagenes/imagen41.png}
 \end{itemize}
 
-Puede notarse a simple vista que una granularidad mas pequeña produce resultados que aproximan mas exactamente a lo que uno creería es el resultado real de la ecuación diferencial de la que partimos en la introducción ya que para una granularidad de $2$ pueden verse grandes bloques discretos, pero para la discretización de $0.1$ puede verse que estos bloques desaparecen y puede notarse una sierta 'suavidad' en el resultado obtenido, propio de una función continua y derivable.
+Puede notarse a simple vista que una granularidad mas pequeña produce resultados que aproximan mas exactamente a lo que uno creería es el resultado real de la ecuación diferencial de la que partimos en la introducción ya que para una granularidad de $2$ pueden verse grandes bloques discretos, pero para la discretización de $0.1$ puede verse que estos bloques desaparecen y puede notarse una sierta 'suavidad' en el resultado obtenido, propio de una función continua y derivable, esto puede verse en el grafico ya que el la tonalidad va oscureciendo hasta llegar a rojo generando circulos grandes, de ser chicos estariamos viendo un pico en la funcion y no seria derivable.
 \\
 Ademas, a al disminuir la granularidad esta claro que la cantidad de incognitas cercanas al punto critico aumenta, por lo que, en caso de no poder tomarlo de manera exacta al menos podremos tomar un vecino muy proximo a este por lo que tenderíamos a pensar que la presición del resultado tambien aumentará por ese lado.

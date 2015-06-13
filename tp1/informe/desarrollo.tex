@@ -55,9 +55,9 @@ Entonces la matriz resultante queda banda, con el tamaño de la banda igual a un
 
 \subsection{Almacenamiento de la matriz banda}
 
-Debido a que la representaci\'on matricial del problema que atacamos posee una estructura donde los elemenos no nulos se concentran en la diagonal, pudimos representar esta matriz de $(nxm)x(nxm)$ usando otra estructura de $nx(2m+1)$ elementos, sabiendo que m\'as all\'a de la banda diagonal de $pxq$ elementos, el resto de la matriz se completa con 0.
+Debido a que la representaci\'on matricial del problema que atacamos posee una estructura donde los elemenos no nulos se concentran en la diagonal, pudimos representar esta matriz de $(nxm)x(nxm)$ usando otra estructura de $nx(2m+1)$ elementos, sabiendo que m\'as all\'a de la banda diagonal de $pxq$ elementos, el resto de la matriz se completa con 0. Al hacer esto debemos adaptar los algoritmos a esta representacion aportandonos reducir tanto la cantidad de operaciones como el espacio que ocupa la misma.
 
-Todo este comportamiento de la matriz banda fue encapsulado en una clase para que fuera mas facil de utilizar y transparente al usuario, sin que este necesite conocer la manera exacta en la que se almacenan los valores internamente. (Aguante algo 2)
+Todo este comportamiento de la matriz banda fue encapsulado en una clase para que fuera mas facil de utilizar y transparente tanto para el usuario como para las clases que utilizan esta matriz para setear u obtener sus elementos, sin que este necesite conocer la manera exacta en la que se almacenan los valores internamente.
 
 \subsection{Eliminacion gaussiana sobre matriz banda}
 
@@ -105,7 +105,7 @@ Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussia
   \STATE{\quad \quad Para $w = k+1,...i+p$}
   \STATE{\quad \quad \quad $a_{i,j}  = a_{i,j} - a_{k,j} * (a_{i,k} / a_{k,k})$}
   \STATE{\quad \quad $a_{i,k} = 0$}
-  \STATE{\quad \quad $L_{i,k} = a_{k,j} * (a_{i,k} / a_{k,k}$}
+  \STATE{\quad \quad $L_{i,k} = a_{k,j} * (a_{i,k} / a_{k,k}$} )
 \end{algorithmic}
 \end{algorithm}
 
