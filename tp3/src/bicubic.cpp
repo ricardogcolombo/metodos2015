@@ -1,44 +1,77 @@
 #include "bicubic.h"
+valoresSpline calcularSplines(Mat *image, int fila, int k);
 
-using namespace std;
-using namespace cv;
+void bicubic(Mat *image, Mat *imageRes, int k) {
+	for(int t = 0; t < image->rows;t++)
+	{	
+		for(int i = 0; i < image->cols;i++)
+		{
+			valoresSpline spline = calcularSplines(image,t,k);
+			for(int j = 0; j < k;j++){
+				//polinomio
+				int valor = spline.as[j]+spline.bs[j]*j+spline.cs[j]*j*j+spline.cs[j]*j*j*j;
+				imageRes->at<uchar>((i*k)+j, t) = valor;
+			}
+		}
+	}
 
-void bicubic(Mat image, Mat imageRes, int k) {
-  point *actual = (point *) malloc(sizeof(point));
-  interpoladores *Q = (interpoladores *) malloc(sizeof(interpoladores));
-	for(int i=0; i<image.rows-1; i++){
-		for(int j=0; j<image.cols-1; j++){
-      Q->q11 = (point) {.x=i*(k+1), .y=j*(k+1), .val=image.at<uchar>(i, j)};
-      Q->q12 =  (point) {.x=i*(k+1), .y=j*(k+1)+k, .val=image.at<uchar>(i, j+1)};
-      Q->q21 =  (point) {.x=i*(k+1)+k, .y=j*(k+1), .val=image.at<uchar>(i+1, j)};
-      Q->q22 =  (point) {.x=j*(k+1)+k, .y=j*(k+1)+k, .val=image.at<uchar>(i+1, j+1)};
+	Mat imageRes2 =imageRes->t();
 
-      for(int x = i*(k+1); x < i*(k+1) + k; x++) {
-        for(int y = j*(k+1); y < j*(k+1) + k; y++) {
-          actual->x = x;
-          actual->y = y;
-          actual->val = 0;     
-          polinomioInterpolador(actual, Q);
-          imageRes.at<uchar>(x, y) = actual->val;
-        }
-      }
-    }
-  }
-  free(actual);
-  free(Q);
+	for(int t = 0; t < imageRes->rows;t++)
+	{	
+		for(int i = 0; i < imageRes->cols;i++)
+		{
+			valoresSpline spline = calcularSplines(&imageRes2,t,k);
+			for(int j = 0; j < k;j++){
+				//polinomio
+				int valor = spline.as[j]+spline.bs[j]*j+spline.cs[j]*j*j+spline.cs[j]*j*j*j;
+				imageRes2.at<uchar>(j, i*k ) = valor;
+			}
+		}
+	}
+	
+    imshow( "Display window",imageRes2 );                   // Show our image inside it.
 }
 
-void polinomioInterpolador(point *res, interpoladores *Q) {
-  double denominador = (Q->q22.x - Q->q11.x) * (Q->q22.y - Q->q11.y);
-  denominador = 1 / denominador;
+valoresSpline calcularSplines(Mat *image, int fila, int k)
+{
+	MatrizB *MatrizSpline = new MatrizB(image->cols, 1);
+	double *b = new double[image->cols];
+	MatrizSpline->setVal(0, 0, 1);
+	b[0] = 0;
+	for(int i = 1; i < image->cols-1; i++) {
+		MatrizSpline->setVal(i-1, i, k);
+		MatrizSpline->setVal(i, i, 4*k);
+		MatrizSpline->setVal(i+1, i, k);
+		b[i] = (3/k)*(image->at<uchar>(i+2, fila)-2*image->at<uchar>(i+1, fila)+image->at<uchar>(i, fila));
+	}
+	MatrizSpline->setVal(image->cols-1, image->cols-1, 1);
+	b[image->cols-1] = 0;
+	gauss(MatrizSpline,b);
+	double *cs = backward_substitution(MatrizSpline, b);
+	
+	double *bs = new double[image->cols];
+	for(int i = 0; i < image->cols-1; i++)
+	{
+		bs[i] = (1/k)*(image->at<uchar>(i+1, 1)-image->at<uchar>(i, fila))-(k/3)*(2*cs[i]+cs[i+1]);
+	}
+	
+	double *as = new double[image->cols];
+	for(int i = 0; i < image->cols-1; i++)
+	{
+		as[i] = image->at<uchar>(i, fila);
+	}
 
-  double numerador = Q->q11.val * (Q->q22.x - res->x) * (Q->q22.y - res->y) +
-                     Q->q21.val * (res->x - Q->q11.x ) * (Q->q22.y - res->y) +
-                     Q->q12.val * (Q->q22.x - res->x) * (res->y - Q->q11.y) +
-                     Q->q22.val * (res->x - Q->q11.x) * (res->y - Q->q11.y);
-
-  int out = round(numerador * denominador);
-  if(out > 255) out = 255;
-  if(out < 0) out = 0;
-  res->val = out;
+	double *ds = new double[image->cols];
+	for(int i = 0; i < image->cols-1; i++)
+	{
+		ds[i] = (cs[i+1] - cs[i] )/(3*k) ;
+	}	
+	
+	valoresSpline resultado;
+	resultado.as = as;
+	resultado.bs = bs;
+	resultado.cs = cs;
+	resultado.ds = ds;
+	return resultado;
 }
