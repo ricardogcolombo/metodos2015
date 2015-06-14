@@ -1,4 +1,4 @@
-#include "bicubic.h"
+#include "splines.h"
 valoresSpline calcularSplines(Mat *image, int fila, int k);
 
 void bicubic(Mat *image, Mat *imageRes, int k) {
@@ -19,7 +19,7 @@ void bicubic(Mat *image, Mat *imageRes, int k) {
 
 	for(int t = 0; t < imageRes->rows;t++)
 	{	
-		for(int i = 0; i < imageRes->cols;i++)
+		for(int i = 0; i < image->cols;i++)
 		{
 			valoresSpline spline = calcularSplines(&imageRes2,t,k);
 			for(int j = 0; j < k;j++){

@@ -1,6 +1,6 @@
 
 #include "bilineal.h"
-#include "bicubic.h"
+#include "splines.h"
 #include "common.h"
 
 using namespace cv;
