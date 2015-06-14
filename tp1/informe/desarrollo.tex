@@ -1,34 +1,34 @@
 \subsection{Sistema a resolver}
 
-Una vez obtenida la discretizaci\'on de nuestro sistema y la posici\'on de los puntos de calor en esta versi\'on como se mencion\'o con anterioridad, planteamos las ecuaciones que nos permitir\'an resolverlo. Consideremos $r$ al radio de alcance de los puntos de calor producidos por las sanguijuelas, $T_c$ su temperatura y $C_1$, ... , $C_k$ los $k$ puntos de calor, con $C_i \in R^2$, $C_i = (x_i, y_i)$.\\
+Una vez obtenida la discretización de nuestro sistema y la posición de los puntos de calor en esta versión como se mencionó con anterioridad, planteamos las ecuaciones que nos permitirán resolverlo. Consideremos $r$ al radio de alcance de los puntos de calor producidos por las sanguijuelas, $T_c$ su temperatura y $C_1$, ... , $C_k$ los $k$ puntos de calor, con $C_i \in R^2$, $C_i = (x_i, y_i)$.\\
 
 Sabemos que si $ x = 0 \vee y = 0 \vee x = m \vee y = n \Rightarrow T(x,y) = -100$. \\
-Tambi\'en que si $\exists \: C_j, \: C_j = (x_j, y_j) \: / \: \sqrt[2]{(x-x_j)^2 + (y-y_j)^2} \le r \Rightarrow T(x,y) = T_c$. \\
+También que si $\exists \: C_j, \: C_j = (x_j, y_j) \: / \: \sqrt[2]{(x-x_j)^2 + (y-y_j)^2} \le r \Rightarrow T(x,y) = T_c$. \\
 Luego, nos falta definir $T(x,y)$ para todos los $(x,y)$ que no son alcanzados por estas condiciones.\\
-Ahora plantearemos $n \times m$ ecuaciones con $n \times m$ inc\'ognitas, que ser\'an el sistema que luego resolveremos. Las inc\'ognitas ser\'an los $T(x,y)$, y sus constantes correspondientes $a_{ij}$.\\
+Llegado este punto planteamos $n \times m$ ecuaciones con $n \times m$ incógnitas, que serán el sistema que luego resolveremos. Las incógnitas están dadas por los $T(x,y)$, y sus constantes correspondientes $a_{ij}$.\\
 
 Sea $(\alpha,\beta)$ un punto de la grilla:
 \begin{enumerate}
- \item Si es parte del borde, entonces su ecuaci\'on ser\'a $a_{ij}$ = -100 por la temperatura por defecto que toma esta secci\'on.
- \item Si es un punto donde existe una sanguijuela, este toma el valor de la constante de temperatura otorgado por esta. $a_{ij}$ = k donde K representa la temperatura pasada como input para dicha sanguijuela.
- \item Si en cambio es un punto del interior del plano que no se corresponde con la posici\'on de ninguna sanguijuela, su ecuaci\'on ser\'a, como mencionamos con anterioridad, 
+ \item Si es parte del borde, entonces su ecuación es $a_{ij} = -100$ por la temperatura por defecto que toma esta sección.
+ \item Si es un punto donde existe una sanguijuela, este toma el valor de la constante de temperatura otorgado por ella. $a_{ij} = k$ donde $K$ representa la temperatura pasada como input para dicha sanguijuela.
+ \item Si en cambio es un punto del interior del plano que no se corresponde con la posición de ninguna sanguijuela, su ecuación ser´å, como mencionamos con anterioridad, 
 \begin{equation}
 t_{ij} \ =\ \frac{ t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}}{4}.
 \end{equation}
- Teniendo en cuenta esta informaci\'on, podremos despejar la inc\'ognita para introducir dicha ecuaci\'on dentro de nuestra matriz, de la siguiente manera:
+ Teniendo en cuenta esta información, podremos despejar la incógnita para introducir dicha ecuación dentro de nuestra matriz, de la siguiente manera:
 \begin{equation}
 0 \ =\ \ -4t_{ij} + t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}.
 \end{equation}
-logrando as\'i igualar la ecuaci\'on a cero.
+logrando así igualar la ecuación a cero.
 \end{enumerate}
 
-Con esta nocion espacial de que cada punto esta condicionado tan solo por sus 4 vecinos, ahora quisieramos encontrar una manera de almacenarla que sea conveniente y nos permita reducir el espacio en la matriz y el numero de operaciones a realizar. En el siguiente apartado, describiremos como ordenando las variables de manera inteligente, podrémos guardar las incognitas en una matriz banda.
+Con esta noción espacial asumiendo cada punto está condicionado tan solo por sus 4 vecinos, ahora se presenta el objetivo encontrar una manera de almacenar la matriz que sea conveniente y nos permita reducir el espacio en la matriz y el número de operaciones a realizar. En el siguiente apartado describiremos como ordenando las variables de manera inteligente, podremos guardar las incógnitas en una matriz banda.
 
 \subsection{Matriz banda}
 
-Por lo antedicho en los aparatados anteriores, sabemos que todo punto del parabrisas, puede ser calculado en base a sus cuatro vecinos. Esto es, cualquier punto puede ser calculado en base al punto que se encuentra arriba de el, al punto que se encuentra debajo, al punto a la izquierda y a la derecha del mismo. Si ahora en la matriz de resolución del sistema lograsemos mantener a esos 4 puntos cerca de la diagonal, podíamos utilizar una matriz banda.
+Por lo antedicho, sabemos que todo punto del parabrisas puede ser calculado en base a sus cuatro vecinos. Esto es, cualquier punto puede ser calculado en base al punto que se encuentra arriba de el, al punto que se encuentra debajo, al punto a la izquierda y a la derecha del mismo. Si logramos mantener en la matriz de resolución del sistema esos 4 puntos cercanos a la diagonal, podemos utilizar una matriz banda.
 \\
-Ahora supongamos que tenemos un pequeño paravrisas de $3 \times 3$ que queremos resolver. Lo que descubrimos tras un arduo analisis es que si ordenabamos cada punto tal que que la primera ecuacion es para el punto $t_{1,1}$, la segunda para $t_{1,2}$, la tercera para $t_{1,3}$, la cuarta para $t_{2,1}$, etc. nos quedará algo asi:
+Ahora supongamos que tenemos un pequeño sistema parabrisas de $3 \times 3$ que queremos resolver. Lo que descubrimos tras un arduo análisis es que si ordenamos cada punto tal que la primera ecuación es para el punto $t_{1,1}$, la segunda para $t_{1,2}$, la tercera para $t_{1,3}$, la cuarta para $t_{2,1}$, etc. se forma una matriz con el siguiente contenido:
 
 \setcounter{MaxMatrixCols}{30}
 
@@ -49,27 +49,27 @@ Ahora supongamos que tenemos un pequeño paravrisas de $3 \times 3$ que queremos
 \begin{pmatrix}  \\ -100\\ -100\\ -100\\ -100\\ -100\\ -100 \\ 0 \\ 0 \\ 0 \\ ... \\ \end{pmatrix}
 \]
 
-Donde todo $x_{i,j}$ con $i$ o $j$ igual a $0$ o $4$ es uno de los bordes del parabrisas.
+Donde todo $x_{i,j}$ con $i$ o $j$ igual a $0$ ó $4$ es uno de los bordes del parabrisas.
 
-Entonces la matriz resultante queda banda, con el tamaño de la banda igual a una columna del parabrisas mas las dos columnas que representarian los bordes (en este caso las columnas 0 y 4).
+Entonces la matriz resultante queda banda, con el tamaño de la banda igual a una columna del parabrisas más las dos columnas que representan los bordes (en este caso las columnas $0$ y $4$).
 
 \subsection{Almacenamiento de la matriz banda}
 
-Debido a que la representaci\'on matricial del problema que atacamos posee una estructura donde los elemenos no nulos se concentran en la diagonal, pudimos representar esta matriz de $(nxm)x(nxm)$ usando otra estructura de $nx(2m+1)$ elementos, sabiendo que m\'as all\'a de la banda diagonal de $pxq$ elementos, el resto de la matriz se completa con 0. Al hacer esto debemos adaptar los algoritmos a esta representacion aportandonos reducir tanto la cantidad de operaciones como el espacio que ocupa la misma.
+Debido a que la representación matricial del problema que atacamos posee una estructura donde los elementos no nulos se concentran en la diagonal, pudimos representar esta matriz de $(nxm)x(nxm)$ usando otra estructura de $nx(2m+1)$ elementos, sabiendo que más allá de la banda diagonal de $pxq$ elementos, el resto de la matriz se completa con $0$. Al hacer esto debemos adaptar los algoritmos a esta representación, aportando una reducción tanto en la cantidad de operaciones como en el espacio que ocupa la misma.
 
-Todo este comportamiento de la matriz banda fue encapsulado en una clase para que fuera mas facil de utilizar y transparente tanto para el usuario como para las clases que utilizan esta matriz para setear u obtener sus elementos, sin que este necesite conocer la manera exacta en la que se almacenan los valores internamente.
+El comportamiento de la matriz banda fue encapsulado en una clase para que fuera más fácil de utilizar y transparente tanto para el usuario como para las clases que utilizan esta matriz para setear u obtener sus elementos, sin que este necesite conocer la manera exacta en la que se almacenan los valores internamente.
 
-\subsection{Eliminacion gaussiana sobre matriz banda}
+\subsection{Eliminación gaussiana sobre matriz banda}
 
-Como primer forma de resolver el sistema de ecuaciones, se implemento un Gauss sobre el que se realizaron algunas mejoras. La idea general del algoritmo se mantiene, en el paso $k$ diagonalizamos la columna $k$ de la matriz $A$ y todos los elementos en la columna k-esima a partir del $a_{k,k}$ seran $0$.
+Como primer forma de resolver el sistema de ecuaciones, se implemento el algoritmo de eliminación gaussiana sobre el que se realizaron algunas mejoras. La idea general del algoritmo se mantiene. En el paso $k$ se realiza la diagonalización de la columna $k$ de la matriz $A$ y todos los elementos en la columna k-esima a partir del $a_{k,k}$ pasan a tener valor $0$.
 \\
-La mejora que implementaremos ser\'a que, sabiendo que la matriz A es banda, a partir del elemento $a_{k+p,k}$ (donde $p$ es el limite de la banda) los siguientes seran $0$ y a partir del elemento $a_{k,k+p}$ tambien seran $0$.
+La mejora implementada consta en que, sabiendo que la matriz $A$ es banda, a partir del elemento $a_{k+p,k}$ (donde $p$ es el límite de la banda) los siguientes serán $0$ y a partir del elemento $a_{k,k+p}$ también serán $0$.
 \\
-Luego para la columna $k$ no ser\'a necesario chequear hasta el final de la matriz, sino hasta el valor $k+p$.
+Luego, para la columna $k$ no será necesario chequear hasta el final de la matriz, sino hasta el valor $k+p$.
 \\
-Lo mismo pasa con las filas. En el gauss estandar, luego de diagonalizar una columna, todos los elementos de esa fila deben ser actualizados. Pero al trabajar con una matriz banda, solo es necesario actualizar los $p$ valores que siguen a la diagonal, ya que tenemos asegurado que todos los valores siguientes seran $0$.
+Lo mismo pasa con las filas. En el gauss estándar, luego de diagonalizar una columna, todos los elementos de esa fila deben ser actualizados. Pero al trabajar con una matriz banda, solo es necesario actualizar los $p$ valores que siguen a la diagonal, ya que tenemos asegurado que todos los valores siguientes son $0$.
 \\
-Escrito de manera mas formal el algoritmo ser\'a el siguiente:
+Expresando de manera más formal, el algoritmo es el siguiente:
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -83,17 +83,17 @@ Escrito de manera mas formal el algoritmo ser\'a el siguiente:
 \end{algorithmic}
 \end{algorithm}
 
-De este algoritmo se desprende que este algoritmo tiene una mejor complejidad comparado con el Gauss estandard, siendo la misma de $O(n*p^2)$ siendo $n$ la cantidad de incognitas de nuestra matriz, y $p$ el tamaño de la banda.
+Este algoritmo posee una mejor complejidad comparado con el Gauss estándar, siendo la misma de $O(n*p^2)$ con $n$ la cantidad de incógnitas de nuestra matriz, y $p$ el tamaño de la banda.
 
-Una vez concluido el proceso de eliminaci\'on gaussiana sobre la matriz banda, utilizamos backwards substitution para resolver las ecuaciones y conseguir as\'i el valor de cada uno de los puntos de calor del plano discretizado. Aqu\'i tambien es posible realizar una optimizacion, ya que en cada paso no es necesario ir hasta la ultima columna sin\'o hasta la columna donde sabemos que comienza la banda.
+Una vez concluído el proceso de eliminación gaussiana sobre la matriz banda, utilizamos backwards substitution para resolver las ecuaciones y conseguir así el valor de cada uno de los puntos de calor del plano discretizado. Aquí también es posible realizar una optimización, ya que en cada paso no es necesario avanzar hasta la ultima columna sino hasta la columna donde sabemos que comienza la banda.
 
-De esta manera habremos disminuimos la complejidad del backwards substitution de $O(n^2)$ a una menor de $O(n*p)$.
+De esta manera habremos disminuido la complejidad del backwards substitution de $O(n^2)$ a una menor de $O(n*p)$.
 
-\subsection{Descomposicion LU}
+\subsection{Descomposición LU}
 
-La segunda forma que desarrollamos para resolver el problema es realizando una descomposicion LU a la matriz original. La ventaja de esto es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en $O(n^2)$.
+La segunda forma que desarrollamos para resolver el problema es realizando una descomposicion LU sobre matriz original. La ventaja de esto es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en $O(n^2)$.
 
-Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussiana, este tambien puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones ser\'an similares a las de Gauss. Expresandolo de manera algoritmica, la descomposicion $LU$ optimizada ser\'a asi:
+Dado que la descomposicion LU es muy similar al algoritmo de eliminación gaussiana, este tambien puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones serán similares a las de la eliminación gaussiana. Expresandolo de manera algorítmica, la descomposición $LU$ optimizada será así:
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -111,22 +111,25 @@ Dado que la descomposicion LU es muy similar al algoritmo de eliminacion gaussia
 
 Luego en la matriz $A$ obtengo la matriz diagonal superior y en el L la diagonal inferior.
 
-Puede verse que siendo el algoritmo muy similar al de eliminacion gaussiana, tambien posee la misma complejidad, esto es $O(n*p^2)$.
+Puede verse que siendo el algoritmo muy similar al de eliminación gaussiana, tambien posee la misma complejidad, esto es $O(n*p^2)$.
 
-Este algoritmo sera utilizado mas adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
+Este algoritmo sera utilizado más adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
 
 \subsection{No hay tiempo que perder}
 
-En esta parte del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto critico a travez de la eliminacion de una sanguijuela. Dado que esto nos afecta el sistema de ecuaciones, en primera instancia, ser\'a necesario recalcular todo el sistema otra vez, lo que podria resultar muy costoso. Plantear otra vez las ecuaciones, ahora con esta variaci\'on, y volver a calcular las inc\'ognitas mediante el algoritmo de eliminaci\'on gaussiana tomar\'ia otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opci\'on no sea la mas adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una granularidad muy fina. Para esto, entonces, hacemos uso de una variaci\'on de la f\'ormula de Sherman–Morrison, evitando replantear todo el sistema desde cero, permitiendo reutilizar informacion de la ejecucion con todas las sanguijuelas y disminuyendo la complejidad a una mas adecuada.
+En esta parte del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto critico a través de la eliminación de una sanguijuela. Dado que esto afecta el sistema de ecuaciones, en primera instancia será necesario recalcular el sistema completo otra vez, lo que podría resultar muy costoso.
+
+Plantear otra vez las ecuaciones, ahora con esta variación, y volver a calcular las incógnitas mediante el algoritmo de eliminación gaussiana tomaría otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opción no sea la más adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una granularidad muy fina. 
+
+Para esto, entonces, hacemos uso de una variación de la fórmula de Sherman–Morrison, evitando replantear todo el sistema desde cero, permitiendo reutilizar información de la ejecución con todas las sanguijuelas y disminuyendo la complejidad a una más adecuada.
 \\
-Comencemos definiendo de manera mas adecuada la implementacion mas simple.
+Comencemos definiendo de manera más adecuada la implementación más simple.
 
+\subsection{Implementación simple}
 
-\subsection{Implementacion Simple}
+Como ya hemos adelantado, la idea detras de este algoritmo es la de quitar una sanguijuela del sistema, aplicarle eliminación Gaussiana a la matriz obtenida y utilizar backwads substitution para obtener la solución deseada.
 
-Como ya hemos adelantado, la idea detras de este algoritmo sera quitar una sanguijuela del sistema, aplicarle eliminacion Gaussiana a la matriz obtenida y utilizar backwads substitution para obtener la solucion deseada.
-
-Mas formalizado en pseudocidigo:
+Utilizando pseudocódigo, el procedimiento puede expresarse de la siguiente manera:
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -140,18 +143,20 @@ Mas formalizado en pseudocidigo:
 \end{algorithmic}
 \end{algorithm}
 
-Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resoluci\'on $n$ y el tamaño de la banda $p$. La complejidad de este algoritmo sera $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
+Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resolución $n$ y el tamaño de la banda $p$. La complejidad de este algoritmo será $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
 
-Ahora intentaremos mejorar esta complejidad a travez de la utlizacion de la formula de sherman morrison.
+Ahora intentaremos mejorar esta complejidad a través de la utlización de la fórmula de Sherman-Morrison.
 
-\subsection{Implementacion Sherman-Morrison}
-Entonces, sean $A$, $A^*$ la matriz original del problema y la matriz modificada sin una de sus sanguijuelas respectivamente, queremos resolver $A^*$ = $A + uv^t$ donde $uv^t$ representa la matriz que introduce los cambios debido a la modificacion. Sea entonces
-$(A^*)x = b$. Resolvemos las siguientes ecuaciones, $Ay = b$ y $Az = u$ y obtenemos la nueva $x$ a partir del siguiente c\'alculo:
+\subsection{Implementación Sherman-Morrison}
+
+Sean $A$ la matriz original del problema y $A^*$ la matriz modificada sin una de sus sanguijuelas, queremos resolver $A^* = A + uv^t$ donde $uv^t$ representa la matriz que introduce los cambios debido a la modificación del sistema. Sea entonces
+$(A^*)x = b$. Resolvemos las siguientes ecuaciones, $Ay = b$ y $Az = u$ y obtenemos la nueva $x$ a partir del siguiente cálculo:
 \begin{equation}
 x = y - \frac{z(v^ty)}{1+v^tz}.
 \end{equation}
-As\'i entonces, podemos obtener los resultados a partir de multiplicaciones vectoriales de complejidad lineal y evitamos volver a usar el algoritmo de eliminaci\'on gaussiana de complejidad c\'ubica.
+Así entonces, podemos obtener los resultados a partir de multiplicaciones vectoriales de complejidad lineal y evitamos volver a usar el algoritmo de eliminación gaussiana de complejidad cúbica.
 \\
+
 Formalizando el algoritmo:
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -160,17 +165,17 @@ Formalizando el algoritmo:
 \STATE{ Para cada sanguijuela}
 \STATE{ \quad Modifico el valor de b en el lugar de la sanguijuela}
 \STATE{ \quad Calculo $x$ de la manera vista arriba}
-\STATE{ \quad Restablezco los valores originales en b y paso a la siguiente sangijuela}
+\STATE{ \quad Restablezco los valores originales en b y paso a la siguiente sanguijuela}
 \end{algorithmic}
 \end{algorithm}
 
 Este algoritmo tendrá la siguiente complejidad:
 \begin{enumerate}
  \item Descomposición LU: $O(np^2)$
- \item Luego para cada sangijuela:
+ \item Luego para cada sanguijuela:
 \begin{enumerate}
 \item Modifico el valor de b en el lugar de la sanguijuela: $O(1)$
-\item Calculo $x$ de la manera vista arriba: $O(n*p)$
+\item Calculo $x$ utilizando el procedimiento mencionado anteriormente: $O(n*p)$
 \item Restablezco los valores originales en b: $O(1)$
 \end{enumerate}  
 \end{enumerate}

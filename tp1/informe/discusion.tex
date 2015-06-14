@@ -3,19 +3,19 @@
 %El corrector nos había dicho algo asi como es donde hablamos de los resultados obtenidos.
 \subsection{Manipulaci\'on de estructura interna de la matriz}
 
-Al utilizar una estructura de menor espacio para representar la matriz del sistema, debimos lidiar con problemas de indexaci\'on. Gracias a una abstracci\'on \'util de la matriz bajo la clase $MatrizB$, entregando los m\'etodos p\'ublicos $getVal$ y $setVal$, que toman indices de la matriz original y los mapean a la respresentaci\'on interna que consta de un vector bidimensional, el problema pudo ser mitigado.
+Al utilizar una estructura de menor espacio para representar la matriz del sistema, debimos lidiar con problemas de indexación. Gracias a una abstracción útil de la matriz bajo la clase $MatrizB$, entregando los métodos públicos $getVal$ y $setVal$, que toman indices de la matriz original y los mapean a la respresentación interna que consta de un vector bidimensional, el problema pudo ser mitigado.
 
 \subsection{Eficiencia temporal}
 
-La resoluci\'on de este sistema de ecuaciones implica una gran cantidad de operaciones aritm\'eticas intervinientes. Trabajamos entonces en t\'ecnicas para disminuir el costo computacional sobre el algoritmo base de eliminaci\'on gaussiana a trav\'es de la explotaci\'on de caracter\'isticas particulares del problema.
-Algunas t\'ecnicas, como la factorizaci\'ion LU, permiten una resoluci\'on m\'as r\'apida del problema y funcionan para cualquier entrada. En cambio, otras t\'ecnicas aplican a un subconjunto de las posibles entradas.
+La resolución de este sistema de ecuaciones implica una gran cantidad de operaciones aritméticas intervinientes. Trabajamos entonces en técnicas para disminuir el costo computacional sobre el algoritmo base de eliminación gaussiana a través de la explotación de características particulares del problema.
+Algunas técnicas, como la factorización LU, permiten una resolución más rápida del problema y funcionan para cualquier entrada. En cambio, otras técnicas aplican a un subconjunto de las posibles entradas.
 
-Para la detecci\'on de sangijuelas que modifican levemente el sistema utilizamos la f\'ormula de Sherman-Morrison, obteniendo la variaci\'on del sistema de modo m\'as eficiente que en el caso general que requiere de rehacer los c\'alculos de eliminaci\'on gaussiana.
+Para la detección de sanguijuelas que modifican levemente el sistema utilizamos la fórmula de Sherman-Morrison, obteniendo la variación del sistema de modo más eficiente que en el caso general que requiere de rehacer los cálculos de eliminación gaussiana.
 
-Otra t\'ecnica que pensamos y finalmente no implementamos para detectar si eliminar una sanguijuela salva el parabrisas en el caso en que exista una sanguijuela cuyo radio de acci\'on contiene al punto cr\'itico es el siguiente:
+Otra técnica que pensamos y finalmente no implementamos para detectar si eliminar una sanguijuela salva el parabrisas en el caso en que exista una sanguijuela cuyo radio de acción contiene al punto crítico es el siguiente:
 
 \begin{enumerate}
  \item Si la sanguijuela posee una temperatura menor a 235, eliminando cualquier otra el sistema va a seguir debajo de los 235 grados.
  \item Si la sanguijuela se encuentra a una temperatura igual o mayor a 235, probamos eliminarla.
- \item Si eliminando la sanguijuela se baja de los 235 grados, eliminandola logramos salvar el parabrisas, si no es cierto, no hay ninguna sanguijuela que pueda ayudar ya que la sanguijuela reci\'en probada ejerce una temperatura directamente sobre el punto cr\'itico.
+ \item Si eliminando la sanguijuela se baja de los 235 grados, eliminandola logramos salvar el parabrisas, si no es cierto, no hay ninguna sanguijuela que pueda ayudar ya que la sanguijuela recién probada ejerce una temperatura directamente sobre el punto crítico.
 \end{enumerate}

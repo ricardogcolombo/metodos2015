@@ -1,28 +1,28 @@
-En este trabajo practico intentaremos modelizar y resolver el problema de una superficie a la que se le aplica calor en ciertos puntos, teniendo como condiciones ademas que los bordes permanecen a temperatura constante. Para modelizar este problema utiizaremos la ecuacion del calor:
+En este trabajo práctico intentaremos modelar y resolver el problema de una superficie a la que se le aplica calor en ciertos puntos, teniendo como condiciones además que los bordes permanecen a temperatura constante. Para modelar este problema utiizaremos la ecuación del calor:
 
 \begin{equation}
 \frac{\partial^2T(x,y)}{\partial x^{2}}+\frac{\partial^2 T(x,y)}{\partial y^{2}} = 0.
 \end{equation}\\
 
-Con esta ecuacion diferencial, es posible calcular la temperatura en cualquier punto de la superficie. Sin embargo, dado que queremos resolver el sistema bajo un modelo que no sea continuo, ser\'a necesario discretizar la ecuacion diferencial de alguna manera adecuada. Para ello, discretizaremos esta superficie en segmentos de superficie, que afectaran la presicion de las respuestas. Parece intuitivo pensar que mientras mas pequeños sean los segmentos, el sistema discreto mas se asemejar\'a con el continuo, obteniendo as\'i respuestas mas parecidas a este.
+Con esta ecuación diferencial es posible calcular la temperatura en cualquier punto de la superficie. Sin embargo, dado que queremos resolver el sistema bajo un modelo que no sea continuo, será necesario discretizar la ecuación diferencial de alguna manera adecuada. Para ello, discretizaremos esta superficie en segmentos de superficie, que afectarán la presición de las respuestas. Parece intuitivo pensar que mientras más pequeños sean los segmentos, el sistema discreto más parecido será al continuo, obteniendo así respuestas más parecidas a este.
 \\
-Aprovechando la discretizacion del sistema y que este es un problema lineal, lo modelizaremos como un problema $Ax=b$ sobre la cual aplicaremos diversas tecnicas para resolverlo, como eliminacion gaussiana o descomposicion LU, que nos permitiran resolver las incognitas de una manera mas comoda.
+Aprovechando la discretización del sistema, y que este es un problema lineal, lo modelaremos como un problema $Ax=b$ sobre el cual aplicaremos diversas técnicas para resolverlo, como eliminación gaussiana o descomposición LU, que nos permitirán resolver las incógnitas de una manera más comoda.
 \\
-Para decirlo mas formalmente, dados $a$ y $b$ el ancho y el alto de nuestra superficie, respectivamente, $h$ la granularidad con la que discretizaremos, y valiendo que  $a = m\times h$ y $b = n \times h$, obtendremos una grilla de $(n+1)\times(m+1)$ puntos (donde el punto $(0,0)$ se corresponde con el extremo inferior izquierdo).
+Exprensando esto en un lenguaje más riguroso, dados $a$ y $b$ el ancho y el alto de nuestra superficie, respectivamente, $h$ la granularidad con la que discretizaremos, y valiendo que  $a = m\times h$ y $b = n \times h$, obtendremos una grilla de $(n+1)\times(m+1)$ puntos (donde el punto $(0,0)$ se corresponde con el extremo inferior izquierdo).
 \\
-Llamemos $t_{ij} = T(x_j,y_i)$ al valor (desconocido) de la funci\'on $T$ en el punto $(x_j, y_i) = (ih, jh)$. La aproximaci\'on finita (que es posible gracias a la discretizaci\'on realizada sobre el sistema) afirma que
+Llamemos $t_{ij} = T(x_j,y_i)$ al valor (desconocido) de la función $T$ en el punto $(x_j, y_i) = (ih, jh)$. La aproximación finita (que es posible gracias a la discretización realizada sobre el sistema) afirma que
 
 \begin{equation}
 t_{ij} \ =\ \frac{ t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}}{4}.
 \end{equation}
 
-De esta forma, es posible plantear un sistema en donde cada punto est\'e en funci\'on de otros y as\'i resolver todas las ecuaciones nos dar\'a la temperatura en el punto cr\'itico.
+De esta forma, es posible plantear un sistema en donde cada punto esté en función de otros y así resolver todas las ecuaciones nos dará la temperatura en el punto crítico.
 \\
-Dado que estamos discretizando el sistema, puede ocurrir que el punto critico (que esta definido como el centro del parabrisas) puede ocurrir que no coincida con ningun punto de la discretización. En este caso, calcularemos un punto proximo a este que sí este en la discretización y lo consideraremos el punto critico. Nuestro razonamiento fue que para una granularidad apropiada, este vecino será suficientemente cercano y va a corresponderse con el valor que debería coincidir con la discretización.
+Dado que estamos discretizando el sistema, puede ocurrir que el punto critico (que está definido como el centro del parabrisas) puede ocurrir que no coincida con ningún punto de la discretización. En este caso, calcularemos un punto próximo a este que sí esté en la discretización y lo consideraremos el punto crítico. Nuestro razonamiento consta en pensar que para una granularidad apropiada, este vecino es suficientemente cercano y se corresponde con el valor que debería coincidir con la discretización.
 
 \subsection{Entrada y salida de los algoritmos}
 
-Por una cuestión de simpleza, desidimos estandarizar toda la entrada y la salida de los algoritmos. De esta manera, todos toman una instancia de un archivo de texto con el siguiente formato:
+Por una cuestión de simpleza, decidimos estandarizar la entrada y la salida de los algoritmos. De esta manera, todos toman una instancia de un archivo de texto con el siguiente formato:
 $$
 \begin{pmatrix}
  (a) & (b) & (h) & (d) \\
@@ -32,12 +32,12 @@ $$
  (xk) & (yk) & (rk) & (tk) \\
 \end{pmatrix}
 $$
-Donde $a$ y $b$ son el ancho y el largo del parabrisas, $h$ será el tamaño de la discretización y $k$ la cantidad de sanguijuelas del sistema.
+Donde $a$ y $b$ son el ancho y el largo del parabrisas, $h$ el tamaño de la discretización y $k$ la cantidad de sanguijuelas del sistema.
 \\
 Las $k$ lineas siguientes corresponden a cada una de las sanguijuelas, tal que para la sanguijuela $i$, $xi$ $yi$ es la posición de la misma, $ri$ es su radio y $ti$ su temperatura.
 \\
-La salida de todos los algoritmos contendrá un archivo que debe ser indicado por parametro, donde por cada linea contendrá un indicador de la grilla $i,j$ junto con el correspondiente valor de temperatura.
+La salida de todos los algoritmos contendrá un archivo que debe ser indicado por parámetro, donde por cada linea contendrá un indicador de la grilla $i,j$ junto con el correspondiente valor de temperatura.
 \\
-En el caso de los algoritmos de salvación (definidos mas adelante), esta salida corresponderá a la solución del problema habiendo quitado la sangijuela que mas reduce la temperatura en el punto critico.
+En el caso de los algoritmos de salvación (definidos más adelante), esta salida corresponde a la solución del problema habiendo quitado la sanguijuela que más reduce la temperatura en el punto crítico.
 \\
-Ademas por pantalla se mostrará información que se crea correspondiente para cada algoritmo en particular.
+Además, se muestra por pantalla información particular del algoritmo ejecutado en esa instancia.
