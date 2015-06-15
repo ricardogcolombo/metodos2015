@@ -1,6 +1,7 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
+
 #include <cmath>
 #include <iostream>
 #include <opencv2/core/core.hpp>

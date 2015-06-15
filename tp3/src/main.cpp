@@ -1,6 +1,6 @@
 
 #include "bilineal.h"
-#include "bicubic.h"
+#include "splines.h"
 #include "common.h"
 
 using namespace cv;
@@ -44,7 +44,7 @@ int main( int argc, char** argv )
     }
 
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-    imshow( "Display window", imageRes );                   // Show our image inside it.
+    //imshow( "Display window", imageRes );                   // Show our image inside it.
     imwrite( "res.jpg", imageRes );
 
 

@@ -1,36 +1,58 @@
-#include "bicubic.h"
+#include "splines.h"
 valoresSpline calcularSplines(Mat *image, int fila, int k);
 
 void bicubic(Mat *image, Mat *imageRes, int k) {
+	
 	for(int t = 0; t < image->rows;t++)
 	{	
+		valoresSpline spline = calcularSplines(image,t,k);
 		for(int i = 0; i < image->cols;i++)
 		{
-			valoresSpline spline = calcularSplines(image,t,k);
-			for(int j = 0; j < k;j++){
+			for(int j = 0; j < k+1;j++){
 				//polinomio
-				int valor = spline.as[j]+spline.bs[j]*j+spline.cs[j]*j*j+spline.cs[j]*j*j*j;
-				imageRes->at<uchar>((i*k)+j, t) = valor;
+				int valor = spline.as[i]+spline.bs[i]*j+spline.cs[i]*j*j+spline.ds[i]*j*j*j;
+				if(valor > 255)
+					valor = 255;
+				if(valor < 0)
+					valor = 0;
+				imageRes->at<uchar>((i*(k))+j,t*(k) ) = valor;
 			}
 		}
+		delete[] spline.as;
+		delete[] spline.bs;
+		delete[] spline.cs;
+		delete[] spline.ds;		
 	}
 
-	Mat imageRes2 =imageRes->t();
+	// Mat imageRes2 =imageRes->t();
 
-	for(int t = 0; t < imageRes->rows;t++)
-	{	
-		for(int i = 0; i < imageRes->cols;i++)
-		{
-			valoresSpline spline = calcularSplines(&imageRes2,t,k);
-			for(int j = 0; j < k;j++){
-				//polinomio
-				int valor = spline.as[j]+spline.bs[j]*j+spline.cs[j]*j*j+spline.cs[j]*j*j*j;
-				imageRes2.at<uchar>(j, i*k ) = valor;
-			}
-		}
-	}
-	
-    imshow( "Display window",imageRes2 );                   // Show our image inside it.
+	// for(int t = 0; t < imageRes->rows;t++)
+	// {	
+	// 	valoresSpline spline = calcularSplines(image,t,k);
+	// 	for(int i = 0; i < image->cols;i++)
+	// 	{
+	// 		for(int j = 0; j < k;j++){
+	// 			//polinomio
+	// 			int valor = spline.as[i]+spline.bs[i]*j+spline.cs[i]*j*j+spline.ds[i]*j*j*j;
+	// 			if(valor > 255)
+	// 				valor = 255;
+	// 			if(valor < 0)
+	// 				valor = 0;
+	// 			imageRes2.at<uchar>(t*(k+1), (i*(k+1))+j) = valor;
+	// 		}
+	// 	}
+	// 	delete[] spline.as;
+	// 	delete[] spline.bs;
+	// 	delete[] spline.cs;
+	// 	delete[] spline.ds;	
+	// }
+	// *imageRes = imageRes2.t();
+
+	namedWindow( "Display window", WINDOW_AUTOSIZE );
+    imshow( "Display window",*imageRes );                   // Show our image inside it.
+    imwrite( "res.jpg", *imageRes );
+	waitKey(0);
+
 }
 
 valoresSpline calcularSplines(Mat *image, int fila, int k)
@@ -73,5 +95,10 @@ valoresSpline calcularSplines(Mat *image, int fila, int k)
 	resultado.bs = bs;
 	resultado.cs = cs;
 	resultado.ds = ds;
+
+
+	delete MatrizSpline;
+	delete[] b;
+
 	return resultado;
 }
