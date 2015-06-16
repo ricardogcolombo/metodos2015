@@ -1,19 +1,26 @@
-En el presente trabajo practico, nos encargaremos de analizar el problema de la interpolacion de polinomios mediante distintos metodos. Para ello, se nos ofrece como marco la necesidad de realizar zoom a distintas imagenes con el fin de crear un prototipo que permita decidir en tiempo real si una pelota entro o no dentro de un arco.
+En el presente trabajo práctico nos encargaremos de analizar el problema de la interpolación de polinomios mediante distintos métodos.
+Para ello se nos ofrece como marco la necesidad de realizar zoom a distintas imágenes, con el fin de crear un prototipo que permita decidir en tiempo
+real si una pelota entró o no dentro de un arco de fútbol.
 
-Nuestro objetivo entonces es el de, dada una imagen de $n x m$ pixeles de tama\~no original y un $k$ que denota la cantidad de filas y columnas que se quieren agregar entre cada pixel, encontrar la forma mas optima de rellenar estos valores.
+Nuestro objetivo entonces es, dada una imagen de $n x m$ pixeles de tamaño original y un número natural $k$ que denota la cantidad de filas y
+columnas que se quieren agregar entre cada pixel, encontrar la forma mas óptima de rellenar estos valores.
 
-Presentaremos entonces tres tecnicas a detallar con sus respectivas ventajas y desventajas:
+Presentaremos entonces tres técnicas a detallar con sus respectivas ventajas y desventajas:
 \begin{enumerate}
  \item Vecinos
  \item Interpolacion bilineal
- \item Interpolacion por splines.
+ \item Interpolacion por splines
 \end{enumerate}
 
-Ademas, con el fin de poder realizar un analisis cuantitavo entre cada metodo consideraremos dos medidas que comparan las imagenes originales contra sus transformadas ofreciendo una nocion de error o ruido:
+Además, con el fin de poder realizar un análisis cuantitavo sobre cada método, consideraremos dos medidas que comparan las imágenes
+originales contra sus transformadas ofreciendo una noción de error o ruido:
 \begin{enumerate}
- \item Error cuadratico medio (ECM)
+ \item Error cuadrático medio (ECM)
  \item Peak to signal noise (PSNR)
 \end{enumerate}
 
-Por ultimo, nuestra vision preliminar del problema nos indica que si bien es posible que los tres algoritmos funcionen bien para valores de $k$ relativamente bajos ($k = 1$ y quizas hasta $2$) y la version de vecinos sea mucho mas eficiente, es probable que esta deje de ser util muy rapidamente. Por el contrario, tanto la interpolacion bilineal y la interpolacion por splines es posible que funcionen mejor en valores grandes, aunque sea la ultima la que menos ruido introduzca (por la necesidad de que el polinomio sea derivable en cada interseccion, suavizando el cambio de uno a otro). 
-
+Por último, nuestra visión preliminar del problema nos indica que si bien es posible que los tres algoritmos retornen buenos resultados
+para valores de $k$ relativamente bajos ($k = 1$ y quizas hasta $2$) y la versión de vecinos sea mucho más eficiente temporalmente,
+es probable que esta deje de ser útil muy rapidamente a medida que crece $k$. Por el contrario, tanto la interpolación bilineal como la
+interpolación por splines es posible que funcionen mejor para valores de $k$ grandes, aunque sea la última la que menos ruido introduzca
+(por la necesidad de que el polinomio sea derivable en cada intersección, suavizando el cambio de uno a otro).
