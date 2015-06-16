@@ -1,0 +1,17 @@
+A continuacion, presentaremos las tecnicas mencionadas con su respectivo analisis:
+
+\subsection{Vecinos}
+El primer metodo que analizaremos sera el de vecinos. Este consiste en rellenar los valores de cada una de las columnas nuevas de la imagen replicando su valor mas proximo.
+
+
+ACA ARRANCA LOS DATOS GROSOS DE VECINOS
+
+\subsection{Interpolacion bilineal}
+El segundo metodo que analizaremos, sera el de interpolacion bilineal. En este caso, la idea consiste en generar un polinomio entre dos puntos consecutivos de la imagen, para, a por medio de este, calcular los valores necesarios para la extension. Primero realizaremos el calculo por filas y una vez calculados estos valores, repetiremos el mismo procedimiento por columnas.
+
+DATOS GROSOS DE INTERPOLACION
+
+\subsection{Interpolacion por Splines}
+Por ultimo, nos centraremos en la interpolaci\'on por Splines. Este metodo, similar al anterior, requiere el calculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender. Ademas, en este caso, dado que la interpolacion por medio de Splines trata de generar polinomios para un segmento especifico de la imagen, tambien analizaremos una version en la cual el Spline calculado solo incluye los valores de un recuadro de tama\~no menor, dejando de lado los valores de la imgen mas externos (que estan influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
+
+DATOS DE SPLINES

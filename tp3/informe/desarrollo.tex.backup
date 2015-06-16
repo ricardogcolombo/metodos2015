@@ -1,0 +1,8 @@
+A continuacion, presentaremos las tecnicas mencionadas con su respectivo analisis:
+
+\subsection{Vecinos}
+El primer metodo que analizaremos sera el de vecinos. Este consiste en rellenar los valores de cada una de las columnas nuevas de la imagen, con su valor mas proximo.
+
+\subsection{Interpolacion bilineal}
+
+\subsection{Interpolacion por Splines}

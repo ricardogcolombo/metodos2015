@@ -1,0 +1,19 @@
+En el presente trabajo practico, nos encargaremos de analizar el problema de la interpolacion de polinomios mediante distintos metodos. Para ello, se nos ofrece como marco la necesidad de realizar zoom a distintas imagenes con el fin de crear un prototipo que permita decidir en tiempo real si una pelota entro o no dentro de un arco.
+
+Nuestro objetivo entonces es el de, dada una imagen de $n x m$ pixeles de tama\~no original y un $k$ que denota la cantidad de filas y columnas que se quieren agregar entre cada pixel, encontrar la forma mas optima de rellenar estos valores.
+
+Presentaremos entonces tres tecnicas a detallar con sus respectivas ventajas y desventajas:
+\begin{enumerate}
+ \item Vecinos
+ \item Interpolacion bilineal
+ \item Interpolacion por splines.
+\end{enumerate}
+
+Ademas, con el fin de poder realizar un analisis cuantitavo entre cada metodo consideraremos dos medidas que comparan las imagenes originales contra sus transformadas ofreciendo una nocion de error o ruido:
+\begin{enumerate}
+ \item Error cuadratico medio (ECM)
+ \item Peak to signal noise (PSNR)
+\end{enumerate}
+
+Por ultimo, nuestra vision preliminar del problema nos indica que si bien es posible que los tres algoritmos funcionen bien para valores de $k$ relativamente bajos ($k = 1$ y quizas hasta $2$) y la version de vecinos sea mucho mas eficiente, es probable que esta deje de ser util muy rapidamente. Por el contrario, tanto la interpolacion bilineal y la interpolacion por splines es posible que funcionen mejor en valores grandes, aunque sea la ultima la que menos ruido introduzca (por la necesidad de que el polinomio sea derivable en cada interseccion, suavizando el cambio de uno a otro). 
+
