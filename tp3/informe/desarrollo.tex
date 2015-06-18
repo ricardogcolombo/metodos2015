@@ -1,17 +1,74 @@
-A continuacion, presentaremos las tecnicas mencionadas con su respectivo analisis:
+A continuación presentaremos las técnicas mencionadas con su respectivo análisis:
 
 \subsection{Vecinos}
-El primer metodo que analizaremos sera el de vecinos. Este consiste en rellenar los valores de cada una de las columnas nuevas de la imagen replicando su valor mas proximo.
+El primer método que analizaremos será el de vecinos. Este consiste en rellenar los valores de cada una de las columnas
+nuevas de la imagen replicando su valor más próximo. La principal ventaja de este metodo es la simpleza de su implementación, que consta unicamente de dos bucles para iterar la matriz original.
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void vecinos(Matriz *image, Matriz *imageRes , int k)}
+\FOR{0 \TO imageRes$\rightarrow$rows}
+    \FOR{0 \TO imageRes$\rightarrow$cols}
+        \STATE{imageRes$\rightarrow$at(i, j) $=$ image$\rightarrow$at(round(i/(k+1)), round(j/(k+1)))\\}
+    \ENDFOR
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Interpolación bilineal}
+El segundo método que analizaremos será el de interpolación bilineal. En este caso, la idea consiste en generar un polinomio entre
+dos puntos consecutivos de la imagen para, por medio de este, calcular los valores necesarios para la extensión. \\
+Primero realizaremos el cálculo por filas y una vez calculados estos valores, repetiremos el mismo procedimiento por columnas.
+Sean entonces $Q_{11}$, $Q_{12}$, $Q_{21}$, $Q_{22}$ los cuatro puntos de la imagen original sobre los que queremos interpolar, el objetivo es conseguir un polinomio P que valga lo mismo en cada uno de estos puntos y aproxime los nuevos valores intermedios. Usaremos entonces para esto el polinomio interpolador de Lagrange.
+
+Interpolando entonces en el eje X obtenemos la siguiente formula:
+
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealX.png}\\
+\end{center}
 
 
-ACA ARRANCA LOS DATOS GROSOS DE VECINOS
+Ahora, realizando el mismo procedimiento pero en el eje Y, obtenemos lo siguiente:
 
-\subsection{Interpolacion bilineal}
-El segundo metodo que analizaremos, sera el de interpolacion bilineal. En este caso, la idea consiste en generar un polinomio entre dos puntos consecutivos de la imagen, para, a por medio de este, calcular los valores necesarios para la extension. Primero realizaremos el calculo por filas y una vez calculados estos valores, repetiremos el mismo procedimiento por columnas.
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealY.png}\\
+\end{center}
 
-DATOS GROSOS DE INTERPOLACION
+Si notamos, los puntos que acompañan a las bases polinómicas de Lagrange son los mismos que calculamos sobre el eje X, por lo que podemos realizar el remplazo para llegar a una formula cerrada:
 
-\subsection{Interpolacion por Splines}
-Por ultimo, nos centraremos en la interpolaci\'on por Splines. Este metodo, similar al anterior, requiere el calculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender. Ademas, en este caso, dado que la interpolacion por medio de Splines trata de generar polinomios para un segmento especifico de la imagen, tambien analizaremos una version en la cual el Spline calculado solo incluye los valores de un recuadro de tama\~no menor, dejando de lado los valores de la imgen mas externos (que estan influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealXY.png}\\
+\end{center}
 
-DATOS DE SPLINES
+Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación final
+
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealFinal.png}\\
+\end{center}
+
+Notese que se obtiene el mismo polinomio interpolador tanto si hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.
+
+%TODO PSEUDOCODIGO
+
+\subsection{Interpolación por Splines}
+Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
+Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
+específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor, dejando de lado los valores de la imagen externos (que están influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
+
+Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos ultimos en funcion de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
+
+\begin{center}
+\includegraphics[scale=0.50]{imagenes/A.png}
+\includegraphics[scale=0.50]{imagenes/x.png}
+\includegraphics[scale=0.50]{imagenes/b.png}
+\end{center}
+
+donde $h = x_{j+1} - x_{j}$. Para nuestra aplicacion $h = k$ y se mantiene fijo, ya que la distancia entre los puntos de la nueva imagen es igual a $k$. Una vez resuelto este sistema y con los valores de $c_{0},..., c_{n}$ ya calculados, podemos despejar los coeficientes que necesitabamos en base a las siguientes ecuaciones (que se derivan de las condiciones del mismo spline):
+
+$a_j$ es el valor del pixel en la posicion $j$ de la imagen original en la fila o columna iterada por el spline \\
+$b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\
+$d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
+
+%TODO PSEUDOCODIGO
+
+
