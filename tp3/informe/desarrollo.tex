@@ -23,25 +23,52 @@ Sean entonces $Q_{11}$, $Q_{12}$, $Q_{21}$, $Q_{22}$ los cuatro puntos de la ima
 
 Interpolando entonces en el eje X obtenemos la siguiente formula:
 
+\begin{center}
 \includegraphics[scale=0.75]{imagenes/bilinealX.png}\\
+\end{center}
+
 
 Ahora, realizando el mismo procedimiento pero en el eje Y, obtenemos lo siguiente:
 
+\begin{center}
 \includegraphics[scale=0.75]{imagenes/bilinealY.png}\\
+\end{center}
 
 Si notamos, los puntos que acompañan a las bases polinómicas de Lagrange son los mismos que calculamos sobre el eje X, por lo que podemos realizar el remplazo para llegar a una formula cerrada:
 
+\begin{center}
 \includegraphics[scale=0.75]{imagenes/bilinealXY.png}\\
+\end{center}
 
 Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación final
 
+\begin{center}
 \includegraphics[scale=0.75]{imagenes/bilinealFinal.png}\\
+\end{center}
 
 Notese que se obtiene el mismo polinomio interpolador tanto si hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.
+
+%TODO PSEUDOCODIGO
 
 \subsection{Interpolación por Splines}
 Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
 Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
 específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor, dejando de lado los valores de la imagen externos (que están influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
 
-% DATOS DE SPLINES
+Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos ultimos en funcion de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
+
+\begin{center}
+\includegraphics[scale=0.50]{imagenes/A.png}
+\includegraphics[scale=0.50]{imagenes/x.png}
+\includegraphics[scale=0.50]{imagenes/b.png}
+\end{center}
+
+donde $h = x_{j+1} - x_{j}$. Para nuestra aplicacion $h = k$ y se mantiene fijo, ya que la distancia entre los puntos de la nueva imagen es igual a $k$. Una vez resuelto este sistema y con los valores de $c_{0},..., c_{n}$ ya calculados, podemos despejar los coeficientes que necesitabamos en base a las siguientes ecuaciones (que se derivan de las condiciones del mismo spline):
+
+$a_j$ es el valor del pixel en la posicion $j$ de la imagen original en la fila o columna iterada por el spline \\
+$b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\
+$d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
+
+%TODO PSEUDOCODIGO
+
+
