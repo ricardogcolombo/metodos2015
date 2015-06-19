@@ -20,6 +20,7 @@ using namespace cv;
 using namespace std;
 
 double errorCuadraticoMedio(Mat* im1, Mat *im2);
+double getPSNR(Mat *I1, Mat *I2);
 
 int main(int argc, char** argv) {
 	if (argc != 3) {
@@ -38,32 +39,26 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 	double errorC = errorCuadraticoMedio(&imagen1, &imagen2);
-	cout << errorC << endl;;
+	
+	double psnr = getPSNR(&imagen1,&imagen2);
+	cout << errorC << " " << psnr << endl;;
 	return 0;
 }
 
 //COMO FUNCIONA?
-double getPSNR(Mat *I1, Mat *I2, int k) {
-	// Mat s1;
-	int resRows = (I1->rows - 1) * k + I1->rows;
-	int resCols = (I1->cols - 1) * k + I1->cols;
-	Mat s1(resRows, resCols, DataType<double>::type);
+double getPSNR(Mat *I1, Mat *I2) {
+	Mat s1(I1->rows, I1->cols, DataType<double>::type);
 	absdiff(*I1, *I2, s1);       // |I1 - I2|
 	s1.convertTo(s1, CV_32F);  // cannot make a square on 8 bits
 	s1 = s1.mul(s1);           // |I1 - I2|^2
-
 	// Scalar s = sum(s1);        // sum elements per channel
-
 	double res = 0;
-
 	for (int i = 0; i < s1.rows; i++) {
 		for (int j = 0; j < s1.cols; j++) {
 			res += s1.at<double>(i, j);
 		}
 	}
-
 	// double sse = s.val[0] + s.val[1] + s.val[2]; // sum channels
-
 	if ( res <= 1e-10) { // for small values return zero
 		return 0;
 	} else {
