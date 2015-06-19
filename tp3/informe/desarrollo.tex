@@ -2,7 +2,7 @@ A continuación presentaremos las técnicas mencionadas con su respectivo análi
 
 \subsection{Vecinos}
 El primer método que analizaremos será el de vecinos. Este consiste en rellenar los valores de cada una de las columnas
-nuevas de la imagen replicando su valor más próximo. La principal ventaja de este metodo es la simpleza de su implementación, que consta unicamente de dos bucles para iterar la matriz original.
+nuevas de la imagen replicando su valor más próximo. La principal ventaja de este metodo es la simpleza de su implementación, que consta unicamente de dos bucles para iterar la matriz original. Caracteristica que ademas le provee de una eficiencia del orden de O($n^2$) siendo n el alto y ancho de la imagen destino.
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -14,6 +14,8 @@ nuevas de la imagen replicando su valor más próximo. La principal ventaja de e
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
+
+Como se menciono anteriormente, a pesar su alta eficiencia temporal comparado con los demas metodos, nuestra intuicion nos dice que este va ser el que presente una mayor cantidad de ruido, debido a que simplemente se estan replicando los pixeles de las imgenes. Como resultado, teniendo en cuenta que lo unico que se logra es 'anadir grosor' a los pixeles, deberian conseguirse imagenes de mayor tamaño pero con una ganancia igual de rapida en los valores de ruido a medida que los valores de $k$ aumentan.
 
 \subsection{Interpolación bilineal}
 El segundo método que analizaremos será el de interpolación bilineal. En este caso, la idea consiste en generar un polinomio entre
@@ -46,7 +48,7 @@ Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación fina
 \includegraphics[scale=0.75]{imagenes/bilinealFinal.png}\\
 \end{center}
 
-Notese que se obtiene el mismo polinomio interpolador tanto si hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.
+Notese que se obtiene el mismo polinomio interpolador tanto si se hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.
 Para facilitar la lectura y escritura del ejercicio vamos a definir una estructura que se llama punto que dentro de la misma vamos a tener los 3 valores, el primero es el valor en x, el segundo en y y el tercero un valor que sera de la imagen original. 
 En el siguiente codigo las variables q11,q12,q21,q22 son del tipo descripto anteriormente y se utilizan para definir los 4 puntos en los cuales se va a realizar el polinomio interpolador.
 %TODO PSEUDOCODIGO
@@ -118,6 +120,9 @@ $d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
 
 %TODO PSEUDOCODIGO
 
+
+En este metodo, comparado con el anterior que solo replicaba pixeles vecinos, se esta calculando un polinomio para tratar de introducir cierto nivel de suavidad entre los de la imagen original a medida que se atraviezan los pixeles agregamos. Un dato importante a tener en cuenta es que dado que el grado del polinomio aumenta a medida que la cantidad de puntos a interpolar lo hace, decidimos que esta se realice entre solo dos puntos de la imagen original, para ofrecer un mejor desempe\~no entre puntos, haciendo que el polinomio calculado sea mas operativo y evitando que este osile demasiado (situacion conocida como Fenomeno de Runge\footnote{\url{https://es.wikipedia.org/wiki/Fenomeno_de_Runge}}). Como contrapartida de esta optimizacion, es necesario recalcular el polinomio interpolador para todo par de puntos entre la imagen pero teniendo en cuenta que no se trabaja con imagenes de una definicion desmesurada, es un costo que se puede pagar en detrimento de los beneficios obtenidos.
+
 \subsection{Interpolación por Splines}
 Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
 Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
@@ -140,3 +145,4 @@ $d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
 %TODO PSEUDOCODIGO
 
 
+Este metodo, que podria considerarse un refinamiento del anterior, introduce la particularidad de que se le pide al polinomio interpolador que las intersecciones de las funciones que interpolan al punto $n-1$ y $n$ y al $n$ y al $n+1$, sean derivables. Como resultado, se agrega mucha mas suavidad entre puntos que con la tecnica anterior que solo respetaba que las funciones empiecen y terminen en el mismo punto (dando lugar a posibles picos, como en el caso de que dos puntos se interpolen con una recta ascendente y los siguientes con una descendente). Ademas, esta tecnica evita de forma natural la oscilacion del polinomio mencionada en el metodo anterior dado que siempre se toman polinomios por partes. Gracias a esto, cuando se intenta reducir el error de interpolación se puede incrementar el número de partes del polinomio que se usa para construir el spline, en lugar de incrementar su grado.
