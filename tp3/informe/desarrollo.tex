@@ -77,58 +77,16 @@ Donde polinomio interpolador es la funcion que se encarga de generar el polinomi
 \end{algorithmic}
 \end{algorithm}
 Para el caso del polinomio interpolador se le agrego al final 2 lineas de las cuales se satura en caso de ser necesario cuando luego de realizar todas las cuentas el valor que nos queda es mayor a 255, lo fijamos en 255, y cuando el valor es menor a 0 lo fijamos en 0.
-
-\subsection{Interpolación por Splines}
-Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
-Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
-específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor, dejando de lado los valores de la imagen externos (que están influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
-
-Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos ultimos en funcion de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
-
-\begin{center}
-\includegraphics[scale=0.50]{imagenes/A.png}
-\includegraphics[scale=0.50]{imagenes/x.png}
-\includegraphics[scale=0.50]{imagenes/b.png}
-\end{center}
-
-donde $h = x_{j+1} - x_{j}$. Para nuestra aplicacion $h = k$ y se mantiene fijo, ya que la distancia entre los puntos de la nueva imagen es igual a $k$. Una vez resuelto este sistema y con los valores de $c_{0},..., c_{n}$ ya calculados, podemos despejar los coeficientes que necesitabamos en base a las siguientes ecuaciones (que se derivan de las condiciones del mismo spline):
-
-$a_j$ es el valor del pixel en la posicion $j$ de la imagen original en la fila o columna iterada por el spline \\
-$b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\
-$d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
-
-%TODO PSEUDOCODIGO
-
-\subsection{Interpolación por Splines}
-Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
-Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
-específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor, dejando de lado los valores de la imagen externos (que están influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
-
-Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos ultimos en funcion de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
-
-\begin{center}
-\includegraphics[scale=0.50]{imagenes/A.png}
-\includegraphics[scale=0.50]{imagenes/x.png}
-\includegraphics[scale=0.50]{imagenes/b.png}
-\end{center}
-
-donde $h = x_{j+1} - x_{j}$. Para nuestra aplicacion $h = k$ y se mantiene fijo, ya que la distancia entre los puntos de la nueva imagen es igual a $k$. Una vez resuelto este sistema y con los valores de $c_{0},..., c_{n}$ ya calculados, podemos despejar los coeficientes que necesitabamos en base a las siguientes ecuaciones (que se derivan de las condiciones del mismo spline):
-
-$a_j$ es el valor del pixel en la posicion $j$ de la imagen original en la fila o columna iterada por el spline \\
-$b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\
-$d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
-
-%TODO PSEUDOCODIGO
-
-
+\\
 En este método, comparado con el anterior que solo replicaba píxeles vecinos, se esta calculando un polinomio para tratar de introducir cierto nivel de suavidad entre los puntos de la imagen original a medida que se recorren los píxeles. Un dato importante a tener en cuenta es que dado que el grado del polinomio aumenta a medida que la cantidad de puntos a interpolar es mayor, decidimos que esta se realice entre solo dos puntos de la imagen original, para ofrecer un mejor desempe\~no entre puntos, haciendo que el polinomio calculado sea mas operativo y evitando que este oscile demasiado (situación conocida como Fenómeno de Runge\footnote{\url{https://es.wikipedia.org/wiki/Fenomeno_de_Runge}}). Como contrapartida de esta optimización, es necesario recalcular el polinomio interpolador para todo par de puntos entre la imagen pero teniendo en cuenta que no se trabaja con imágenes de una definición desmesurada, es un costo que se puede pagar en detrimento de los beneficios obtenidos.
 
+
 \subsection{Interpolación por Splines}
 Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
 Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
-específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor, dejando de lado los valores lejanos de la imagen (que están influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
+específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor, dejando de lado los valores de la imagen externos (que están influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
 
-Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos últimos en función de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
+Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos ultimos en funcion de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
 
 \begin{center}
 \includegraphics[scale=0.50]{imagenes/A.png}
@@ -136,17 +94,12 @@ Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})
 \includegraphics[scale=0.50]{imagenes/b.png}
 \end{center}
 
-donde $h = x_{j+1} - x_{j}$. Para nuestra aplicación $h = k$ y se mantiene fijo, ya que la distancia entre los puntos de la nueva imagen es igual a $k$. Una vez resuelto este sistema y con los valores de $c_{0},..., c_{n}$ ya calculados, podemos despejar los coeficientes que necesitábamos en base a las siguientes ecuaciones (que se derivan de las condiciones del mismo spline):
+donde $h = x_{j+1} - x_{j}$. Para nuestra aplicacion $h = k$ y se mantiene fijo, ya que la distancia entre los puntos de la nueva imagen es igual a $k$. Una vez resuelto este sistema y con los valores de $c_{0},..., c_{n}$ ya calculados, podemos despejar los coeficientes que necesitabamos en base a las siguientes ecuaciones (que se derivan de las condiciones del mismo spline):
 
-$a_j$ es el valor del píxel en la posición $j$ de la imagen original en la fila o columna iterada por el spline \\ \\
+$a_j$ es el valor del pixel en la posicion $j$ de la imagen original en la fila o columna iterada por el spline \\ \\
 $b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\ \\
-$d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\ 
+$d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
 
 %TODO PSEUDOCODIGO
 
-<<<<<<< HEAD
-
-Este metodo, que podria considerarse un refinamiento del anterior, introduce la particularidad de que se le pide al polinomio interpolador que las intersecciones de las funciones que interpolan al punto $n-1$ y $n$ y al $n$ y al $n+1$, sean derivables. Como resultado, se agrega mucha mas suavidad entre puntos que con la tecnica anterior que solo respetaba que las funciones empiecen y terminen en el mismo punto (dando lugar a posibles picos, como en el caso de que dos puntos se interpolen con una recta ascendente y los siguientes con una descendente). Ademas, esta tecnica evita de forma natural la oscilacion del polinomio mencionada en el metodo anterior dado que siempre se toman polinomios por partes. Gracias a esto, cuando se intenta reducir el error de interpolación se puede incrementar el número de partes del polinomio que se usa para construir el spline, en lugar de incrementar su grado.
-=======
 Este método, que podría considerarse un refinamiento del anterior, introduce la particularidad de que se le pide al polinomio interpolador que las intersecciones de las funciones que interpolan al punto $n-1$ y $n$ y al $n$ y al $n+1$, sean derivables. Como resultado, se agrega mucha mas suavidad entre puntos que con la técnica anterior que solo respetaba que las funciones empiecen y terminen en el mismo punto (dando lugar a posibles picos, como en el caso de que dos puntos se interpolen con una recta ascendente y los siguientes con una descendente). Además, esta técnica evita de forma natural la oscilación del polinomio mencionada en el método anterior dado que siempre se toman polinomios por partes. Gracias a esto, cuando se intenta reducir el error de interpolación se puede incrementar el número de partes del polinomio que se usa para construir el spline, en lugar de incrementar su grado.
->>>>>>> 2b06dde6c98dd17ef2f8e63e4fd6c700147aec0f
