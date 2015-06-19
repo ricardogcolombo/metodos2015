@@ -3,7 +3,7 @@ valoresSpline calcularSplines(int n , double * as, int k);
 
 void bicubic(Mat *image, Mat *imageRes, int k) {
 
-	for (int t = 0; t < image->rows - 1; t++) {
+	for (int t = 0; t < image->rows; t++) {
 
 		double *as = new double[image->cols];
 		for (int i = 0; i < image->cols; i++) {
@@ -30,10 +30,10 @@ void bicubic(Mat *image, Mat *imageRes, int k) {
 		delete[] spline.ds;
 	}
 
-	for (int t = 0; t < imageRes->cols - 1; t++) {
+	for (int t = 0; t < imageRes->cols; t++) {
 		double *as = new double[image->rows];
 		for (int i = 0; i < image->rows; i++) {
-			as[i] = imageRes->at<uchar>(i * (k + 1),t);
+			as[i] = imageRes->at<uchar>(i * (k + 1), t);
 		}
 		valoresSpline spline = calcularSplines(image->rows, as, k);
 		for (int i = 0; i < image->rows - 1; i++) {
