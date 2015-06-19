@@ -54,17 +54,6 @@ void bicubic(Mat *image, Mat *imageRes, int k) {
 		delete[] spline.cs;
 		delete[] spline.ds;
 	}
-
-
-
-
-
-
-	namedWindow( "Display window", WINDOW_AUTOSIZE );
-	imshow( "Display window", *imageRes );                  // Show our image inside it.
-	imwrite( "res.jpg", *imageRes );
-	waitKey(0);
-
 }
 
 //Algoritmo sacado del burden 9na edicion pagina 150

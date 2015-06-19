@@ -1,4 +1,3 @@
-
 #include "bilineal.h"
 #include "splines.h"
 #include "common.h"
@@ -8,44 +7,43 @@ using namespace std;
 
 double getPSNR(Mat *I1, Mat *I2, int k);
 void vecinos(Mat *image, Mat *imageRes, int k);
+void dividirEnVentanas(Mat *image, Mat *imageRes, int k);
+void copy(Mat *dest, Mat *src, int fila, int columna);
 
-int main( int argc, char** argv )
-{
-    if( argc != 4)
-    {
-     std::cout <<" Usage: filename filter k" << std::endl;
-     return -1;
-    }
+int main( int argc, char** argv ) {
+	if ( argc != 4) {
+		std::cout << " Usage: filename filter k" << std::endl;
+		return -1;
+	}
 
-    Mat image;
-    image = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
-    int method = atoi(argv[2]);
-    int k = atoi(argv[3]);
-    int resRows = (image.rows-1)*k + image.rows;
-    int resCols = (image.cols-1)*k + image.cols;
-    Mat imageRes(resRows, resCols, DataType<uchar>::type);
+	Mat image;
+	image = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
+	int method = atoi(argv[2]);
+	int k = atoi(argv[3]);
+	int resRows = (image.rows - 1) * k + image.rows;
+	int resCols = (image.cols - 1) * k + image.cols;
+	Mat imageRes(resRows, resCols, DataType<uchar>::type);
 
-    if(! image.data )                              // Check for invalid input
-    {
-        std::cout <<  "Could not open or find the image" << std::endl ;
-        return -1;
-    }
+	if (! image.data ) {                           // Check for invalid input
+		std::cout <<  "Could not open or find the image" << std::endl ;
+		return -1;
+	}
+	switch (method) {
+	case 1:
+		vecinos(&image, &imageRes, k);
+		break;
+	case 2:
+		bilineal(&image, &imageRes, k);
+		break;
+	case 3:
+		//bicubic(&image, &imageRes, k);
+		dividirEnVentanas(&image, &imageRes, k);
+		break;
+	}
 
-    switch(method) {
-      case 1:
-        vecinos(&image, &imageRes, k);
-        break;
-      case 2:
-        bilineal(&image, &imageRes, k);
-        break;
-      case 3:
-        bicubic(&image, &imageRes, k);
-        break;
-    }
-
-    namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-    imshow( "Display window", imageRes );                   // Show our image inside it.
-    imwrite( "res.jpg", imageRes );
+	namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
+	imshow( "Display window", imageRes );                   // Show our image inside it.
+	imwrite( "res.jpg", imageRes );
 
 
 	cout << "Tamano fila imagen fuente: " << image.rows << endl;
@@ -54,55 +52,76 @@ int main( int argc, char** argv )
 	cout << "Tamano fila imagen destino: " << imageRes.rows << endl;
 	cout << "Tamano columna imagen destino: " << imageRes.cols << endl;
 
-	if(k == 0){
+	if (k == 0) {
 		double res = getPSNR(&image, &imageRes, k);
 		cout << "El error PSNR es: " << res << endl;
 	}
 
-    waitKey(0);                                          // Wait for a keystroke in the window
-    return 0;
+	waitKey(0);                                          // Wait for a keystroke in the window
+	return 0;
 }
 
-void vecinos(Mat *image, Mat *imageRes, int k) { 
-	for(int i=0; i<imageRes->rows; i++){
-		for(int j=0; j<imageRes->cols; j++){
-      imageRes->at<uchar>(i, j) = image->at<uchar>(round(i/(k+1)), round(j/(k+1)));
-    }
-  }
-}
-	
-
-
-
-double getPSNR(Mat *I1, Mat *I2, int k)
-{
-   // Mat s1;
-	int resRows = (I1->rows-1)*k + I1->rows;
-    int resCols = (I1->cols-1)*k + I1->cols;
-    Mat s1(resRows, resCols, DataType<double>::type);
-    absdiff(*I1, *I2, s1);       // |I1 - I2|
-    s1.convertTo(s1, CV_32F);  // cannot make a square on 8 bits
-    s1 = s1.mul(s1);           // |I1 - I2|^2
-
-    // Scalar s = sum(s1);        // sum elements per channel
-
-    double res = 0;
-
-    for(int i=0; i < s1.rows; i++){
-    	for(int j=0; j < s1.cols; j++){
-    		res += s1.at<double>(i, j);
-    	}
-    }
-
-    // double sse = s.val[0] + s.val[1] + s.val[2]; // sum channels
-
-    if( res <= 1e-10) // for small values return zero
-        return 0;
-    else
-    {
-        double mse  = res / (double)(I1->rows*I1->cols);
-        double psnr = 10.0 * log10((255 * 255) / mse);
-        return psnr;
-    }
+void vecinos(Mat *image, Mat *imageRes, int k) {
+	for (int i = 0; i < imageRes->rows; i++) {
+		for (int j = 0; j < imageRes->cols; j++) {
+			imageRes->at<uchar>(i, j) = image->at<uchar>(round(i / (k + 1)), round(j / (k + 1)));
+		}
+	}
 }
 
+
+
+
+double getPSNR(Mat *I1, Mat *I2, int k) {
+	// Mat s1;
+	int resRows = (I1->rows - 1) * k + I1->rows;
+	int resCols = (I1->cols - 1) * k + I1->cols;
+	Mat s1(resRows, resCols, DataType<double>::type);
+	absdiff(*I1, *I2, s1);       // |I1 - I2|
+	s1.convertTo(s1, CV_32F);  // cannot make a square on 8 bits
+	s1 = s1.mul(s1);           // |I1 - I2|^2
+
+	// Scalar s = sum(s1);        // sum elements per channel
+
+	double res = 0;
+
+	for (int i = 0; i < s1.rows; i++) {
+		for (int j = 0; j < s1.cols; j++) {
+			res += s1.at<double>(i, j);
+		}
+	}
+
+	// double sse = s.val[0] + s.val[1] + s.val[2]; // sum channels
+
+	if ( res <= 1e-10) { // for small values return zero
+		return 0;
+	} else {
+		double mse  = res / (double)(I1->rows * I1->cols);
+		double psnr = 10.0 * log10((255 * 255) / mse);
+		return psnr;
+	}
+}
+
+void dividirEnVentanas(Mat *image, Mat *imageRes, int k) {
+	int tamanioVentana = 8;
+	cout << image->rows << " " << image->cols << endl;
+	for (int i = 0; i < image->rows - tamanioVentana; i += tamanioVentana-1)
+		for (int j = 0; j < image->cols - tamanioVentana; j += tamanioVentana-1) {
+			cout << i << " " << j << endl;
+			Mat ventana = (*image)(Rect(j, i, tamanioVentana, tamanioVentana));
+			int resRows = (ventana.rows - 1) * k + ventana.rows;
+			int resCols = (ventana.cols - 1) * k + ventana.cols;
+			Mat ventanaAumentada(resRows, resCols, DataType<uchar>::type);
+			bilineal(&ventana, &ventanaAumentada, k);
+			copy(imageRes, &ventanaAumentada, i*(k+1), j*(k+1));
+		}
+}
+
+
+void copy(Mat *dest, Mat *src, int fila, int columna) {
+	for (int i = 0; i < src->rows; i++)
+		for (int j = 0; j < src-> cols; j++ ) {
+			dest->at<uchar>(fila + i, columna + j) = src->at<uchar>(i, j);
+		}
+
+}
