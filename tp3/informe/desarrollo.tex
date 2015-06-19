@@ -48,15 +48,14 @@ Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación fina
 \includegraphics[scale=0.75]{imagenes/bilinealFinal.png}\\
 \end{center}
 
-Notar que se obtiene el mismo polinomio interpolador tanto si se hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.
+Notar que se obtiene el mismo polinomio interpolador tanto si se hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.\\
 Para facilitar la lectura y escritura del ejercicio vamos a definir una estructura que se llama punto que dentro de la misma vamos a tener los 3 valores, el primero es el valor en x, el segundo en y y el tercero un valor que sera de la imagen original. 
-En el siguiente codigo las variables q11,q12,q21,q22 son del tipo descripto anteriormente y se utilizan para definir los 4 puntos en los cuales se va a realizar el polinomio interpolador.
-%TODO PSEUDOCODIGO
+En el siguiente codigo las variables q11,q12,q21,q22 son del tipo descripto anteriormente y se utilizan para definir los 4 puntos en los cuales se va a realizar el polinomio interpolador, la matriz A representa la imagen original y la matriz Res representa la imagen extendida.
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void bilineal(matriz A, vector Res,int k)}
-  \STATE{Para i$=0...CantFilas$}
-  \STATE{\quad Para j$=0...CantColumnas$}
+  \STATE{Para i$=0...CantFilas-1$}
+  \STATE{\quad Para j$=0...CantColumnas-1$}
   \STATE{\quad \quad q11 = $<0,0, A_{i,j}>$}
   \STATE{\quad \quad q12 = $<0,k+1, A_{i,j+1}>$}
   \STATE{\quad \quad q21 = $<k+1,0, A_{i+1,j}>$}
@@ -67,7 +66,7 @@ En el siguiente codigo las variables q11,q12,q21,q22 son del tipo descripto ante
   \STATE{\quad \quad \quad \quad $Res_{i*(k+1)+x,j*(k+1)+y} =$ valorRes}
 \end{algorithmic}
 \end{algorithm}\\
-Donde polinomio interpolador es la funcion que se encarga de generar el polinomio interpolador en el punto, De la siguiente manera.
+Donde polinomio interpolador es la funcion que se encarga de generar el polinomio interpolador en el punto, de la siguiente manera.
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void polinomioInterpolador(punto q11,punto q12, punto q21, punto q22, int x, int y)}
@@ -77,6 +76,7 @@ Donde polinomio interpolador es la funcion que se encarga de generar el polinomi
   \STATE{retorno ((numerador1+numerador2)*denominador)}
 \end{algorithmic}
 \end{algorithm}
+Para el caso del polinomio interpolador se le agrego al final 2 lineas de las cuales se satura en caso de ser necesario cuando luego de realizar todas las cuentas el valor que nos queda es mayor a 255, lo fijamos en 255, y cuando el valor es menor a 0 lo fijamos en 0.
 
 \subsection{Interpolación por Splines}
 Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
