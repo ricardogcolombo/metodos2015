@@ -58,9 +58,9 @@ int main( int argc, char** argv ) {
 
 	cerr << tiempoExec << endl;
 
-	// namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-	// imshow( "Display window", imageRes );                   // Show our image inside it.
-	// imwrite( "res.jpg", imageRes );
+	namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
+	imshow( "Display window", imageRes );                   // Show our image inside it.
+	imwrite( "res.jpg", imageRes );
 
 
 	cout << "Tamano fila imagen fuente: " << image.rows << endl;
@@ -74,7 +74,7 @@ int main( int argc, char** argv ) {
 		cout << "El error PSNR es: " << res << endl;
 	}
 
-	waitKey(0);                                          // Wait for a keystroke in the window
+	//waitKey(0);                                          // Wait for a keystroke in the window
 	return 0;
 }
 
