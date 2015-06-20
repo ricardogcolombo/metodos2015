@@ -100,6 +100,57 @@ $a_j$ es el valor del pixel en la posicion $j$ de la imagen original en la fila 
 $b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\ \\
 $d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
 
-%TODO PSEUDOCODIGO
+El implementacion del algoritmo bicubico consta de dos partes muy similares, ya que primero se recorre la matriz por columnas para realizar el metodo de splines y luego se realiza el metodo por filas para completar la matriz.
+Definimos para el una clase llamada spline donde almacenaremos los arreglos as, bs,cs y ds, estos contienen los coeficientes del polinomio para la posicion i de la fila o columna en donde estemos calculando los splines.
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void bicubico(matriz A, vector Res,int k)}
+  \STATE{Para i$=0..CantFilas-1$}
+  \STATE{\quad Para j$=0..CantColumnas-1$}
+  \STATE{\quad \quad$ Spline spline =calcularSpline(CantColumnas,columna_j,k)$}
+  \STATE{\quad Para j$=0..CantColumnas-1$}
+  \STATE{\quad \quad  Para l$=0..k+1$}
+  \STATE{\quad \quad \quad valor$ = spline.a[i] + spline.b[i]*l + spline.c[i]*j^2+spline.d[i]*j^3$}
+  \STATE{\quad \quad \quad saturar(valor) }
+  \STATE{\quad \quad \quad $Res_{i*(k+1),j*(k+1)+l}= valor$}
+  \STATE{Para i$=0..CantColumnas-1$}
+  \STATE{\quad Para j$=0..CantFilas-1$}
+  \STATE{\quad \quad spline$ = calcularSpline(CantFilas,fila(j),k)$}
+  \STATE{\quad Para j$=0..CantFilas-1$}
+  \STATE{\quad \quad  Para l$=0..k+1$}
+  \STATE{\quad \quad \quad valor$ = spline.a[i] + spline.b[i]*l + spline.c[i]*j^2+spline.d[i]*j^3$}
+  \STATE{\quad \quad \quad saturar(valor) }
+  \STATE{\quad \quad \quad $Res_{j*(k+1)+l,i)}= valor$}
+\end{algorithmic}
+\end{algorithm}
+\\
+La funcion saturar hace que si el valor es mayor a 255 o menor a 0 los fija en esos dos valores respectivamente.\\
+Como mensionamos anteriormente se puede ver que de las lineas 1- 8 se realiza el splines por columnas, luego en las lineas 9-16 se realiza el splines por filas, por lo tanto solo analizaremos el primer bloque (lineas 1- 8) para el siguiente es analogo.\\
+En la linea 3 se llama al algoritmo de splines pasandole los n puntos de la imagen con el cual vamos a calcular coeficientes para cada polinomio, una vez obtenido esto se recorren los k puntos entre cada par de pixeles de la imagen resultante y se evalua el polinomio en ese punto, logrando asi el valor de cada punto en la imagen resultante. 
+%% si se saca este new page entonces el algoritmo pasa a otra hoja porque no se divide 
+\newpage
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{spline calcularSpline(int cant,arreglo(int) pixelesOriginales,int k)}
+  \STATE{arreglo alfa[cantColumnas]}
+  \STATE{Para j$=0..Cant-1$}
+  \STATE{\quad $alfa_j =(3/k)*(pixelesOriginales_{j+1}-pixelesOriginales_{j})-(3/k)*(pixelesOriginales_{j}-pixelesOriginales_{j-1})$} 
+  \STATE{arreglo(float) ln ,cn , zn }
+  \STATE{l[0]=1,c[0]=0,z[0]=0}
+  \STATE{Para i$=0..Cant-1$}
+  \STATE{\quad $l_i = 2 * (2 * k) - k * c_{i - 1}$}
+  \STATE{\quad $c_i = k / l_{i}$}
+  \STATE{\quad $z_i = alfa_{i} - (k * z_{i - 1}) / l_{i}$}
+  \STATE{arreglo(int) as,bs,cs,ds}
+  \STATE{Para i$=0..Cant-1$}
+  \STATE{\quad$ cs_{i} = z_{i} - c_{i} * cs_{i + 1} $}
+  \STATE{\quad $bs_{i} = (as_{i + 1} - as{i}) / k - k * (cs_{i + 1} + 2 * cs_{i}) / 3$}
+  \STATE{\quad$ (cs_{i} + 1] - cs[i]) / (3 * k)$}
+  \STATE{devolver spline(as,bs,cs,ds)}
+\end{algorithmic}
+\end{algorithm}\\
+
+Este algoritimo fue tomado del Burden 9na edicion, en el cual estamos calculando los coeficientes del poliniomio dado un arreglo de elementos que van a ser nuestros puntos.\\
 
 Este método, que podría considerarse un refinamiento del anterior, introduce la particularidad de que se le pide al polinomio interpolador que las intersecciones de las funciones que interpolan al punto $n-1$ y $n$ y al $n$ y al $n+1$, sean derivables. Como resultado, se agrega mucha mas suavidad entre puntos que con la técnica anterior que solo respetaba que las funciones empiecen y terminen en el mismo punto (dando lugar a posibles picos, como en el caso de que dos puntos se interpolen con una recta ascendente y los siguientes con una descendente). Además, esta técnica evita de forma natural la oscilación del polinomio mencionada en el método anterior dado que siempre se toman polinomios por partes. Gracias a esto, cuando se intenta reducir el error de interpolación se puede incrementar el número de partes del polinomio que se usa para construir el spline, en lugar de incrementar su grado.
