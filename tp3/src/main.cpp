@@ -2,6 +2,7 @@
 #include "splines.h"
 #include "common.h"
 #include "ventanas.h"
+#include <sys/time.h>
 
 using namespace cv;
 using namespace std;
@@ -29,6 +30,10 @@ int main( int argc, char** argv ) {
 		std::cout <<  "Could not open or find the image" << std::endl ;
 		return -1;
 	}
+	/*Medicion de tiempo*/
+	timeval startGauss,endGauss;
+	gettimeofday(&startGauss, NULL);
+	/*Medicion de tiempo*/
 	switch (method) {
 	case 1:
 		vecinos(&image, &imageRes, k);
@@ -41,10 +46,21 @@ int main( int argc, char** argv ) {
 		dividirEnVentanas(&image, &imageRes, k);
 		break;
 	}
+	/*Medicion de tiempo*/
+	long elapsed_mtime; /* elapsed time in milliseconds */
+	long elapsed_seconds; /* diff between seconds counter */
+	long elapsed_useconds; /* diff between microseconds counter */
+	gettimeofday(&endGauss, NULL);
+	elapsed_seconds = endGauss.tv_sec - startGauss.tv_sec;
+	elapsed_useconds = endGauss.tv_usec - startGauss.tv_usec;
+	double tiempoExec =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
+	/*Medicion de tiempo*/
 
-	namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-	imshow( "Display window", imageRes );                   // Show our image inside it.
-	imwrite( "res.jpg", imageRes );
+	cerr << tiempoExec << endl;
+
+	// namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
+	// imshow( "Display window", imageRes );                   // Show our image inside it.
+	// imwrite( "res.jpg", imageRes );
 
 
 	cout << "Tamano fila imagen fuente: " << image.rows << endl;
