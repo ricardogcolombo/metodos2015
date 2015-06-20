@@ -82,9 +82,9 @@ En este método, comparado con el anterior que solo replicaba píxeles vecinos, 
 
 
 \subsection{Interpolación por Splines}
-Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
-Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
-específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor, dejando de lado los valores de la imagen externos (que están influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
+Por último nos centraremos en la interpolación por splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
+Además, en este caso, dado que la interpolación por medio de splines trata de generar polinomios para un segmento
+específico de la imagen, realizaremos un analisis sobre el algoritmo de interpolacion por splines para tratar de obtener el tamaño de ventana mas optimo. Dado que este algoritmo solo incluye los valores de un recuadro de tamaño especifico, creemos que agregar mas valores puntos a considerar por el spline, no presentara beneficio alguno porque se estarian dejando de lado los valores de la imagen externos al punto a calcular (que estrian influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
 
 Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos ultimos en funcion de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
 
@@ -124,7 +124,7 @@ Definimos para el una clase llamada spline donde almacenaremos los arreglos as, 
   \STATE{\quad \quad \quad $Res_{j*(k+1)+l,i)}= valor$}
 \end{algorithmic}
 \end{algorithm}
-\\
+
 La funcion saturar hace que si el valor es mayor a 255 o menor a 0 los fija en esos dos valores respectivamente.\\
 Como mensionamos anteriormente se puede ver que de las lineas 1- 8 se realiza el splines por columnas, luego en las lineas 9-16 se realiza el splines por filas, por lo tanto solo analizaremos el primer bloque (lineas 1- 8) para el siguiente es analogo.\\
 En la linea 3 se llama al algoritmo de splines pasandole los n puntos de la imagen con el cual vamos a calcular coeficientes para cada polinomio, una vez obtenido esto se recorren los k puntos entre cada par de pixeles de la imagen resultante y se evalua el polinomio en ese punto, logrando asi el valor de cada punto en la imagen resultante. 
@@ -149,7 +149,7 @@ En la linea 3 se llama al algoritmo de splines pasandole los n puntos de la imag
   \STATE{\quad$ (cs_{i} + 1] - cs[i]) / (3 * k)$}
   \STATE{devolver spline(as,bs,cs,ds)}
 \end{algorithmic}
-\end{algorithm}\\
+\end{algorithm}
 
 Este algoritimo fue tomado del Burden 9na edicion, en el cual estamos calculando los coeficientes del poliniomio dado un arreglo de elementos que van a ser nuestros puntos.\\
 

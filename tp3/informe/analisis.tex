@@ -1,6 +1,28 @@
 A continuación se presenta un análisis comparativo de los tres métodos implementados.
 Cabe mencionar que, dado que la experimentación requería que ambas imágenes (original y modificada) tengan el mismo tamaño para poder realizar un análisis cuantitativo de los algoritmos mediante las medidas de comparación que se mencionaron en la introducción, decidimos achicar la imagen original mediante un programa de edicion de imagenes para luego agrandarla mediante nuestros métodos y poder comparar los resultados obtenidos con la imagen original.
 
+\subsection{Ventana optima para metodo de Splines}
+Nuestro primer analisis se encargara de encontrar un valor optimo para la cantidad de las ventanas utilizadas en el metodo de splines.
+Para dicho fin, elegimos correr varias instancias del metodo con valores de K crecientes para distintos valores de ventana (4, 8, y 16 para poder comparar los resultados). Se prensentan entonces los resultados obtenidos. Vale la pena destacar que no se muestra informacion respecto al PSNR debido a que presentaba exactamente el mismo comportamiento y no ofrecia informacion extra alguna.
+\\
+Como habiamos presupuesto en la introducción, agrandar el tamaño de la ventana solo hace que se tengan en cuenta valores para el punto que se quiere calcular que no depende directamente de este. 
+
+\begin{center}
+\includegraphics[scale=0.50]{imagenes/VK2.png}
+\end{center}
+
+Como puede verse a continuación, agrandar el tamaño de la ventana, deja de presentar benificio alguno para valores mas altos de $K$ porque los resultados se veulven constantes:
+
+\begin{center}
+\includegraphics[scale=0.50]{imagenes/VK4.png}
+\includegraphics[scale=0.50]{imagenes/VK6.png}
+\includegraphics[scale=0.50]{imagenes/VK10.png}
+\end{center}
+
+A partir de este punto, el algoritmo de splines utiliza una ventana de tamaño cuatro, dado que es la que presenta mejores resultados.
+De todos formas, no es cierto que siempre sea preferible una ventana mas chica a una que incluya mas puntos, porque en problemas donde se quieren calcular por ejemplo trayectorias, es deseable considerar mas puntos para tener mas informacion.
+
+
 \subsection{Analisis de los metodos}
 
 Empleamos un analisis incremental respecto al valor de los pixeles intermedios introducidos (el valor de $k$) para poder analizar los distintos metodos de forma escalonada y presentar conclusiones mucho mas claras. Dado que nuestros algoritmos solo funcionan cuando los valores de las imagenes son divisibles por $k$, no deben asumirse una correlacion entre los distintos valores de este debido a que las imagenes a analizar no siempre pudieron ser las mismas.
