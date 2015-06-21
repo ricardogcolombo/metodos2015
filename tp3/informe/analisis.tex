@@ -1,9 +1,9 @@
 A continuación se presenta un análisis comparativo de los tres métodos implementados.
 Cabe mencionar que, dado que la experimentación requería que ambas imágenes (original y modificada) tengan el mismo tamaño para poder realizar un análisis cuantitativo de los algoritmos mediante las medidas de comparación que se mencionaron en la introducción, decidimos achicar la imagen original mediante un programa de edición de imágenes para luego agrandarla mediante nuestros métodos y poder comparar los resultados obtenidos con la imagen original.
 
-\subsection{Ventana optima para metodo de Splines}
-Nuestro primer analisis se encargara de encontrar un valor optimo para la cantidad de las ventanas utilizadas en el metodo de splines.
-Para dicho fin, elegimos correr varias instancias del metodo con valores de K crecientes para distintos valores de ventana (4, 8, y 16 para poder comparar los resultados). Se prensentan entonces los resultados obtenidos. Vale la pena destacar que no se muestra informacion respecto al PSNR debido a que presentaba exactamente el mismo comportamiento y no ofrecia informacion extra alguna.
+\subsection{Ventana óptima para método de Splines}
+Nuestro primer análisis se encargará de encontrar un valor óptimo para la cantidad de las ventanas utilizadas en el método de splines.
+Para dicho fin, elegimos correr varias instancias del método con valores de $K$ crecientes para distintos valores de ventana (4, 8, y 16 para poder comparar los resultados). Se presentan entonces los resultados obtenidos. Vale la pena destacar que no se muestra información respecto al PSNR debido a que presentaba exactamente el mismo comportamiento y no ofrecia informacion extra alguna.
 \\
 Como habiamos presupuesto en la introducción, agrandar el tamaño de la ventana solo hace que se tengan en cuenta valores para el punto que se quiere calcular que no depende directamente de este. 
 
@@ -11,7 +11,7 @@ Como habiamos presupuesto en la introducción, agrandar el tamaño de la ventana
 \includegraphics[scale=0.50]{imagenes/VK2.png}
 \end{center}
 
-Como puede verse a continuación, agrandar el tamaño de la ventana, deja de presentar benificio alguno para valores mas altos de $K$ porque los resultados se veulven constantes:
+Como puede verse a continuación, agrandar el tamaño de la ventana deja de presentar benificio alguno para valores mas altos de $K$ porque los resultados se veulven constantes:
 
 \begin{center}
 \includegraphics[scale=0.50]{imagenes/VK4.png}
@@ -20,12 +20,11 @@ Como puede verse a continuación, agrandar el tamaño de la ventana, deja de pre
 \end{center}
 
 A partir de este punto, el algoritmo de splines utiliza una ventana de tamaño cuatro, dado que es la que presenta mejores resultados.
-De todos formas, no es cierto que siempre sea preferible una ventana mas chica a una que incluya mas puntos, porque en problemas donde se quieren calcular por ejemplo trayectorias, es deseable considerar mas puntos para tener mas informacion.
+De todos formas, no es cierto que siempre sea preferible una ventana más chica a una que incluya mas puntos, porque en problemas donde se quieren calcular por ejemplo trayectorias, es deseable considerar mas puntos para tener mas información.
 
 \subsection{Análisis de los metodos}
 
-
-Empleamos un análisis incremental respecto al valor de los pixeles intermedios introducidos (el valor de $k$) para poder analizar los distintos metodos de forma escalonada y presentar conclusiones mucho más claras. Dado que nuestros algoritmos solo funcionan cuando los valores de las imágenes son divisibles por $k$, no deben asumirse una correlación entre los distintos valores de este debido a que las imágenes a analizar no siempre pudieron ser las mismas.
+Empleamos un análisis incremental respecto al valor de los pixeles intermedios introducidos (el valor de $k$) para poder analizar los distintos métodos de forma escalonada y presentar conclusiones mucho más claras. Dado que nuestros algoritmos solo funcionan cuando los valores de las imágenes son divisibles por $k$, no deben asumirse una correlación entre los distintos valores de este debido a que las imágenes a analizar no siempre pudieron ser las mismas.
 
 \subsubsection{K = 2}
 Nuestro primer análisis se concentra en el valor mínimo de $k$ para el cual esperabamos que el comportamiento de los tres métodos se mantenga bastante estable. Nuestra intuición proviene de la idea de que todos ellos ofrecian una perdida en la calidad de la imagen bastanta pequeña en relación al zoom pedido.
@@ -37,7 +36,7 @@ Como podemos apreciar en los gráficos a continuación, nuestra intuición se co
 \end{center}
 
 \subsubsection{K = 4}
-Para este segundo caso, es cierto que como esperabamos, el error cuadrático medio del método de los vecinos se dispara rápidamente mientras que los de interpolación bilineal y splines se mantienen prácticamente iguales. Lo mismo sucede para los valores de PSNR, siendo los del método de vecinos los únicos que disminuyen con una diferencia de casi 5 puntos.
+Para este segundo caso es cierto que, como esperabamos, el error cuadrático medio del método de los vecinos se dispara rápidamente mientras que los de interpolación bilineal y splines se mantienen prácticamente iguales. Lo mismo sucede para los valores de PSNR, siendo los del método de vecinos los únicos que disminuyen con una diferencia de casi 5 puntos.
 
 \begin{center}
 \includegraphics[scale=0.50]{imagenes/K4PSNR.png}
@@ -61,7 +60,7 @@ Por último, para valores que ya se consideran altos de $k$ el método de interp
 \end{center}
 
 \subsection{Análisis de tiempos}
-El análisis de tiempo, a diferencia del de los métodos, no ofrecio ninguna respuesta que no hayamos podido intuir durante la codificación de los algoritmos. Es claro que a medida que el método se perfecciona en la búsqueda de resultados más suaves, también aumenta el tiempo necesario de cálculo.
+El análisis de tiempo, a diferencia del de los métodos, no ofreció ninguna respuesta que no hayamos podido intuir durante la codificación de los algoritmos. Es claro que a medida que el método se perfecciona en la búsqueda de resultados más suaves, también aumenta el tiempo necesario de cálculo.
 
 \begin{center}
 \includegraphics[scale=0.50]{imagenes/K2T1.png}
