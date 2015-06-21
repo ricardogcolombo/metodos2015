@@ -67,6 +67,7 @@ En el siguiente codigo las variables q11,q12,q21,q22 son del tipo descripto ante
 \end{algorithmic}
 \end{algorithm}\\
 Donde polinomio interpolador es la funcion que se encarga de generar el polinomio interpolador en el punto, de la siguiente manera.
+\newpage
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void polinomioInterpolador(punto q11,punto q12, punto q21, punto q22, int x, int y)}
@@ -129,7 +130,6 @@ La funcion saturar hace que si el valor es mayor a 255 o menor a 0 los fija en e
 Como mensionamos anteriormente se puede ver que de las lineas 1- 8 se realiza el splines por columnas, luego en las lineas 9-16 se realiza el splines por filas, por lo tanto solo analizaremos el primer bloque (lineas 1- 8) para el siguiente es analogo.\\
 En la linea 3 se llama al algoritmo de splines pasandole los n puntos de la imagen con el cual vamos a calcular coeficientes para cada polinomio, una vez obtenido esto se recorren los k puntos entre cada par de pixeles de la imagen resultante y se evalua el polinomio en ese punto, logrando asi el valor de cada punto en la imagen resultante. 
 %% si se saca este new page entonces el algoritmo pasa a otra hoja porque no se divide 
-\newpage
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{spline calcularSpline(int cant,arreglo(int) pixelesOriginales,int k)}
