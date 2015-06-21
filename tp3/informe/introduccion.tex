@@ -3,20 +3,20 @@ Para ello se nos ofrece como marco la necesidad de realizar zoom a distintas im�
 real si una pelota entró o no dentro de un arco de fútbol.
 
 Nuestro objetivo es entonces, dada una imagen de $n x m$ pixeles de tamaño original y un número natural $k$ que denota la cantidad de filas y
-columnas que se quieren agregar entre cada pixel, encontrar la forma mas óptima de rellenar estos valores.
+columnas que se quieren agregar entre cada pixel, encontrar la forma más óptima de rellenar estos valores.
 
 Presentaremos entonces tres técnicas a detallar con sus respectivas ventajas y desventajas:
 \begin{enumerate}
  \item Vecinos
- \item Interpolacion bilineal
- \item Interpolacion por splines
+ \item Interpolación bilineal
+ \item Interpolación por splines
 \end{enumerate}
 
 Además, con el fin de poder realizar un análisis cuantitavo sobre cada método, consideraremos dos medidas que comparan las imágenes
-originales contra sus transformadas ofreciendo una noción de error o ruido:
+originales contra sus transformadas, ofreciendo una noción de error o ruido:
 \begin{enumerate}
  \item Error cuadrático medio (ECM)
- \item Peak to signal noise (PSNR)
+ \item Peak to signal noise ratio (PSNR)
 \end{enumerate}
 
 Por último, nuestra visión preliminar del problema nos indica que si bien es posible que los tres algoritmos retornen buenos resultados
