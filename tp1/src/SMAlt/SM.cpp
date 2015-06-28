@@ -16,10 +16,9 @@ double *salvacionSM(instancia *ins, double *b) {
 	int posPuntoCritico = (ins->cantidadDeFilas()*((ins->cantidadDeColumnas()/2))) + ((ins->cantidadDeFilas() / 2)) + 1;
 	cout << posPuntoCritico << endl;
 	cout << ins->cantidadDeFilas() << endl;
-
 	vector<sanguijuelaDiscretizada*> *sangDiscretizadas = discretizarSangs(ins->sanguijuelas, ins->intervalo, ins->m->getP(), ins->m->getP());
 	int dimencion = ins->m->getN();
-	MatrizB* U = ins->m;
+	MatrizB* U = ins->m->copy();
 	MatrizB* L = DescompLU(U);
 	for (int i = 0; i < sangDiscretizadas->size() ; i++) {
 		//Obtengo una copia de B y modifico solo la fila donde esta la sanguijuela
@@ -45,6 +44,14 @@ double *salvacionSM(instancia *ins, double *b) {
 		delete[] vecVT;
 		delete[] nuevoB;
 		delete (*sangDiscretizadas)[i];
+	}
+	double *respuestaPorSalvacionEstandar = buscarSalvacion(ins);
+	if(respuestaPorSalvacionEstandar[posPuntoCritico] < punto_critico_global){
+		if (punto_critico_global != INFINITO) {
+				delete[] mejorRespuesta;
+			}
+			mejorRespuesta = respuestaPorSalvacionEstandar;
+			punto_critico_global = respuestaPorSalvacionEstandar[posPuntoCritico];
 	}
 	cout << "MEJOR SANGIJUELA: " << sanguijuelaParaEliminar << endl;
 	delete sangDiscretizadas;
@@ -117,6 +124,7 @@ double* armarVectorVT(int j, MatrizB *mat) {
 vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguijuelas, double intervalo, int cantidadDeColumnas, int cantidadDeFilas) {
 	int contador;
 	vector<sanguijuelaDiscretizada*> *sanguDisc = new vector<sanguijuelaDiscretizada*>();
+	vector<sanguijuela*> sanguijuelasNormales;
 	for (int i = 0; i < sanguijuelas->size(); i++) {
 		contador = 0;
 		sanguijuela *s = (*sanguijuelas)[i];
@@ -134,7 +142,8 @@ vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguij
 					if (w > 0 && w < cantidadDeColumnas - 1) {
 						if (j > 0 && j < cantidadDeFilas - 1) {
 							if (CoordenadaEnLaMatriz % cantidadDeColumnas != 0 && CoordenadaEnLaMatriz % cantidadDeColumnas != cantidadDeColumnas - 1 ) {
-								sanguDisc->push_back(new sanguijuelaDiscretizada(CoordenadaEnLaMatriz, CoordenadaEnLaMatriz, (*sanguijuelas)[i]->temperatura));
+								if(contador == 0)
+									sanguDisc->push_back(new sanguijuelaDiscretizada(CoordenadaEnLaMatriz, CoordenadaEnLaMatriz, (*sanguijuelas)[i]->temperatura));
 								contador++;
 							}
 						}
@@ -142,8 +151,17 @@ vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguij
 				}
 			}
 		}
-		if(contador > 1)
-			cout << "Error, LA SANGUIJUELA NO ES DISCRETIZALE" << endl;
+		//En este caso la sanguijuela no es discretizable
+
+
+		if(contador > 1){
+			delete sanguDisc->back();
+			sanguDisc->pop_back();
+			sanguijuelasNormales.push_back(s);
+		}	
 	}
+	sanguijuelas->erase(sanguijuelas->begin(), sanguijuelas->end());
+	for(int i = 0; i < sanguijuelasNormales.size(); i++)
+		sanguijuelas->push_back(sanguijuelasNormales[i]);
 	return sanguDisc;
 }
