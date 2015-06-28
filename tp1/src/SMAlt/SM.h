@@ -5,6 +5,8 @@
 #include "../EliminacionGauss/ElimGauss.h"
 #include "../FowardSub/Fowardsub.h"
 #include "../Sustitucion/susti.h"
+#include "../Salvacion/salvacion.h"
+
 
 #include <iostream>
 #include <stdio.h>
