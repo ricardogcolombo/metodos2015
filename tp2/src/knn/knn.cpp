@@ -16,6 +16,7 @@ void calcularknn(vector<entrada> &etiquetados, vector<entrada> &sinEtiquetar, in
 	}
 	myfile.close();
 	cout << "Cantidad De Aciertos " << lepegue << endl;
+	cerr << lepegue;
 }
 
 class mycomparison

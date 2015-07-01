@@ -12,6 +12,7 @@
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <sys/time.h>
 using namespace std;
 
 void ejecutar(int metodo, vector<entrada> &entradas, vector<entrada> &test, int lamda, int vecinos, fstream& myfile);
@@ -87,8 +88,12 @@ int main(int argc, char *argv[]) {
 
 void ejecutar(int metodo, vector<entrada> &entradas, vector<entrada> &test, int lamda, int vecinos, fstream& myfile) {
 	//knn
+
+	/*tiempos*/
+	timeval startGauss, endGauss;
 	if (metodo == 0) {
 		cout << "Ejecutando metodo KNN..." << endl;
+		gettimeofday(&startGauss, NULL);
 		calcularknn(entradas, test, vecinos);
 	}
 	//pca + knn
@@ -96,8 +101,16 @@ void ejecutar(int metodo, vector<entrada> &entradas, vector<entrada> &test, int 
 		cout << "Ejecutando metodo PCA..." << endl;
 		calcularPca(entradas, test, myfile, lamda);
 		cout << "Ejecutando KNN sobre el PCA..." << endl;
+		gettimeofday(&startGauss, NULL);
 		calcularknn(entradas, test, vecinos);
 	}
+	long elapsed_seconds; /* diff between seconds counter */
+	long elapsed_useconds; /* diff between microseconds counter */
+	/*tiempos*/
+	gettimeofday(&endGauss, NULL);
+	elapsed_seconds = endGauss.tv_sec - startGauss.tv_sec;
+	double timeGauss =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
+	cerr << timeGauss << endl;
 }
 
 
