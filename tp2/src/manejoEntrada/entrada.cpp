@@ -1,6 +1,5 @@
 #include "entrada.h"
 
-
 vector<entrada> procesarEntrada(string archivo, bool entrenamiento){
 	vector<entrada> instancias;
 

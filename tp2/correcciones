@@ -1,0 +1,30 @@
+Implementación
+- Tengan en cuenta lo que les comenté que al correr el programa con el k-fold como corresponde (simplemente cambié la línea kfold[i] == 0 por kfold[i] == 1 en el método arreglarEntrada) me tiraba un bad alloc, si no recuerdo mal en la sexta iteración de k-fold con el test1. (HECHO)
+- Verifiquen que su implementación pase los tests que les dimos (HECHO)
+
+Desarrollo
+En la explicación de PCA deberían detallar un poco más algunas cosas. En particular: Que transformación ortogonal necesitan? Como se obtiene a partir de la matriz de covarianza? Como obtienen los sucesivos autovectores de la matriz de covarianza? Como transforman la base una vez obtenidos los autovectores?
+
+En Cross Validation, más allá de la explicación de como se aplica, que ventajas les da?
+
+Experimentación
+*** Comentarios generales ***
+- k-fold cv está hecho al revés. Tienen que repetir los experimentos correctamente.
+- No hay análisis de tiempos de ejecución.
+- No concluyen una configuración ideal de parámetros (esto podrían incluirlo en las conclusiones si quieren).
+- Las explicaciones de como funcionan y se aplican los métodos van en la sección de Desarrollo.
+- Expliciten cual es el K (de k-fold cv) utilizado para cada experimento.
+- No dar por verdaderas hipótesis que no se desprendan de los resultados, en particular dijimos: mencionan la efectividad de knn antes de mostrar los resultados, mencionan que los tiempos de knn son "malos" sin mostrar resultados.
+
+*** KNN ***
+- Hablan de alpha (cantidad de autovectores) cuando no tiene sentido en el contexto de knn.
+- Ojo con el planteo que hacen de que a mayor cantidad de vecinos menor será la tasa de aciertos. Dependiendo el contexto puede ser falso. Deberían plantearlo como una hipótesis y validarlo contra los resultados.
+- Los valores de k que plantean para experimentar no son los mismos que se muestran en los resultados.
+
+*** PCA ***
+- Porque para alpha = 50 toman más valores de k?
+- Para knn concluyen que el k ideal es 1 y luego para PCA no experimentan con dicho valor. Es un error metodológico importante. Corroboren si las hipótesis planteadas para knn se cumplen para PCA.
+- Traten de acotar los valores de alpha con los que trabajan. En principio alpha = 700 no tiene mucho sentido, en total hay 784 variables por lo que casi no reducen la dimensión. Vean de analizar hasta que cantidad de valores singulares aportan información significativa, teniendo en cuenta que están ordenados por magnitud. Podrían probar por ejemplo: para un k (de knn) que consideren bueno, graficar la tasa de acierto en función del alpha y seguramente se vea claramente como a partir de cierto valor prácticamente no hay cambios.
+
+Conslusiones
+Mencionan que PCA + KNN es más efectivo (en términos de tasa de acierto) que KNN sin embargo de los resultados se deduce lo contrario. Este es otro error importante, las conclusiones deben desprenderse de los resultados.

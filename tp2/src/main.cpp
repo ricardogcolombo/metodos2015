@@ -11,27 +11,28 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
-#include <string> 
+#include <string>
 using namespace std;
 
-void ejecutar(int metodo,vector<entrada> entradas,vector<entrada> test, int lamda, int vecinos, fstream& myfile);
-int **kfolds(string archivo, int &cantidadDePruebas,int &lamda, int &vecinos);
-void arreglarEntrada(vector<entrada> entradaOriginal,vector<entrada> &entradaNueva, vector<entrada> &testeo,int *kfold);
+void ejecutar(int metodo, vector<entrada> &entradas, vector<entrada> &test, int lamda, int vecinos, fstream& myfile);
+int **kfolds(string archivo, int &cantidadDePruebas, int &lamda, int &vecinos);
+void arreglarEntrada(vector<entrada> entradaOriginal, vector<entrada> &entradaNueva, vector<entrada> &testeo, int *kfold);
 
 int main(int argc, char *argv[]) {
 
-	if(argc < 3){
+	if (argc < 3) {
 		cout << "Error en la cantidad de argumentos!!" << endl;
-		return -1;		
+		return -1;
 	}
 
 	string archivoDeEntrada (argv[1]);
 	string archivoDeSalida (argv[2]);
 	string metodo;
-	if(argc == 3)
+	if (argc == 3) {
 		metodo = "1";
-	else
+	} else {
 		metodo = argv[3];
+	}
 
 	//Esto es para competir
 	// int lamda = 50;
@@ -45,31 +46,37 @@ int main(int argc, char *argv[]) {
 	//Esto es para competir
 
 	//Esto es para hacer el K folds
-	int cantidadDePruebas,lamda,vecinos;
-	int **kfold = kfolds(archivoDeEntrada, cantidadDePruebas,lamda,vecinos);
+	int cantidadDePruebas, lamda, vecinos;
+	int **kfold = kfolds(archivoDeEntrada, cantidadDePruebas, lamda, vecinos);
 	cout << "Iniciando Kfolds...." << endl;
 	cout << "Cantidad De Pruebas: " << cantidadDePruebas << endl;
-	cout << "Lamda: " << lamda << endl;
 	cout << "Vecinos para el KNN: " << vecinos << endl;
+	if (atoi(metodo.c_str()) == 1) {
+		cout << "Lamda Para PCA: " << lamda << endl;
+	}
 
-	fstream myfile(archivoDeSalida.c_str(),ios::out | ios::trunc);
+	fstream myfile(archivoDeSalida.c_str(), ios::out | ios::trunc);
 
-	for(int i = 0; i < cantidadDePruebas; i++){
+	for (int i = 0; i < cantidadDePruebas; i++) {
 		cout << "Cargando Base de datos..." << endl;
 		vector<entrada> entradas = procesarEntrada("train.csv", false);
 		vector<entrada> testeo;
 		vector<entrada> entrenamiento;
 
-		cout << "Corriendo test: " << i+1 << endl;
-		arreglarEntrada(entradas, entrenamiento,testeo,kfold[i]);
-		ejecutar(atoi(metodo.c_str()), entrenamiento, testeo,lamda,vecinos, myfile);
+		cout << "Corriendo test: " << i + 1 << endl;
+		arreglarEntrada(entradas, entrenamiento, testeo, kfold[i]);
+		ejecutar(atoi(metodo.c_str()), entrenamiento, testeo, lamda, vecinos, myfile);
 
 		//Elimino todos los vectores creados
-		//for(int i = 0; i < entradas.size(); i++)
-			//delete entradas[i].vect;
 		entradas.erase(entradas.begin(), entradas.end());
-		entrenamiento.erase(entrenamiento.begin(),entrenamiento.end());
-		testeo.erase(testeo.begin(),testeo.end());
+		for (int i = 0; i < entrenamiento.size(); i++) {
+			delete entrenamiento[i].vect;
+		}
+		entrenamiento.erase(entrenamiento.begin(), entrenamiento.end());
+		for (int i = 0; i < testeo.size(); i++) {
+			delete testeo[i].vect;
+		}
+		testeo.erase(testeo.begin(), testeo.end());
 	}
 	myfile.close();
 	//Esto es para hacer el K folds
@@ -78,58 +85,49 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void ejecutar(int metodo,vector<entrada> entradas,vector<entrada> test, int lamda, int vecinos, fstream& myfile)
-{
+void ejecutar(int metodo, vector<entrada> &entradas, vector<entrada> &test, int lamda, int vecinos, fstream& myfile) {
 	//knn
-	if(metodo == 0)
-	{
+	if (metodo == 0) {
 		cout << "Ejecutando metodo KNN..." << endl;
-		calcularknn(entradas,test, vecinos);
+		calcularknn(entradas, test, vecinos);
 	}
 	//pca + knn
-	if(metodo == 1)
-	{
+	if (metodo == 1) {
 		cout << "Ejecutando metodo PCA..." << endl;
-	   	calcularPca(entradas,test, myfile, lamda);
+		calcularPca(entradas, test, myfile, lamda);
 		cout << "Ejecutando KNN sobre el PCA..." << endl;
 		calcularknn(entradas, test, vecinos);
 	}
 }
 
 
-int **kfolds(string archivo, int &cantidadDePruebas,int &lamda, int &vecinos)
-{
+int **kfolds(string archivo, int &cantidadDePruebas, int &lamda, int &vecinos) {
 	int **kfold;
 	string hola;
-	fstream myfile(archivo.c_str(),ios_base::in);
+	fstream myfile(archivo.c_str(), ios_base::in);
 	//fix
 	myfile >> hola;
 	myfile >> vecinos;
 	myfile >> lamda;
 	myfile >> cantidadDePruebas;
 
-	cout << "ejecutando:" << hola << endl;
-
-	kfold = new int*[cantidadDePruebas]; 
-	for(int i = 0; i < cantidadDePruebas; i++)
-	{
+	kfold = new int*[cantidadDePruebas];
+	for (int i = 0; i < cantidadDePruebas; i++) {
 		kfold[i] = new int[42000];
-		for(int j = 0; j < 42000; j++)
-		{
-			myfile >> kfold[i][j]; 
+		for (int j = 0; j < 42000; j++) {
+			myfile >> kfold[i][j];
 		}
 	}
 	myfile.close();
 	return kfold;
 }
 
-void arreglarEntrada(vector<entrada> entradaOriginal,vector<entrada> &entradaNueva, vector<entrada> &testeo,int *kfold){
+void arreglarEntrada(vector<entrada> entradaOriginal, vector<entrada> &entradaNueva, vector<entrada> &testeo, int *kfold) {
 	int cantidadDeTests = 0;
-	for(int i = 0; i < 42000; i++){
-		if(kfold[i] == 1)
+	for (int i = 0; i < 42000; i++) {
+		if (kfold[i] == 1) {
 			entradaNueva.push_back(entradaOriginal[i]);
-		else
-		{
+		} else {
 			cantidadDeTests++;
 			testeo.push_back(entradaOriginal[i]);
 		}
