@@ -1,6 +1,7 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
+#define TAMANIOVENTANA 4
 
 #include <cmath>
 #include <iostream>

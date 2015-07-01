@@ -1,0 +1,5 @@
+Como se mencionó con anterioridad, nuestra intuición relacionaba fuertemente a los métodos en cuanto a calidad/desempeño.
+Como se pudo ver a lo largo del análisis realizado, el método de splines nunca logró sacar una diferencia significativa respecto al método de interpolación bilineal. También se puede apreciar como este último tiene un mejor desempeño temporal en todos los casos.
+Esto coloca a la interpolación bilineal como la mejor opción en cuanto a tiempo y calidad, dado que la ganancia por splines es minima respecto al tiempo extra. En un momento $(K = 2)$, nos llamó poderosamente la atención que el método bilineal haya obtenido un mejor resultado que el método de splines, pero teniendo en cuenta como se terminaron comportando ambos métodos a lo largo de todo el análisis, ahora ya no parece un resultado tan anómalo. Sin embargo, no logramos llegar a una conclusión que justifique el porque de una diferencia tan significativa.
+
+En cuanto al método de los vecinos, como bien dijimos al principio, se comporta relativamente bien para valores de $k$ mínimos, pero enseguida que este crece, el método pierde fiabilidad.

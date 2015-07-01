@@ -1,23 +1,157 @@
-A continuación presentaremos las técnicas mencionadas con su respectivo análisis:
+A continuación presentaremos el desarrollo de los experimentos que exploran las técnicas mencionadas en la intriducción con su respectivo análisis:
 
 \subsection{Vecinos}
 El primer método que analizaremos será el de vecinos. Este consiste en rellenar los valores de cada una de las columnas
-nuevas de la imagen replicando su valor más próximo.
+nuevas de la imagen replicando su valor más próximo. La principal ventaja de este método es la simpleza de su implementación, que consta únicamente de dos bucles para iterar la matriz original. Dicha característica también le provee de una eficiencia del orden de O($n^2$) siendo $n$ el alto y ancho de la imagen destino.
 
-% ACA ARRANCA LOS DATOS GROSOS DE VECINOS
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void vecinos(Matriz *image, Matriz *imageRes , int k)}
+\FOR{0 \TO imageRes$\rightarrow$rows - 1}
+    \FOR{0 \TO imageRes$\rightarrow$cols - 1}
+        \STATE{imageRes$\rightarrow$at(i, j) $=$ image$\rightarrow$at(round(i/(k+1)), round(j/(k+1)))\\}
+    \ENDFOR
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+Como se mencionó anteriormente, a pesar su alta eficiencia temporal en comparación a los demás métodos, nuestra intuición nos dice que este va ser el que presente una mayor cantidad de ruido, debido a que simplemente se están replicando los píxeles de las imágenes. Como resultado, teniendo en cuenta que lo único que se logra es "añadir grosor" a los píxeles, deberían conseguirse imágenes de mayor tamaño pero con una ganancia igual de rápida en los valores de ruido a medida que los valores de $k$ aumentan.
 
 \subsection{Interpolación bilineal}
 El segundo método que analizaremos será el de interpolación bilineal. En este caso, la idea consiste en generar un polinomio entre
-dos puntos consecutivos de la imagen para, por medio de este, calcular los valores necesarios para la extensión.
+dos puntos consecutivos de la imagen para, por medio de este, calcular los valores necesarios para la extensión. \\
 Primero realizaremos el cálculo por filas y una vez calculados estos valores, repetiremos el mismo procedimiento por columnas.
+Sean entonces $Q_{11}$, $Q_{12}$, $Q_{21}$, $Q_{22}$ los cuatro puntos de la imagen original sobre los que queremos interpolar, el objetivo es conseguir un polinomio P que valga lo mismo en cada uno de estos puntos y aproxime los nuevos valores intermedios. Usaremos entonces para esto el polinomio interpolador de Lagrange.
 
-% DATOS GROSOS DE INTERPOLACION
+Interpolando entonces en el eje X obtenemos la siguiente fórmula:
+
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealX.png}\\
+\end{center}
+
+
+Ahora, realizando el mismo procedimiento pero en el eje Y, obtenemos lo siguiente:
+
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealY.png}\\
+\end{center}
+
+Si notamos, los puntos que acompañan a las bases polinómicas de Lagrange son los mismos que calculamos sobre el eje X, por lo que podemos realizar el remplazo para llegar a una fórmula cerrada:
+
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealXY.png}\\
+\end{center}
+
+Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación final
+
+\begin{center}
+\includegraphics[scale=0.75]{imagenes/bilinealFinal.png}\\
+\end{center}
+
+Notar que se obtiene el mismo polinomio interpolador tanto si se hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.\\
+Para facilitar la lectura y escritura del ejercicio vamos a definir una estructura que se llama punto. Dentro de la misma vamos a tener 3 valores, el primero es el valor en x, el segundo en y y el tercero un valor que sera de la imagen original. 
+En el siguiente codigo las variables $q11$, $q12$, $q21$, $q22$ son del tipo descripto anteriormente y se utilizan para definir los 4 puntos en los cuales se va a realizar el polinomio interpolador, la matriz A representa la imagen original y la matriz Res representa la imagen extendida.
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void bilineal(matriz A, vector Res,int k)}
+  \STATE{Para i$=0...CantFilas-1$}
+  \STATE{\quad Para j$=0...CantColumnas-1$}
+  \STATE{\quad \quad q11 = $<0,0, A_{i,j}>$}
+  \STATE{\quad \quad q12 = $<0,k+1, A_{i,j+1}>$}
+  \STATE{\quad \quad q21 = $<k+1,0, A_{i+1,j}>$}
+  \STATE{\quad \quad q22 = $<k+1,k+1, A_{i+1,j+1}>$}
+  \STATE{\quad \quad Para x=$0...k+1$}
+  \STATE{\quad \quad \quad Para y=$0...k+1$}
+  \STATE{\quad \quad \quad \quad valorRes $=$ poliniomioInterpolador(q11,q12,q21,q22,x,y) }
+  \STATE{\quad \quad \quad \quad $Res_{i*(k+1)+x,j*(k+1)+y} =$ valorRes}
+\end{algorithmic}
+\end{algorithm}\\
+Donde $polinomio interpolador$ es la función que se encarga de generar el polinomio interpolador en el punto, de la siguiente manera:
+\newpage
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void polinomioInterpolador(punto q11,punto q12, punto q21, punto q22, int x, int y)}
+  \STATE{denominador = 1/ ((q22.x-q11.x)* (q22.y-q11.y)) }
+  \STATE{numerador1= q11.valor* (q22.x-res.x)*(q22.y-res.y) + q21.val * (res.x-q11.x)*(q22.y-res.y)}
+  \STATE{numerador2= q12.valor* (q22.x-res.x)*(res.y-q11.y) + q22.val * (res.x-q11.x)*(res.y-q11.y)}
+  \STATE{retorno ((numerador1+numerador2)*denominador)}
+\end{algorithmic}
+\end{algorithm}
+Para el caso del polinomio interpolador se agregaron 2 lineas al final de la rutina, las cuales aplican saturación en caso de ser necesario cuando luego de realizar todas las cuentas el valor que nos queda es mayor a 255, fijandolo en 255, y cuando el valor es menor a 0, fijandolo en 0.
+
+\\
+En este método, comparado con el anterior que solo replicaba píxeles vecinos, se está calculando un polinomio para tratar de introducir cierto nivel de suavidad entre los puntos de la imagen original a medida que se recorren los píxeles. Un dato importante a tener en cuenta es que dado que el grado del polinomio aumenta a medida que la cantidad de puntos a interpolar es mayor, decidimos que esta se realice entre solo dos puntos de la imagen original, para ofrecer un mejor desempe\~no entre puntos, haciendo que el polinomio calculado sea mas operativo y evitando que este oscile demasiado (situación conocida como Fenómeno de Runge\footnote{\url{https://es.wikipedia.org/wiki/Fenomeno_de_Runge}}). Como contrapartida de esta optimización, es necesario recalcular el polinomio interpolador para todo par de puntos entre la imagen pero teniendo en cuenta que no se trabaja con imágenes de una definición desmesurada, es un costo que se puede pagar en detrimento de los beneficios obtenidos.
+
 
 \subsection{Interpolación por Splines}
-Por último nos centraremos en la interpolación por Splines. Este método, similar al anterior, requiere el cálculo de Splines
-(al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
-Además, en este caso, dado que la interpolación por medio de Splines trata de generar polinomios para un segmento
-específico de la imagen, también analizaremos una versión en la cual el Spline calculado solo incluye los valores de un recuadro de tamaño menor,
-dejando de lado los valores de la imgen externos (que estan influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
+Por último nos centraremos en la interpolación por splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
+Además, en este caso, dado que la interpolación por medio de splines trata de generar polinomios para un segmento
+específico de la imagen, realizaremos un análisis sobre el algoritmo de interpolación por splines para tratar de obtener el tamaño de ventana más óptimo. Dado que este algoritmo solo incluye los valores de un recuadro de tamaño específico, creemos que agregar más valores puntos a considerar por el spline, no presentará beneficio alguno porque se estarían dejando de lado los valores de la imagen externos al punto a calcular (que estarían influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
 
-% DATOS DE SPLINES
+Sea $S_{j}(x) = a_{j} + b_{j}(x - x_{j}) + c_{j}(x - x_{j})^2 + d_{j}(x - x_{j})^3$ nuestro polinomio interpolador para cada $j$ intervalo entre $0$ y $n-1$, necesitamos entonces resolver los coeficientes. Utilizamos la construcción de Splines despejando estos últimos en función de $c_{j}$ para formar el siguiente sistema de ecuaciones $Ax = b$:
+
+\begin{center}
+\includegraphics[scale=0.50]{imagenes/A.png}
+\includegraphics[scale=0.50]{imagenes/x.png}
+\includegraphics[scale=0.50]{imagenes/b.png}
+\end{center}
+
+donde $h = x_{j+1} - x_{j}$. Para nuestra aplicación $h = k$ y se mantiene fijo, ya que la distancia entre los puntos de la nueva imagen es igual a $k$. Una vez resuelto este sistema y con los valores de $c_{0},..., c_{n}$ ya calculados, podemos despejar los coeficientes que necesitabamos en base a las siguientes ecuaciones (que se derivan de las condiciones del mismo spline):
+
+$a_j$ es el valor del pixel en la posición $j$ de la imagen original en la fila o columna iterada por el spline \\ \\
+$b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\ \\
+$d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
+
+La implementación del algoritmo bicúbico consta de dos partes muy similares, ya que primero se recorre la matriz por columnas para realizar el método de splines y luego se realiza el metodo por filas para completar la matriz.
+Definimos para él una clase llamada spline donde almacenaremos los arreglos $as$, $bs$, $cs$ y $ds$, estos contienen los coeficientes del polinomio para la posición $i$ de la fila o columna en donde estemos calculando los splines.
+
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{void bicubico(matriz A, vector Res,int k)}
+  \STATE{Para i$=0..CantFilas-1$}
+  \STATE{\quad Para j$=0..CantColumnas-1$}
+  \STATE{\quad \quad$ Spline spline =calcularSpline(CantColumnas,columna_j,k)$}
+  \STATE{\quad Para j$=0..CantColumnas-1$}
+  \STATE{\quad \quad  Para l$=0..k+1$}
+  \STATE{\quad \quad \quad valor$ = spline.a[i] + spline.b[i]*l + spline.c[i]*j^2+spline.d[i]*j^3$}
+  \STATE{\quad \quad \quad saturar(valor) }
+  \STATE{\quad \quad \quad $Res_{i*(k+1),j*(k+1)+l}= valor$}
+  \STATE{Para i$=0..CantColumnas-1$}
+  \STATE{\quad Para j$=0..CantFilas-1$}
+  \STATE{\quad \quad spline$ = calcularSpline(CantFilas,fila(j),k)$}
+  \STATE{\quad Para j$=0..CantFilas-1$}
+  \STATE{\quad \quad  Para l$=0..k+1$}
+  \STATE{\quad \quad \quad valor$ = spline.a[i] + spline.b[i]*l + spline.c[i]*j^2+spline.d[i]*j^3$}
+  \STATE{\quad \quad \quad saturar(valor) }
+  \STATE{\quad \quad \quad $Res_{j*(k+1)+l,i)}= valor$}
+\end{algorithmic}
+\end{algorithm}
+
+La función $saturar$ hace que si el valor es mayor a 255 o menor a 0 los fija en esos dos valores respectivamente.\\
+Como mencionamos anteriormente se puede ver que de las lineas 1-8 se realiza el splines por columnas, luego en las lineas 9-16 se realiza el splines por filas, por lo tanto solo analizaremos el primer bloque (lineas 1- 8) para el siguiente es análogo.\\
+En la linea 3 se llama al algoritmo de splines pasandole los $n$ puntos de la imagen con el cual vamos a calcular coeficientes para cada polinomio, una vez obtenido esto se recorren los $k$ puntos entre cada par de pixeles de la imagen resultante y se evalua el polinomio en ese punto, logrando asi el valor de cada punto en la imagen resultante. 
+%% si se saca este new page entonces el algoritmo pasa a otra hoja porque no se divide 
+\begin{algorithm}
+\begin{algorithmic}[1]\parskip=1mm
+\caption{spline calcularSpline(int cant,arreglo(int) pixelesOriginales,int k)}
+  \STATE{arreglo alfa[cantColumnas]}
+  \STATE{Para j$=0..Cant-1$}
+  \STATE{\quad $alfa_j =(3/k)*(pixelesOriginales_{j+1}-pixelesOriginales_{j})-(3/k)*(pixelesOriginales_{j}-pixelesOriginales_{j-1})$} 
+  \STATE{arreglo(float) ln ,cn , zn }
+  \STATE{l[0]=1,c[0]=0,z[0]=0}
+  \STATE{Para i$=0..Cant-1$}
+  \STATE{\quad $l_i = 2 * (2 * k) - k * c_{i - 1}$}
+  \STATE{\quad $c_i = k / l_{i}$}
+  \STATE{\quad $z_i = alfa_{i} - (k * z_{i - 1}) / l_{i}$}
+  \STATE{arreglo(int) as,bs,cs,ds}
+  \STATE{Para i$=0..Cant-1$}
+  \STATE{\quad$ cs_{i} = z_{i} - c_{i} * cs_{i + 1} $}
+  \STATE{\quad $bs_{i} = (as_{i + 1} - as{i}) / k - k * (cs_{i + 1} + 2 * cs_{i}) / 3$}
+  \STATE{\quad$ (cs_{i} + 1] - cs[i]) / (3 * k)$}
+  \STATE{devolver spline(as,bs,cs,ds)}
+\end{algorithmic}
+\end{algorithm}
+
+Este algoritmo fue tomado del Burden 9na edicion, en el cual estamos calculando los coeficientes del poliniomio dado un arreglo de elementos que van a ser nuestros puntos.\\
+
+Este método, que podría considerarse un refinamiento del anterior, introduce la particularidad de que se le pide al polinomio interpolador que las intersecciones de las funciones que interpolan al punto $n-1$ y $n$ y al $n$ y al $n+1$, sean derivables. Como resultado, se agrega mucha más suavidad entre puntos que con la técnica anterior que solo respetaba que las funciones empiecen y terminen en el mismo punto (dando lugar a posibles picos, como en el caso de que dos puntos se interpolen con una recta ascendente y los siguientes con una descendente). Además, esta técnica evita de forma natural la oscilación del polinomio mencionada en el método anterior dado que siempre se toman polinomios por partes. Gracias a esto, cuando se intenta reducir el error de interpolación se puede incrementar el número de partes del polinomio que se usa para construir el spline, en lugar de incrementar su grado.
