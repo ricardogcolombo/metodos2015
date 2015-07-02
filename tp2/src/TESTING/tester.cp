@@ -11,6 +11,7 @@
 #include <string>
 #include <stdlib.h>
 
+#define HOLA 1
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -30,7 +31,7 @@ int main(int argc, char *argv[]) {
 			knn[i] = 1;
 		}
 		for (int i = 0; i < 4200; i++) {
-			knn[j*4200+i] = 0;
+			knn[(HOLA+j)*4200+i] = 0;
 		}
 		for (int i = 0; i < 42000; i++) {
 			myfile << knn[i] << " ";

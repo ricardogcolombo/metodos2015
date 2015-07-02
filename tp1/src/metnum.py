@@ -15,7 +15,7 @@ def compile():
 
 def link():
   objects = [s+'.o' for s in sources]
-  run(compiler, '-o', executable, objects)
+  run(compiler,'-O2', '-g' , '-o', executable, objects)
 
 def clean():
   autoclean()
