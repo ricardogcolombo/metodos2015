@@ -20,11 +20,13 @@ double *buscarSalvacion(instancia *ins) {
 	double punto_critico_local = 0;
 	double *respuesta;
 	double *mejorRespuesta;
-	int posPuntoCritico = (ins->cantidadDeFilas() * ((ins->cantidadDeColumnas() / 2))) + ((ins->cantidadDeFilas() / 2)) + (ins->cantidadDeColumnas() / 2) + 1;
+	//int posPuntoCritico = (ins->cantidadDeFilas() * ((ins->cantidadDeColumnas() / 2))) + ((ins->cantidadDeFilas() / 2)) + (ins->cantidadDeColumnas() / 2) + 1;
+	int posPuntoCritico = (ins->cantidadDeFilas() * ((ins->cantidadDeColumnas() / 2))) + ((ins->cantidadDeFilas() / 2)) + 1;
 	for (int i = 0; i < ins->sanguijuelas->size() ; i++) {
 		s = ins_aux->sanguijuelas->front();
-		if(s->procesar == false)
+		if (s->procesar == false) {
 			break;
+		}
 		ins_aux->sanguijuelas->erase(ins_aux->sanguijuelas->begin());
 		instancia *ins_aux = generarInstMatriz(ins->ancho, ins->largo, ins->intervalo, ins->sanguijuelas);
 		gauss(ins_aux->m, ins_aux->b);
@@ -42,7 +44,9 @@ double *buscarSalvacion(instancia *ins) {
 		ins_aux->sanguijuelas->push_back(s);
 	}
 	if (sanguijuelaParaEliminar != -1) {
-		cout << "MEJOR SANGIJUELA POR METODO SIMPLE: " << sanguijuelaParaEliminar << endl;
+		cout << "Sanguijuela optima para sacar usando el metodo simple: " << sanguijuelaParaEliminar << endl;
+		cout << "Temperatura del punto critico: " << punto_critico_global << endl;
+
 		return mejorRespuesta;
 	} else {
 		return NULL;

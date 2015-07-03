@@ -25,7 +25,7 @@ instancia* generarInst(ifstream &archivoDeEntrada) {
 		archivoDeEntrada >> y;
 		archivoDeEntrada >> radio;
 		archivoDeEntrada >> temperatura;
-		sanguijuelas->push_back(new sanguijuela(y,x,radio,temperatura,i));
+		sanguijuelas->push_back(new sanguijuela(y,x,radio,temperatura,i+1));
 	}
 
 	return generarInstMatriz(ancho, largo, intervalo, sanguijuelas);

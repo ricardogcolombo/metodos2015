@@ -14,8 +14,6 @@ double *salvacionSM(instancia *ins, double *b) {
 	double punto_critico_local = 0;
 	double *mejorRespuesta;
 	int posPuntoCritico = (ins->cantidadDeFilas() * ((ins->cantidadDeColumnas() / 2))) + ((ins->cantidadDeFilas() / 2)) + 1;
-	cout << posPuntoCritico << endl;
-	cout << ins->cantidadDeFilas() << endl;
 	vector<sanguijuelaDiscretizada*> *sangDiscretizadas = discretizarSangs(ins->sanguijuelas, ins->intervalo, ins->m->getP(), ins->m->getP());
 	int dimencion = ins->m->getN();
 	MatrizB* U = ins->m->copy();
@@ -46,18 +44,28 @@ double *salvacionSM(instancia *ins, double *b) {
 		delete[] nuevoB;
 		delete (*sangDiscretizadas)[i];
 	}
+	if (sanguijuelaParaEliminar != -1) {
+		cout << "Sanguijuela optima para sacar usando Sherman morrison: " << sanguijuelaParaEliminar << endl;
+		cout << "Temperatura del punto critico: " << punto_critico_global << endl;
+	} else {
+		cout << "No había sanguijuelas que fueran discretizables =(" << endl;
+	}
+
 	cout << "Para las sanguijuelas no discretizables uso salvacion estandar..." << endl;
 	double *respuestaPorSalvacionEstandar = buscarSalvacion(ins);
-	if (respuestaPorSalvacionEstandar == NULL)
+	if (respuestaPorSalvacionEstandar == NULL) {
 		cout << "No había sanguijuelas que no fueran discretizables." << endl;
-		else if (respuestaPorSalvacionEstandar[posPuntoCritico] < punto_critico_global) {
-			if (punto_critico_global != INFINITO) {
-				delete[] mejorRespuesta;
-			}
-			mejorRespuesta = respuestaPorSalvacionEstandar;
-			punto_critico_global = respuestaPorSalvacionEstandar[posPuntoCritico];
+	} else if (respuestaPorSalvacionEstandar[posPuntoCritico] < punto_critico_global) {
+		cout << "Me quedo con la la sangijuela del metodo simple" << endl;
+		if (punto_critico_global != INFINITO) {
+			delete[] mejorRespuesta;
 		}
-	cout << "MEJOR SANGIJUELA: " << sanguijuelaParaEliminar << endl;
+		mejorRespuesta = respuestaPorSalvacionEstandar;
+		punto_critico_global = respuestaPorSalvacionEstandar[posPuntoCritico];
+	} else {
+		cout << "Me quedo con la la sangijuela del metodo sherman morrison" << endl;
+	}
+
 	delete sangDiscretizadas;
 	return mejorRespuesta;
 }
@@ -164,8 +172,7 @@ vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguij
 			delete sanguDisc->back();
 			sanguDisc->pop_back();
 			sanguijuelasNormales.push_back(s);
-		}else
-		{
+		} else {
 			s->procesar = false;
 		}
 	}
