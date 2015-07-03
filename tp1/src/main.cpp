@@ -47,8 +47,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos0.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeGauss << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
-			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
+		for (int i = 0; i <= nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w <= nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -66,8 +66,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos1.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeLU << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
-			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
+		for (int i = 0; i <= nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w <= nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -84,8 +84,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos2.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeSalvacion << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
-			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
+		for (int i = 0; i <= nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w <= nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
@@ -102,8 +102,8 @@ int main(int argc, char *argv[]) {
 		archivoTiempos.open("TESTEADOR/tiempos3.txt", std::ofstream::out | std::ofstream::app);
 		archivoTiempos << timeSherman << endl;
 		archivoTiempos.close();
-		for (int i = 0; i < nuevaInstancia->cantidadDeColumnas(); i++)
-			for (int w = 0; w < nuevaInstancia->cantidadDeFilas(); w++) {
+		for (int i = 0; i <= nuevaInstancia->cantidadDeColumnas(); i++)
+			for (int w = 0; w <= nuevaInstancia->cantidadDeFilas(); w++) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
