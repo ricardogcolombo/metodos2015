@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
 	ifstream archivoDeEntrada(argv[1], ios::in);
 	archivoDeSalida.open(argv[2]);
 	instancia *nuevaInstancia = generarInst(archivoDeEntrada);
+	int posPuntoCritico = (nuevaInstancia->cantidadDeFilas() * ((nuevaInstancia->cantidadDeColumnas() / 2))) + ((nuevaInstancia->cantidadDeFilas() / 2)) + 1;
 	//Eliminacion Gaussiana Banda
 	if (strcmp(argv[3], "0") == 0) {
 		cout << "Corriendo Metodo de gauss..." << endl;
@@ -107,6 +108,7 @@ int main(int argc, char *argv[]) {
 				archivoDeSalida << i << "\t" << w << "\t" << respuesta[w + (i * nuevaInstancia->m->getP())] << endl;
 			}
 	}
+	cout << "Temperatura en el punto critico: " << respuesta[posPuntoCritico] << endl; 
 	cout << "Fin!" << endl;
 	delete nuevaInstancia;
 	delete[] respuesta;
