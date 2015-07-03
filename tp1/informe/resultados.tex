@@ -2,7 +2,7 @@
 En esta sección analizaremos de manera experimental como varían los tiempos de ejecución de los algoritmos descriptos al variar el largo y el ancho de la matriz y la cantidad de sanguijuelas del sistema.
 
 \subsubsection{Ancho en función del tiempo}
-Para comenzar, tomaremos un parabrisas con 50 sanguijuelas tal que estas solo afecten un punto de la discretización, y para una granularidad fija de $1.0$ iremos variando el largo del parabrisas. De esta manera, comenzaremos con un parabrisas de $50 \times 50$ luego uno de $60 \times 50$ y asi aumentando de manera lineal ambos parámetros hasta llegar a un parabrisas de $100 \times 50$. Resolveremos cada uno de estos sistemas utilizando ambos metodos implementados (Gauss y Descomposición LU). Los resultados obtenidos pueden verse en el siguente gráfico:
+Para comenzar, tomaremos un parabrisas con 50 sanguijuelas tal que estas solo afecten un punto de la discretización, y para una granularidad fija de $1.0$ iremos variando el largo del parabrisas. De esta manera, comenzaremos con un parabrisas de $50 \times 50$ luego uno de $60 \times 50$ y así aumentando de manera lineal ambos parámetros hasta llegar a un parabrisas de $100 \times 50$. Resolveremos cada uno de estos sistemas utilizando ambos métodos implementados (Gauss y Descomposición LU). Los resultados obtenidos pueden verse en el siguiente gráfico:
 
 \begin{center}
  \includegraphics[width=400pt]{imagenes/testeo/anchoGauss.png}
@@ -14,16 +14,16 @@ Además, en este gráfico se pueden observar que tanto los tiempos de la factori
 \\
 Ahora, utilizando la misma familia de parabrisas descripta anteriormente, veremos como se comportan ambos métodos de salvación.
 \\
-Dado que nos aseguramos que cada sanguijuela solo toque un punto de la discretización, nos aseguramos que para cada una de las sanguijuelas podremos utilizar el metodo de Sherman-Morrison. Para estos algoritmos, el gráfico es el siguiente:
+Dado que nos aseguramos que cada sanguijuela solo toque un punto de la discretización, nos aseguramos que para cada una de las sanguijuelas podremos utilizar el método de Sherman-Morrison. Para estos algoritmos, el gráfico es el siguiente:
 \\
 \begin{center}
  \includegraphics[width=400pt]{imagenes/testeo/anchoSalv.png}
 \end{center}
 
-Como era de esperar, el algoritmo que utiliza la optimización de Sherman-Morrison es mucho más rapido y escala mejor que la versión simple que debe calcular todo el sistema desde cero, ademas el Sherman-Morrison realiza operaciones sobre vectores y escalares haciendo la diferencia en el modo de comparacion respecto al método anterior.
+Como era de esperar, el algoritmo que utiliza la optimización de Sherman-Morrison es mucho más rápido y escala mejor que la versión simple que debe calcular todo el sistema desde cero, además el Sherman-Morrison realiza operaciones sobre vectores y escalares haciendo la diferencia en el modo de comparación respecto al método anterior.
 
 \subsubsection{Largo en función del tiempo}
-Ahora, analizaremos que sucede dejando fijo el ancho y variando el largo del parabrisas. Las condiciones son las mismas que en el test anterior, solo que ahora el ancho permaence constante igual a $50$ y se varía el largo de $50$ a $100$.
+Ahora, analizaremos que sucede dejando fijo el ancho y variando el largo del parabrisas. Las condiciones son las mismas que en el test anterior, solo que ahora el ancho permanece constante igual a $50$ y se varía el largo de $50$ a $100$.
 
 \begin{center}
  \includegraphics[width=400pt]{imagenes/testeo/largoGauss.png}
@@ -37,10 +37,10 @@ Aplicando el mismo experimento para los dos métodos de salvación:
  \includegraphics[width=400pt]{imagenes/testeo/largoSalv.png}
 \end{center}
 
-Al igual que lo dicho en la sección anterior, aqui también se pueden ver las ventajas de utilizar Sherman-Morrison. Además en este caso también puede apreciarse el comportamiento lineal de ambos algoritmos al variar el largo del sistema.
+Al igual que lo dicho en la sección anterior, aquí también se pueden ver las ventajas de utilizar Sherman-Morrison. Además en este caso también puede apreciarse el comportamiento lineal de ambos algoritmos al variar el largo del sistema.
 
 \subsubsection{Cantidad de sanguijuelas en función del tiempo}
-Para el siguente experimento, variamos la cantidad de sanguijuelas y dejamos fija tanto la granularidad como el largo y el ancho del parabrisas. Nuevamente, por una cuestión de simplicidad, las sanguijuelas solo afectan un punto de la discretización. Para el experimento tomamos un parabrisas de $100 \times 100$, una granularidad igual a $1.0$, y variamos la cantidad de sanguijuelas desde $10$ hasta $100$. Resolviendo el sistema con el algoritmo de Gauss y Descomposicion LU, se obtuvo el siguiente grafico.
+Para el siguiente experimento, variamos la cantidad de sanguijuelas y dejamos fija tanto la granularidad como el largo y el ancho del parabrisas. Nuevamente, por una cuestión de simplicidad, las sanguijuelas solo afectan un punto de la discretización. Para el experimento tomamos un parabrisas de $100 \times 100$, una granularidad igual a $1.0$, y variamos la cantidad de sanguijuelas desde $10$ hasta $100$. Resolviendo el sistema con el algoritmo de Gauss y Descomposición LU, se obtuvo el siguiente gráfico.
 
 \begin{center}
  \includegraphics[width=400pt]{imagenes/testeo/sangGauss.png}
@@ -66,7 +66,7 @@ Por ultimo, veremos como afecta variar la granularidad de la discretización par
 En el gráfico puede observarse que una disminución lineal de la granularidad produce un aumento cuadrático en el tiempo de ejecución. Esto se debe a que tanto la cantidad de filas y la cantidad de columnas viene dado por el largo/ancho del parabrisas, dividido por granularidad. Dado que el tamaño de nuestra matriz de resolución del problema viene dado por $\text{Cantidad De filas} \times \text{Cantidad De Columnas}$ esto será lo mismo que  $(\text{Largo} \times \text{Ancho}) / \text{granularidad}^2$. En esta fórmula puede verse claramente que disminuir la granularidad de manera lineal produce un aumento cuadrático en el número de incógnitas de nuestro problema.
 
 \subsection{Análisis de temperatura en función de las discretizaciones}
-Partiendo de la base de que un aumento en la granularidad permite una mejor representación de las sanguijuelas (son circulos), notamos que con este aumento y mejora en la representación, el problema discreto parece al menos perceptualmente para el ojo humano, volverse continuo. Teniendo en cuenta esta información, queda claro como una baja granularidad impacta directamente sobre la precisión de los resultados (a expensas, como vimos con anterioridad, de los tiempos de cómputo).
+Partiendo de la base de que un aumento en la granularidad permite una mejor representación de las sanguijuelas (son círculos), notamos que con este aumento y mejora en la representación, el problema discreto parece al menos perceptualmente para el ojo humano, volverse continuo. Teniendo en cuenta esta información, queda claro como una baja granularidad impacta directamente sobre la precisión de los resultados (a expensas, como vimos con anterioridad, de los tiempos de cómputo).
 \\
 En el siguiente experimento, mostramos como varían los resultados al variar la granularidad:
 \begin{itemize}
@@ -83,6 +83,6 @@ En el siguiente experimento, mostramos como varían los resultados al variar la 
   \includegraphics[width=400pt]{imagenes/imagen41.png}
 \end{itemize}
 
-Puede notarse a simple vista que una granularidad más pequeña produce resultados que aproximan más exactamente a lo que uno creería es el resultado real de la ecuación diferencial de la que partimos en la introducción, ya que para una granularidad de $2$ pueden verse grandes bloques discretos, pero para la discretización de $0.1$ puede verse que estos bloques desaparecen y puede notarse una cierta \"suavidad\"' en el resultado obtenido, propio de una función continua y derivable. Esto puede verse en el gráfico ya que la tonalidad va oscureciendo hasta llegar a rojo generando circulos grandes, de ser chicos estaríamos viendo un pico en la función y no sería derivable.
+Puede notarse a simple vista que una granularidad más pequeña produce resultados que aproximan más exactamente a lo que uno creería es el resultado real de la ecuación diferencial de la que partimos en la introducción, ya que para una granularidad de $2$ pueden verse grandes bloques discretos, pero para la discretización de $0.1$ puede verse que estos bloques desaparecen y puede notarse una cierta \"suavidad\"' en el resultado obtenido, propio de una función continua y derivable. Esto puede verse en el gráfico ya que la tonalidad va oscureciendo hasta llegar a rojo generando círculos grandes, de ser chicos estaríamos viendo un pico en la función y no sería derivable.
 \\
-Además, al disminuir la granularidad, está claro que la cantidad de incógnitas cercanas al punto crítico aumenta, por lo que, en caso de no poder tomarlo de manera exacta, al menos podremos tomar un vecino muy próximo a este por lo que tendemos a pensar que la presición del resultado tambien aumentará por ese lado.
+Además, al disminuir la granularidad, está claro que la cantidad de incógnitas cercanas al punto crítico aumenta, por lo que, en caso de no poder tomarlo de manera exacta, al menos podremos tomar un vecino muy próximo a este por lo que tendemos a pensar que la precisión del resultado también aumentará por ese lado.
