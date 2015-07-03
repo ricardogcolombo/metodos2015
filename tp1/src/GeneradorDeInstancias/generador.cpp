@@ -25,7 +25,7 @@ instancia* generarInst(ifstream &archivoDeEntrada) {
 		archivoDeEntrada >> y;
 		archivoDeEntrada >> radio;
 		archivoDeEntrada >> temperatura;
-		sanguijuelas->push_back(new sanguijuela(y,x,radio,temperatura));
+		sanguijuelas->push_back(new sanguijuela(y,x,radio,temperatura,i));
 	}
 
 	return generarInstMatriz(ancho, largo, intervalo, sanguijuelas);
@@ -133,11 +133,13 @@ instancia *generarInstMatriz(double ancho, double largo, double intervalo, vecto
  *
  * @return {sanguijuela*} nueva instancia de sanguijuela
  */
-sanguijuela::sanguijuela(double _x, double _y, double _radio, double _temperatura) {
+sanguijuela::sanguijuela(double _x, double _y, double _radio, double _temperatura, int numero) {
 	x= _x;
 	y=_y;
 	radio = _radio;
 	temperatura= _temperatura; 
+	numeroSang = numero;
+	procesar = true;
 }
 
 instancia::~instancia(){

@@ -13,13 +13,14 @@ double *salvacionSM(instancia *ins, double *b) {
 	double punto_critico_global = INFINITO;
 	double punto_critico_local = 0;
 	double *mejorRespuesta;
-	int posPuntoCritico = (ins->cantidadDeFilas()*((ins->cantidadDeColumnas()/2))) + ((ins->cantidadDeFilas() / 2)) + 1;
+	int posPuntoCritico = (ins->cantidadDeFilas() * ((ins->cantidadDeColumnas() / 2))) + ((ins->cantidadDeFilas() / 2)) + 1;
 	cout << posPuntoCritico << endl;
 	cout << ins->cantidadDeFilas() << endl;
 	vector<sanguijuelaDiscretizada*> *sangDiscretizadas = discretizarSangs(ins->sanguijuelas, ins->intervalo, ins->m->getP(), ins->m->getP());
 	int dimencion = ins->m->getN();
 	MatrizB* U = ins->m->copy();
 	MatrizB* L = DescompLU(U);
+	cout << "Utilizando metodo de sherman morrison para calcular temperatura en el sistema..." << endl;
 	for (int i = 0; i < sangDiscretizadas->size() ; i++) {
 		//Obtengo una copia de B y modifico solo la fila donde esta la sanguijuela
 		double *nuevoB = copiarB(b, dimencion);
@@ -37,7 +38,7 @@ double *salvacionSM(instancia *ins, double *b) {
 			}
 			mejorRespuesta = respuesta;
 			punto_critico_global = punto_critico_local;
-			sanguijuelaParaEliminar = i;
+			sanguijuelaParaEliminar = (*sangDiscretizadas)[i]->numeroSang;
 		}
 		//Limpio
 		delete[] vecU;
@@ -45,14 +46,17 @@ double *salvacionSM(instancia *ins, double *b) {
 		delete[] nuevoB;
 		delete (*sangDiscretizadas)[i];
 	}
+	cout << "Para las sanguijuelas no discretizables uso salvacion estandar..." << endl;
 	double *respuestaPorSalvacionEstandar = buscarSalvacion(ins);
-	if(respuestaPorSalvacionEstandar[posPuntoCritico] < punto_critico_global){
-		if (punto_critico_global != INFINITO) {
+	if (respuestaPorSalvacionEstandar == NULL)
+		cout << "No había sanguijuelas que no fueran discretizables." << endl;
+		else if (respuestaPorSalvacionEstandar[posPuntoCritico] < punto_critico_global) {
+			if (punto_critico_global != INFINITO) {
 				delete[] mejorRespuesta;
 			}
 			mejorRespuesta = respuestaPorSalvacionEstandar;
 			punto_critico_global = respuestaPorSalvacionEstandar[posPuntoCritico];
-	}
+		}
 	cout << "MEJOR SANGIJUELA: " << sanguijuelaParaEliminar << endl;
 	delete sangDiscretizadas;
 	return mejorRespuesta;
@@ -92,10 +96,11 @@ double* calcularMatrizDeShermanMorrison(double *vecVT, double* vecU, MatrizB* L,
 	delete[] aux;
 	return z;
 }
-sanguijuelaDiscretizada::sanguijuelaDiscretizada(int _x, int _y, double _temp) {
+sanguijuelaDiscretizada::sanguijuelaDiscretizada(int _x, int _y, double _temp, int numero) {
 	x = _x;
 	y = _y;
 	temp = _temp;
+	numeroSang = numero;
 }
 double* armarVectorU(int i, MatrizB *mat) {
 	int tam = mat->getN();
@@ -142,8 +147,9 @@ vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguij
 					if (w > 0 && w < cantidadDeColumnas - 1) {
 						if (j > 0 && j < cantidadDeFilas - 1) {
 							if (CoordenadaEnLaMatriz % cantidadDeColumnas != 0 && CoordenadaEnLaMatriz % cantidadDeColumnas != cantidadDeColumnas - 1 ) {
-								if(contador == 0)
-									sanguDisc->push_back(new sanguijuelaDiscretizada(CoordenadaEnLaMatriz, CoordenadaEnLaMatriz, (*sanguijuelas)[i]->temperatura));
+								if (contador == 0) {
+									sanguDisc->push_back(new sanguijuelaDiscretizada(CoordenadaEnLaMatriz, CoordenadaEnLaMatriz, (*sanguijuelas)[i]->temperatura, (*sanguijuelas)[i]->numeroSang));
+								}
 								contador++;
 							}
 						}
@@ -154,14 +160,14 @@ vector<sanguijuelaDiscretizada*> *discretizarSangs(vector<sanguijuela*>* sanguij
 		//En este caso la sanguijuela no es discretizable
 
 
-		if(contador > 1){
+		if (contador > 1) {
 			delete sanguDisc->back();
 			sanguDisc->pop_back();
 			sanguijuelasNormales.push_back(s);
-		}	
+		}else
+		{
+			s->procesar = false;
+		}
 	}
-	sanguijuelas->erase(sanguijuelas->begin(), sanguijuelas->end());
-	for(int i = 0; i < sanguijuelasNormales.size(); i++)
-		sanguijuelas->push_back(sanguijuelasNormales[i]);
 	return sanguDisc;
 }

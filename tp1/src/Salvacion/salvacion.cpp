@@ -13,35 +13,40 @@ using namespace std;
 double *buscarSalvacion(instancia *ins) {
 	sanguijuela* s;
 	sanguijuela* a_eliminar = NULL;
-	int sanguijuelaParaEliminar;
+	int sanguijuelaParaEliminar = -1;
 	instancia *ins_aux = generarInstMatriz(ins->ancho, ins->largo, ins->intervalo, ins->sanguijuelas);
 	//Queria ponerle el valor mas grande, pero c es caprichoso
 	double punto_critico_global = 10000000000;
 	double punto_critico_local = 0;
 	double *respuesta;
 	double *mejorRespuesta;
-	int posPuntoCritico = (ins->cantidadDeFilas()*((ins->cantidadDeColumnas()/2))) + ((ins->cantidadDeFilas() / 2)) + (ins->cantidadDeColumnas() / 2) + 1;
+	int posPuntoCritico = (ins->cantidadDeFilas() * ((ins->cantidadDeColumnas() / 2))) + ((ins->cantidadDeFilas() / 2)) + (ins->cantidadDeColumnas() / 2) + 1;
 	for (int i = 0; i < ins->sanguijuelas->size() ; i++) {
 		s = ins_aux->sanguijuelas->front();
+		if(s->procesar == false)
+			break;
 		ins_aux->sanguijuelas->erase(ins_aux->sanguijuelas->begin());
 		instancia *ins_aux = generarInstMatriz(ins->ancho, ins->largo, ins->intervalo, ins->sanguijuelas);
 		gauss(ins_aux->m, ins_aux->b);
 		respuesta = backward_substitution(ins_aux->m, ins_aux->b);
 		punto_critico_local = respuesta[posPuntoCritico];
-		if (punto_critico_local < punto_critico_global)
-		{
+		if (punto_critico_local < punto_critico_global) {
 			if (punto_critico_global != 10000000000) {
 				delete[] mejorRespuesta;
 			}
 			mejorRespuesta = respuesta;
 			punto_critico_global = punto_critico_local;
 			a_eliminar = s;
-			sanguijuelaParaEliminar = i;
+			sanguijuelaParaEliminar = s->numeroSang;
 		}
 		ins_aux->sanguijuelas->push_back(s);
 	}
-	cout << "MEJOR SANGIJUELA: CABEZA " << sanguijuelaParaEliminar << endl;
-	return mejorRespuesta;
+	if (sanguijuelaParaEliminar != -1) {
+		cout << "MEJOR SANGIJUELA POR METODO SIMPLE: " << sanguijuelaParaEliminar << endl;
+		return mejorRespuesta;
+	} else {
+		return NULL;
+	}
 }
 void sacarSang(instancia *b) {
 	std::vector<sanguijuela*> *sang = new vector<sanguijuela*>();

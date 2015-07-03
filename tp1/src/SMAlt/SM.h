@@ -19,7 +19,8 @@ public:
 	int x;
 	int y;
 	double temp;
-	sanguijuelaDiscretizada(int x, int y, double temp);
+	int numeroSang;
+	sanguijuelaDiscretizada(int x, int y, double temp, int numero);
 };
 
 #endif

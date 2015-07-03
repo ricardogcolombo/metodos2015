@@ -15,7 +15,9 @@ class sanguijuela {
   private:
   public:
 	  double x,y,radio,temperatura;
-	  sanguijuela(double x, double y, double radio, double temperatura);
+	  int numeroSang;
+	  bool procesar;
+	  sanguijuela(double x, double y, double radio, double temperatura, int numero);
 	  ~sanguijuela(){};
 };
 
