@@ -1,29 +1,19 @@
 \subsection{Ventajas en el uso de una matriz banda}
 
-Como ya discutimos en el desarollo, pudimos plantear el problema a resolver como una matriz banda. Gracias a esto es que pudimos realocar los valores en un espacio físico muy por debajo de lo que la representación matricial de un caso general requiere, ahorrando memoria, ya que fue suficiente con almacenar los valores dentro de la banda, y ahorrando tiempo de cómputo, ya que como también discutimos en la sección de desarrollo, nos limitamos a aplicar los algoritmos en la banda, obteniendo complejidades teóricas más pequeñas que aquellas que se obtienen con el algoritmo estándar.
+Como ya discutimos en el desarollo, pudimos modelar el problema a resolver como una matriz banda. Gracias a esto es que pudimos realocar los valores en un espacio físico muy por debajo de lo que la representación matricial de un caso general requiere. Ahorrando memoria, ya que fue suficiente con almacenar los valores dentro de la banda y ahorrando tiempo de cómputo, ya que como también discutimos en la sección de desarrollo, nos limitamos a aplicar los algoritmos en la banda. De este modo obtuvimos complejidades teóricas más pequeñas que aquellas que se obtienen con el algoritmo estándar.
 
 \subsection{Discretización de un problema continuo}
 
-En el apartado de experimentación pudimos ver que tomando un valor de discretización muy grande, el problema que comenzo siendo continuo, pasa a ser discreto, pudiendose ver a simple vista los bloques que fueron discretizados. A medida que la discretización se vuelve mas pequeña el problema empieza a tener un comportamiento más continuo (aunque sea de manera perceptual, ya que la solución sigue siendo discreta), lo que sugiere que aumentar la discretización aumenta la presición de todo el sistema.
+En el apartado de experimentación pudimos ver que tomando un valor de discretización muy grande, el problema que comenzó siendo continuo, pasa a ser discreto, pudiendose ver a simple vista los bloques que fueron discretizados. A medida que la discretización se vuelve mas pequeña el problema empieza a tener un comportamiento más continuo (aunque sea de manera perceptual, ya que la solución sigue siendo discreta), lo que sugiere que aumentar la discretización aumenta la presición de todo el sistema.
 
-Sin embargo esto viene con un tradeoff que resulta que para una discretización mas pequeña, y por lo tanto exacta, el tiempo de cómputo aumenta sustancialmente. Luego a la hora de simular este problema deberá prestarse sumo cuidado a esta relación tiempo-presición dependiendo del problema en particular y el grado de confianza que se desea obtener.
-
-\subsection{P\'erdida de precisión en el uso de aritm\'etica de punto flotante}
-
-Así como la separación de los puntos del sistema queda hasta cierto punto a criterio de quien resuelve el problema, existe una gran limitación debido	a la representación de los números de punto flotante en la computadora. Si bien C++ es independiente a la arquitectura, las arquitecturas modernas suelen utilizar el estandar IEEE754 para representar la recta numérica. Sabemos que realizando operaciones de punto flotante perdemos precisión, si bien esta puede ser calculada y acotada. 
-\\
-Entonces es así como la resolución del problema se ve afectado no solo por la reducción de un subespacio $\mathbb{R}2$ en un conjunto finito de puntos, sino también por la impresición propia de la computadora al realizar los cómputos.
-
-\VER
-%en realidad no vimos mucho esto, o al menos no me acuerdo.
-%Lo sacamos?
+Sin embargo esto viene acarrea una compensación que resulta que para una discretización más pequeña, y por lo tanto exacta, el tiempo de cómputo aumenta sustancialmente. Luego a la hora de simular este problema deberá prestarse sumo cuidado a esta relación tiempo-presición dependiendo del problema en particular y el grado de confianza que se desea obtener.
 
 \subsection{Optimizaciones Algebraicas}
 
-Comparando ambos metodos de salvación del parabrisas pudimos ver como utilizar propiedades algebraicas y ordenar las operaciones de manera inteligente permite obtener tanto complejidades teoricas tanto como tiempos experimentales mejores. Más se noto la diferencia en los tiempos para el Sherman-Morisson ya que al realizar el producto de vectores de la manera correcta generamos menor cantidad de operaciones acelerando el cálculo de los valores, por quedarnos con un producto de vector por escalar, cambiando el orden de los productos notamos que generamos una matriz haciendo que la cantidad de operaciones se multiplique.
+Comparando ambos métodos de salvación del parabrisas pudimos ver como utilizar propiedades algebraicas y ordenar las operaciones de manera inteligente permite obtener tanto complejidades teóricas tanto como tiempos experimentales mejores. Más se noto la diferencia en los tiempos para el Sherman-Morisson ya que al realizar el producto de vectores de la manera correcta generamos menor cantidad de operaciones, acelerando el cálculo de los valores por quedarnos con un producto de vector por escalar, cambiando el orden de los productos notamos que generamos una matriz haciendo que la cantidad de operaciones se multiplique.
 \\
-Luego, podemos concluir que para poder resolver un problema de manera óptima es importante valerse de las propiedades especificas de las matrices con las que se trabaja, así también como la teoría del álgebra lineal.
+Luego, podemos concluir que para poder resolver un problema de manera óptima es importante valerse de las propiedades específicas de las matrices con las que se trabaja, así también como la teoría del álgebra lineal.
 
 \subsection{Otras aplicaciones}
 
-Vemos como este tipo de problema donde el valor de cada elemento de un espacio en 2 dimensiones (o m\'as) depende del valor de elementos cercanos puede aplicarse en diversas \'areas, por ejemplo en el procesamiento de im\'agenes, donde el suavizado en el zoom de una im\'agen se puede realizar a trav\'es del promedio de los vecinos de cada pixel. Tambi\'en es de posible aplicaci\'on para la propagaci\'on de ondas en distintos medios. Es interesante ver tambi\'en como algunas t\'ecnicas gen\'ericas ayudan a la velocidad de c\'omputo y luego se pueden realizar optimizaciones dentro del dominio de cada sistema en particular, como fue en nuestro caso Sherman-Morrison para casos donde el sistema var\'ia levemente.
+Vemos como este tipo de problema donde el valor de cada elemento de un espacio en 2 dimensiones (o más) depende del valor de elementos cercanos puede aplicarse en diversas áreas, por ejemplo en el procesamiento de imágenes, donde el suavizado en el zoom de una imágen se puede realizar a través del promedio de los vecinos de cada pixel. También es de posible aplicación para la propagación de ondas en distintos medios. Es interesante ver también como algunas técnicas genéricas ayudan a la velocidad de cómputo y luego se pueden realizar optimizaciones dentro del dominio de cada sistema en particular, como fue en nuestro caso Sherman-Morrison para casos donde el sistema varía levemente.

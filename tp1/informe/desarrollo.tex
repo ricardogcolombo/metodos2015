@@ -6,9 +6,9 @@ Sabemos que si $ x = 0$ o $y = 0$ o $x = m$ o $y = n$ entonces la temperatura en
 $$T(x,y) = -100$$
 También que $\forall \: C_j, \: C_j = (x_j, y_j) \: / \: \sqrt[2]{(x-x_j)^2 + (y-y_j)^2} \le r$ la temperatura de ese punto será:
 $$T(x,y) = T_c$$ 
-Los puntos restantes, osea todos los $(x,y)$ que no cumplen ninguna de estas condiciones tendrán que ser calculados con la ecuación planteada previamente en la introducción.
+Los puntos restantes, es decir todos los $(x,y)$ que no cumplen ninguna de estas condiciones tendrán que ser calculados con la ecuación planteada previamente en la introducción.
 \\
-Planteandolo mas formalmente, lo que harémos será plantear $n \times m$ ecuaciones con $n \times m$ incógnitas. Cada una de estas ecuaciones representa un punto del parabrisas y cada uno de estos puntos vendrá definido de la manera siguiente:
+En otras palabras lo que harémos será plantear $n \times m$ ecuaciones con $n \times m$ incógnitas. Cada una de estas ecuaciones representa un punto del parabrisas y cada uno de estos puntos vendrá definido de la siguiente manera:
 \\
 Sea $t_{ij}$ un punto de la grilla:
 \begin{enumerate}
@@ -20,7 +20,7 @@ t_{ij} \ =\ \frac{ t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}}{4}.
 \end{equation}
 \end{enumerate}
 
-Con esta noción espacial asumiendo cada punto está condicionado tan solo por sus 4 vecinos, ahora se presenta el objetivo encontrar una manera de almacenar la matriz que sea conveniente y nos permita reducir el espacio en la matriz y el número de operaciones a realizar. En el siguiente apartado describiremos como ordenando las variables de manera inteligente, podremos guardar las incógnitas en una matriz banda.
+Con esta noción espacial, asumiendo cada punto está condicionado tan solo por sus 4 vecinos, ahora se presenta el objetivo encontrar una manera de almacenar la matriz que sea conveniente y nos permita reducir el espacio en la matriz y el número de operaciones a realizar. En el siguiente apartado describiremos como ordenando las variables de manera inteligente, podremos guardar las incógnitas en una matriz banda.
 
 \subsection{Matriz banda}
 
@@ -65,7 +65,7 @@ La mejora implementada consta en que, sabiendo que la matriz $A$ es banda, a par
 \\
 Luego, para la columna $k$ no será necesario chequear hasta el final de la matriz, sino hasta el valor $k+p$.
 \\
-Lo mismo pasa con las filas. En el gauss estándar, luego de diagonalizar una columna, todos los elementos de esa fila deben ser actualizados. Pero al trabajar con una matriz banda, solo es necesario actualizar los $p$ valores que siguen a la diagonal, ya que tenemos asegurado que todos los valores siguientes son $0$.
+Lo mismo pasa con las filas. En el Gauss estándar, luego de diagonalizar una columna, todos los elementos de esa fila deben ser actualizados. Pero al trabajar con una matriz banda, solo es necesario actualizar los $p$ valores que siguen a la diagonal, ya que tenemos asegurado que todos los valores siguientes son $0$.
 \\
 Expresando de manera más formal, el algoritmo es el siguiente:
 
@@ -83,9 +83,9 @@ Expresando de manera más formal, el algoritmo es el siguiente:
 
 Este algoritmo posee una mejor complejidad comparado con el Gauss estándar, siendo la misma de $O(n*p^2)$ con $n$ la cantidad de incógnitas de nuestra matriz, y $p$ el tamaño de la banda.
 \\
-Una vez concluído el proceso de eliminación gaussiana sobre la matriz banda, utilizamos backwards substitution para resolver las ecuaciones y conseguir así el valor de cada uno de los puntos de calor del plano discretizado. Aquí también es posible realizar una optimización, ya que en cada paso no es necesario avanzar hasta la ultima columna sino hasta la columna donde sabemos que comienza la banda.
+Una vez concluído el proceso de eliminación gaussiana sobre la matriz banda, utilizamos backward substitution para resolver las ecuaciones y conseguir así el valor de cada uno de los puntos de calor del plano discretizado. Aquí también es posible realizar una optimización, ya que en cada paso no es necesario avanzar hasta la ultima columna sino hasta la columna donde sabemos que comienza la banda.
 \\
-De esta manera habremos disminuido la complejidad del backwards substitution de $O(n^2)$ a una menor de $O(n*p)$.
+De esta manera habremos disminuido la complejidad del backward substitution de $O(n^2)$ a una menor de $O(n*p)$.
 \ExplicarMEJOR
 \\
 Luego la resolución de este sistema tendrá una complejidad temporal de $O(n*p^2)$.
@@ -94,7 +94,7 @@ Luego la resolución de este sistema tendrá una complejidad temporal de $O(n*p^
 
 La segunda forma que desarrollamos para resolver el problema es realizando una descomposicion LU sobre matriz original.
 
-Dado que la descomposicion LU es muy similar al algoritmo de eliminación gaussiana, este tambien puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones serán similares a las de la eliminación gaussiana. Expresandolo de manera algorítmica, la descomposición $LU$ optimizada será así:
+Dado que la descomposición LU es muy similar al algoritmo de eliminación gaussiana, este también puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones serán similares a las de la eliminación gaussiana. Expresandolo de manera algorítmica, la descomposición $LU$ optimizada será así:
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -110,19 +110,19 @@ Dado que la descomposicion LU es muy similar al algoritmo de eliminación gaussi
 \end{algorithmic}
 \end{algorithm}
 
-Luego en la matriz $A$ obtengo la matriz diagonal superior y en el L la diagonal inferior que, puede verse facilmente, también son banda, ya que los valores fuera de la banda nunca son modificados.
+Luego en la matriz $A$ obtengo la matriz diagonal superior y en el L la diagonal inferior que, como puede verse facilmente, también son banda ya que los valores fuera de la banda nunca son modificados.
 \\
 Puede verse que siendo el algoritmo muy similar al de eliminación gaussiana, tambien posee la misma complejidad, esto es $O(n*p^2)$.
 \\
-Como ya habíamos dicho el backwards substitution para la matriz banda tiene una complejidad de $O(n*p)$ y de manera similar el foward substitution tiene la misma complejidad.
+Como ya habíamos dicho, el backward substitution para la matriz banda tiene una complejidad de $O(n*p)$ y de manera similar el foward substitution tiene la misma complejidad.
 \\
-Luego la complejidad de este metodo tambien será de $O(n*p^2)$. La ventaja de este metodo con respecto al anterior es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en $O(n*p)$, ya que solo es necesario realizar un backwars substitution y un foward substitution. Esta ventaja sera muy útil más adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
+Luego la complejidad de este método tambien será de $O(n*p^2)$. La ventaja de este metodo con respecto al anterior es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en $O(n*p)$, ya que solo es necesario realizar un backward substitution y un foward substitution. Esta ventaja será muy útil más adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
 
 \subsection{No hay tiempo que perder}
 
-En esta sección del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto critico a través de la eliminación de una sanguijuela. Dado que esto afecta el sistema de ecuaciones, en primera instancia será necesario recalcular el sistema completo otra vez, lo que podría resultar muy costoso.
+En esta sección del trabajo, buscaremos la posibilidad de disminuir la temperatura del punto crítico a través de la eliminación de una sanguijuela. Dado que esto afecta el sistema de ecuaciones, en primera instancia será necesario recalcular el sistema completo otra vez, lo que podría resultar muy costoso.
 \\
-Plantear otra vez las ecuaciones, ahora con esta variación, y volver a calcular las incógnitas mediante el algoritmo de eliminación gaussiana tomaría otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opción no sea la más adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una gran cantidad de sanguijuelas. 
+Plantear otra vez las ecuaciones, ahora con esta variación, y volver a calcular las incógnitas mediante el algoritmo de eliminación gaussiana tomaría otra vez complejidad $O(n*p^2)$. Teniendo en cuenta que es necesario calcular el sistema completo y luego una vez eliminando cada una de las sanguijuelas pegadas al parabrisas para saber si existe la posibilidad de salvarlo, hace que esta opción no sea la más adecuada, sobre todo en aquellos problemas donde el parabrisas presenta una gran cantidad de sanguijuelas.
 \\
 Para esto, entonces, hacemos uso de una variación de la fórmula de Sherman–Morrison, evitando replantear todo el sistema desde cero, permitiendo reutilizar información de la ejecución con todas las sanguijuelas y disminuyendo la complejidad a una más adecuada.
 \\
@@ -130,7 +130,7 @@ Comencemos definiendo de manera más adecuada la implementación más simple.
 
 \subsection{Implementación simple}
 
-Como ya hemos adelantado, la idea detras de este algoritmo es la de quitar una sanguijuela del sistema, aplicarle eliminación Gaussiana a la matriz obtenida y utilizar backwads substitution para obtener la solución deseada.
+Como ya hemos adelantado, la idea detras de este algoritmo es la de quitar una sanguijuela del sistema, aplicarle eliminación Gaussiana a la matriz obtenida y utilizar backward substitution para obtener la solución deseada.
 
 Utilizando pseudocódigo, el procedimiento puede expresarse de la siguiente manera:
 
