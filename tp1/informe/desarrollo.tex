@@ -83,10 +83,7 @@ Expresando de manera más formal, el algoritmo es el siguiente:
 
 Este algoritmo posee una mejor complejidad comparado con el Gauss estándar, siendo la misma de $O(n*p^2)$ con $n$ la cantidad de incógnitas de nuestra matriz, y $p$ el tamaño de la banda.
 \\
-Una vez concluido el proceso de eliminación gaussiana sobre la matriz banda, utilizamos backward substitution para resolver las ecuaciones y conseguir así el valor de cada uno de los puntos de calor del plano discretizado. Aquí también es posible realizar una optimización, ya que en cada paso no es necesario avanzar hasta la ultima columna sino hasta la columna donde sabemos que comienza la banda.
-\\
-De esta manera habremos disminuido la complejidad del backward substitution de $O(n^2)$ a una menor de $O(n*p)$.
-\ExplicarMEJOR
+Una vez concluido el proceso de eliminación gaussiana sobre la matriz banda, utilizamos backward substitution para resolver las ecuaciones y conseguir así el valor de cada uno de los puntos de calor del plano discretizado. Aquí también es posible realizar una optimización, ya que en cada paso no es necesario avanzar hasta la ultima columna sino hasta la columna donde sabemos que comienza la banda. De esta manera tambien es posible disminuir la complejidad del backward substitution de $O(n^2)$ a una menor de $O(n*p)$.
 \\
 Luego la resolución de este sistema tendrá una complejidad temporal de $O(n*p^2)$.
 
