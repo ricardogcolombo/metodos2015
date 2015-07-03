@@ -1,12 +1,12 @@
-En este trabajo práctico intentaremos modelar y resolver el problema de una superficie a la que se le aplica calor en ciertos puntos, teniendo como condiciones además que los bordes permanecen a temperatura constante. Para modelar este problema utilizaremos la ecuación del calor:
+En este trabajo práctico intentaremos modelar y resolver el problema de una superficie a la que se le aplica calor en ciertos puntos, teniendo como condición además que los bordes permanecen a temperatura constante. Para modelar este problema utilizaremos la ecuación del calor:
 
 \begin{equation}
 \frac{\partial^2T(x,y)}{\partial x^{2}}+\frac{\partial^2 T(x,y)}{\partial y^{2}} = 0.
 \end{equation}\\
 
-Con esta ecuación diferencial es posible calcular la temperatura en cualquier punto de la superficie. Sin embargo, dado que queremos resolver el sistema bajo un modelo que no sea continuo, será necesario discretizar la ecuación diferencial de alguna manera adecuada. Para ello, discretizaremos esta superficie en segmentos de superficie discretos, e intentaremos resolver el sistema que se obtenga utilizando la computadora. Parece intuitivo pensar que mientras más pequeños sean los segmentos, el sistema se aproximará más al sistema continuo, obteniendo así respuestas más próximas al mismo.
+Con esta ecuación diferencial es posible calcular la temperatura en cualquier punto de la superficie. Sin embargo, dado que queremos resolver el sistema bajo un modelo que no sea continuo, será necesario discretizar la ecuación diferencial de algún modo adecuado. Para ello, discretizaremos esta superficie en segmentos discretos, intentando resolver el sistema obtenido utilizando distintos algoritmos. Parece intuitivo pensar que mientras más pequeños sean los segmentos, el sistema se aproximará más al sistema continuo, obteniendo así respuestas más próximas al mismo.
 \\
-Expresando esto en un lenguaje más riguroso, dados $a$ y $b$ el ancho y el alto de nuestra superficie respectivamente, $h$ la granularidad con la que discretizaremos y, valiendo que  $a = m\times h$ y $b = n \times h$, obtendremos una grilla de $(n+1)\times(m+1)$ puntos (donde el punto $(0,0)$ se corresponde con el extremo inferior izquierdo).
+Expresando esto en un lenguaje más riguroso, dados $a$ y $b$ el ancho y el alto de nuestra superficie respectivamente, $h$ la granularidad con la que discretizaremos y, valiendo que $a = m\times h$ y $b = n \times h$, obtendremos una grilla de $(n+1)\times(m+1)$ puntos (donde el punto $(0,0)$ se corresponde con el extremo inferior izquierdo).
 \\
 Llamemos $t_{ij} = T(x_j,y_i)$ al valor (desconocido) de la función $T$ en el punto $(x_j, y_i) = (ih, jh)$. La aproximación finita (que es posible gracias a la discretización realizada sobre el sistema) afirma que
 
@@ -16,7 +16,7 @@ t_{ij} \ =\ \frac{ t_{i-1,j} + t_{i+1,j} + t_{i,j-1} + t_{i,j+1}}{4}.
 
 De esta forma es posible plantear un sistema en donde cada punto esté expresado en función de otros y así resolver todas las ecuaciones. Esto nos dará la temperatura en el punto crítico.
 \\
-Aprovechando la discretización del sistema y que este es un problema lineal, lo modelaremos como un problema $Ax=b$ sobre el cual aplicaremos diversas técnicas para resolverlo, como eliminación gaussiana o descomposición LU, que nos permitirán resolver las incógnitas de una manera más cómoda.
+Aprovechando la discretización del sistema y que este es un problema lineal, lo modelaremos como un problema $Ax=b$ sobre el cual aplicaremos diversas técnicas para resolverlo, como Eliminación Gaussiana y Descomposición LU, que nos permitirán resolver las incógnitas de una manera más cómoda.
 \\
 Dado que estamos discretizando un sistema continuo, puede ocurrir que el punto crítico (que está definido como el centro exacto de la superficie) puede ocurrir que no coincida con ningún punto de la discretización. En este caso, calcularemos un punto próximo a este que sí esté en la discretización y lo consideraremos el punto crítico. Nuestro razonamiento consta en pensar que para una granularidad apropiada este vecino es suficientemente cercano y se corresponde con el valor que debería coincidir con la discretización.
 
@@ -37,7 +37,7 @@ Donde $a$ y $b$ son el ancho y el largo del parabrisas, $h$ el tamaño de la dis
 \\
 Las $k$ lineas siguientes corresponden a cada una de las sanguijuelas, tal que para la sanguijuela $i$, $xi$ $yi$ es la posición de la misma, $ri$ es su radio y $ti$ su temperatura.
 \\
-La salida de todos los algoritmos contendrá un archivo que debe ser indicado por parámetro, donde por cada linea contendrá un indicador de la grilla $i,j$ junto con el correspondiente valor de temperatura.
+La salida de todos los algoritmos estará dada en un archivo que debe ser indicado por parámetro, donde por cada linea contendrá un indicador de la grilla $i,j$ junto con el correspondiente valor de temperatura.
 \\
 En el caso de los algoritmos de salvación (definidos más adelante), esta salida corresponde a la solución del problema habiendo quitado la sanguijuela que más reduce la temperatura en el punto crítico.
 \\

@@ -1,8 +1,22 @@
+
+\subsection{Implementaciones alternativas}
+Debido a que el resultaddo de sherman morrison daba mejores resultados hubiese sido intersante poder aplicarlo a casos en que la sanguijuela no es unitaria, si no , en casos mas generales. En comparacion con el metodo simple, donde quitamos una sanguijuela calculamos todo el sistema y volvemos a agregarla, realizando esto para todas las sanguijuelas cuando no son unitarias , podriamos intentar aplicar sherman morrison de manera recursiva para quitar todos los puntos de la sanguijuela no unitaria del sistema. Si bien esto podria ser mas rapido que el metodo simple deberiamos analizar hasta que punto esto resulta conveniente.
+
 \subsection{Complejidades}
-En el apartado anterior pudimos comprobar que las complejidades teóricas de los algoritmos eran las esperadas 
+En el apartado anterior se comprobó que las complejidades teóricas de los algoritmos son las esperadas 
 \\
-Además vimos que los tiempos experimentales de la descomposición LU eran muy similares a los tiempos del método de gauss, lo que era esperable ya que ambos métodos tenían la misma complejidad y eran en espíritu muy similares.
+Además se expone que los tiempos experimentales de la descomposición LU son muy similares a los tiempos del método de Gauss, lo que era esperable ya que ambos métodos tienen la misma complejidad y eran en espíritu muy similares.
 \\
-Por otra parte observamos que el método de Sherman-Morrison, cuando era lógico aplicarlo, escalaba mejor que el método de salvación simple, lo cual también era esperable de acuerdo a la complejidad teórica calculada.
-\subsection{Complejidades}
-\Completar
+Por otra parte se observa que el método de Sherman-Morrison, cuando es lógico aplicarlo, escala mejor que el método de salvación simple. Lo cual también era esperable de acuerdo a la complejidad teórica calculada.
+
+\subsection{Granularidad}
+
+La granularidad del sistema juega un papel importante a la hora de determinar la precisión de la solución provista.
+Como se puede observar en los resultados desglosados de la experimentación, el nivel de discretización del sistema
+determina la cantidad de información suministrada. Esta variable acarrea distintos niveles de error respecto al modelo continuo,
+más complejo de resolver en términos computacionales.
+
+Por ejemplo, dado el mismo sistema pero variando la granularidad de 1 a 5, observamos una variación de aproximadamente $30\%$ en la
+temperatura observada en el punto crítico. Esta diferencia en los cálculos es inaceptable para muchos sistemas.
+
+

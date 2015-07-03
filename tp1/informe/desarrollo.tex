@@ -59,7 +59,7 @@ El comportamiento de la matriz banda fue encapsulado en una clase para que fuera
 
 \subsection{Eliminación gaussiana sobre matriz banda}
 
-Como primer forma de resolver el sistema de ecuaciones, se implementó el algoritmo de eliminación gaussiana sobre el que se realizaron algunas mejoras. La idea general del algoritmo se mantiene. En el paso $k$ se realiza la diagonalización de la columna $k$ de la matriz $A$ y todos los elementos en la columna k-esima a partir del $a_{k,k}$ pasan a tener valor $0$.
+Como primer forma de resolver el sistema de ecuaciones, se implementó el algoritmo de Eliminación Gaussiana sobre el que se realizaron algunas mejoras. La idea general del algoritmo se mantiene. En el paso $k$ se realiza la diagonalización de la columna $k$ de la matriz $A$ y todos los elementos en la columna k-esima a partir del $a_{k,k}$ pasan a tener valor $0$.
 \\
 La mejora implementada consta en que, sabiendo que la matriz $A$ es banda, a partir del elemento $a_{k+p,k}$ (donde $p$ es el límite de la banda) los siguientes serán $0$ y a partir del elemento $a_{k,k+p}$ también serán $0$.
 \\
