@@ -1,0 +1,326 @@
+sed: no se puede leer tests/test1.in: No existe el archivo o el directorio
+cat: tests/test1.in: No existe el archivo o el directorio
+Killed
+sed: no se puede leer tests/test1.in: No existe el archivo o el directorio
+cat: tests/test1.in: No existe el archivo o el directorio
+Killed
+sed: no se puede leer tests/test1.in: No existe el archivo o el directorio
+cat: tests/test1.in: No existe el archivo o el directorio
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+Aborted (core dumped)
+deleting matriz/matriz.o
+deleting pca/pca.o
+deleting vector/vectorNum.o
+deleting tp
+deleting main.o
+deleting knn/knn.o
+deleting manejoEntrada/entrada.o
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+g++ -O2 -g -c ./matriz/matriz.cpp -o ./matriz/matriz.o
+g++ -O2 -g -c ./pca/pca.cpp -o ./pca/pca.o
+g++ -O2 -g -c ./manejoEntrada/entrada.cpp -o ./manejoEntrada/entrada.o
+g++ -O2 -g -c ./knn/knn.cpp -o ./knn/knn.o
+g++ -O2 -g -c ./vector/vectorNum.cpp -o ./vector/vectorNum.o
+g++ -O2 -g -o ./tp ./main.o ./matriz/matriz.o ./pca/pca.o ./manejoEntrada/entrada.o ./knn/knn.o ./vector/vectorNum.o
+corriendo 1
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 1
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4072
+Fin!
+corriendo 2
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 2
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4041
+Fin!
+corriendo 3
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4090
+Fin!
+corriendo 4
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 4
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4080
+Fin!
+corriendo 5
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 5
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4079
+Fin!
+corriendo 6
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 6
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4083
+Fin!
+corriendo 7
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 7
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4065
+Fin!
+corriendo 8
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 8
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4071
+Fin!
+corriendo 9
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 9
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4066
+Fin!
+corriendo 10
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 10
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4064
+Fin!
+corriendo 11
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 11
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4059
+Fin!
+corriendo 12
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 12
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4059
+Fin!
+corriendo 13
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 13
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4053
+Fin!
+corriendo 14
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 14
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4044
+Fin!
+corriendo 15
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 15
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4051
+Fin!
+corriendo 16
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 16
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4041
+Fin!
+corriendo 17
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 17
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4036
+Fin!
+corriendo 18
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 18
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4030
+Fin!
+corriendo 19
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 19
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4036
+Fin!
+corriendo 20
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 20
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4026
+Fin!
+corriendo 21
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 21
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4025
+Fin!
+corriendo 22
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 22
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4026
+Fin!
+corriendo 23
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 23
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4016
+Fin!
+corriendo 24
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 24
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4021
+Fin!
+corriendo 25
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 25
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4014
+Fin!
+corriendo 26
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 26
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4014
+Fin!
+corriendo 27
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 27
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4009
+Fin!
+corriendo 28
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 28
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4011
+Fin!
+corriendo 29
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 29
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4005
+Fin!
+corriendo 30
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 30
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4007
+Fin!
