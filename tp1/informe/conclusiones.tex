@@ -8,7 +8,7 @@ En el apartado de experimentación pudimos ver que tomando un valor de discretiz
 
 Sin embargo esto viene con un tradeoff que resulta que para una discretización mas pequeña, y por lo tanto exacta, el tiempo de cómputo aumenta sustancialmente. Luego a la hora de simular este problema deberá prestarse sumo cuidado a esta relación tiempo-presición dependiendo del problema en particular y el grado de confianza que se desea obtener.
 
-\subsection{P\érdida de precisión en el uso de aritmética de punto flotante}
+\subsection{P\'erdida de precisión en el uso de aritm\'etica de punto flotante}
 
 Así como la separación de los puntos del sistema queda hasta cierto punto a criterio de quien resuelve el problema, existe una gran limitación debido	a la representación de los números de punto flotante en la computadora. Si bien C++ es independiente a la arquitectura, las arquitecturas modernas suelen utilizar el estandar IEEE754 para representar la recta numérica. Sabemos que realizando operaciones de punto flotante perdemos precisión, si bien esta puede ser calculada y acotada. 
 \\
@@ -21,7 +21,6 @@ Entonces es así como la resolución del problema se ve afectado no solo por la 
 \subsection{Optimizaciones Algebraicas}
 
 Comparando ambos metodos de salvación del parabrisas pudimos ver como utilizar propiedades algebraicas y ordenar las operaciones de manera inteligente permite obtener tanto complejidades teoricas tanto como tiempos experimentales mejores. Más se noto la diferencia en los tiempos para el Sherman-Morisson ya que al realizar el producto de vectores de la manera correcta generamos menor cantidad de operaciones acelerando el cálculo de los valores, por quedarnos con un producto de vector por escalar, cambiando el orden de los productos notamos que generamos una matriz haciendo que la cantidad de operaciones se multiplique.
-
 \\
 Luego, podemos concluir que para poder resolver un problema de manera óptima es importante valerse de las propiedades especificas de las matrices con las que se trabaja, así también como la teoría del álgebra lineal.
 

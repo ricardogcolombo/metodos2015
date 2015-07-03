@@ -1,28 +1,28 @@
-\BOOKMARK [1][-]{section.1}{Introduccion teorica}{}% 1
+\BOOKMARK [1][-]{section.1}{Introducci\363n te\363rica}{}% 1
 \BOOKMARK [2][-]{subsection.1.1}{Entrada y salida de los algoritmos}{section.1}% 2
 \BOOKMARK [1][-]{section.2}{Desarrollo}{}% 3
 \BOOKMARK [2][-]{subsection.2.1}{Sistema a resolver}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.2}{Matriz banda}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.3}{Almacenamiento de la matriz banda}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.4}{Eliminacion gaussiana sobre matriz banda}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.5}{Descomposicion LU}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Eliminaci\363n gaussiana sobre matriz banda}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.5}{Descomposici\363n LU}{section.2}% 8
 \BOOKMARK [2][-]{subsection.2.6}{No hay tiempo que perder}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.7}{Implementacion Simple}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.8}{Implementacion Sherman-Morrison}{section.2}% 11
-\BOOKMARK [1][-]{section.3}{Discusion}{}% 12
-\BOOKMARK [2][-]{subsection.3.1}{Manipulaci\363n de estructura interna de la matriz}{section.3}% 13
-\BOOKMARK [2][-]{subsection.3.2}{Eficiencia temporal}{section.3}% 14
-\BOOKMARK [1][-]{section.4}{Resultados}{}% 15
-\BOOKMARK [2][-]{subsection.4.1}{An\341lisis de tiempos en funci\363n de los parametros de entrada}{section.4}% 16
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Ancho en funci\363n del tiempo}{subsection.4.1}% 17
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Largo en funci\363n del tiempo}{subsection.4.1}% 18
-\BOOKMARK [3][-]{subsubsection.4.1.3}{Cantidad de sanguijuelas en funci\363n del tiempo}{subsection.4.1}% 19
-\BOOKMARK [3][-]{subsubsection.4.1.4}{Granularidad en funci\363n del tiempo}{subsection.4.1}% 20
-\BOOKMARK [2][-]{subsection.4.2}{An\341lisis de temperatura funci\363n de las discretizaciones}{section.4}% 21
+\BOOKMARK [2][-]{subsection.2.7}{Implementaci\363n simple}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.8}{Implementaci\363n Sherman-Morrison}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Experimentaci\363n}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{An\341lisis de tiempos en funci\363n de los par\341metros de entrada}{section.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Ancho en funci\363n del tiempo}{subsection.3.1}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Largo en funci\363n del tiempo}{subsection.3.1}% 15
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Cantidad de sanguijuelas en funci\363n del tiempo}{subsection.3.1}% 16
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Granularidad en funci\363n del tiempo}{subsection.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.2}{An\341lisis de temperatura en funci\363n de las discretizaciones}{section.3}% 18
+\BOOKMARK [1][-]{section.4}{Discusi\363n}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Manipulaci\363n de estructura interna de la matriz}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.2}{Eficiencia temporal}{section.4}% 21
 \BOOKMARK [1][-]{section.5}{Conclusiones}{}% 22
 \BOOKMARK [2][-]{subsection.5.1}{Ventajas en el uso de una matriz banda}{section.5}% 23
 \BOOKMARK [2][-]{subsection.5.2}{Discretizaci\363n de un problema continuo}{section.5}% 24
 \BOOKMARK [2][-]{subsection.5.3}{P\351rdida de precisi\363n en el uso de aritm\351tica de punto flotante}{section.5}% 25
 \BOOKMARK [2][-]{subsection.5.4}{Optimizaciones Algebraicas}{section.5}% 26
 \BOOKMARK [2][-]{subsection.5.5}{Otras aplicaciones}{section.5}% 27
-\BOOKMARK [1][-]{section.6}{Apendice}{}% 28
+\BOOKMARK [1][-]{section.6}{Ap\351ndice}{}% 28
