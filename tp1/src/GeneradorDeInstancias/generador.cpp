@@ -151,9 +151,9 @@ instancia::~instancia(){
 }
 
 int instancia::cantidadDeColumnas(){
-	return (largo + 1)/intervalo;
+	return ((largo)/intervalo) +1;
 }
 
 int instancia::cantidadDeFilas(){
-	return (ancho + 1)/intervalo;
+	return ((ancho)/intervalo)+1;
 }
