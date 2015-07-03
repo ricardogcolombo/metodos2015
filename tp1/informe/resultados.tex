@@ -86,3 +86,40 @@ En el siguiente experimento, mostramos como varían los resultados al variar la 
 Puede notarse a simple vista que una granularidad más pequeña produce resultados que aproximan más exactamente a lo que uno creería es el resultado real de la ecuación diferencial de la que partimos en la introducción, ya que para una granularidad de $2$ pueden verse grandes bloques discretos, pero para la discretización de $0.1$ puede verse que estos bloques desaparecen y puede notarse una cierta \"suavidad\"' en el resultado obtenido, propio de una función continua y derivable. Esto puede verse en el gráfico ya que la tonalidad va oscureciendo hasta llegar a rojo generando circulos grandes, de ser chicos estaríamos viendo un pico en la función y no sería derivable.
 \\
 Además, al disminuir la granularidad, está claro que la cantidad de incógnitas cercanas al punto crítico aumenta, por lo que, en caso de no poder tomarlo de manera exacta, al menos podremos tomar un vecino muy próximo a este por lo que tendemos a pensar que la presición del resultado tambien aumentará por ese lado.
+Por ultimo creamos 3 instancias del problema para ejecutarlas con dos granularidades distintas, uno y cuatro, para poder comparar mejor que pasaba con el punto critico decidimos hacerlas de distintas medidas y sanguijuelas distribuidas de distinta forma para poder ver que ocurria.
+Para el primer test lo que se realizo fue una matriz cuadrada con 5 sanguijuelas las cuales estaban concentradas en la esquina izquierda inferior y otra en la esquina derecha superior, luego de correr sherman morrison quito la de la derecha superior que era la que tenia mayor temperatura y arrojo los siguientes graficos de calor.
+
+\begin{itemize}
+ \item test 1, granularidad 1.\\
+  \includegraphics[width=400pt]{imagenes/testpropios/test11.png}
+
+ \item test 1 , granularidad 4.\\
+  \includegraphics[width=400pt]{imagenes/testpropios/test14.png}
+\end{itemize}
+
+Como se puede ver aca, y como mencionamos anteriormente a pesar de que las sanguijuelas estan en la esquina izquierda inferior el punto critico se ve mas afectado cuando la granularidad es mayor.
+
+Para el segundo se agranda el parabrisas y se agregan sanguijuelas, corremos el mismo test para los mismo valores de granularidad, uno y cuatro y obtubimos el siguiente resultado.
+\begin{itemize}
+ \item test 2, granularidad 1.\\
+  \includegraphics[width=400pt]{imagenes/testpropios/test21.png}
+
+ \item test 2 granularidad 4.\\
+  \includegraphics[width=400pt]{imagenes/testpropios/test24.png}
+\end{itemize}
+A pesar que las sanguijuelas estan mas expartidas volvemos a notar lo mismo que se veia en el primer test, a mayor granularidad mayor afectado se ve el punto critico, a pesar que las sanguijuelas estan mas alejadas.
+
+Por ulitmo alargamos mas el parabrisas y corrimos el test para ver que era lo que sucedia, aunque como se comportaron los casos anteriores se espera que se repita el patron, que cuanto mas granularidad mas afectado se vea el punto critico.
+\begin{itemize}
+ \item test 3, granularidad 1.\\
+  \includegraphics[width=400pt]{imagenes/testpropios/test31.png}
+
+ \item test 3, granularidad 4.\\
+  \includegraphics[width=400pt]{imagenes/testpropios/test34.png}
+\end{itemize}
+Luego de realizar los tres test y notar que se repite el patron,  de forma mas particular en el ultimo caso ya que las sanguijuelas afectan las temperaturas haciendo que aumente la temperatura entre medio de ellas afectando el punto critico.
+Con lo cual podemos asegurar que mediante la granularidad sea mas grande la presicion va a ser menor y el punto critico va a ser mas afectados, y esto podria ser de suma importancia al momento de quitar la sanguijuela ya que podria afectar al punto critico al punto de remover otra sanguijuela porque su temperatura sobrepasa el limite.
+
+
+
+
