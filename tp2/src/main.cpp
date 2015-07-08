@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 	}
 	myfile.close();
 	//Esto es para hacer el K folds
-
+	cerr << endl;
 	cout << "Fin!" << endl;
 	return 0;
 }
@@ -110,7 +110,7 @@ void ejecutar(int metodo, vector<entrada> &entradas, vector<entrada> &test, int 
 	gettimeofday(&endGauss, NULL);
 	elapsed_seconds = endGauss.tv_sec - startGauss.tv_sec;
 	double timeGauss =  ((elapsed_seconds) * 1000 + elapsed_useconds / 1000.0) + 0.5;
-	cerr << timeGauss << endl;
+	cerr << timeGauss << " ";
 }
 
 
