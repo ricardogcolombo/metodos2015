@@ -4,6 +4,6 @@ python metnum.py
 rm TESTING/*.txt
 for i in `seq 1 $1`; do
 	echo "corriendo" $i
-	./TESTING/tester $i 1 5
-	./tp TESTING/test.txt lol 0 2>> TESTING/tiempos.txt
+	./TESTING/tester 3 $i 5
+	./tp TESTING/test.txt lol 1 2>> TESTING/tiempos.txt
 done

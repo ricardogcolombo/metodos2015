@@ -324,3 +324,1454 @@ Cantidad De imagenes a reconocer: 4200
 Ejecutando metodo KNN...
 Cantidad De Aciertos 4007
 Fin!
+deleting knn/knn.o
+deleting manejoEntrada/entrada.o
+deleting pca/pca.o
+deleting main.o
+deleting vector/vectorNum.o
+deleting matriz/matriz.o
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+Traceback (most recent call last):
+  File "metnum.py", line 29, in <module>
+    main()
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 1570, in main
+  File "<string>", line 1, in <module>
+  File "metnum.py", line 9, in build
+    compile()
+  File "metnum.py", line 15, in compile
+    run(compiler, '-O2', '-g', '-c', source+'.cpp', '-o', source+'.o')
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 1392, in run
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 1134, in run
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 1117, in _run
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 761, in __call__
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 716, in __call__
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 548, in _do_strace
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 157, in shell
+  File "/home/fnegri/metodos2015/tp2/src/scripts/fabricate.py", line 188, in _shell
+  File "/usr/lib/python2.7/subprocess.py", line 796, in communicate
+    self.wait()
+  File "/usr/lib/python2.7/subprocess.py", line 1376, in wait
+    pid, sts = _eintr_retry_call(os.waitpid, self.pid, 0)
+  File "/usr/lib/python2.7/subprocess.py", line 476, in _eintr_retry_call
+    return func(*args)
+KeyboardInterrupt
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+g++ -O2 -g -c ./matriz/matriz.cpp -o ./matriz/matriz.o
+g++ -O2 -g -c ./pca/pca.cpp -o ./pca/pca.o
+g++ -O2 -g -c ./manejoEntrada/entrada.cpp -o ./manejoEntrada/entrada.o
+g++ -O2 -g -c ./knn/knn.cpp -o ./knn/knn.o
+g++ -O2 -g -c ./vector/vectorNum.cpp -o ./vector/vectorNum.o
+g++ -O2 -g -o ./tp ./main.o ./matriz/matriz.o ./pca/pca.o ./manejoEntrada/entrada.o ./knn/knn.o ./vector/vectorNum.o
+corriendo 1
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 1
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4055
+Fin!
+deleting knn/knn.o
+deleting tp
+deleting manejoEntrada/entrada.o
+deleting pca/pca.o
+deleting main.o
+deleting vector/vectorNum.o
+deleting matriz/matriz.o
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+g++ -O2 -g -c ./matriz/matriz.cpp -o ./matriz/matriz.o
+g++ -O2 -g -c ./pca/pca.cpp -o ./pca/pca.o
+g++ -O2 -g -c ./manejoEntrada/entrada.cpp -o ./manejoEntrada/entrada.o
+g++ -O2 -g -c ./knn/knn.cpp -o ./knn/knn.o
+g++ -O2 -g -c ./vector/vectorNum.cpp -o ./vector/vectorNum.o
+g++ -O2 -g -o ./tp ./main.o ./matriz/matriz.o ./pca/pca.o ./manejoEntrada/entrada.o ./knn/knn.o ./vector/vectorNum.o
+corriendo 1
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 1
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4055
+Fin!
+corriendo 2
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 2
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4043
+Fin!
+corriendo 3
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4072
+Fin!
+corriendo 4
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 4
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4054
+Fin!
+corriendo 5
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 5
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4067
+Fin!
+corriendo 6
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 6
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4058
+Fin!
+corriendo 7
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 7
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4057
+Fin!
+corriendo 8
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 8
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4057
+Fin!
+corriendo 9
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 9
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4055
+Fin!
+corriendo 10
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 10
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4050
+Fin!
+corriendo 11
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 11
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4049
+Fin!
+corriendo 12
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 12
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4048
+Fin!
+corriendo 13
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 13
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4044
+Fin!
+corriendo 14
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 14
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4036
+Fin!
+corriendo 15
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 15
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4033
+Fin!
+corriendo 16
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 16
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4026
+Fin!
+corriendo 17
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 17
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4027
+Fin!
+corriendo 18
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 18
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+deleting knn/knn.o
+deleting tp
+deleting manejoEntrada/entrada.o
+deleting pca/pca.o
+deleting main.o
+deleting vector/vectorNum.o
+deleting matriz/matriz.o
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+g++ -O2 -g -c ./matriz/matriz.cpp -o ./matriz/matriz.o
+g++ -O2 -g -c ./pca/pca.cpp -o ./pca/pca.o
+g++ -O2 -g -c ./manejoEntrada/entrada.cpp -o ./manejoEntrada/entrada.o
+g++ -O2 -g -c ./knn/knn.cpp -o ./knn/knn.o
+g++ -O2 -g -c ./vector/vectorNum.cpp -o ./vector/vectorNum.o
+g++ -O2 -g -o ./tp ./main.o ./matriz/matriz.o ./pca/pca.o ./manejoEntrada/entrada.o ./knn/knn.o ./vector/vectorNum.o
+corriendo 1
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 1
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4055
+Fin!
+deleting knn/knn.o
+deleting tp
+deleting manejoEntrada/entrada.o
+deleting pca/pca.o
+deleting main.o
+deleting vector/vectorNum.o
+deleting matriz/matriz.o
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+g++ -O2 -g -c ./matriz/matriz.cpp -o ./matriz/matriz.o
+g++ -O2 -g -c ./pca/pca.cpp -o ./pca/pca.o
+g++ -O2 -g -c ./manejoEntrada/entrada.cpp -o ./manejoEntrada/entrada.o
+g++ -O2 -g -c ./knn/knn.cpp -o ./knn/knn.o
+g++ -O2 -g -c ./vector/vectorNum.cpp -o ./vector/vectorNum.o
+g++ -O2 -g -o ./tp ./main.o ./matriz/matriz.o ./pca/pca.o ./manejoEntrada/entrada.o ./knn/knn.o ./vector/vectorNum.o
+corriendo 1
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 1
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4055
+Fin!
+corriendo 2
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 2
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4043
+Fin!
+corriendo 3
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4072
+Fin!
+corriendo 4
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 4
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4054
+Fin!
+corriendo 5
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 5
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4067
+Fin!
+corriendo 6
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 6
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4058
+Fin!
+corriendo 7
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 7
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4057
+Fin!
+corriendo 8
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 8
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4057
+Fin!
+corriendo 9
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 9
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4055
+Fin!
+corriendo 10
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 10
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4050
+Fin!
+corriendo 11
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 11
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4049
+Fin!
+corriendo 12
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 12
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4048
+Fin!
+corriendo 13
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 13
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4044
+Fin!
+corriendo 14
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 14
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4036
+Fin!
+corriendo 15
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 15
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4033
+Fin!
+corriendo 16
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 16
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4026
+Fin!
+corriendo 17
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 17
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4027
+Fin!
+corriendo 18
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 18
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4020
+Fin!
+corriendo 19
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 19
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4024
+Fin!
+corriendo 20
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 20
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4023
+Fin!
+corriendo 21
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 21
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4021
+Fin!
+corriendo 22
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 22
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4019
+Fin!
+corriendo 23
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 23
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4012
+Fin!
+corriendo 24
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 24
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4009
+Fin!
+corriendo 25
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 25
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4010
+Fin!
+corriendo 26
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 26
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4006
+Fin!
+corriendo 27
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 27
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4008
+Fin!
+corriendo 28
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 28
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4001
+Fin!
+corriendo 29
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 29
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 4000
+Fin!
+corriendo 30
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 30
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo KNN...
+Cantidad De Aciertos 3998
+Fin!
+deleting knn/knn.o
+deleting tp
+deleting manejoEntrada/entrada.o
+deleting pca/pca.o
+deleting main.o
+deleting vector/vectorNum.o
+deleting matriz/matriz.o
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+g++ -O2 -g -c ./matriz/matriz.cpp -o ./matriz/matriz.o
+g++ -O2 -g -c ./pca/pca.cpp -o ./pca/pca.o
+g++ -O2 -g -c ./manejoEntrada/entrada.cpp -o ./manejoEntrada/entrada.o
+g++ -O2 -g -c ./knn/knn.cpp -o ./knn/knn.o
+g++ -O2 -g -c ./vector/vectorNum.cpp -o ./vector/vectorNum.o
+g++ -O2 -g -o ./tp ./main.o ./matriz/matriz.o ./pca/pca.o ./manejoEntrada/entrada.o ./knn/knn.o ./vector/vectorNum.o
+corriendo 1
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 2
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 3
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 4
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 5
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 6
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 7
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 8
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 9
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 10
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 11
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 12
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 13
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 14
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 15
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 16
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 17
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 18
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 19
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 20
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+deleting knn/knn.o
+deleting tp
+deleting manejoEntrada/entrada.o
+deleting pca/pca.o
+deleting main.o
+deleting vector/vectorNum.o
+deleting matriz/matriz.o
+deleting .deps
+g++ -O2 -g -c ./main.cpp -o ./main.o
+g++ -O2 -g -c ./matriz/matriz.cpp -o ./matriz/matriz.o
+g++ -O2 -g -c ./pca/pca.cpp -o ./pca/pca.o
+g++ -O2 -g -c ./manejoEntrada/entrada.cpp -o ./manejoEntrada/entrada.o
+g++ -O2 -g -c ./knn/knn.cpp -o ./knn/knn.o
+g++ -O2 -g -c ./vector/vectorNum.cpp -o ./vector/vectorNum.o
+g++ -O2 -g -o ./tp ./main.o ./matriz/matriz.o ./pca/pca.o ./manejoEntrada/entrada.o ./knn/knn.o ./vector/vectorNum.o
+corriendo 1
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 1
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 1107
+Fin!
+corriendo 2
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 2
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 1693
+Fin!
+corriendo 3
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 3
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 1946
+Fin!
+corriendo 4
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 4
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 2504
+Fin!
+corriendo 5
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 5
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3038
+Fin!
+corriendo 6
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 6
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3415
+Fin!
+corriendo 7
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 7
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3568
+Fin!
+corriendo 8
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 8
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3688
+Fin!
+corriendo 9
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 9
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3734
+Fin!
+corriendo 10
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 10
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3790
+Fin!
+corriendo 11
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 11
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3813
+Fin!
+corriendo 12
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 12
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3865
+Fin!
+corriendo 13
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 13
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3881
+Fin!
+corriendo 14
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 14
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3894
+Fin!
+corriendo 15
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 15
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3907
+Fin!
+corriendo 16
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 16
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3927
+Fin!
+corriendo 17
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 17
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3926
+Fin!
+corriendo 18
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 18
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3940
+Fin!
+corriendo 19
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 19
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3944
+Fin!
+corriendo 20
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 20
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3945
+Fin!
+corriendo 21
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 21
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3943
+Fin!
+corriendo 22
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 22
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3950
+Fin!
+corriendo 23
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 23
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3955
+Fin!
+corriendo 24
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 24
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3955
+Fin!
+corriendo 25
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 25
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3955
+Fin!
+corriendo 26
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 26
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3956
+Fin!
+corriendo 27
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 27
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3955
+Fin!
+corriendo 28
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 28
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3956
+Fin!
+corriendo 29
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 29
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3953
+Fin!
+corriendo 30
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 30
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3954
+Fin!
+corriendo 31
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 31
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3956
+Fin!
+corriendo 32
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 32
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3955
+Fin!
+corriendo 33
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 33
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3957
+Fin!
+corriendo 34
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 34
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3959
+Fin!
+corriendo 35
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 35
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 36
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 36
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3960
+Fin!
+corriendo 37
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 37
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 38
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 38
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 39
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 39
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 40
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 40
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3960
+Fin!
+corriendo 41
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 41
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3960
+Fin!
+corriendo 42
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 42
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3960
+Fin!
+corriendo 43
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 43
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 44
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 44
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 45
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 45
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3962
+Fin!
+corriendo 46
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 46
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 47
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 47
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 48
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 48
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 49
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 49
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
+corriendo 50
+Iniciando Kfolds....
+Cantidad De Pruebas: 1
+Vecinos para el KNN: 3
+Lamda Para PCA: 50
+Cargando Base de datos...
+Corriendo test: 1
+Cantidad De imagenes a reconocer: 4200
+Ejecutando metodo PCA...
+Ejecutando KNN sobre el PCA...
+Cantidad De Aciertos 3961
+Fin!
