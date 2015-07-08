@@ -11,7 +11,7 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \caption{Vector KNN(matriz etiquetados, matriz sinEtiquietar,int cantidadVecinos)}
 \STATE{vector etiquetas =  vector(cant$\_$filas(sinEtiquetar))}
 \FOR{1 \TO cant$\_$filas(sinEtiquetar)}
-	\STATE{etiquetas_i = encontrarEtiquetas(etiquetados,sinEtiquetar$_{i}$,cantidadVecinos)}
+	\STATE{$etiquetas_i$ = encontrarEtiquetas(etiquetados,sinEtiquetar$_{i}$,cantidadVecinos)}
 \ENDFOR
 \RETURN{etiquetas}
 \end{algorithmic}
@@ -22,18 +22,17 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \caption{int encontrarEtiquetas(matriz etiquetados, vector incognito,int cantidadVecinos)}
 \STATE{colaPrioridad(norma,etiqueta,vectorResultado)  resultados}
 \FOR{1 \TO size(incognito)}
-	\STATE{resParcial $=$ restaVectores(etiquetados_i,incognita)\\}
-	\STATE{colaPrioridad.push((norma(resParcial),etiqueta(etiquetados_i))}
+	\STATE{resParcial $=$ restaVectores($etiquetados_i$,incognita)\\}
+	\STATE{colaPrioridad.push((norma(resParcial),etiqueta($etiquetados_i$))}
 \ENDFOR
 \STATE{vector numeros = vector(10)}
 \WHILE{cantidadVecinos$>$0 $\&$  noesVacia(resultados)}
 	\STATE{int elemento $= $primero(resultados.etiqueta)  \\}
-	\STATE{numeros_{elemento} ++ }
+	\STATE{$numeros_{elemento}$ ++ }
 \ENDWHILE\\
 \RETURN{maximo(numeros)}
 \end{algorithmic}
 \end{algorithm}
-\\
 Al comienzo del desarrollo de los experimentos pensamos en diferentes maneras de mejorar el procesamiento de las imágenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imágenes, ya que en ellos no hay demasiada información útil (en todas las imágenes vale 0).
 \\
 Sin embargo, y mas allá de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un cierto grado de dispersión entre las distintas clases de clasificación hace empeorar rápidamente los resultados.
@@ -47,7 +46,7 @@ Esta transformación está definida de tal manera que la primera componente prin
 \\
 De esta manera será fácil quedarnos con los $\lambda$ componentes principales que concentren la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
 \\
-A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_i_j$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
+A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
 \\
 Luego, utilizando el método de la potencia, procedemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
 \\
@@ -74,22 +73,21 @@ De esta manera evitamos testear contra datos propios del modelo, lo que podría 
 \ENDFOR\\
 \end{algorithmic}
 \end{algorithm}
-\\
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{matriz obtenerCovarianza(matriz entrada,vector medias)}
-\STATE{matriz covarianza, vector nuevo}\\
-\FOR{i=1 \TO size(medias)}\\
-	\FOR{j=1 \TO cant\_filas(entrada)}\\
-		\STATE{\quad nuevoVector_j $=$ entrada_{(j,i)}- medias_i }\\
-	\ENDFOR\\
+\STATE{matriz covarianza, vector nuevo}
+\FOR{i=1 \TO size(medias)}
+	\FOR{j=1 \TO cant\_filas(entrada)}
+		\STATE{\quad $nuevoVector_j= entrada_{(j,i)}- medias_i$ }
+	\ENDFOR
 	\STATE{agregar(covarianza,nuevoVector)}
 \ENDFOR
-\FOR{i=1 \TO cant\_filas(entrada)}\\
-	\FOR{k=1 \TO cant\_filas(entrada)}\\
-		\STATE{covarianza_i $=$ multiplicarVectorEscalar(covarianza_k, cantidad_filas(entrada)}\\
-	\ENDFOR\\
+\FOR{i=1 \TO cant\_filas(entrada)}
+	\FOR{k=1 \TO cant\_filas(entrada)}
+		\STATE{$covarianza_i$ $=$ multiplicarVectorEscalar($covarianza_k$, cantidad\_filas(entrada)}
+	\ENDFOR
 \ENDFOR
 \RETURN{covarianza}
 \end{algorithmic}
@@ -99,12 +97,12 @@ De esta manera evitamos testear contra datos propios del modelo, lo que podría 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{Vector metodoDeLasPotencias(matriz covarianza,cantIteraciones)}
-\STATE{vector vectorInicial$=$  vector(cant\_filas(covarianza))}\\
+\STATE{vector vectorInicial$=$  vector(cant\_filas(covarianza))}
 \FOR{1 \TO cantIteraciones}
 	\STATE{vector nuevo $=$ multiplicar(covarianza,vectorInicial)}
 	\STATE{multiplicarEscalar(nuevo,1/norma(nuevo))}
 	\STATE{vectorInicial $=$ nuevo}
-\ENDFOR\\
+\ENDFOR
 \RETURN{vectorInicial}
 \end{algorithmic}
 \end{algorithm}
@@ -112,13 +110,13 @@ De esta manera evitamos testear contra datos propios del modelo, lo que podría 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{Vector medias(matriz entrada)}
-\STATE{vector medias$ =  $vector(cant_columnas(entrada))}\\
+\STATE{vector medias$ =  $vector(cant\_columnas(entrada))}
 \FOR{i$=$1 \TO cant\_columnas(entrada)}
-	\STATE{suma $=$ 0}\\
-	\FOR{j$=$1 \TO cant\_columnas(entrada)}\\
-		\STATE{\quad suma $+=$ entrada_{i,j}}\\
-	\ENDFOR\\
-	\STATE{medias_i$ =$ suma/cant\_filas(entrada)}\\
+	\STATE{suma $=$ 0}
+	\FOR{j$=$1 \TO cant\_columnas(entrada)}
+		\STATE{\quad suma $+=$ $entrada_{i,j}$}
+	\ENDFOR
+	\STATE{$medias_i =$ suma/cant\_filas(entrada)}
 \ENDFOR\\
 \RETURN{vectorInicial}
 \end{algorithmic}
