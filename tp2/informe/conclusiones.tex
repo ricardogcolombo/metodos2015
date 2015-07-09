@@ -1,14 +1,12 @@
 El análisis realizado nos lleva a sacar una serie de conclusiones en base a lo experimentado.
 \\
-El algoritmo KNN presenta una efectividad más que aceptable, entendiendo que es una técnica que cuenta con varios años de antiguedad.
-\\
+El algoritmo KNN presenta una gran efectividad, entendiendo que es una técnica que cuenta con varios años de antiguedad. Sin embargo, los tiempos necesarios para todas las comparaciones resultan considerablemente elevados.
 Consideramos importante destacar que esto depende en gran medidad de la variación de los datos a analizar. En aquellos conjuntos donde la varianza es elevada y los datos se encuentran muy dispersos, promediar el resultado en base a sus vecinos más cercanos puede no resultar la mejor técnica a implementar.
 \\
-Teniendo en cuenta esto, la relación costo-beneficio de la implementación y ejecución previa de una optimización como la del algoritmo de $PCA$, resulta mínima. En todos los casos los resultados mejoraron, dado que concentrar los factores relevantes en componentes especificas del set de datos favorece la vecindad de la que el algoritmo de $KNN$ hace uso.
+Teniendo en cuenta esto, la relación costo-beneficio de la implementación y ejecución previa de una optimización como la del algoritmo de $PCA$, resulta mínima. Si bien es cierto que, como pudimos observar en el analisis, se pierde una efectividad de alrededor de un digito, atribuimos este comportamiento a algunas de los supuestos que mencionamos que asumia el algoritmo de $PCA$.
+Sin embargo, dada la característica principal del algoritmo de $PCA$ (ordenar las componentes principales en base a su relevancia), se permite ajustar la cantidad de datos a considerar, dando lugar a una mejora mas que considerable en la performance de aplicar sobre estos el algoritmo KNN y el uso de memoria. Como vimos durante nuestro análisis, la cantidad óptima está bastante por debajo del máximo y no tienen ningún beneficio considerar una mayor cantidad de estas.
 \\
-Dada la característica principal del algoritmo de $PCA$ (ordenar las componentes principales en base a su relevancia), se permite ajustar la cantidad de datos a considerar, dando lugar a una mejora no solo en los resultados, sino también a la performance y al uso de memoria. Como vimos durante nuestro análisis, la cantidad óptima está bastante por debajo del máximo y no tienen ningún beneficio considerar una mayor cantidad de estas.
-\\
-Si bien estos algoritmos nos muestran resultados interesantes, los tiempos de ejecución utilizando hardware moderno son altos. Este se puede mejorar utilizando técnicas de paralelización utilizando multiples cores o también utilizando instrucciones SIMD (si el procesador lo soporta), sin embargo estos tiempos no son aceptables para aplicaciones que requieren realizar OCR en \"tiempo real\".
+Como resultado de esta característica, los tiempos de analisis se reducen drasticamente, todavia lejos de poder implementar este tipo de soluciones en \"tiempo real\" pero mucho mas cercanos que utilizando solo el algoritmo de $KNN$.
 \\
 Como se menciona al comienzo del trabajo, el preprocesamiento de las imágenes es otro factor que puede mejorar la eficiencia algorítmica. Así como $PCA$ quita ruido del dataset, es posible homogeneizar las imágenes por separado aplicando otros filtros.
 \\
