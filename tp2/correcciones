@@ -3,9 +3,9 @@ Implementación
 - Verifiquen que su implementación pase los tests que les dimos (HECHO)
 
 Desarrollo
-En la explicación de PCA deberían detallar un poco más algunas cosas. En particular: Que transformación ortogonal necesitan? Como se obtiene a partir de la matriz de covarianza? Como obtienen los sucesivos autovectores de la matriz de covarianza? Como transforman la base una vez obtenidos los autovectores?
+En la explicación de PCA deberían detallar un poco más algunas cosas. En particular: Que transformación ortogonal necesitan? Como se obtiene a partir de la matriz de covarianza? Como obtienen los sucesivos autovectores de la matriz de covarianza? Como transforman la base una vez obtenidos los autovectores? (HECHO??)
 
-En Cross Validation, más allá de la explicación de como se aplica, que ventajas les da?
+En Cross Validation, más allá de la explicación de como se aplica, que ventajas les da? (HECHO)
 
 Experimentación
 *** Comentarios generales ***
