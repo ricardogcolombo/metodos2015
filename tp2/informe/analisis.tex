@@ -54,6 +54,8 @@ Ademas, para este k-fold medimos los tiempos de ejecución y los promediamos par
 
 \includegraphics[scale=0.75]{nuevosResultados/pca/pca1.png}\\
 
+Cabe aclarar que estos tiempos no contemplan todo lo que se concidera el 'entrenamiento' del sistema, osea, todo el preprocesamiento que resultará en encontrar los valores principales. La justificación de esto es que esto se realizará una vez, para entrenar el sistema, luego, al momento de clasificar las nuevas imagenes este tiempo podrá ser despreciado.
+\\
 En este grafico se puede ver que aumentar el $\alpha$ produce un aumento lineal de los tiempos de ejecución, de lo que se desprende que aumentar la cantidad valores principales no resulta gratuito y tiene cierto costo asociado.
 \\
 Ademas aumentar de manera desmedida el $\alpha$ puede probocar lo que en machine learning se denomina 'Overfiting'.
@@ -61,7 +63,6 @@ Ademas aumentar de manera desmedida el $\alpha$ puede probocar lo que en machine
 \\
 Debido a todas las razones expuestas consideramos que con $\alpha$ igual a $14$ será el mejor valor que podemos tomar.
 \\
-
 %falta retestear esto de abajo
 \subsubsection{Busqueda del mejor valor de $k$}
 
