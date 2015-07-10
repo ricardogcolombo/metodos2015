@@ -34,7 +34,7 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \end{algorithmic}
 \end{algorithm}
 
-Una supocición preliminar es que a mayor cantidad de vecinos (o sea, $k$) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que más difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan. Ahondaremos mas en detalle en la siguiente sección, cuando pongamos a prueba cual es la mejor cantidad de vecinos para este algoritmo.
+Una suposición preliminar es que a mayor cantidad de vecinos (o sea, $k$) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que más difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan. Ahondaremos mas en detalle en la siguiente sección, cuando pongamos a prueba cual es la mejor cantidad de vecinos para este algoritmo.
 \\
 Al comienzo del desarrollo de los experimentos pensamos en diferentes maneras de mejorar el procesamiento de las imágenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imágenes, ya que en ellos no hay demasiada información útil (en todas las imágenes vale 0).
 \\
@@ -76,9 +76,14 @@ Nosotros realizamos todos los experimentos para un $K$=10, o sea, siempre experi
 Si particionamos en menos cantidades, o sea, elegimos un K chico, lo que sucederá es que vamos a tener particiones mas grandes y eso resultará que la base de entrenamiento será mas pequeña. Luego el modelo no será tan robusto y se esperaría que las predicciones sean peores. Por ejemplo, si tengo una base de 100 imagenes y las divido en 5 particiones, cada particion va a tener 20 imagenes, van a ser utilizadas 20 imagenes para el testeo y 80 para el entrenamiento. En cambio si parto la base de datos en 2 particiones, me va a quedar 50 imagenes para testear y 50 para el entrenamiento. Entonces a mayor cantidad de imagenes para entrenar, mayor va a ser la probabilidad de tener mayor cantidad de aciertos.
 Y ese mismo razonamiento se puede utilizar para la inversa, si tengo mayor cantidad de particiones, voy a tener mayor cantidad de imagenes para entrenar y es muy probable que la los resultados obtenidos sean mas fiables.
 Entonces:
-	A mayor cantidad de particiones, mayor cantidad de imagenes de entrenamiento y mayor fiabilidad.
-	A menor cantidad de particiones, menor cantidad de imagenes de entrenamiento y menor fiabilidad.
+	A mayor cantidad de particiones, mayor cantidad de imágenes de entrenamiento y mayor fiabilidad.
+	A menor cantidad de particiones, menor cantidad de imágenes de entrenamiento y menor fiabilidad.
 
+\subsubsection{Análisis de promedios}
+
+Para obtener un resultado global de los conjuntos de testing mencionados anteriormente, procedimos a realizar un promedio de los aciertos obtenidos para cada $k$.
+La ventaja de utilizar este promedio, a diferencia de tomar los conjuntos por separado, es que al tener diversos conjuntos, se mitiga el problema de conjuntos para los cuales es muy efectivo la utilización de un $k$ en particular, por las características de ese conjunto. Si el $k$ resulta efectivo en el promedio de los conjuntos, nos indica que es efectivo globalmente y no para un caso en particular.
+>>>>>>> 41e2852996d3876ac966cd546fb6d1e6ebe73533
 
 \subsection{Algoritmo PCA}
 
