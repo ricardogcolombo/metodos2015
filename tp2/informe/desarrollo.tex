@@ -1,5 +1,5 @@
 \subsection{Algortimo de kNN}
-Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre las imágenes del dataset etiquetado las $k$ más parecidos, llamados también como sus "vecinos" (habiendo que definir que es ser "parecido"), y luego de estos $k$ vecinos, determinar cual es la moda. 
+Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre las imágenes del dataset etiquetado las $k$ más parecidos, llamados también como sus "vecinos" (habiendo que definir que es ser "parecido"), y luego de estos $k$ vecinos, determinar cuál es la moda. 
 \\
 \subsubsection{Similitud entre imágenes}
 Para este trabajo en particular, tomamos las imágenes como vectores numéricos y definimos que dos imágenes son "parecidas" si la norma dos entre ellas es pequeña. Luego la idea del $knn$ será tomar todas las imágenes etiquetadas, compararlas contra la nueva imagen a reconocer, ver cuales son las $k$ imágenes cuya norma es la menor posible y, entre esos k vecinos, ver a que clase pertenecen. La etiqueta para esta imagen vendrá dada por la moda. 
@@ -40,13 +40,13 @@ Al comienzo del desarrollo de los experimentos pensamos en diferentes maneras de
 \\
 Sin embargo, y mas allá de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un cierto grado de dispersión entre las distintas clases de clasificación hace empeorar rápidamente los resultados.
 \\
-En el siguiente apartado pasaremos a describir una metodología más sofisticada para resolver este problema que mejora tanto los tiempos de ejecución como la tasa de reconocimiento con respecto al método descripto anteriormente.
+En el siguiente apartado pasaremos a describir una metodología más sofisticada para resolver este problema que mejora tanto los tiempos de ejecución como la tasa de reconocimiento con respecto al método descrito anteriormente.
 
 \subsection{Optimización mediante Análisis de componentes principales}
-El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación lineal ortogonal de los datos para convertir un conjunto de variables, posiblemente correlacionadas, a un nuevo sistema de coordenadas conocidas estas como componentes principales tal que la mayor varianza de cualquier proyección de los datos queda ubicada como la primer coordenada (llamado el primer componente principal, aquella que explica la mayor varianza de los datos), la segunda mayor varianza en la segunda posición, etc. En este sentido, entonces, PCA calcula la base mas significativa para expresar nuestros datos. Recordemos que una base es un conjunto de vectores linealmente independientes tal que, en una combinación lineal, puede representar cualquier vector del sistema de coordenadas.
+El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación lineal ortogonal de los datos para convertir un conjunto de variables, posiblemente correlacionadas, a un nuevo sistema de coordenadas conocidas estas como componentes principales tal que la mayor varianza de cualquier proyección de los datos queda ubicada como la primer coordenada (llamado el primer componente principal, aquella que explica la mayor varianza de los datos), la segunda mayor varianza en la segunda posición, etc. En este sentido, entonces, PCA calcula la base más significativa para expresar nuestros datos. Recordemos que una base es un conjunto de vectores linealmente independientes tal que, en una combinación lineal, puede representar cualquier vector del sistema de coordenadas.
 \\
-De esta manera entonces, será fácil quedarnos con los $\lambda$ componentes principales que concentren la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
-A fines prácticos, lo que haremos es, a partir de nuestra base de datos de elementos etiquetados, sera construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ se obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
+De esta manera entonces, será fácil quedarnos con los $\lambda$ componentes principales que concentran la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
+A fines prácticos, lo que haremos es, a partir de nuestra base de datos de elementos etiquetados, será construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ se obtenga el valor de la covarianza del pixel $i$ contra el píxel $j$.
 Luego, utilizando el método de la potencia, procederemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicando cada elemento por los $\lambda$ autovectores y obtendremos un nuevo set de datos.
 Sobre este set de datos, ahora aplicaremos el algoritmo $KNN$ nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos (mediante esta base que mencionamos al principio), sumado a mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad del problema.
 \\
@@ -59,20 +59,19 @@ Generalizando entonces, los supuestos de PCA son:
 \end{itemize}
 
 Si algunas de estas características no es apropiada, PCA podría producir resultados pobres.
-Un hecho importante que debemos recordar: PCA devuelve una nueva base que es una combinación lineal de la base original lo cual limita  el numero de posibles bases que puedan ser encontradas.
+Un hecho importante que debemos recordar: PCA devuelve una nueva base que es una combinación lineal de la base original lo cual limita  el número de posibles bases que puedan ser encontradas.
 
 \subsection{Cross-validation}
-Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. En una primera iteracion se toma un bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. En la siguiente, se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. La metodología se repite $k$ veces hasta iterar todo el conjunto de datos. Finalmente, se realiza la media aritmetica de los resultados de cada iteracion para obtener un unico resultado de error y poder evaluar la performance del metodo de entrenamiento.
+Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. En una primera iteración se toma un bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. En la siguiente, se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. La metodología se repite $k$ veces hasta iterar todo el conjunto de datos. Finalmente, se realiza la media aritmética de los resultados de cada iteración para obtener un único resultado de error y poder evaluar la performance del método de entrenamiento.
 
 
-Esta técnica, que es una mejora de la técnica de holdout donde simplemente se divide el set de datos en dos conjuntos (uno para entrenamiento y otro para testing), trata de garantizar que los resultados obtenidos sean independientes de la partición de datos contra la que se esta evaluando porque ofrece el beneficio de que los parámetros del método de predicción no pueden ser ajustados exhaustivamente a casos particulares. Es por esto que se utiliza principalmente en situaciones de predicción, dado que intenta evitar que el aprendizaje se realice sobre un cuerpo de datos especifico y busca obtener respuestas mas generales.
+Esta técnica, que es una mejora de la técnica de holdout donde simplemente se divide el set de datos en dos conjuntos (uno para entrenamiento y otro para testing), trata de garantizar que los resultados obtenidos sean independientes de la partición de datos contra la que se está evaluando porque ofrece el beneficio de que los parámetros del método de predicción no pueden ser ajustados exhaustivamente a casos particulares. Es por esto que se utiliza principalmente en situaciones de predicción, dado que intenta evitar que el aprendizaje se realice sobre un cuerpo de datos específico y busca obtener respuestas más generales.
 
 
 La única desventaja que presenta es la necesidad esperable de correr los algoritmos en varias iteraciones, situacion que puede tener un peso significativo si el método de predicción tiene un costo computacional muy alto durante el entrenamiento. 
 
 \subsection{Algoritmo PCA}
 
-\newpage
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void PCA(matriz etiquetados, matriz sinetiquetar,int cantidadAutovectores)}
@@ -135,4 +134,6 @@ La única desventaja que presenta es la necesidad esperable de correr los algori
 \RETURN{vectorInicial}
 \end{algorithmic}
 \end{algorithm}
+
+
 
