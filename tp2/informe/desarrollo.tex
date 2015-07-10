@@ -33,6 +33,9 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \RETURN{maximo(numeros)}
 \end{algorithmic}
 \end{algorithm}
+
+Una supocición preliminar es que a mayor cantidad de vecinos (o sea, $k$) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que más difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan. Ahondaremos mas en detalle en la siguiente sección, cuando pongamos a prueba cual es la mejor cantidad de vecinos para este algoritmo.
+\\
 Al comienzo del desarrollo de los experimentos pensamos en diferentes maneras de mejorar el procesamiento de las imágenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imágenes, ya que en ellos no hay demasiada información útil (en todas las imágenes vale 0).
 \\
 Sin embargo, y mas allá de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un cierto grado de dispersión entre las distintas clases de clasificación hace empeorar rápidamente los resultados.
@@ -40,17 +43,24 @@ Sin embargo, y mas allá de las mejoras que puedan realizarse sobre los datos en
 En el siguiente apartado pasaremos a describir una metodología más sofisticada para resolver este problema que mejora tanto los tiempos de ejecución como la tasa de reconocimiento con respecto al método descripto anteriormente.
 
 \subsection{Optimización mediante Análisis de componentes principales}
-El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación ortogonal para convertir un conjunto de variables, posiblemente correlacionadas, en un conjunto de variables linealmente independientes llamadas componentes principales.
+El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación lineal ortogonal de los datos para convertir un conjunto de variables, posiblemente correlacionadas, a un nuevo sistema de coordenadas conocidas estas como componentes principales tal que la mayor varianza de cualquier proyección de los datos queda ubicada como la primer coordenada (llamado el primer componente principal, aquella que explica la mayor varianza de los datos), la segunda mayor varianza en la segunda posición, etc. En este sentido, entonces, PCA calcula la base mas significativa para expresar nuestros datos. Recordemos que una base es un conjunto de vectores linealmente independientes tal que, en una combinación lineal, puede representar cualquier vector del sistema de coordenadas.
 \\
-Esta transformación está definida de tal manera que la primera componente principal tenga la varianza más grande posible, la segunda componente tenga la segunda varianza más grande posible y así sucesivamente hasta encontrarse con la componente de menor varianza en la última posición.
+De esta manera entonces, será fácil quedarnos con los $\lambda$ componentes principales que concentren la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
+A fines prácticos, lo que haremos es, a partir de nuestra base de datos de elementos etiquetados, sera construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ se obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
+Luego, utilizando el método de la potencia, procederemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicando cada elemento por los $\lambda$ autovectores y obtendremos un nuevo set de datos.
+Sobre este set de datos, ahora aplicaremos el algoritmo $KNN$ nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos (mediante esta base que mencionamos al principio), sumado a mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad del problema.
 \\
-De esta manera será fácil quedarnos con los $\lambda$ componentes principales que concentren la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
-\\
-A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
-\\
-Luego, utilizando el método de la potencia, procedemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
-\\
-Sobre este set de datos, ahora aplicamos el algoritmo $KNN$ nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos, sumado a mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad del problema.
+Generalizando entonces, los supuestos de PCA son:
+\begin{itemize}
+ \item Linealidad: La nueva base es una combinación lineal de la base original.
+ \item Media y Varianza son estadísticos importantes: PCA asume que estos estadísticos describen la distribución de los datos sobre el eje.
+ \item Varianza alta tiene una dinámica importante: Varianza alta significa se\~nal. Baja varianza significa ruido.
+ \item Las componentes son ortonormales.
+\end{itemize}
+
+Si algunas de estas características no es apropiada, PCA podría producir resultados pobres.
+Un hecho importante que debemos recordar: PCA devuelve una nueva base que es una combinación lineal de la base original lo cual limita  el numero de posibles bases que puedan ser encontradas.
+
 \subsection{Cross-validation}
 Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. En una primera iteracion se toma un bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. En la siguiente, se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. La metodología se repite $k$ veces hasta iterar todo el conjunto de datos. Finalmente, se realiza la media aritmetica de los resultados de cada iteracion para obtener un unico resultado de error y poder evaluar la performance del metodo de entrenamiento.
 
