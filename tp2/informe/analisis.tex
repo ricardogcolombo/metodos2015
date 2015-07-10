@@ -58,6 +58,7 @@ Además para estos tests realizamos una medición de tiempos para ver cómo se c
 
 Como puede observarse, los tiempos de los algoritmos no se ven muy afectados por la variación en la cantidad de vecinos. Es muy probable que esto se deba a que el algoritmo debe comparar a la imagen que se desea comparar contra un número muy extenso de imágenes que estan en el mismo orden de magnitud.
 %completar
+En el grafico da la sensacion que varia mucho la función para distintos valores de k, pero eso pasa porque la escala del eje $y$ es muy chica en comparación a la escala del eje $x$ que es grande, ya que está entre 256 segundos y 259 segundos en el eje $y$ y en el eje $x$  el $k$ varia entre 1 y 30, es por eso tanta variación.
 
 Luego de los test decidimos que vamos a usar $k=3$ porque nos dio los mejores resultados, basado en la  cantidad de aciertos.
 
@@ -79,6 +80,8 @@ Por lo tanto enfocamos nuestro análisis en obtener un valor óptimo de $\alpha$
 Puede verse que para valores pequeños, aumentar en uno el $\alpha$ produce un gran aumento de aciertos. Por ejemplo, considerando el primer set para $\alpha$ igual a $1$ se obtienen $1112$ aciertos, mientras que para $\alpha$ igual a $2$ se obtienen $1680$ aciertos, esto representa un $52\%$ más de aciertos.
 \\
 Para valores más grandes de $\alpha$ (alrededor de $\alpha = 12$) esta tendencia empieza a estabilizarse. Por ejemplo para $\alpha = 12$ se obtienen $3845$ imágenes correctamente predecidas, pero para $\alpha = 13$ se obtienen $3869$ imágenes correctas, esto es el crecimiento de aciertos es de menos de un $1\%$.
+\\
+Graficamos la variación del $\alpha$ hasta el valor $\alpha = 50$ ya que nos dimos cuenta que para valores mayores de 50 la cantidad de aciertos no variaba mas del $1\%$ (como dijimos anteriormente) por lo tanto, no tenia sentido seguir testeando y sumar esa información que no aportaba nada.  
 \\
 Además, para este $k-fold$ medimos los tiempos de ejecución y los promediamos para poder ver de que manera varía la ejecución de los algoritmos en función de $\alpha$:
 

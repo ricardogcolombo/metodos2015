@@ -21,7 +21,7 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \begin{algorithmic}[1]\parskip=1mm
 \caption{int encontrarEtiquetas(matriz etiquetados, vector incognito,int cantidadVecinos)}
 \STATE{colaPrioridad(norma,etiqueta,vectorResultado)  resultados}
-\FOR{1 \TO size(etiquetados)}
+\FOR{1 \TO size(incognito)}
 	\STATE{resParcial $=$ restaVectores($etiquetados_i$,incognita)\\}
 	\STATE{colaPrioridad.push((norma(resParcial),etiqueta($etiquetados_i$))}
 \ENDFOR
@@ -70,6 +70,7 @@ Esta técnica, que es una mejora de la técnica de holdout donde simplemente se 
 
 La única desventaja que presenta es la necesidad esperable de correr los algoritmos en varias iteraciones, situacion que puede tener un peso significativo si el método de predicción tiene un costo computacional muy alto durante el entrenamiento. 
 
+<<<<<<< HEAD
 Nosotros realizamos todos los experimentos para un $K$=10, o sea, siempre experimentamos en 10 particiones distintas y nunca variamos el K. Tomamos la primer particion de las 10 y utilizamos las otras 9 para entrenar, luego tomamos la segunda particion y utilizamos la primer particion y las otras 8 particiones para entrenar, y asi sucesivamente, hasta poder testear con todas las distintas particiones.
 ¿Qué pasaria si variamos la cantidad de particiones del k-fold?
 Si particionamos en menos cantidades, o sea, elegimos un K chico, lo que sucederá es que vamos a tener particiones mas grandes y eso resultará que la base de entrenamiento será mas pequeña. Luego el modelo no será tan robusto y se esperaría que las predicciones sean peores. Por ejemplo, si tengo una base de 100 imagenes y las divido en 5 particiones, cada particion va a tener 20 imagenes, van a ser utilizadas 20 imagenes para el testeo y 80 para el entrenamiento. En cambio si parto la base de datos en 2 particiones, me va a quedar 50 imagenes para testear y 50 para el entrenamiento. Entonces a mayor cantidad de imagenes para entrenar, mayor va a ser la probabilidad de tener mayor cantidad de aciertos.
@@ -77,8 +78,6 @@ Y ese mismo razonamiento se puede utilizar para la inversa, si tengo mayor canti
 Entonces:
 	A mayor cantidad de particiones, mayor cantidad de imagenes de entrenamiento y mayor fiabilidad.
 	A menor cantidad de particiones, menor cantidad de imagenes de entrenamiento y menor fiabilidad.
-
-
 
 
 \subsection{Algoritmo PCA}
@@ -137,8 +136,8 @@ Entonces:
 \STATE{vector medias$ =  $vector(cant\_columnas(entrada))}
 \FOR{i$=$1 \TO cant\_columnas(entrada)}
 	\STATE{suma $=$ 0}
-	\FOR{j$=$1 \TO cant\_filas(entrada)}
-		\STATE{\quad suma $+=$ $entrada_{j,i}$}
+	\FOR{j$=$1 \TO cant\_columnas(entrada)}
+		\STATE{\quad suma $+=$ $entrada_{i,j}$}
 	\ENDFOR
 	\STATE{$medias_i =$ suma/cant\_filas(entrada)}
 \ENDFOR\\
