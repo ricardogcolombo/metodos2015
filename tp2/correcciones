@@ -27,4 +27,4 @@ Experimentación
 - Traten de acotar los valores de alpha con los que trabajan. En principio alpha = 700 no tiene mucho sentido, en total hay 784 variables por lo que casi no reducen la dimensión. Vean de analizar hasta que cantidad de valores singulares aportan información significativa, teniendo en cuenta que están ordenados por magnitud. Podrían probar por ejemplo: para un k (de knn) que consideren bueno, graficar la tasa de acierto en función del alpha y seguramente se vea claramente como a partir de cierto valor prácticamente no hay cambios.
 
 Conslusiones
-Mencionan que PCA + KNN es más efectivo (en términos de tasa de acierto) que KNN sin embargo de los resultados se deduce lo contrario. Este es otro error importante, las conclusiones deben desprenderse de los resultados.
+Mencionan que PCA + KNN es más efectivo (en términos de tasa de acierto) que KNN sin embargo de los resultados se deduce lo contrario. Este es otro error importante, las conclusiones deben desprenderse de los resultados. (HECHO)

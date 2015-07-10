@@ -16,7 +16,7 @@ Para ello variamos $k$ desde $1$ hasta $30$ para ver cual era el comportamiento 
 %Se prueba entonces el algoritmo $KNN$ para los siguientes valores de $k$: $1,2,3,4,...,30$.
 %\\
 Cada uno de los conjuntos contaba con 4200 imagenes a testear, en los siguientes graficos presentamos algunos de los sets obtenidos:
-\\
+
 \includegraphics[scale=0.55]{nuevosResultados/knn/1.png}\\
 
 \includegraphics[scale=0.55]{nuevosResultados/knn/2.png}\\
@@ -45,14 +45,20 @@ En primera instancia vamos a utilizar cross-validation para intentar determinar 
 \\
 Por lo tanto enfocamos nuestro análisis en obtener un valor óptimo de $\alpha$. Para este fin, partimos el conjunto de datos de entrenamiento en 10 subconjuntos y aplicamos cross-validation. Dado que este parámetro representa la cantidad de componentes principales a tener en cuenta y teniendo en mente el funcionamiento del algoritmo de PCA, es esperable que valores pequeños no sean beneficiosos (teniendo en cuenta que el máximo a considerar es bastante elevado), pero dado que PCA las ordena en base a su relevancia, se alcance un valor óptimo sin necesidad de considerarlas todas. Para esta partición de los datos de entrenamiento con 4200 imagenes para testear, tomamos $\alpha$ desde $1$ hasta $50$ y graficamos lo obtenido:
 
-\includegraphics[scale=0.75]{nuevosResultados/pca/pca1.png}\\
+\begin{center}
+\includegraphics[scale=0.68]{nuevosResultados/pca/pca1.png}
+\end{center}
+
 Puede verse que para valores pequeños, aumentar en uno el $\alpha$ produce un gran aumento de aciertos. Por ejemplo, considerando el primer set para $\alpha$ igual a $1$ se obtienen $1112$ aciertos, mientras que para $\alpha$ igual a $2$ se obtienen $1680$ aciertos, esto es un $52\%$ mas de aciertos.
 \\
 Para valores mas grandes de $\alpha$ (alrededor de $\alpha = 12$) esta tendencia empieza estabilizarse. Por ejemplo para $\alpha = 12$ se obtienen $3845$ imagenes correctamente predecidas, pero para $\alpha = 13$ se obtienen $3869$ imagenes correctas, esto es el crecimiento de aciertos es de menos de un $1\%$.
 \\
 Ademas, para este k-fold medimos los tiempos de ejecución y los promediamos para poder ver de que manera varía la ejecución de los algoritmos en función de $\alpha$:
 
-\includegraphics[scale=0.75]{nuevosResultados/pca/pca1.png}\\
+\begin{center}
+\includegraphics[scale=0.68]{nuevosResultados/pca/pca1.png}
+\end{center}
+
 
 Cabe aclarar que estos tiempos no contemplan todo lo que se considera el 'entrenamiento' del sistema, osea, todo el preprocesamiento que resultará en encontrar los valores principales. La justificación de esto es que esto se realizará una vez, para entrenar el sistema, luego, al momento de clasificar las nuevas imagenes este tiempo podrá ser despreciado.
 \\
