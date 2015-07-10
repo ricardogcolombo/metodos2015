@@ -3,9 +3,9 @@ En esta sección definimos:
 \begin{itemize}
 	\item $k$: cantidad de vecinos a considerar en el algoritmo $kNN$.
 \end{itemize}
-El análisis sobre el algoritmo $KNN$ ($k$ vecinos más cercanos) se realiza para distintos valores de $k$, la idea detrás de esta elección, busca entender la variación en la efectividad (cantidad de aciertos) del algoritmo.
+El análisis sobre el algoritmo $KNN$ ($k$ vecinos más cercanos) se realiza para distintos valores de $k$, la idea detrás de esto es que buscamos entender la variación en la efectividad (cantidad de aciertos) del algoritmo dependiendo de como ajustemos este parametro.
 \\
-Para ello variamos $k$ desde $1$ hasta $30$ para ver cual era el comportamiento que se obtenía. Para cada uno de los $k$ realizamos una corrida cross-validation con $10$ conjuntos.
+Para ello variamos $k$ desde $1$ hasta $30$ para ver cual es su comportamiento. Para cada uno de los $k$ realizamos una corrida cross-validation con $10$ conjuntos.
 \\
 % El procedimiento de este algoritmo comienza, por cada imágen que queremos averiguar a que dígito pertenece, con su vectorización. Luego resta el resultado a cada uno de los vectores imágen y calcula la norma 2 para saber en cuánto difieren con cada una de las imágenes.
 % Todos esos resultados se acumulan en una cola de prioridad que los ordena de menor a mayor, según las diferencias entre la imágen la cual se quiere averiguar a que clase pertenece y todas las imágenes de la base de datos etiquetada.
@@ -16,17 +16,29 @@ Para ello variamos $k$ desde $1$ hasta $30$ para ver cual era el comportamiento 
 %Se prueba entonces el algoritmo $KNN$ para los siguientes valores de $k$: $1,2,3,4,...,30$.
 %\\
 Cada uno de los conjuntos contaba con 4200 imagenes a testear, en los siguientes graficos presentamos algunos de los sets obtenidos:
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/1.png}
+\end{center}
 
-\includegraphics[scale=0.55]{nuevosResultados/knn/1.png}\\
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/2.png}
+\end{center}
 
-\includegraphics[scale=0.55]{nuevosResultados/knn/2.png}\\
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/3.png}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/4.png}
+\end{center}
 
-\includegraphics[scale=0.55]{nuevosResultados/knn/3.png}\\
 
-Como puede verse hay un patrón bastante claro en los tres test corridos, para valores muy pequeños de k (k=1,K=2) podemos observar que los resultados son peores que para $k=3$,luego para valores más grandes se observa lo que nos decía la intuición, tal que para un gran número de vecinos se empiezan a perder aquellos que son realmente relevantes y las predicciones empiezan a ser peores, lo que no se esperaba era el salto en la cantidad de aciertos que vemos en los primeros valores de $k$ pero podemos entonces saber que dentro de los primeros $k$ se encuentran los mejores resultados.  
+Como puede verse hay un patrón bastante claro en los experimentos realizados, para valores muy pequeños de $k$ los resultados son bastante buenos, para $k=1$ se obtiene que es el que mejor valor para $3$ de los sets que testeamos, para $k=3$ se obtiene que $4$ veces es la cantidad de vecinos que produce mas aciertos, para el resto de los sets se encuentran tambien valores cercanos a estos. Para valores más grandes se observa lo que nos decía la intuición, con un gran número de vecinos se empiezan a perder aquellos que son realmente relevantes y las predicciones empiezan a ser peores, lo que no se esperaba era el salto en la cantidad de aciertos que vemos en los primeros valores de $k$ pero podemos entonces saber que dentro de los primeros $k$ se encuentran los mejores resultados.
 \\
-\\ \\
-Como dijimos antes, llegamos a la conclusión de que el $k$ con el que se obtienen mayores aciertos, es para $k$=3. Lo que analizamos de este resultado es que lo que puede pasar para ciertos casos, es que no siempre la imagen que está en primer lugar de la cola de prioridad sea la correcta, eso pasaría para el caso en que tengo un dígito que se parece mucho al primero de la cola, pero no son iguales.
+La distribución del mejor $k$ es la siguiente:
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/max.png}
+\end{center}
+Decidimos luego que el mejor valor para $k$ es el que produce mas veces el maximo numero de acieros, osea $k=3$. Lo que analizamos de este resultado es que lo que puede pasar para ciertos casos, es que no siempre la imagen que está en primer lugar de la cola de prioridad sea la correcta, eso pasaría para el caso en que tengo un dígito que se parece mucho al primero de la cola, pero no son iguales.
 Por ejemplo, si tengo el dígito $x$, lo testeo con una base de datos grande, en la que ningún dígito $x'$ se parece a $x$, pero tenemos otro dígito $y$ tal que se parece mucho, ese dígito $y$ va a quedar en la primera posición de la cola de resultados.
 Recordemos que una vez que comparamos el dígito con toda la base de datos, se arma una cola de prioridad, ordenados por los dígitos que más se parecen.
 Como decíamos, ese dígito $y$, puede ser considerado como un 'outlier', ya que hace que el dígito más parecido no sea el resultado correcto. Por lo tanto, siempre es mejor elegir más vecinos para saber cuales dígitos aparecen en mayor cantidad y así agarrar el de mayor cantidad de apariciones.
@@ -38,8 +50,8 @@ Según los resultados obtenidos, nos conviene elegir los primeros 3 vecinos más
 \\ \\
 Otra observación que podemos ver de las imágenes de los resultados, es que para los valores k pares, obtenemos menos cantidad de aciertos que para los k impares.
 Esto tendría sentido ya que, si tengo un dígito $x$ a testear, y en la cola de prioridad tengo como los dígitos más cercanos, por ejemplo, los dígitos $x$, $y$, $x$, $y$.
-Si elegimos k=1 o k=3 el resultado sería correcto, pero si elegimos un valor k par, podríamos tener un empate entre 2 dígitos y podríamos elegir el dígito incorrecto simplemente al azar, o por una elección arbitraria del algoritmo, o por cualquier motivo para desempatar. Entonces por ese simple motivo, podríamos elegir mal el dígito correcto y tener menor cantidad de aciertos. En cambio, para los k impares ese problema no lo tenemos y nos evitaríamos ese inconveniente, por más que después se elija el resultado correcto o no. \\ \\
-
+Si elegimos k=1 o k=3 el resultado sería correcto, pero si elegimos un valor k par, podríamos tener un empate entre 2 dígitos y podríamos elegir el dígito incorrecto simplemente al azar, o por una elección arbitraria del algoritmo, o por cualquier motivo para desempatar. Entonces por ese simple motivo, podríamos elegir mal el dígito correcto y tener menor cantidad de aciertos. En cambio, para los k impares ese problema no lo tenemos y nos evitaríamos ese inconveniente, por más que después se elija el resultado correcto o no. 
+\\ \\
 Ademas para estos tests realizamos una medición de tiempos para ver cómo se comportaba el algoritmo frente a un cambio en la cantidad de vecinos. Los valores promediados para cada $k$ pueden verse en el siguiente gráfico:
 
 \includegraphics[scale=0.55]{nuevosResultados/knn/knntemp.png}\\
