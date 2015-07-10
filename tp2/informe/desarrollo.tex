@@ -34,7 +34,7 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \end{algorithmic}
 \end{algorithm}
 
-Una supocición preliminar es que a mayor cantidad de vecinos (o sea, $k$) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que más difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan. Ahondaremos mas en detalle en la siguiente sección, cuando pongamos a prueba cual es la mejor cantidad de vecinos para este algoritmo.
+Una suposición preliminar es que a mayor cantidad de vecinos (o sea, $k$) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que más difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan. Ahondaremos mas en detalle en la siguiente sección, cuando pongamos a prueba cual es la mejor cantidad de vecinos para este algoritmo.
 \\
 Al comienzo del desarrollo de los experimentos pensamos en diferentes maneras de mejorar el procesamiento de las imágenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imágenes, ya que en ellos no hay demasiada información útil (en todas las imágenes vale 0).
 \\
@@ -79,8 +79,10 @@ Entonces:
     A mayor cantidad de particiones, mayor cantidad de imágenes de entrenamiento y mayor cantidad de aciertos.
     A menor cantidad de particiones, menor cantidad de imágenes de entrenamiento y menor cantidad de aciertos.
 
+\subsubsection{Análisis de promedios}
 
-
+Para obtener un resultado global de los conjuntos de testing mencionados anteriormente, procedimos a realizar un promedio de los aciertos obtenidos para cada $k$.
+La ventaja de utilizar este promedio, a diferencia de tomar los conjuntos por separado, es que al tener diversos conjuntos, se mitiga el problema de conjuntos para los cuales es muy efectivo la utilización de un $k$ en particular, por las características de ese conjunto. Si el $k$ resulta efectivo en el promedio de los conjuntos, nos indica que es efectivo globalmente y no para un caso en particular.
 
 \subsection{Algoritmo PCA}
 
