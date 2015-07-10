@@ -70,14 +70,13 @@ Esta técnica, que es una mejora de la técnica de holdout donde simplemente se 
 
 La única desventaja que presenta es la necesidad esperable de correr los algoritmos en varias iteraciones, situacion que puede tener un peso significativo si el método de predicción tiene un costo computacional muy alto durante el entrenamiento. 
 
-Nosotros realizamos todos los experimentos para un $k$=10, o sea, siempre experimentamos en 10 particiones distintas y nunca variamos el K. Tomamos la primer particion de las 10 y utilizamos las otras 9 para entrenar, luego tomamos la segunda particion y utilizamos la primer particion y las otras 8 particiones para entrenar, y asi sucesivamente, hasta poder testear con las distintas particiones.
+Nosotros realizamos todos los experimentos para un $K$=10, o sea, siempre experimentamos en 10 particiones distintas y nunca variamos el K. Tomamos la primer particion de las 10 y utilizamos las otras 9 para entrenar, luego tomamos la segunda particion y utilizamos la primer particion y las otras 8 particiones para entrenar, y asi sucesivamente, hasta poder testear con todas las distintas particiones.
 ¿Qué pasaria si variamos la cantidad de particiones del k-fold?
-Si particionamos en menos cantidades, o sea, elegimos un K chico, lo que va a pasar es que vamos a tener particiones mas grandes y eso va a llevar a que la particion del test sea mas grande pero la cantidad de datos para entrenar va a ser mas chica. Por lo tanto si la base de entrenamiento es mas chica lo que va a pasar es que el algoritmo va a tener menos imaganes para saber cual es la correcta y eso haria que tenga menos probabilidades de acertar con la imagen correcta en la etapa de testeo.
-Por ejemplo, si tengo una base de 100 imagenes y las divido en 5 particiones, cada particion va a tener 20 imagenes, van a ser utilizadas 20 imagenes para el testeo y 80 para el entrenamiento. En cambio si parto la base de datos en 2 particiones, me va a quedar 50 imagenes para testear y 50 para el entrenamiento. Entonces a mayor cantidad de imagenes para entrenar, mayor va a ser la probabilidad de tener mayor cantidad de aciertos.
-Y ese mismo razonamiento se puede utilizar para la inversa, si tengo mayor cantidad de particiones, voy a tener mayor cantidad de imagenes para entrenar y es muy probable que sea mayor la cantidad de aciertos, como vimos en el ejemplo anterior.
+Si particionamos en menos cantidades, o sea, elegimos un K chico, lo que sucederá es que vamos a tener particiones mas grandes y eso resultará que la base de entrenamiento será mas pequeña. Luego el modelo no será tan robusto y se esperaría que las predicciones sean peores. Por ejemplo, si tengo una base de 100 imagenes y las divido en 5 particiones, cada particion va a tener 20 imagenes, van a ser utilizadas 20 imagenes para el testeo y 80 para el entrenamiento. En cambio si parto la base de datos en 2 particiones, me va a quedar 50 imagenes para testear y 50 para el entrenamiento. Entonces a mayor cantidad de imagenes para entrenar, mayor va a ser la probabilidad de tener mayor cantidad de aciertos.
+Y ese mismo razonamiento se puede utilizar para la inversa, si tengo mayor cantidad de particiones, voy a tener mayor cantidad de imagenes para entrenar y es muy probable que la los resultados obtenidos sean mas fiables.
 Entonces:
-	A mayor cantidad de particiones, mayor cantidad de imagenes de entrenamiento y mayor cantidad de aciertos.
-	A menor cantidad de particiones, menor cantidad de imagenes de entrenamiento y menor cantidad de aciertos.
+	A mayor cantidad de particiones, mayor cantidad de imagenes de entrenamiento y mayor fiabilidad.
+	A menor cantidad de particiones, menor cantidad de imagenes de entrenamiento y menor fiabilidad.
 
 
 
