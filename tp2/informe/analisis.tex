@@ -27,7 +27,7 @@ Como puede verse hay un patrón bastante claro en los tres test corridos, para v
 \\
 Ademas para estos tests realizamos una medición de tiempos para ver cómo se comportaba el algoritmo frente a un cambio en la cantidad de vecinos. Los valores promediados para cada $k$ pueden verse en el siguiente gráfico:
 
-\includegraphics[scale=0.55]{nuevosResultados/knn/1temp.png}\\
+\includegraphics[scale=0.55]{nuevosResultados/knn/knntemp.png}\\
 
 Como puede observarse, los tiempos de los algoritmos no se ven muy afectados por la variación en la cantidad de vecinos. Es muy probable que esto se deba a que el algoritmo debe comparar a la imagen que se desea comparar contra un número muy extenso de imagenes que estan en el mismo orden de magnitud. 
 \completar
@@ -46,7 +46,7 @@ En primera instancia vamos a utilizar cross-validation para intentar determinar 
 Por lo tanto enfocamos nuestro análisis en obtener un valor óptimo de $\alpha$. Para este fin, partimos el conjunto de datos de entrenamiento en 10 subconjuntos y aplicamos cross-validation. Dado que este parámetro representa la cantidad de componentes principales a tener en cuenta y teniendo en mente el funcionamiento del algoritmo de PCA, es esperable que valores pequeños no sean beneficiosos (teniendo en cuenta que el máximo a considerar es bastante elevado), pero dado que PCA las ordena en base a su relevancia, se alcance un valor óptimo sin necesidad de considerarlas todas. Para esta partición de los datos de entrenamiento con 4200 imagenes para testear, tomamos $\alpha$ desde $1$ hasta $50$ y graficamos lo obtenido:
 
 \begin{center}
-\includegraphics[scale=0.68]{nuevosResultados/pca/pca1.png}
+\includegraphics[scale=0.5]{nuevosResultados/pca/alfa/1.png}
 \end{center}
 
 Puede verse que para valores pequeños, aumentar en uno el $\alpha$ produce un gran aumento de aciertos. Por ejemplo, considerando el primer set para $\alpha$ igual a $1$ se obtienen $1112$ aciertos, mientras que para $\alpha$ igual a $2$ se obtienen $1680$ aciertos, esto es un $52\%$ mas de aciertos.
@@ -56,7 +56,7 @@ Para valores mas grandes de $\alpha$ (alrededor de $\alpha = 12$) esta tendencia
 Ademas, para este k-fold medimos los tiempos de ejecución y los promediamos para poder ver de que manera varía la ejecución de los algoritmos en función de $\alpha$:
 
 \begin{center}
-\includegraphics[scale=0.68]{nuevosResultados/pca/pca1.png}
+\includegraphics[scale=0.5]{nuevosResultados/pca/alfa/temp.png}
 \end{center}
 
 
@@ -77,11 +77,16 @@ La segunda prueba a realizar es, fijando un valor de $\alpha$, analizar para que
 Para esto tomamos $\alpha = 14$ volvemos a dividir el conjunto de datos en $10$ sets y realizamos cross validation sobre estos, variando el $k$ desde 1 hasta $30$.
 \\
 Los resultados obtenidos son los siguientes:
-\includegraphics[scale=0.75]{nuevosResultados/pca/pcak1.png}\\
+\begin{center}
+\includegraphics[scale=0.5]{nuevosResultados/pca/k/1.png}\\
+\includegraphics[scale=0.5]{nuevosResultados/pca/k/2.png}\\
+\includegraphics[scale=0.5]{nuevosResultados/pca/k/3.png}\\
+\end{center}
 
 Ademas medimos los tiempos y los promediamos para obtener una idea de cómo afectan las variaciones de $k$ a este método:
-
-\includegraphics[scale=0.75]{nuevosResultados/pca/pcak1temp.png}\\
+\begin{center}
+\includegraphics[scale=0.5]{nuevosResultados/pca/k/temp.png}\\
+\end{center}
 
 
 
