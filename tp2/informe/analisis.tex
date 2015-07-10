@@ -25,12 +25,27 @@ Cada uno de los conjuntos contaba con 4200 imagenes a testear, en los siguientes
 
 Como puede verse hay un patrón bastante claro en los tres test corridos, para valores muy pequeños de k (k=1,K=2) podemos observar que los resultados son peores que para $k=3$,luego para valores más grandes se observa lo que nos decía la intuición, tal que para un gran número de vecinos se empiezan a perder aquellos que son realmente relevantes y las predicciones empiezan a ser peores, lo que no se esperaba era el salto en la cantidad de aciertos que vemos en los primeros valores de $k$ pero podemos entonces saber que dentro de los primeros $k$ se encuentran los mejores resultados.  
 \\
+\\ \\
+Como dijimos antes, llegamos a la conclusión de que el $k$ con el que se obtienen mayores aciertos, es para $k$=3. Lo que analizamos de este resultado es que lo que puede pasar para ciertos casos, es que no siempre la imagen que esta en primer lugar de la cola de prioridad sea la correcta, eso pasaría para el caso en que tengo un dígito que se parece mucho al primero de la cola, pero no son iguales.
+Por ejemplo, si tengo el dígito $x$, lo testeo con una base de datos grande, en la que ningún dígito $x'$ se parece a $x$, pero tenemos otro dígito $y$ tal que se parece mucho, ese dígito $y$ va a quedar en la primera posición de la cola de resultados.
+Recordemos que una vez que comparamos el dígito con toda la base de datos, se arma una cola de prioridad, ordenados por los dígitos que mas se parecen.
+Como decíamos, ese dígito $y$, puede ser considerado como un 'outlier', ya que hace que el dígito mas parecido no sea el resultado correcto. Por lo tanto, siempre es mejor elegir mas vecinos para saber cuales dígitos aparecen en mayor cantidad y así agarrar el de mayor cantidad de apariciones.
+\\ \\
+Pero, ¿Hasta que cantidad de vecinos nos conviene agarrar?
+Si elegimos pocos vecinos podríamos tener el problema que antes comentábamos, de elegir el dígito mas cercano pero no el correcto.
+Si elegimos muchos vecinos, lo que podría pasar es que estaríamos contando los dígitos que menos se parecen al dígito testeado, o sea, estaríamos eligiendo los peores resultados.
+Según los resultados obtenidos, nos conviene elegir los primeros 3 vecinos mas cercanos, ya que según los resultados testeados es el que mas cantidad de aciertos obtuvo.
+\\ \\
+Otra observación que podemos ver de las imágenes de los resultados, es que para los valores k pares, obtenemos menos cantidad de aciertos que para los k impares.
+Esto tendría sentido ya que, si tengo un dígito $x$ a testear, y en la cola de prioridad tengo como los dígitos mas cercanos, por ejemplo, los dígitos $x$, $y$, $x$, $y$.
+Si elegimos k=1 o k=3 el resultado seria correcto, pero si elegimos un valor k par, podríamos tener un empate entre 2 dígitos y podríamos elegir el dígito incorrecto simplemente al azar, o por una elección arbitraria del algoritmo, o por cualquier motivo para desempatar. Entonces por ese simple motivo, podríamos elegir mal el dígito correcto y tener menor cantidad de aciertos. En cambio, para los k impares ese problema no lo tenemos y nos evitaríamos ese inconveniente, por mas que después se elija el resultado correcto o no. \\ \\
+
 Ademas para estos tests realizamos una medición de tiempos para ver cómo se comportaba el algoritmo frente a un cambio en la cantidad de vecinos. Los valores promediados para cada $k$ pueden verse en el siguiente gráfico:
 
 \includegraphics[scale=0.55]{nuevosResultados/knn/knntemp.png}\\
 
 Como puede observarse, los tiempos de los algoritmos no se ven muy afectados por la variación en la cantidad de vecinos. Es muy probable que esto se deba a que el algoritmo debe comparar a la imagen que se desea comparar contra un número muy extenso de imagenes que estan en el mismo orden de magnitud. 
-\completar
+completar
 
 Luego de los test decidimos que vamos a usar $k=3$ porque nos dio los mejores resultados, cantidad de aciertos.
 
