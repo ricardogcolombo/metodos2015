@@ -46,7 +46,7 @@ En primera instancia vamos a utilizar cross-validation para intentar determinar 
 Por lo tanto enfocamos nuestro análisis en obtener un valor óptimo de $\alpha$. Para este fin, partimos el conjunto de datos de entrenamiento en 10 subconjuntos y aplicamos cross-validation. Dado que este parámetro representa la cantidad de componentes principales a tener en cuenta y teniendo en mente el funcionamiento del algoritmo de PCA, es esperable que valores pequeños no sean beneficiosos (teniendo en cuenta que el máximo a considerar es bastante elevado), pero dado que PCA las ordena en base a su relevancia, se alcance un valor óptimo sin necesidad de considerarlas todas. Para esta partición de los datos de entrenamiento con 4200 imagenes para testear, tomamos $\alpha$ desde $1$ hasta $50$ y graficamos lo obtenido:
 
 \begin{center}
-\includegraphics[scale=0.5]{nuevosResultados/pca/alfa/1.png}
+\includegraphics[scale=0.6]{nuevosResultados/pca/alfa/1.png}
 \end{center}
 
 Puede verse que para valores pequeños, aumentar en uno el $\alpha$ produce un gran aumento de aciertos. Por ejemplo, considerando el primer set para $\alpha$ igual a $1$ se obtienen $1112$ aciertos, mientras que para $\alpha$ igual a $2$ se obtienen $1680$ aciertos, esto es un $52\%$ mas de aciertos.
@@ -56,7 +56,7 @@ Para valores mas grandes de $\alpha$ (alrededor de $\alpha = 12$) esta tendencia
 Ademas, para este k-fold medimos los tiempos de ejecución y los promediamos para poder ver de que manera varía la ejecución de los algoritmos en función de $\alpha$:
 
 \begin{center}
-\includegraphics[scale=0.5]{nuevosResultados/pca/alfa/temp.png}
+\includegraphics[scale=0.6]{nuevosResultados/pca/alfa/temp.png}
 \end{center}
 
 
@@ -76,18 +76,30 @@ La segunda prueba a realizar es, fijando un valor de $\alpha$, analizar para que
 \\
 Para esto tomamos $\alpha = 14$ volvemos a dividir el conjunto de datos en $10$ sets y realizamos cross validation sobre estos, variando el $k$ desde 1 hasta $30$.
 \\
-Los resultados obtenidos son los siguientes:
+En el siguientes graficos mostramos que paso con tres de los sets cuando se variaba el numero de vecinos:
 \begin{center}
-\includegraphics[scale=0.5]{nuevosResultados/pca/k/1.png}\\
-\includegraphics[scale=0.5]{nuevosResultados/pca/k/2.png}\\
-\includegraphics[scale=0.5]{nuevosResultados/pca/k/3.png}\\
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/1.png}\\
 \end{center}
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/2.png}\\
+\end{center}
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/3.png}\\
+\end{center}
+
+En total, de los diez sets en dos de ellos se encontró que el numero de vecinos que maximizaba la cantidad de aciertos era 8, en dos se encontró que el maximo fue $k = 7$, en otros dos el mejor fue 5 vecinos, y los demas se encontraban cerca de estos mismos valores.
+\\
+En el siguiente grafico expresamos como se distribuyeron los maximos en cada canjunto del cross-validation:
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/mejores.png}\\
+\end{center}
+De esto podemos determinar que el $k$ optimo se encuentra en un rango entre $3$ y $9$.
 
 Ademas medimos los tiempos y los promediamos para obtener una idea de cómo afectan las variaciones de $k$ a este método:
 \begin{center}
-\includegraphics[scale=0.5]{nuevosResultados/pca/k/temp.png}\\
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/temp.png}\\
 \end{center}
 
-
+Como podemos ver, el numero de vecinos contiúa sin afectar mayormente los tiempos de ejecución incluso luego de haber reducido la dimencion de la entrada.
 
 
