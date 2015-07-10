@@ -21,7 +21,7 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \begin{algorithmic}[1]\parskip=1mm
 \caption{int encontrarEtiquetas(matriz etiquetados, vector incognito,int cantidadVecinos)}
 \STATE{colaPrioridad(norma,etiqueta,vectorResultado)  resultados}
-\FOR{1 \TO size(incognito)}
+\FOR{1 \TO size(etiquetados)}
 	\STATE{resParcial $=$ restaVectores($etiquetados_i$,incognita)\\}
 	\STATE{colaPrioridad.push((norma(resParcial),etiqueta($etiquetados_i$))}
 \ENDFOR
@@ -138,8 +138,8 @@ Entonces:
 \STATE{vector medias$ =  $vector(cant\_columnas(entrada))}
 \FOR{i$=$1 \TO cant\_columnas(entrada)}
 	\STATE{suma $=$ 0}
-	\FOR{j$=$1 \TO cant\_columnas(entrada)}
-		\STATE{\quad suma $+=$ $entrada_{i,j}$}
+	\FOR{j$=$1 \TO cant\_filas(entrada)}
+		\STATE{\quad suma $+=$ $entrada_{j,i}$}
 	\ENDFOR
 	\STATE{$medias_i =$ suma/cant\_filas(entrada)}
 \ENDFOR\\
