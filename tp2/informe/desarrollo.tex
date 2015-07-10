@@ -21,7 +21,7 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \begin{algorithmic}[1]\parskip=1mm
 \caption{int encontrarEtiquetas(matriz etiquetados, vector incognito,int cantidadVecinos)}
 \STATE{colaPrioridad(norma,etiqueta,vectorResultado)  resultados}
-\FOR{1 \TO size(etiquetados)}
+\FOR{1 \TO size(incognito)}
 	\STATE{resParcial $=$ restaVectores($etiquetados_i$,incognita)\\}
 	\STATE{colaPrioridad.push((norma(resParcial),etiqueta($etiquetados_i$))}
 \ENDFOR
@@ -70,14 +70,14 @@ Esta técnica, que es una mejora de la técnica de holdout donde simplemente se 
 
 La única desventaja que presenta es la necesidad esperable de correr los algoritmos en varias iteraciones, situacion que puede tener un peso significativo si el método de predicción tiene un costo computacional muy alto durante el entrenamiento. 
 
-Nosotros realizamos todos los experimentos para un $k$=10, o sea, siempre experimentamos en 10 particiones distintas y nunca variamos el K. Tomamos la primer particion de las 10 y utilizamos las otras 9 para entrenar, luego tomamos la segunda particion y utilizamos la primer particion y las otras 8 particiones para entrenar, y asi sucesivamente, hasta poder testear con las distintas particiones.
-¿Qué pasaria si variamos la cantidad de particiones del k-fold?
-Si particionamos en menos cantidades, o sea, elegimos un K chico, lo que va a pasar es que vamos a tener particiones mas grandes y eso va a llevar a que la particion del test sea mas grande pero la cantidad de datos para entrenar va a ser mas chica. Por lo tanto si la base de entrenamiento es mas chica lo que va a pasar es que el algoritmo va a tener menos imaganes para saber cual es la correcta y eso haria que tenga menos probabilidades de acertar con la imagen correcta en la etapa de testeo.
-Por ejemplo, si tengo una base de 100 imagenes y las divido en 5 particiones, cada particion va a tener 20 imagenes, van a ser utilizadas 20 imagenes para el testeo y 80 para el entrenamiento. En cambio si parto la base de datos en 2 particiones, me va a quedar 50 imagenes para testear y 50 para el entrenamiento. Entonces a mayor cantidad de imagenes para entrenar, mayor va a ser la probabilidad de tener mayor cantidad de aciertos.
-Y ese mismo razonamiento se puede utilizar para la inversa, si tengo mayor cantidad de particiones, voy a tener mayor cantidad de imagenes para entrenar y es muy probable que sea mayor la cantidad de aciertos, como vimos en el ejemplo anterior.
+Nosotros realizamos todos los experimentos para un $k$=10, o sea, siempre experimentamos en 10 particiones distintas y nunca variamos el K. Tomamos la primer partición de las 10 y utilizamos las otras 9 para entrenar, luego tomamos la segunda partición y utilizamos la primer partición y las otras 8 particiones para entrenar, y asi sucesivamente, hasta poder testear con las distintas particiones.
+¿Qué pasaría si variamos la cantidad de particiones del k-fold?
+Si particionamos en menos cantidades, o sea, elegimos un K chico, lo que va a pasar es que vamos a tener particiones mas grandes y eso va a llevar a que la partición del test sea mas grande pero la cantidad de datos para entrenar va a ser mas chica. Por lo tanto si la base de entrenamiento es mas chica lo que va a pasar es que el algoritmo va a tener menos imágenes para saber cual es la correcta y eso haria que tenga menos probabilidades de acertar con la imagen correcta en la etapa de testeo.
+Por ejemplo, si tengo una base de 100 imágenes y las divido en 5 particiones, cada partición va a tener 20 imágenes, van a ser utilizadas 20 imágenes para el testeo y 80 para el entrenamiento. En cambio si parto la base de datos en 2 particiones, me va a quedar 50 imágenes para testear y 50 para el entrenamiento. Entonces a mayor cantidad de imágenes para entrenar, mayor va a ser la probabilidad de tener mayor cantidad de aciertos.
+Y ese mismo razonamiento se puede utilizar para la inversa, si tengo mayor cantidad de particiones, voy a tener mayor cantidad de imágenes para entrenar y es muy probable que sea mayor la cantidad de aciertos, como vimos en el ejemplo anterior.
 Entonces:
-	A mayor cantidad de particiones, mayor cantidad de imagenes de entrenamiento y mayor cantidad de aciertos.
-	A menor cantidad de particiones, menor cantidad de imagenes de entrenamiento y menor cantidad de aciertos.
+    A mayor cantidad de particiones, mayor cantidad de imágenes de entrenamiento y mayor cantidad de aciertos.
+    A menor cantidad de particiones, menor cantidad de imágenes de entrenamiento y menor cantidad de aciertos.
 
 
 
@@ -138,8 +138,8 @@ Entonces:
 \STATE{vector medias$ =  $vector(cant\_columnas(entrada))}
 \FOR{i$=$1 \TO cant\_columnas(entrada)}
 	\STATE{suma $=$ 0}
-	\FOR{j$=$1 \TO cant\_filas(entrada)}
-		\STATE{\quad suma $+=$ $entrada_{j,i}$}
+	\FOR{j$=$1 \TO cant\_columnas(entrada)}
+		\STATE{\quad suma $+=$ $entrada_{i,j}$}
 	\ENDFOR
 	\STATE{$medias_i =$ suma/cant\_filas(entrada)}
 \ENDFOR\\
