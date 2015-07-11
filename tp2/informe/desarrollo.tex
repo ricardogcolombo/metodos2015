@@ -83,10 +83,9 @@ En otras palabras:
 \begin{itemize}
 	\item A mayor cantidad de particiones, mayor cantidad de imágenes de entrenamiento y mayor fiabilidad.
 	\item A menor cantidad de particiones, menor cantidad de imágenes de entrenamiento y menor fiabilidad.
-\begin{itemize}
+\end{itemize}
 
 Es importante también tener en cuenta, especialmente para aplicaciones más genéricas (por ejemplo detección de objetos de todo tipo en una imagen), tomar conjuntos heterogéneos. Si tenemos particiones con elementos similares entre si es posible que obtengamos mediciones de modelos muy buenos para detectar una característica pero muy malos para detectar otra. Supongamos que elegimos mal nuestras particiones y elegimos en cada partición todas imágenes correspondientes al mismo número. Entonces nuestras tazas de reconocimiento serían malas y el algoritmo poco efectivo. Esto también aplica a la inversa. Tomando buenas muestras, aunque sean pequeñas, podemos obtener muy buenos resultados si sabemos que elementos tomar y distribuirlos bien en todas las particiones.
-
 \subsubsection{Análisis de promedios}
 
 Para obtener un resultado global de los conjuntos de testing mencionados anteriormente, procedimos a realizar un promedio de los aciertos obtenidos para cada $k$.
