@@ -39,9 +39,21 @@ La distribución del mejor $k$ es la siguiente:
 \includegraphics[scale=0.55]{nuevosResultados/knn/max.png}
 \end{center}
 Decidimos luego que el mejor valor para $k$ es el que produce más veces el máximo número de aciertos, es decir $k=3$. La conclusión que podemos extraer de este resultado es que para ciertos casos puede pasar que la imagen que está en primer lugar de la cola de prioridad no sea la correcta, eso pasaría para el caso en que se tiene un dígito que se parece mucho al primero de la cola, pero estos no son iguales.
+
 Por ejemplo teniendo el dígito $x$, testeandolo con una base de datos grande en la que ningún dígito $x'$ se parece a $x$, pero teniendo otro dígito $y$ tal que se parece mucho, ese dígito $y$ va a quedar en la primera posición de la cola de resultados.
 Recordemos que una vez que comparamos el dígito con toda la base de datos, se arma una cola de prioridad, ordenados semejanza entre dígitos.
 Como decíamos, ese dígito $y$ puede ser considerado como un 'outlier', ya que hace que el dígito más parecido no sea el resultado correcto. Por lo tanto siempre es mejor elegir más vecinos para saber cuales dígitos aparecen en mayor cantidad y así seleccionar el de mayor cantidad de apariciones.
+\\
+Teniendo esto en mente decidimos, como explicamos en la sección de desarrollo, observar la efectividad sobre el promedio de los conjuntos de cross-validation. Como se puede observar en la siguiente figura, $k=3$ es la cantidad de vecinos que acarrea mayor efectividad sobre el global de los conjuntos. Esto indica que no solo $k=3$ es la mejor elección que mejor se repite en los conjuntos, sino que también es la mejor elección si tomamos todo el dataset, indicandonos que además de ser muy bueno en varios conjuntos, no es una mala elección en el resto.
+
+%Testeo para k con knn
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/testeokPCA.png}\\
+\end{center}
+
+
+\\
+
 \\ \\
 Pero, ¿Hasta qué cantidad de vecinos conviene tomar?
 Si elegimos pocos vecinos podríamos tener el problema comentado anteriormente de elegir el dígito más cercano pero no el correcto.
@@ -81,7 +93,16 @@ Puede verse que para valores pequeños, aumentar en uno el $\alpha$ produce un g
 \\
 Para valores más grandes de $\alpha$ (alrededor de $\alpha = 12$) esta tendencia empieza a estabilizarse. Por ejemplo para $\alpha = 12$ se obtienen $3845$ imágenes correctamente predecidas, pero para $\alpha = 13$ se obtienen $3869$ imágenes correctas, esto es el crecimiento de aciertos es de menos de un $1\%$.
 \\
-Graficamos la variación del $\alpha$ hasta el valor $\alpha = 50$ ya que nos dimos cuenta que para valores mayores de 50 la cantidad de aciertos no variaba mas del $1\%$ (como dijimos anteriormente) por lo tanto, no tenia sentido seguir testeando y sumar esa información que no aportaba nada.  
+Graficamos la variación del $\alpha$ hasta el valor $\alpha = 50$ ya que nos dimos cuenta que para valores mayores de 50 la cantidad de aciertos no variaba mas del $1\%$ (como dijimos anteriormente) por lo tanto, no tenia sentido seguir testeando y sumar esa información que no aportaba nada.
+\\
+
+%Testeo para alfa con k = 3 (PCA)
+Procedimos también a realizar un análisis de la efectividad global de los conjuntos de cross-validation para $k=3$ a través de su promedio. Como se puede observar, a medida que crece $k$, la mejora en la efectividad respecto a $k-1$ es cada vez más pequeña. Podemos observar como a partir de $k=12$ se encuentra una asíntota respecto del eje $x$, esto indica que tomar $\alpha$ entre $10$ y $14$ es un buen punto para obtener buenos resultados sin desperdiciar recursos.
+
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/alfaconk=3.png}\\
+\end{center}
+
 \\
 Además, para este $k-fold$ medimos los tiempos de ejecución y los promediamos para poder ver de que manera varía la ejecución de los algoritmos en función de $\alpha$:
 
@@ -122,6 +143,15 @@ En el siguiente gráfico expresamos cómo se distribuyeron los máximos en cada 
 \begin{center}
 \includegraphics[scale=0.6]{nuevosResultados/pca/k/mejores.png}\\
 \end{center}
+
+\\
+Tomamos como en el resto de los experimentos el promedio de efectividad global entre los conjuntos de cross-validation. El testing se hizo variando $k$ utilizando un $\alpha$ fijo igual a $13$ (recordando que vimos que tomar valores entre $10$ y $14$ son buenas opciones respecto a efectividad y recursos utilizados). Entonces podemos corroborar con la figura a continuación que el pico de efectividad se encuentra tomando valores de $k$ entre $3$ y $9$. Es interesante observar que utilizando más de $20$ vecinos resulta contraproducente, ya que obtenemos peores resultados que tomando simplemente $1$, cosa que no ocurre en $kNN$.
+
+%Testeo para k con alfa = 13 PERO CON PCA
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/testeokparapcaconalfa=13.png}\\
+\end{center}
+\\
 De esto podemos determinar que el $k$ óptimo se encuentra en un rango entre $3$ y $9$.
 
 Además medimos los tiempos y los promediamos para obtener una idea de cómo afectan las variaciones de $k$ a este método:
@@ -130,19 +160,3 @@ Además medimos los tiempos y los promediamos para obtener una idea de cómo afe
 \end{center}
 
 Como podemos ver, el número de vecinos continúa sin afectar mayormente los tiempos de ejecución incluso luego de haber reducido la dimensión de la entrada.
-
-
-%Testeo para k con knn
-\begin{center}
-\includegraphics[scale=0.6]{nuevosResultados/testeokPCA.png}\\
-\end{center}
-
-%Testeo para alfa con k = 3 (PCA)
-\begin{center}
-\includegraphics[scale=0.6]{nuevosResultados/alfaconk=3.png}\\
-\end{center}
-
-%Testeo para k con alfa = 13 PERO CON PCA
-\begin{center}
-\includegraphics[scale=0.6]{nuevosResultados/testeokparapcaconalfa=13.png}\\
-\end{center}
