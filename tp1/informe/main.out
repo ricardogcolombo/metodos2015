@@ -17,12 +17,12 @@
 \BOOKMARK [3][-]{subsubsection.3.1.4}{Granularidad en funci\363n del tiempo}{subsection.3.1}% 17
 \BOOKMARK [2][-]{subsection.3.2}{An\341lisis de temperatura en funci\363n de las discretizaciones}{section.3}% 18
 \BOOKMARK [1][-]{section.4}{Discusi\363n}{}% 19
-\BOOKMARK [2][-]{subsection.4.1}{Manipulaci\363n de estructura interna de la matriz}{section.4}% 20
-\BOOKMARK [2][-]{subsection.4.2}{Eficiencia temporal}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.1}{Complejidades}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.2}{Granularidad}{section.4}% 21
 \BOOKMARK [1][-]{section.5}{Conclusiones}{}% 22
 \BOOKMARK [2][-]{subsection.5.1}{Ventajas en el uso de una matriz banda}{section.5}% 23
 \BOOKMARK [2][-]{subsection.5.2}{Discretizaci\363n de un problema continuo}{section.5}% 24
-\BOOKMARK [2][-]{subsection.5.3}{P\351rdida de precisi\363n en el uso de aritm\351tica de punto flotante}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.4}{Optimizaciones Algebraicas}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.5}{Otras aplicaciones}{section.5}% 27
-\BOOKMARK [1][-]{section.6}{Ap\351ndice}{}% 28
+\BOOKMARK [2][-]{subsection.5.3}{Optimizaciones Algebraicas}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.4}{Otras aplicaciones}{section.5}% 26
+\BOOKMARK [1][-]{section.6}{Ap\351ndice}{}% 27
+\BOOKMARK [2][-]{subsection.6.1}{Archivos de test usados}{section.6}% 28

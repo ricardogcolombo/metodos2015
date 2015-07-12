@@ -1,64 +1,128 @@
 \subsection{KNN}
-El análisis sobre el algoritmo $KNN$ ($k$ vecinos más cercanos) se realiza para distintos valores de $k$, fijando un valor de $\lambda$. La idea detrás de esta elección de variables busca entender la variación en la efectividad (cantidad de aciertos) del algoritmo.
-Vamos a probar el algoritmo KNN para los siguientes valores:
-
-$\alpha$: 10  y $k$: 1, 5, 20, 50, 250.\\
-
-Además decidimos ejecutar por cada uno de los valores anteriores 5 pruebas iguales, esta decisión se debe a que el algoritmo varía la cantidad de aciertos dependiendo de la base de datos que analice y no siempre da el mismo resultado.
-
-El procedimiento de este algoritmo comienza, por cada imágen que queremos averiguar a que dígito pertenece, con su vectorización. Luego resta el resultado a cada uno de los vectores imágen y calcula la norma 2 para saber en cuanto difieren con cada una de las imágenes.
-Todos esos resultados se acumulan en una cola de prioridad que los ordena de menor a mayor, según las diferencias entre la imágen la cual se quiere averiguar a que clase pertenece y todas las imágenes de la base de datos etiquetada.
+En esta sección definimos:
+\begin{itemize}
+	\item $k$: cantidad de vecinos a considerar en el algoritmo $kNN$.
+\end{itemize}
+El análisis sobre el algoritmo $KNN$ ($k$ vecinos más cercanos) se realiza para distintos valores de $k$, la idea detrás de esto es comprender la variación en la efectividad (cantidad de aciertos) del algoritmo a través del ajust de este parámetro.
 \\
-Como siguiente paso se toman los $k$ primeros elementos de la cola de prioridad y se verifica a que dígito se corresponden para luego saber cual es el dígito que recibió mas \"votos\" y ver si se produjo un acierto o no.
-Por lo tanto, a mayor cantidad de vecinos (o sea, $k$) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que más difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan.
+Para ello variamos $k$ desde $1$ hasta $30$ para ver cual es su comportamiento. Para cada uno de los $k$ vecinos realizamos una corrida de cross-validation con $10$ conjuntos.
 \\
-El algoritmo $KNN$ es muy efectivo ya que tiene aproximadamente entre 85\% y 90\% de aciertos. Pero su \"déficit\" es que es muy lento a comparación del algoritmo $PCA$. 
+% El procedimiento de este algoritmo comienza, por cada imágen que queremos averiguar a que dígito pertenece, con su vectorización. Luego resta el resultado a cada uno de los vectores imágen y calcula la norma 2 para saber en cuánto difieren con cada una de las imágenes.
+% Todos esos resultados se acumulan en una cola de prioridad que los ordena de menor a mayor, según las diferencias entre la imágen la cual se quiere averiguar a que clase pertenece y todas las imágenes de la base de datos etiquetada.
+% \\
+% Como siguiente paso se toman los $k$ primeros elementos de la cola de prioridad y se verifica a que dígito se corresponden para luego saber cuál es el dígito que recibió más "votos" y ver si se produjo un acierto o no.
+% \subsubsection{Cantidad de vecinos}
+% Como ya dijimos, para analizar cuál es el mejor número de vecinos para el cual el algoritmo $KNN$  da una mayor cantidad de aciertos, optamos por variar la cantidad de $k$ vecinos a tomar.
+%Se prueba entonces el algoritmo $KNN$ para los siguientes valores de $k$: $1,2,3,4,...,30$.
+%\\
+Cada uno de los conjuntos contó con 4200 imágenes a testear. En los siguientes gráficos presentamos algunos de los sets obtenidos:
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/1.png}
+\end{center}
 
-\subsubsection{Cantidad de vecinos}
-Para analizar cual es el mejor número de vecinos para el cual el algoritmo $KNN$  da una mayor cantidad de aciertos, optamos por variar justamente la cantidad de $k$ vecinos a tomar.
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/2.png}
+\end{center}
 
-Se prueba entonces el algoritmo $KNN$ para los siguientes valores:\\
-$k$: 1, 5, 20, 50, 250.\\
-
-A continuación vamos a mostrar los resultados para los valores reci\'en mencionados en forma de gráficos.
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/3.png}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.55]{nuevosResultados/knn/4.png}
+\end{center}
+Como explicamos en la sección de desarrollo, decidimos observar la efectividad sobre el promedio de los conjuntos de cross-validation. Como se puede observar en la siguiente figura, $k=3$ es la cantidad de vecinos que acarrea mayor efectividad sobre el global de los conjuntos. Esto indica que no solo $k=3$ es la mejor elección que mejor se repite en los conjuntos, sino que también es la mejor elección si tomamos todo el dataset, indicandonos que además de ser muy bueno en varios conjuntos, no es una mala elección en el resto.
+%Testeo para k con knn
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/testeokPCA.png}\\
+\end{center}
 \\
+\\ \\
+Como se puede ver hay un patrón bastante claro en los experimentos realizados, para valores muy pequeños de $k$ los resultados son bastante buenos. Para $k=1$ se obtiene el mejor valor para $3$ de los sets que testeamos, para $k=3$ se obtiene que $4$ veces es la cantidad de vecinos que produce más aciertos, para el resto de los sets se encuentran también valores cercanos a estos. Para valores más grandes se observa un comportamiento que ratifica nuestra intuición, con un gran número de vecinos se empiezan a perder aquellos que son realmente relevantes y las predicciones empiezan a ser peores. Lo que no se esperaba era el salto en la cantidad de aciertos que vemos en los primeros valores de $k$ pero podemos entonces saber que dentro de los primeros $k$ se encuentran los mejores resultados.
+Decidimos luego que el mejor valor para $k$ es $k=3$ que es el que posee el mayor porcentaje de efectividad en comparación con los otros. La conclusión que podemos extraer de este resultado es que para ciertos casos puede pasar que la imagen que está en primer lugar de la cola de prioridad no sea la correcta, eso pasaría para el caso en que se tiene un dígito que se parece mucho al primero de la cola, pero estos no son iguales.
 
-\includegraphics[scale=0.75]{ejecucionesknn.jpg}\\
+Por ejemplo teniendo el dígito $x$, testeandolo con una base de datos grande en la que ningún dígito $x'$ se parece a $x$, pero teniendo otro dígito $y$ tal que se parece mucho, ese dígito $y$ va a quedar en la primera posición de la cola de resultados.
+Recordemos que una vez que comparamos el dígito con toda la base de datos, se arma una cola de prioridad, ordenados semejanza entre dígitos.
+Como decíamos, ese dígito $y$ puede ser considerado como un 'outlier', ya que hace que el dígito más parecido no sea el resultado correcto. Por lo tanto siempre es mejor elegir más vecinos para saber cuales dígitos aparecen en mayor cantidad y así seleccionar el de mayor cantidad de apariciones.
+\\
+\\ \\
+Otra observación que podemos ver de las imágenes resultantes es que para los valores $k$ pares obtenemos una menor cantidad de aciertos que para los $k$ impares.
+Esto tiene sentido, ya que si tengo un dígito $x$ a testear y en la cola de prioridad obtengo como los dígitos más cercanos, por ejemplo, los dígitos $x$, $y$, $x$, $y$.
+Si elegimos $k=1$ o $k=3$ el resultado sería correcto, pero si elegimos un valor $k$ par, podríamos tener un empate entre 2 dígitos y podríamos elegir el dígito incorrecto simplemente al azar, por una elección arbitraria del algoritmo, o por cualquier motivo para desempatar. Entonces por ese simple motivo, podríamos elegir mal el dígito correcto y tener menor cantidad de aciertos. En cambio, para los $k$ impares ese problema no lo tenemos y nos evitaríamos ese inconveniente, por más que después se elija el resultado correcto o no.
+\\ \\
+Además para estos tests realizamos una medición de tiempos para ver cómo se comportaba el algoritmo frente a un cambio en la cantidad de vecinos. Los valores promediados para cada $k$ pueden verse en el siguiente gráfico:
 
-Una de las particularidades que podemos observar es que a menor cantidad de vecinos recorridos, mayor es la cantidad de aciertos, ya que como se eligen los mejores de la cola de prioridad, se obtiene mayor precisión debido a que los primeros elementos de la cola son los que menos difieren de las imágenes de la base de datos.
-Por lo tanto, eligiendo $k = 1$ se obtiene la imagen del dígito que más cerca estuvo de la imagen pasada por parámetro, con lo cual no resulta relevante conocer cuales son los resultados de las siguientes imágenes de la cola ya que el primero es el mejor caso posible.
+\includegraphics[scale=0.55]{nuevosResultados/knn/knntemp.png}\\
+
+Como puede observarse, los tiempos de los algoritmos no se ven muy afectados por la variación en la cantidad de vecinos. Es muy probable que esto se deba a que el algoritmo debe comparar a la imagen que se desea comparar contra un número muy extenso de imágenes que estan en el mismo orden de magnitud.
+%completar
+En el grafico da la sensacion que varia mucho la función para distintos valores de k, pero eso pasa porque la escala del eje $y$ es muy chica en comparación a la escala del eje $x$ que es grande, ya que está entre 256 segundos y 259 segundos en el eje $y$ y en el eje $x$  el $k$ varia entre 1 y 30, es por eso tanta variación.
 
 \subsection{PCA}
-\subsubsection{Cantidad de vecinos y $\alpha$ inicial}
-Vamos a probar el algoritmo para distintas medidas de $k$ y $\alpha$, que van a ser:\\
-$k$: cantidad de vecinos a considerar en el algoritmo $kNN$.\\
-$\alpha$: a la cantidad de componentes principales a tomar.
-
-Vamos a probar el algoritmo para los siguientes valores:\\ \\
-$\alpha$: 10  y k: 5, 20.\\
-$\alpha$: 200 y k: 5, 20.\\
-$\alpha$: 700 y k: 5, 20.\\
-$\alpha$: 50  y k: 5, 25, 50, 100.\\
-
-La prueba a realizar es, fijando un valor de $\alpha$, analizar para que cantidad de vecinos se obtiene la mayor cantidad de aciertos y así maximizar la cantidad de aciertos totales.
-Después de aplicar el algoritmo $PCA$, se aplica el algoritmo $KNN$, armando una cola de prioridad para los resultados de aplicar el algoritmo $KNN$. Lo que se hace es tomar dos imágenes, restarlas y aplicarle la norma 2 para saber en cuanto difiere una imagen de la otra. En la cola de prioridad se encuentran por delante los valores más chicos, o sea, las imágenes del test que más cerca de coincidir están con respecto a la imágen de la base de datos.
-Por lo tanto, si elegimos una mayor cantidad de vecinos, pueden pasar dos cosas:
-
+\subsubsection{Búsqueda del mejor valor de $\alpha$}
+En esta sección definimos:
 \begin{itemize}
-  \item Que sea beneficioso ya que a mayor cantidad de pruebas vamos a tener mas aciertos
-  \item Que sea malicioso ya que a mayor cantidad de pruebas vamos a obtener peores datos, o sea, vamos a mirar las imágenes que menos coiciden con la imagen de prueba de la base de datos.
+	\item $\alpha$: a la cantidad de componentes principales a tomar para el $PCA$.
+	\item $k$: cantidad de vecinos a considerar en el algoritmo $kNN$.
 \end{itemize}
+En primera instancia vamos a utilizar el método de cross-validation para intentar determinar el mejor $\alpha$ posible. Supondremos en este momento que el mejor $k$ para este caso es el encontrado en la sección anterior (aunque esto podría no ser así) y luego testeamos si esto es así o si para el $\alpha$ encontrado existe algun otro $k$ que mejora la cantidad de predicciones del sistema.
+\\
+Por lo tanto enfocamos nuestro análisis en obtener un valor óptimo de $\alpha$. Para este fin, partimos el conjunto de datos de entrenamiento en 10 subconjuntos y aplicamos cross-validation. Dado que este parámetro representa la cantidad de componentes principales a tener en cuenta y teniendo en mente el funcionamiento del algoritmo de $PCA$, es esperable que valores pequeños no sean beneficiosos (teniendo en cuenta que el máximo a considerar es bastante elevado), pero dado que el método de $PCA$ las ordena en base a su relevancia, se alcance un valor óptimo sin necesidad de considerarlas todas. Para esta partición de los datos de entrenamiento con 4200 imágenes para testear, tomamos $\alpha$ desde $1$ hasta $50$ y graficamos lo obtenido:
 
-Además, enfocamos nuestro análisis en obtener un valor óptimo de $\alpha$. Para este fin, realizamos varias corridas tratando de maximizar la performance del algoritmo. Dado que este parámetro representa la cantidad de componentes principales a tener en cuenta y teniendo en mente el funcionamiento del algoritmo de PCA, es esperable que valores pequeños no sean beneficiosos (teniendo en cuenta que el máximo a considerar es bastante elevado), pero dado que PCA las ordena en base a su relevancia, se alcance un valor óptimo sin necesidad de considerarlas todas. A continuación presentamos algunas de las mediciones realizadas.
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/alfa/1.png}
+\end{center}
+%Testeo para alfa con k = 3 (PCA)
+Procedimos también a realizar un análisis de la efectividad global de los conjuntos de cross-validation para $k=3$ a través de su promedio. Como se puede observar, a medida que crece $k$, la mejora en la efectividad respecto a $k-1$ es cada vez más pequeña. Podemos observar como a partir de $k=12$ se encuentra una asíntota respecto del eje $x$, esto indica que tomar $\alpha$ entre $10$ y $14$ es un buen punto para obtener buenos resultados sin desperdiciar recursos.
 
-\includegraphics[scale=0.75]{lamda10.jpg}\\
-\includegraphics[scale=0.75]{lamda50.jpg}\\
-\includegraphics[scale=0.75]{lamda200.jpg}\\
-\includegraphics[scale=0.75]{lamda700.jpg}\\
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/alfaconk=3.png}\\
+\end{center}
 
-En la primera corrida, con un valor mínimo de $\alpha$ (seteado en 10) se obtiene un resultado cercano a los 32,200 aciertos. A medida que este valor se aumenta, se puede apreciar como se obtiene una mejora considerable, cercana a los 33,000 aciertos, pero como enseguida se alcanza un máximo y sin importar cuantas más componentes se tengan en cuenta para la ejecución, no se presenta una mejora significativa de los resultados. En cuanto a la cantidad de vecinos, como quedo demostrado con anterioridad, se sigue repitiendo el mismo patrón esperado: a mayor cantidad considerada, el algoritmo empieza a funcionar peor, ya que estamos mirando los vecinos que menos coinciden con la base de datos, debido a que la cola de prioridad los ordena según la menor cantidad de diferencias entre la imagen obtenida y las imágenes de la base de datos. 
-Es importante destacar que se realizaron 10 corridas para cada variación del parámetro utilizando el algoritmo de cross-validation para minimizar los sesgos producidos por el sobre ajustamiento de los parámetros y se promediaron los resultados.
+Puede verse que para valores pequeños, aumentar en uno el $\alpha$ produce un gran aumento de aciertos. Por ejemplo, considerando el primer set para $\alpha$ igual a $1$ se obtienen $1112$ aciertos, mientras que para $\alpha$ igual a $2$ se obtienen $1680$ aciertos, esto representa un $52\%$ más de aciertos.
+\\
+Para valores más grandes de $\alpha$ (alrededor de $\alpha = 12$) esta tendencia empieza a estabilizarse. Por ejemplo para $\alpha = 12$ se obtienen $3845$ imágenes correctamente predecidas, pero para $\alpha = 13$ se obtienen $3869$ imágenes correctas, esto es el crecimiento de aciertos es de menos de un $1\%$.
+\\
+Graficamos la variación del $\alpha$ hasta el valor $\alpha = 50$ ya que nos dimos cuenta que para valores mayores de 50 la cantidad de aciertos no variaba mas del $1\%$ (como dijimos anteriormente) por lo tanto, no tenia sentido seguir testeando y sumar esa información que no aportaba nada.
+\\
+Además, para este $k-fold$ medimos los tiempos de ejecución y los promediamos para poder ver de que manera varía la ejecución de los algoritmos en función de $\alpha$:
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/alfa/temp.png}
+\end{center}
+Cabe aclarar que estos tiempos no contemplan todo lo que se considera el 'entrenamiento' del sistema, es decir, todo el preprocesamiento que resultará en encontrar los valores principales. La justificación de esto es que el procedimiento se realizará una vez, para entrenar el sistema y luego, al momento de clasificar las nuevas imágenes este tiempo podrá ser despreciado.
+\\
+En este gráfico se puede ver que aumentar el $\alpha$ produce un aumento lineal de los tiempos de ejecución, de lo que se desprende que aumentar la cantidad valores principales no resulta gratuito en términos de tiempo de ejecución y tiene cierto costo asociado.
+\\
+Además aumentar de manera desmedida el $\alpha$ puede provocar lo que en la jerga de machine learning se denomina 'Overfitting' o Sobreajuste, que consiste en que el modelo en vez de buscar patrones sobre los cuales predecir, empieza a 'memorizar' de alguna manera los datos de entrenamiento. Esto puede conducir a que, si bien en la etapa de desarrollo se obtienen buenos niveles de predicción, cuando el modelo es puesto a prueba en algún caso real su desempeño no es el esperado\footnote{\label{note1}A Few Useful Things to Know about Machine Learning, Pedro Domingos, Department of Computer Science and Engineering, University of Washington}.
+\\
+Debido a todas las razones expuestas consideramos que $\alpha$ igual a $14$ será el mejor valor que podemos tomar.
+\\
+%falta retestear esto de abajo
+\subsubsection{Búsqueda del mejor valor de $k$}
 
-%Otra conclusión que sacamos es que $k = 5$ vecinos es la mejor cantidad de vecinos para obtener la mayor cantidad %de aciertos. 
-%Ahora, ¿No sería mejor agarrar solo el primero de la cola de prioridad, es decir, $k = 1$? 
-%Lo que podría pasar es que el único vecino que utilicemos sea el mejor pero no alcance para saber cuál es el %dígito de la imagen, ya que si no se acierta con el único vecino que se elije,  podría fallar el dígito del %resultado, reduciendo en un alto grado la cantidad de aciertos.
+La segunda prueba a realizar es, fijando un valor de $\alpha$, analizar para que cantidad de vecinos se obtiene la mayor cantidad de aciertos.
+\\
+Para esto tomamos $\alpha = 14$, volvemos a dividir el conjunto de datos en $10$ sets y realizamos cross validation sobre estos, variando el $k$ desde $1$ hasta $30$.
+\\
+En el siguientes gráficos mostramos el resultado obtenido para los tres de los sets cuando se varía el número de vecinos:
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/1.png}\\
+\end{center}
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/2.png}\\
+\end{center}
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/3.png}\\
+\end{center}
+
+Tomamos como en el resto de los experimentos el promedio de efectividad global entre los conjuntos de cross-validation. El testing se hizo variando $k$ utilizando un $\alpha$ fijo igual a $14$ (recordando que vimos que tomar valores entre $10$ y $14$ son buenas opciones respecto a efectividad y recursos utilizados). Entonces podemos corroborar con la figura a continuación que el pico de efectividad se encuentra tomando $k = 6$ que produce una tasa de efectividad de aproximadamente $93\%$. Es interesante observar que utilizando más de $20$ vecinos resulta contraproducente, ya que obtenemos peores resultados que tomando simplemente $1$, cosa que no ocurre en $kNN$.
+%Testeo para k con alfa = 13 PERO CON PCA
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/testeokparapcaconalfa=13.png}\\
+\end{center}
+\\
+Además medimos los tiempos y los promediamos para obtener una idea de cómo afectan las variaciones de $k$ a este método:
+\begin{center}
+\includegraphics[scale=0.6]{nuevosResultados/pca/k/temp.png}\\
+\end{center}
+
+Como podemos ver, el número de vecinos continúa sin afectar mayormente los tiempos de ejecución incluso luego de haber reducido la dimensión de la entrada.

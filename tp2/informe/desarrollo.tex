@@ -1,8 +1,8 @@
 \subsection{Algortimo de kNN}
-Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre las imágenes del dataset etiquetado las $k$ más parecidos, llamados también como sus "vecinos" (habiendo que definir que es ser "parecido"), y luego de estos $k$ vecinos, determinar cual es la moda. 
+Como primera aproximación para la resolución del problema de OCR, implementamos el algoritmo de $K$-vecinos más cercanos (o $kNN$ por sus siglas en inglés). Este método de clasificación consiste básicamente en, dado un dato del que no conocemos a que clase pertenece, buscar entre las imágenes del dataset etiquetado las $k$ más parecidos, llamados también como sus "vecinos" (habiendo que definir que es ser "parecido"), y luego de estos $k$ vecinos, determinar cuál es la moda. 
 \\
 \subsubsection{Similitud entre imágenes}
-Para este trabajo en particular, tomamos las imágenes como vectores numéricos y definimos que dos imágenes son "parecidas" si la norma dos entre ellas es pequeña. Luego la idea del $knn$ será tomar todas las imágenes etiquetadas, compararlas contra la nueva imagen a reconocer, ver cuales son las $k$ imágenes cuya norma es la menor posible y, entre esos k vecinos, ver a que clase pertenecen. La etiqueta para esta imagen vendrá dada por la moda. 
+Para este trabajo en particular tomamos las imágenes como vectores numéricos y definimos que dos imágenes son "parecidas" si la norma dos entre ellas es pequeña. Luego la idea del $knn$ será tomar todas las imágenes etiquetadas, compararlas contra la nueva imagen a reconocer, ver cuales son las $k$ imágenes cuya norma es la menor posible y, entre esos k vecinos, ver a que clase pertenecen. La etiqueta para esta imagen vendrá dada por la moda.
 
 Para los siguientes pseudocódigos será necesario asumir que todas las estructuras utilizadas almacenan datos enteros a menos que se indique lo contrario, esto se indica agregando entre paréntesis el tipo de dato que almacena.
 \\
@@ -11,7 +11,7 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \caption{Vector KNN(matriz etiquetados, matriz sinEtiquietar,int cantidadVecinos)}
 \STATE{vector etiquetas =  vector(cant$\_$filas(sinEtiquetar))}
 \FOR{1 \TO cant$\_$filas(sinEtiquetar)}
-	\STATE{etiquetas_i = encontrarEtiquetas(etiquetados,sinEtiquetar$_{i}$,cantidadVecinos)}
+	\STATE{$etiquetas_i$ = encontrarEtiquetas(etiquetados,sinEtiquetar$_{i}$,cantidadVecinos)}
 \ENDFOR
 \RETURN{etiquetas}
 \end{algorithmic}
@@ -22,44 +22,77 @@ Para los siguientes pseudocódigos será necesario asumir que todas las estructu
 \caption{int encontrarEtiquetas(matriz etiquetados, vector incognito,int cantidadVecinos)}
 \STATE{colaPrioridad(norma,etiqueta,vectorResultado)  resultados}
 \FOR{1 \TO size(incognito)}
-	\STATE{resParcial $=$ restaVectores(etiquetados_i,incognita)\\}
-	\STATE{colaPrioridad.push((norma(resParcial),etiqueta(etiquetados_i))}
+	\STATE{resParcial $=$ restaVectores($etiquetados_i$,incognita)\\}
+	\STATE{colaPrioridad.push((norma(resParcial),etiqueta($etiquetados_i$))}
 \ENDFOR
 \STATE{vector numeros = vector(10)}
 \WHILE{cantidadVecinos$>$0 $\&$  noesVacia(resultados)}
 	\STATE{int elemento $= $primero(resultados.etiqueta)  \\}
-	\STATE{numeros_{elemento} ++ }
+	\STATE{$numeros_{elemento}$ ++ }
 \ENDWHILE\\
 \RETURN{maximo(numeros)}
 \end{algorithmic}
 \end{algorithm}
+
+Una suposición preliminar es que a mayor cantidad de vecinos (o sea, $k$) menor va a ser la cantidad de aciertos, ya que se empiezan a mirar los elementos de menor prioridad de la cola, eso significa, que se cuentan primero las imágenes que más difieren y eso puede hacer que las chances de acertar el dígito correcto disminuyan. Ahondaremos mas en detalle en la siguiente sección, cuando pongamos a prueba cual es la mejor cantidad de vecinos para este algoritmo.
 \\
 Al comienzo del desarrollo de los experimentos pensamos en diferentes maneras de mejorar el procesamiento de las imágenes, ya sea pasandolas a blanco y negro para no tener que lidiar con escala de grises o recortar los bordes de las imágenes, ya que en ellos no hay demasiada información útil (en todas las imágenes vale 0).
 \\
 Sin embargo, y mas allá de las mejoras que puedan realizarse sobre los datos en crudo, este algoritmo es muy sensible a la variabilidad de los datos. Un conjunto de datos con un cierto grado de dispersión entre las distintas clases de clasificación hace empeorar rápidamente los resultados.
 \\
-En el siguiente apartado pasaremos a describir una metodología más sofisticada para resolver este problema que mejora tanto los tiempos de ejecución como la tasa de reconocimiento con respecto al método descripto anteriormente.
+En el siguiente apartado pasaremos a describir una metodología más sofisticada para resolver este problema que mejora tanto los tiempos de ejecución como la tasa de reconocimiento con respecto al método descrito anteriormente.
 
 \subsection{Optimización mediante Análisis de componentes principales}
-El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación ortogonal para convertir un conjunto de variables, posiblemente correlacionadas, en un conjunto de variables linealmente independientes llamadas componentes principales.
+El Análisis de Componentes Principales o $PCA$ es un procedimiento probabilístico que utiliza una transformación lineal ortogonal de los datos para convertir un conjunto de variables, posiblemente correlacionadas, a un nuevo sistema de coordenadas conocidas estas como componentes principales tal que la mayor varianza de cualquier proyección de los datos queda ubicada como la primer coordenada (llamado el primer componente principal, aquella que explica la mayor varianza de los datos), la segunda mayor varianza en la segunda posición, etc. En este sentido, PCA calcula la base más significativa para expresar nuestros datos. Recordemos que una base es un conjunto de vectores linealmente independientes tal que en una combinación lineal, puede representar cualquier vector del sistema de coordenadas.
 \\
-Esta transformación está definida de tal manera que la primera componente principal tenga la varianza más grande posible, la segunda componente tenga la segunda varianza más grande posible y así sucesivamente hasta encontrarse con la componente de menor varianza en la última posición.
+De esta manera entonces, será fácil quedarnos con los $\lambda$ componentes principales que concentran la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
+A fines prácticos, lo que haremos es, a partir de nuestra base de datos de elementos etiquetados, será construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_ij$ se obtenga el valor de la covarianza del pixel $i$ contra el píxel $j$.
+Luego, utilizando el método de la potencia, procederemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores, multiplicando cada elemento por los $\lambda$ autovectores, obtendremos un nuevo set de datos.
+Sobre este set de datos, ahora aplicaremos el algoritmo $KNN$ nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos (mediante esta base que mencionamos al principio). Esto se suma a mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad del problema.
 \\
-De esta manera será fácil quedarnos con los $\lambda$ componentes principales que concentren la mayor varianza y quitar el resto. En la sección de experimentación, uno de los objetivos principales será buscar cual es el $\lambda$ que concentra la mayor varianza de manera tal de optimizar el número de predicciones. 
-\\
-A fines prácticos, lo que hacemos es, a partir de nuestra base de datos de elementos etiquetados, construir la matriz de covarianza $M$ de tal manera que en la coordenada $M_i_j$ obtenga el valor de la covarianza del pixel $i$ contra el pixel $j$.
-\\
-Luego, utilizando el método de la potencia, procedemos a calcular los primeros $\lambda$ autovectores de esta matriz. Una vez obtenidos los autovectores multiplicamos cada elemento por los $\lambda$ autovectores y asi obtenemos un nuevo set de datos.
-\\
-Sobre este set de datos, ahora aplicamos el algoritmo $KNN$ nuevamente y lo que esperamos ver es un mayor número de aciertos, ya que hemos quitado ruido del set de datos, sumado a mejores tiempos de ejecución, ya que hemos reducido la dimensionalidad del problema.
+Generalizando entonces, los supuestos de PCA son:
+\begin{itemize}
+ \item Linealidad: La nueva base es una combinación lineal de la base original.
+ \item Media y Varianza son estadísticos importantes: PCA asume que estos estadísticos describen la distribución de los datos sobre el eje.
+ \item Varianza alta tiene una dinámica importante: Varianza alta significa se\~nal. Baja varianza significa ruido.
+ \item Las componentes son ortonormales.
+\end{itemize}
+
+Si algunas de estas características no es apropiada, PCA podría producir resultados pobres.
+Un hecho importante que debemos recordar: PCA devuelve una nueva base que es una combinación lineal de la base original, limitando el número de posibles bases que puedan ser encontradas.
+
 \subsection{Cross-validation}
-Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. Primero se toma el primer bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. Luego se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. Esto se realiza sucesivamente siempre y cuando queden datasets sin ser testeados.
+Para medir la precisión de nuestros resultados utilizamos la metodología de cross-validation. Esta consiste en tomar nuestra base de datos de entrenamiento y dividirla en $k$ bloques. En una primera iteración se toma un bloque para testear y los bloques restantes para entrenar a nuestro modelo, observando los resultados obtenidos. En la siguiente, se toma el segundo bloque para testear y los restantes como dataset de entrenamiento. La metodología se repite $k$ veces hasta iterar todo el conjunto de datos. Finalmente, se realiza la media aritmética de los resultados de cada iteración para obtener un único resultado de error y poder evaluar la performance del método de entrenamiento.
+
+
+Esta técnica, que es una mejora de la técnica de holdout donde simplemente se divide el set de datos en dos conjuntos (uno para entrenamiento y otro para testing), trata de garantizar que los resultados obtenidos sean independientes de la partición de datos contra la que se está evaluando porque ofrece el beneficio de que los parámetros del método de predicción no pueden ser ajustados exhaustivamente a casos particulares. Es por esto que se utiliza principalmente en situaciones de predicción, dado que intenta evitar que el aprendizaje se realice sobre un cuerpo de datos específico y busca obtener respuestas más generales.
+
+La única desventaja que presenta es la necesidad esperable de correr los algoritmos en varias iteraciones, situación que puede tener un peso significativo si el método de predicción tiene un costo computacional muy alto durante el entrenamiento. 
+
 \\
-De esta manera evitamos testear contra datos propios del modelo, lo que podría resultar en que el modelo solo reconozca sus propias imágenes de entrenamiento pero no imágenes fuera de él, que es justamente el propósito de este trabajo.
+Nosotros realizamos todos los experimentos para un $K=10$, es decir, siempre experimentamos en $10$ particiones distintas y nunca variamos el $K$. Tomamos la primer partición de las 10 y utilizamos las otras 9 para entrenar, luego tomamos la segunda partición y utilizamos la primer partición y las otras $8$ particiones para entrenar, y así sucesivamente, hasta poder testear con todas las distintas particiones.
+
+\subsubsection{¿Qué pasaría si variamos la cantidad de particiones del k-fold?}
+
+Si particionamos en menos conjuntos, es decir, elegimos un $K$ chico, lo que sucede es que vamos a tener particiones más grandes y eso resultará en que la base de entrenamiento será más pequeña. Luego el modelo no será tan robusto y se esperaría que las predicciones sean peores. Por ejemplo, si tengo una base de $100$ imágenes y las divido en $5$ particiones, cada partición va a tener $20$ imágenes, van a ser utilizadas $20$ imágenes para el testeo y $80$ para el entrenamiento. En cambio si parto la base de datos en $2$ particiones, van a quedar $50$ imágenes para testear y $50$ para el entrenamiento. Entonces, a mayor cantidad de imágenes para entrenar, mayor va a ser la probabilidad de tener una estimación de como verdaderamente funsiona el modelo.
+
+Ese mismo razonamiento se puede utilizar a la inversa, si tengo mayor cantidad de particiones, voy a tener mayor cantidad de imágenes para entrenar y es muy probable que la los resultados obtenidos sean más fiables.
+
+En otras palabras:
+
+\begin{itemize}
+	\item A mayor cantidad de particiones, mayor cantidad de imágenes de entrenamiento y mayor fiabilidad.
+	\item A menor cantidad de particiones, menor cantidad de imágenes de entrenamiento y menor fiabilidad.
+\end{itemize}
+
+Es importante también tener en cuenta, especialmente para aplicaciones más genéricas (por ejemplo detección de objetos de todo tipo en una imagen), tomar conjuntos heterogéneos. Si tenemos particiones con elementos similares entre si es posible que obtengamos mediciones de modelos muy buenos para detectar una característica pero muy malos para detectar otra. Supongamos que elegimos mal nuestras particiones y elegimos en cada partición todas imágenes correspondientes al mismo número. Entonces nuestras tazas de reconocimiento serían malas y el algoritmo poco efectivo. Esto también aplica a la inversa. Tomando buenas muestras, aunque sean pequeñas, podemos obtener muy buenos resultados si sabemos que elementos tomar y distribuirlos bien en todas las particiones.
+\subsubsection{Análisis de promedios}
+
+Para obtener un resultado global de los conjuntos de testing mencionados anteriormente, procedimos a realizar un promedio de los aciertos obtenidos para cada $k$ y sacar el porcentaje de aciertos. A esto lo llamaremos, la tasa de efectividad.
+La ventaja de utilizar esta metrica, a diferencia de tomar los conjuntos por separado, es que al tener diversos conjuntos, se mitiga el problema de conjuntos para los cuales es muy efectivo la utilización de un $k$ en particular, por las características de ese conjunto. Si el $k$ resulta efectivo en el promedio de los conjuntos, nos indica que es efectivo globalmente y no para un caso en particular.
 
 \subsection{Algoritmo PCA}
 
-\newpage
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void PCA(matriz etiquetados, matriz sinetiquetar,int cantidadAutovectores)}
@@ -74,22 +107,21 @@ De esta manera evitamos testear contra datos propios del modelo, lo que podría 
 \ENDFOR\\
 \end{algorithmic}
 \end{algorithm}
-\\
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{matriz obtenerCovarianza(matriz entrada,vector medias)}
-\STATE{matriz covarianza, vector nuevo}\\
-\FOR{i=1 \TO size(medias)}\\
-	\FOR{j=1 \TO cant\_filas(entrada)}\\
-		\STATE{\quad nuevoVector_j $=$ entrada_{(j,i)}- medias_i }\\
-	\ENDFOR\\
+\STATE{matriz covarianza, vector nuevo}
+\FOR{i=1 \TO size(medias)}
+	\FOR{j=1 \TO cant\_filas(entrada)}
+		\STATE{\quad $nuevoVector_j= entrada_{(j,i)}- medias_i$ }
+	\ENDFOR
 	\STATE{agregar(covarianza,nuevoVector)}
 \ENDFOR
-\FOR{i=1 \TO cant\_filas(entrada)}\\
-	\FOR{k=1 \TO cant\_filas(entrada)}\\
-		\STATE{covarianza_i $=$ multiplicarVectorEscalar(covarianza_k, cantidad_filas(entrada)}\\
-	\ENDFOR\\
+\FOR{i=1 \TO cant\_filas(entrada)}
+	\FOR{k=1 \TO cant\_filas(entrada)}
+		\STATE{$covarianza_i$ $=$ multiplicarVectorEscalar($covarianza_k$, cantidad\_filas(entrada))}
+	\ENDFOR
 \ENDFOR
 \RETURN{covarianza}
 \end{algorithmic}
@@ -99,12 +131,12 @@ De esta manera evitamos testear contra datos propios del modelo, lo que podría 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{Vector metodoDeLasPotencias(matriz covarianza,cantIteraciones)}
-\STATE{vector vectorInicial$=$  vector(cant\_filas(covarianza))}\\
+\STATE{vector vectorInicial$=$  vector(cant\_filas(covarianza))}
 \FOR{1 \TO cantIteraciones}
 	\STATE{vector nuevo $=$ multiplicar(covarianza,vectorInicial)}
 	\STATE{multiplicarEscalar(nuevo,1/norma(nuevo))}
 	\STATE{vectorInicial $=$ nuevo}
-\ENDFOR\\
+\ENDFOR
 \RETURN{vectorInicial}
 \end{algorithmic}
 \end{algorithm}
@@ -112,15 +144,14 @@ De esta manera evitamos testear contra datos propios del modelo, lo que podría 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
 \caption{Vector medias(matriz entrada)}
-\STATE{vector medias$ =  $vector(cant_columnas(entrada))}\\
+\STATE{vector medias$ =  $vector(cant\_columnas(entrada))}
 \FOR{i$=$1 \TO cant\_columnas(entrada)}
-	\STATE{suma $=$ 0}\\
-	\FOR{j$=$1 \TO cant\_columnas(entrada)}\\
-		\STATE{\quad suma $+=$ entrada_{i,j}}\\
-	\ENDFOR\\
-	\STATE{medias_i$ =$ suma/cant\_filas(entrada)}\\
+	\STATE{suma $=$ 0}
+	\FOR{j$=$1 \TO cant\_columnas(entrada)}
+		\STATE{\quad suma $+=$ $entrada_{i,j}$}
+	\ENDFOR
+	\STATE{$medias_i =$ suma/cant\_filas(entrada)}
 \ENDFOR\\
 \RETURN{vectorInicial}
 \end{algorithmic}
 \end{algorithm}
-

@@ -8,7 +8,7 @@ También que $\forall \: C_j, \: C_j = (x_j, y_j) \: / \: \sqrt[2]{(x-x_j)^2 + (
 $$T(x,y) = T_c$$ 
 Los puntos restantes, es decir todos los $(x,y)$ que no cumplen ninguna de estas condiciones tendrán que ser calculados con la ecuación planteada previamente en la introducción.
 \\
-En otras palabras lo que harémos será plantear $n \times m$ ecuaciones con $n \times m$ incógnitas. Cada una de estas ecuaciones representa un punto del parabrisas y cada uno de estos puntos vendrá definido de la siguiente manera:
+En otras palabras lo que haremos será plantear $n \times m$ ecuaciones con $n \times m$ incógnitas. Cada una de estas ecuaciones representa un punto del parabrisas y cada uno de estos puntos vendrá definido de la siguiente manera:
 \\
 Sea $t_{ij}$ un punto de la grilla:
 \begin{enumerate}
@@ -59,7 +59,7 @@ El comportamiento de la matriz banda fue encapsulado en una clase para que fuera
 
 \subsection{Eliminación gaussiana sobre matriz banda}
 
-Como primer forma de resolver el sistema de ecuaciones, se implemento el algoritmo de eliminación gaussiana sobre el que se realizaron algunas mejoras. La idea general del algoritmo se mantiene. En el paso $k$ se realiza la diagonalización de la columna $k$ de la matriz $A$ y todos los elementos en la columna k-esima a partir del $a_{k,k}$ pasan a tener valor $0$.
+Como primer forma de resolver el sistema de ecuaciones, se implementó el algoritmo de Eliminación Gaussiana sobre el que se realizaron algunas mejoras. La idea general del algoritmo se mantiene. En el paso $k$ se realiza la diagonalización de la columna $k$ de la matriz $A$ y todos los elementos en la columna k-esima a partir del $a_{k,k}$ pasan a tener valor $0$.
 \\
 La mejora implementada consta en que, sabiendo que la matriz $A$ es banda, a partir del elemento $a_{k+p,k}$ (donde $p$ es el límite de la banda) los siguientes serán $0$ y a partir del elemento $a_{k,k+p}$ también serán $0$.
 \\
@@ -73,7 +73,7 @@ Expresando de manera más formal, el algoritmo es el siguiente:
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void Gauss(matriz A, vector b)}
   \STATE{Para k=$1...n$}
-  \STATE{\quad Tomo el elemento $a_{k,k}$ como pivote}
+  \STATE{\quad Tomo el elemento $a_{k,k}$ como pivot}
   \STATE{\quad Para $i = k+1,...k+p$}  
   \STATE{\quad \quad Para $j = k+1,...i+p$}
   \STATE{\quad \quad \quad $a_{i,j}  = a_{i,j} - a_{k,j} * (a_{i,k} / a_{k,k})$}
@@ -83,18 +83,15 @@ Expresando de manera más formal, el algoritmo es el siguiente:
 
 Este algoritmo posee una mejor complejidad comparado con el Gauss estándar, siendo la misma de $O(n*p^2)$ con $n$ la cantidad de incógnitas de nuestra matriz, y $p$ el tamaño de la banda.
 \\
-Una vez concluído el proceso de eliminación gaussiana sobre la matriz banda, utilizamos backward substitution para resolver las ecuaciones y conseguir así el valor de cada uno de los puntos de calor del plano discretizado. Aquí también es posible realizar una optimización, ya que en cada paso no es necesario avanzar hasta la ultima columna sino hasta la columna donde sabemos que comienza la banda.
-\\
-De esta manera habremos disminuido la complejidad del backward substitution de $O(n^2)$ a una menor de $O(n*p)$.
-\ExplicarMEJOR
+Una vez concluido el proceso de eliminación gaussiana sobre la matriz banda, utilizamos backward substitution para resolver las ecuaciones y conseguir así el valor de cada uno de los puntos de calor del plano discretizado. Aquí también es posible realizar una optimización, ya que en cada paso no es necesario avanzar hasta la ultima columna sino hasta la columna donde sabemos que comienza la banda. De esta manera tambien es posible disminuir la complejidad del backward substitution de $O(n^2)$ a una menor de $O(n*p)$.
 \\
 Luego la resolución de este sistema tendrá una complejidad temporal de $O(n*p^2)$.
 
 \subsection{Descomposición LU}
 
-La segunda forma que desarrollamos para resolver el problema es realizando una descomposicion LU sobre matriz original.
+La segunda forma que desarrollamos para resolver el problema es realizando una descomposición LU sobre matriz original.
 
-Dado que la descomposición LU es muy similar al algoritmo de eliminación gaussiana, este también puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones serán similares a las de la eliminación gaussiana. Expresandolo de manera algorítmica, la descomposición $LU$ optimizada será así:
+Dado que la descomposición LU es muy similar al algoritmo de eliminación gaussiana, este también puede ser optimizado para ser utilizado en una matriz banda. Las optimizaciones serán similares a las de la eliminación gaussiana. Expresado de manera algorítmica, la descomposición $LU$ optimizada será así:
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -110,13 +107,13 @@ Dado que la descomposición LU es muy similar al algoritmo de eliminación gauss
 \end{algorithmic}
 \end{algorithm}
 
-Luego en la matriz $A$ obtengo la matriz diagonal superior y en el L la diagonal inferior que, como puede verse facilmente, también son banda ya que los valores fuera de la banda nunca son modificados.
+Luego en la matriz $A$ obtener la matriz diagonal superior y en el L la diagonal inferior que, como puede verse fácilmente, también son banda ya que los valores fuera de la banda nunca son modificados.
 \\
-Puede verse que siendo el algoritmo muy similar al de eliminación gaussiana, tambien posee la misma complejidad, esto es $O(n*p^2)$.
+Puede verse que siendo el algoritmo muy similar al de eliminación gaussiana, también posee la misma complejidad, esto es $O(n*p^2)$.
 \\
-Como ya habíamos dicho, el backward substitution para la matriz banda tiene una complejidad de $O(n*p)$ y de manera similar el foward substitution tiene la misma complejidad.
+Como ya habíamos dicho, el backward substitution para la matriz banda tiene una complejidad de $O(n*p)$ y de manera similar el forward substitution tiene la misma complejidad.
 \\
-Luego la complejidad de este método tambien será de $O(n*p^2)$. La ventaja de este metodo con respecto al anterior es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en $O(n*p)$, ya que solo es necesario realizar un backward substitution y un foward substitution. Esta ventaja será muy útil más adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
+Luego la complejidad de este método también será de $O(n*p^2)$. La ventaja de este método con respecto al anterior es que en caso de actualizar el vector $b$, el costo de volver a obtener los resultados se reduce en $O(n*p)$, ya que solo es necesario realizar un backward substitution y un forward substitution. Esta ventaja será muy útil más adelante, cuando queramos invertir una matriz de manera barata para poder utilizar el algoritmo de Sherman Morrison.
 
 \subsection{No hay tiempo que perder}
 
@@ -130,7 +127,7 @@ Comencemos definiendo de manera más adecuada la implementación más simple.
 
 \subsection{Implementación simple}
 
-Como ya hemos adelantado, la idea detras de este algoritmo es la de quitar una sanguijuela del sistema, aplicarle eliminación Gaussiana a la matriz obtenida y utilizar backward substitution para obtener la solución deseada.
+Como ya hemos adelantado, la idea detrás de este algoritmo es la de quitar una sanguijuela del sistema, aplicarle eliminación Gaussiana a la matriz obtenida y utilizar backward substitution para obtener la solución deseada.
 
 Utilizando pseudocódigo, el procedimiento puede expresarse de la siguiente manera:
 
@@ -142,13 +139,13 @@ Utilizando pseudocódigo, el procedimiento puede expresarse de la siguiente mane
 \STATE{ \quad Quito su b en $0$}
 \STATE{ \quad Aplico $Gauss(A,b)$}
 \STATE{ \quad Aplico $Backwards\_substitution(A,b)$}
-\STATE{ \quad Restablezco los valores originales en la matriz A y paso a la siguiente}
+\STATE{ \quad Restablecer los valores originales en la matriz A y paso a la siguiente}
 \end{algorithmic}
 \end{algorithm}
 
 Luego, siendo la cantidad de sanguijuelas $w$, el tamaño de la matriz de resolución $n$ y el tamaño de la banda $p$. La complejidad de este algoritmo será $O(w*((n*p^2) + (n*p)) )$ que es lo mismo que $O(w*(n*p^2))$
 
-Ahora intentaremos mejorar esta complejidad a través de la utlización de la fórmula de Sherman-Morrison.
+Ahora intentaremos mejorar esta complejidad a través de la utilización de la fórmula de Sherman-Morrison.
 
 \subsection{Implementación Sherman-Morrison}
 
@@ -183,3 +180,6 @@ Este algoritmo tendrá la siguiente complejidad:
 \end{enumerate}  
 \end{enumerate}
 Luego esto da una complejidad de $O(np^2 + wnp)$
+
+
+
