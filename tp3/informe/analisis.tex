@@ -80,6 +80,8 @@ En esta sección analizaremos los tres algoritmos sobre imagenes con simbolos al
 
 Primero realizamos las pruebas con el valor minimo de $k$ ($k=1$), obteniendo los siguientes resultados:
 
+
+
 \begin{figure}[H]
     \centering
     \subfloat[Metodo 1]{{\includegraphics[width=5cm]{fotos/alfanum/k1_1.jpg} }}%
@@ -149,7 +151,7 @@ Primero lo hacemos para $k=1$, se obtiene esto:
     \label{fig:example}%
 \end{figure}
 
-Los artifact (Errores visuales) que vemos aquí son, bla bla bla (COMPLETAR!)
+Los artifact (Errores visuales) que vemos aquí son, bla bla bla (COMPLETAR!). Ademas con el metodo $1$ nos dio un error cuadratico medio de $315.723$ y un psnr $23.1377$. Para el segundo metodo un error cuadratico medio de $115.114$ y un psnr $27.5195$ para el tercero $329.634$ y $22.9505$
 \\
 Ahora lo hacemos para $k=2$, se obtiene esto:
 
@@ -165,9 +167,19 @@ Ahora lo hacemos para $k=2$, se obtiene esto:
 \end{figure}
 
 Los artifact que vemos aquí son, bla bla bla (COMPLETAR!)
+%metodo 1
+%ECM = 724.517 
+%PSNR = 19.5303
+
+%metodo 2
+%ECM = 293.755
+%PSNR = 23.4509
+
+%metodo 3
+%ECM = 938.898 
+%PSNR = 18.4046
 \\
 Ahora lo hacemos para $k=3$, se obtiene esto:
-
 \begin{figure}[H]
     \centering
     \subfloat[Metodo 1]{{\includegraphics[width=5cm]{fotos/paisaje/k3_1.png} }}%
@@ -178,6 +190,19 @@ Ahora lo hacemos para $k=3$, se obtiene esto:
     \caption{Comparacón de metodos para $k = 3$}%
     \label{fig:example}%
 \end{figure}
+
+Obtenemos....
+%metodo 1
+%ECM = 1099.83 
+%PSNR = 17.7175
+
+%metodo 2
+%ECM = 400.854 
+%PSNR = 22.1009
+
+%metodo 3
+%ECM = 2992.94 
+%PSNR = 13.3698
 
 \subsection{Analisis De Los metodos para rostros}
 
@@ -202,8 +227,16 @@ Primero lo hacemos para $k=1$, se obtiene esto:
 \end{figure}
 
 Los artifact (Errores visuales) que vemos aquí son, bla bla bla (COMPLETAR!)
+%metodo 1
+%ECM        PSNR
+%95.6087    28.3258
+%metodo 2
+%32.6121    32.997
+%metodo 3
+%104.209    27.9518
 \\
 Ahora lo hacemos para $k=2$, se obtiene esto:
+
 
 \begin{figure}[H]
     \centering
@@ -217,6 +250,13 @@ Ahora lo hacemos para $k=2$, se obtiene esto:
 \end{figure}
 
 Los artifact que vemos aquí son, bla bla bla (COMPLETAR!)
+%metodo 1
+%ECM        PSNR
+%235.245    24.4156
+%metodo 2
+%87.1968    28.7258
+%metodo 3
+%295.885    23.4196
 \\
 Ahora lo hacemos para $k=3$, se obtiene esto:
 
@@ -230,3 +270,11 @@ Ahora lo hacemos para $k=3$, se obtiene esto:
     \caption{Comparacón de metodos para $k = 3$}%
     \label{fig:example}%
 \end{figure}
+
+%metodo 1
+%ECM        PSNR
+%389.559    22.2251
+%metodo 2
+%113.193    27.5926
+%metodo 3
+%1509.43    16.3427
