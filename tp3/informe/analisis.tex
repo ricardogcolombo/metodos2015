@@ -78,7 +78,7 @@ En esta sección analizaremos los tres algoritmos sobre imagenes con simbolos al
 \includegraphics[scale=0.50]{fotos/alfanum/orig.png}
 \end{figure}
 
-Primero lo hacemos para $k=1$, se obtiene esto:
+Primero realizamos las pruebas con el valor minimo de $k$ ($k=1$), obteniendo los siguientes resultados:
 
 \begin{figure}[H]
     \centering
@@ -91,9 +91,10 @@ Primero lo hacemos para $k=1$, se obtiene esto:
     \label{fig:example}%
 \end{figure}
 
-Los artifact (Errores visuales) que vemos aquí son, bla bla bla (COMPLETAR!)
+Como podemos ver, las tres imagenes introducen artifacts (errores visuales) que todavia no desmejoran la imagen a un nivel en el que sea imposible su comprension, por lo menos en los digitos mas externos (distinto para los numeros internos de la imagen que, debido a su tamaño inicial, ya son casi inperceptibles con este $k$ minimo). Notese como el metodo 2, como consecuencia de la nivelacion entre los valores de alto contraste del dibujo y su fondo blanco, empieza a introducir una leve 'niebla gris' alrededor de las imagenes. La misma sutiacion se plantea en el metodo tres, pero con la diferencia de que el difuminado introducido es mucho menos visible.
+
 \\
-Ahora lo hacemos para $k=2$, se obtiene esto:
+Observemos los resultados para un $k$ un poco mas elevado ($k=2$):
 
 \begin{figure}[H]
     \centering
@@ -106,9 +107,10 @@ Ahora lo hacemos para $k=2$, se obtiene esto:
     \label{fig:example}%
 \end{figure}
 
-Los artifact que vemos aquí son, bla bla bla (COMPLETAR!)
+En esta ocacion, el comportamiento sigue los lineamientos generales del caso anterior, con la salvedad de que ninguna de las tres imagenes ya es comprensible. Vemos como la 'niebla' comentada en el caso anterior avanzo rapido en el metodo dos, para casi difuminar la imagen por completo. En el caso del metodo de splines (el tercero)se puede empezar a ver un pequeño sombreado alrededor de los bordes de los elementos en la imagen, pero a diferencia del metodo dos, esta solo se extiende a las cercanias y no avanza por toda la imagen.
+
 \\
-Ahora lo hacemos para $k=4$, se obtiene esto:
+Por ultimo, presentamos los resultados para $k=4$:
 
 \begin{figure}[H]
     \centering
@@ -121,7 +123,8 @@ Ahora lo hacemos para $k=4$, se obtiene esto:
     \label{fig:example}%
 \end{figure}
 
-Los artifact que vemos aquí son, bla bla bla (COMPLETAR!)
+Como era de esperarse las tres imagenes resultantes ya perdieron comprension en su totalidad. Ademas, el segundo y tercer metodo, presentan una alta cantidad de ruido por el difuminado producido respecto de la imagen original.
+Queda entonces a la vista una caracteristica que no estabamos considerando hasta entonces en nuestro analisis. El metodo de los vecinos puede llegar a ofrecer resultados favorables si se cumplen algunas caracteristicas deseables (nuestra intuición preveia que este metodo seria superado por los anteriores en cualquier situacion) como en este caso. El alto contraste entre las imagenes, hace que en los metodos que introducen cierta correlación o suavizado entre pixeles se genere un sombreado que hace mas borrosas las imagenes. En contra de nuestros pronosticos, el metodo de los vecinos podria ser un excelente candidato en estos casos.
 
 
 \subsection{Analisis De Los metodos Para Paisajes}
