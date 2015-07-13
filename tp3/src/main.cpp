@@ -58,8 +58,8 @@ int main( int argc, char** argv ) {
 
 	cerr << tiempoExec << endl;
 
-	namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-	imshow( "Display window", imageRes );                   // Show our image inside it.
+	//namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
+	//imshow( "Display window", imageRes );                   // Show our image inside it.
 	imwrite( "res.jpg", imageRes );
 
 

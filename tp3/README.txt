@@ -1,12 +1,22 @@
-Para compilar y ejecutar:
-USAR MAKEFILE
-make clean
-make
-./main
-o manual
-g++ main.cpp bilineal.cpp splines.cpp ventanas.cpp -o main -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_objdetect && ./main teo.jpg 2 0
+# TP 2 - Métodos numéricos
 
+## Como compilar
 
-para compilar en mac (al menos) y ejecutar:
-g++ $(pkg-config --cflags --libs opencv) main.cpp bilineal.cpp -o Test  &&  ./Test teo.jpg 2 0
+El programa se compila ejecutando el comando 
 
+	make
+
+## Como ejecutar
+
+El comando para correrlo es: 
+
+	$ ./tp archivoEntrada metodo k
+
+Donde 
+
+- archivoEntrada es la imagen original
+- metodo es un entero entre 0 y 2 donde 
+	* 0 es el metodo de vecinos
+	* 1 es el metodo Bilineal
+	* 2 es el metodo de Splines
+- metodo es un entero que indica cuanto zoom se harà en la foto
