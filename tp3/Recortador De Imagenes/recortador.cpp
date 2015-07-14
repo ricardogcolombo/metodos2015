@@ -20,7 +20,7 @@ int main( int argc, char** argv ) {
 	}
 
 	Mat image = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
-	int k = atoi(argv[3]);
+	int k = atoi(argv[4]);
 	if (! image.data ) {                           // Check for invalid input
 		std::cout <<  "Could not open or find the image" << std::endl ;
 		return -1;
