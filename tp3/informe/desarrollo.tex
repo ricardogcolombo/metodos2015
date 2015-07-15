@@ -1,8 +1,8 @@
 A continuación presentaremos el desarrollo de los experimentos que exploran las técnicas mencionadas en la intriducción con su respectivo análisis:
 
-\subsection{Vecinos}
+\subsection{Vecinos mas cercanos}
 El primer método que analizaremos será el de vecinos. Este consiste en rellenar los valores de cada una de las columnas
-nuevas de la imagen replicando su valor más próximo. La principal ventaja de este método es la simpleza de su implementación, que consta únicamente de dos bucles para iterar la matriz original. Dicha característica también le provee de una eficiencia del orden de O($n^2$) siendo $n$ el alto y ancho de la imagen destino.
+nuevas de la imagen replicando su valor más próximo. La principal ventaja de este método es la simpleza de su implementación, que consta únicamente de dos bucles para iterar la matriz original. Dicha característica también le provee de una eficiencia del orden de O($nxm$) siendo $n$ el alto y m ancho de la imagen destino.
 
 \begin{algorithm}
 \begin{algorithmic}[1]\parskip=1mm
@@ -51,8 +51,42 @@ Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación fina
 Notar que se obtiene el mismo polinomio interpolador tanto si se hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.\\
 Para facilitar la lectura y escritura del ejercicio vamos a definir una estructura que se llama punto. Dentro de la misma vamos a tener 3 valores, el primero es el valor en x, el segundo en y y el tercero un valor que sera de la imagen original. 
 En el siguiente codigo las variables $q11$, $q12$, $q21$, $q22$ son del tipo descripto anteriormente y se utilizan para definir los 4 puntos en los cuales se va a realizar el polinomio interpolador, la matriz A representa la imagen original y la matriz Res representa la imagen extendida.
+Veamos el siguiente ejemplo para aclarar quienes son los pixeles que utilizamos, supongamos los primeros 4 pixeles de la siguiente forma de una imagen.
+\\
+Luego utilizando k = 2 agrandamos la imagen dejando en el medio 2 pixeles entre cada pixel de la imagen original.
+\begin{table}[H]
+\begin{center}
+\caption{pixeles de imagen original}
+\begin{tabular}{|1|1|}
+\hline
+q11 & q12\\
+\hline
+q21 & q22\\
+\hline
+\end{tabular}
+\end{center}
+\end{table} 
+
+\begin{table}[H]
+\begin{center}
+\caption{Pixeles de imagen aumentada}
+\begin{tabular}{|1|1|1|1|}
+\hline
+q11 & a & b & q12\\
+\hline
+c & d & e & f\\
+\hline
+g & h  & i & j \\
+\hline
+q21 & k &  l & q22\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y podemos realizar el polinomio con los mismos.
+
 \begin{algorithm}
-\begin{algorithmic}[1]\parskip=1mm
+\begin{algorithmic}[H]\parskip=1mm
 \caption{void bilineal(matriz A, vector Res,int k)}
   \STATE{Para i$=0...CantFilas-1$}
   \STATE{\quad Para j$=0...CantColumnas-1$}
@@ -69,7 +103,7 @@ En el siguiente codigo las variables $q11$, $q12$, $q21$, $q22$ son del tipo des
 Donde $polinomio interpolador$ es la función que se encarga de generar el polinomio interpolador en el punto, de la siguiente manera:
 \newpage
 \begin{algorithm}
-\begin{algorithmic}[1]\parskip=1mm
+\begin{algorithmic}[H]\parskip=1mm
 \caption{void polinomioInterpolador(punto q11,punto q12, punto q21, punto q22, int x, int y)}
   \STATE{denominador = 1/ ((q22.x-q11.x)* (q22.y-q11.y)) }
   \STATE{numerador1= q11.valor* (q22.x-res.x)*(q22.y-res.y) + q21.val * (res.x-q11.x)*(q22.y-res.y)}
