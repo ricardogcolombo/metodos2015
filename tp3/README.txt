@@ -19,4 +19,4 @@ Donde
 	* 0 es el metodo de vecinos
 	* 1 es el metodo Bilineal
 	* 2 es el metodo de Splines
-- metodo es un entero que indica cuanto zoom se harà en la foto
+- k es un entero que indica cuanto zoom se hará en la foto
