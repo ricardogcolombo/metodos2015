@@ -63,7 +63,7 @@ Luego utilizando k = 2 agrandamos la imagen dejando en el medio 2 pixeles entre 
 \begin{table}[H]
 \begin{center}
 \caption{pixeles de imagen original}
-\begin{tabular}{|1|1|}
+\begin{tabular}{|l|l|}
 \hline
 q11 & q12\\
 \hline
@@ -76,7 +76,7 @@ q21 & q22\\
 \begin{table}[H]
 \begin{center}
 \caption{Pixeles de imagen aumentada}
-\begin{tabular}{|1|1|1|1|}
+\begin{tabular}{|l|l|l|l|}
 \hline
 q11 & a & b & q12\\
 \hline
@@ -105,7 +105,7 @@ Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y po
   \STATE{\quad \quad \quad \quad valorRes $=$ poliniomioInterpolador(q11,q12,q21,q22,x,y) }
   \STATE{\quad \quad \quad \quad $Res_{i*(k+1)+x,j*(k+1)+y} =$ valorRes}
 \end{algorithmic}
-\end{algorithm}\\
+\end{algorithm}
 Donde $polinomio interpolador$ es la función que se encarga de generar el polinomio interpolador(que en este caso es una recta) en el punto, de la siguiente manera:
 \begin{algorithm}
 \begin{algorithmic}[H]\parskip=1mm
@@ -117,10 +117,10 @@ Donde $polinomio interpolador$ es la función que se encarga de generar el polin
 \end{algorithmic}
 \end{algorithm}
 Para el caso del polinomio interpolador se agregaron 2 lineas al final de la rutina, las cuales aplican saturación en caso de ser necesario cuando luego de realizar todas las cuentas el valor que nos queda es mayor a 255, fijandolo en 255, y cuando el valor es menor a 0, fijandolo en 0.
-
 \\
 En este método, comparado con el anterior que solo replicaba píxeles vecinos, se está calculando un polinomio para tratar de introducir cierto nivel de suavidad entre los puntos de la imagen original a medida que se recorren los píxeles. Un dato importante a tener en cuenta es que dado que el grado del polinomio aumenta a medida que la cantidad de puntos a interpolar es mayor, decidimos que esta se realice entre solo dos puntos de la imagen original, para ofrecer un mejor desempe\~no entre puntos, haciendo que el polinomio calculado sea mas operativo y evitando que este oscile demasiado (situación conocida como Fenómeno de Runge). 
-\\ \\
+\\
+\\
 La complejidad de este algoritmo no es alta. Se recorren n filas y para cada una de ellas m columnas para recorrer toda la matriz, luego se fijan 4 puntos a procesar (que eso tiene complejidad O(1) para acceder a la posición de la matriz) y para cada conjunto de puntos, se realizan 2 ciclos de complejidad O(k), cada uno para recorrer los píxeles cercanos. Luego se genera el polinomio interpolador, el denominador se consigue a través de 2 restas y 1 multiplicación, y el numerador tiene un costo de 12 multiplicaciones y 8 restas. Por ultimo, se multiplican el numerador con el denominador, por lo tanto armar el polinomio interpolador cuesta 10 restas y 14 multiplicaciones.
 Si consideramos que las restas y multiplicaciones no son muy costosas y que crear el polinomio cuesta O(1) (a muy grandes rasgos), la complejidad del algoritmo bilineal seria O(n*m*k\^{2}) con n cantidad de filas, m cantidad de columnas y k cantidad de filas/columnas agregadas entre 2 filas/columnas, que por lo general en la práctica, el k es muchisimo más chico que n y m, el tamaño de la imágen.
 
@@ -205,4 +205,36 @@ Este método, que podría considerarse un refinamiento del anterior, introduce l
 
 El primer método para comprobar rápidamente la correctitud de la implementación de nuestros algoritmos fue sencillamente comparar \"a ojo\" las imágenes resultantes con la original, observando el nivel de detalle obtenido. Al comienzo, teniendo errores de implementación, notamos de este modo que la implementación necesitaba mejoras.
 
-Luego, para obtener mayor rigor, nos valimos del script de recortado de imágenes, que se encuentra en la carpeta $Recortado De Imagenes$. Este script retorna, dada una imagen, una versión recortada con un factor $k$ y otra que se corresponde a una imagen similar a la recortada pero de tamaño igual a la original. Esto nos permitió comprar nuestro algoritmo de escalado con una versión que consideramos como la \"más similar a la recortada\" sin escalar. Sobre esta imagen pudimos buscar algorítmicamente las diferencias y así determinar la correctitud de nuestros algoritmos.
+Luego, para obtener mayor rigor, procedimos a comparar nuestros algoritmos con aquellos que vienen por defecto en opencv. Consideramos que estos algoritmos son lo suficientemente fiables como para tomarlos como punto de referencia. Tomamos una imagen:
+\begin{figure}[H]
+    \centering
+\subfloat[.]{{\includegraphics[width=5cm]{fotos/opencvvsus/orig.png} }}
+\caption{Imagen Original}
+\end{figure}
+Y la reescalamos en la mismas dimenciones tanto con nuestros algoritmos como con los implementados en opencv.
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/1us.png} }}
+    \qquad
+    \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/1open.png} }}
+    \caption{Comparacón de correctitud contra opencv: Vecinos Mas Cercanos}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/2us.png} }}
+    \qquad
+    \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/2open.png} }}
+    \caption{Comparacón de correctitud contra opencv: Bilineal}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/3us.png} }}
+    \qquad
+    \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/3open.png} }}
+    \caption{Comparacón de correctitud contra opencv: Bicubico con ventanas de $4\times4$ pixels}
+\end{figure}
+
+Como puede verse, nuestros algoritmos arrojan resultados muy parecidos a opencv. Por lo que consideramos que su implementacion es correcta.
