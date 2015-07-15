@@ -48,9 +48,15 @@ Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación fina
 \includegraphics[scale=0.75]{imagenes/bilinealFinal.png}\\
 \end{center}
 
-Notar que se obtiene el mismo polinomio interpolador tanto si se hace primero sobre el eje X y luego sobre el Y, como a la inversa. Ahora, gracias a este polinomio interpolador, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.\\
+Notar que tanto los valores del X e Y de los puntos con los que generamos la formula, como el valor en el punto son constantes que no varian mientras mantengamos los 4 pixeles escogidos con lo cual podriamos reutilizar esto para los demas calculos y ademas la distancia de los puntos $x_1$ y $x_2$ es 1 como el de los valores de $y_1$ e $y_2$ por lo que el denominador en la formula se puede quitar, quedandonos una formula de una recta. 
+
+\begin{center}
+$f(x)= Q_{11}.valor* (Q_{22}.x-x)*(Q_{22}.y-y) + Q_{21}.val * (x-Q_{11}.x)*(Q_{22}.y-y)+ Q_{12}.valor* (Q_{22}.x-x)*(y-Q_{11}.y) + Q_{22}.val * (x-Q_{11}.x)*(y-Q_{11}.y) $
+\end{center}
+
+Por tanto si se hace primero sobre el eje X la ecuacion de la recta y luego sobre el Y, como a la inversa. Ahora, gracias a esta formula, podemos conseguir los valores de las posiciones $(x,y)$ que agregamos a nuestra imagen para realizar el zoom.\\
 Para facilitar la lectura y escritura del ejercicio vamos a definir una estructura que se llama punto. Dentro de la misma vamos a tener 3 valores, el primero es el valor en x, el segundo en y y el tercero un valor que sera de la imagen original. 
-En el siguiente codigo las variables $q11$, $q12$, $q21$, $q22$ son del tipo descripto anteriormente y se utilizan para definir los 4 puntos en los cuales se va a realizar el polinomio interpolador, la matriz A representa la imagen original y la matriz Res representa la imagen extendida.
+En el siguiente codigo las variables $q11$, $q12$, $q21$, $q22$ son del tipo descripto anteriormente y se utilizan para definir los 4 puntos en los cuales se va a realizar la formula de la recta evaluada en el punto, la matriz A representa la imagen original y la matriz Res representa la imagen extendida.
 Veamos el siguiente ejemplo para aclarar quienes son los pixeles que utilizamos, supongamos los primeros 4 pixeles de la siguiente forma de una imagen.
 \\
 Luego utilizando k = 2 agrandamos la imagen dejando en el medio 2 pixeles entre cada pixel de la imagen original.
@@ -83,7 +89,7 @@ q21 & k &  l & q22\\
 \end{tabular}
 \end{center}
 \end{table}
-Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y podemos realizar el polinomio con los mismos.
+Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y podemos realizar la formula con los mismos.
 
 \begin{algorithm}
 \begin{algorithmic}[H]\parskip=1mm
@@ -100,7 +106,7 @@ Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y po
   \STATE{\quad \quad \quad \quad $Res_{i*(k+1)+x,j*(k+1)+y} =$ valorRes}
 \end{algorithmic}
 \end{algorithm}\\
-Donde $polinomio interpolador$ es la función que se encarga de generar el polinomio interpolador en el punto, de la siguiente manera:
+Donde $polinomio interpolador$ es la función que se encarga de generar el polinomio interpolador(que en este caso es una recta) en el punto, de la siguiente manera:
 \newpage
 \begin{algorithm}
 \begin{algorithmic}[H]\parskip=1mm
