@@ -60,7 +60,7 @@ void bicubic(Mat *image, Mat *imageRes, int k) {
 valoresSpline calcularSplines(int n , double * as, int k) {
 	double *alfa = new double[n];
 	for (int i = 1; i < n - 1; i++) {
-		alfa[i] = (3 / k) * (as[i + 1] - as[i]) - (3 / k) * (as[i] - as[i - 1]);
+		alfa[i] = ((3 /(double)k) * (as[i + 1] - as[i])) - ((3 /(double)k) * (as[i] - as[i - 1]));
 	}
 	double *l = new double[n];
 	double *mu = new double[n];
@@ -71,7 +71,7 @@ valoresSpline calcularSplines(int n , double * as, int k) {
 	for (int i = 1; i < n - 1; i++) {
 		l[i] = 2 * (2 * k) - k * mu[i - 1];
 		mu[i] = k / l[i];
-		z[i] = alfa[i] - (k * z[i - 1]) / l[i];
+		z[i] = (alfa[i] - (k * z[i - 1]))/ l[i];
 	}
 	l[n - 1] = 1;
 	z[n - 1] = 0;
@@ -82,7 +82,7 @@ valoresSpline calcularSplines(int n , double * as, int k) {
 	cs[n - 1] = 0;
 	for (int i = n - 2; i >= 0; i--) {
 		cs[i] = z[i] - mu[i] * cs[i + 1];
-		bs[i] = (as[i + 1] - as[i]) / k - k * (cs[i + 1] + 2 * cs[i]) / 3;
+		bs[i] = ((as[i + 1] - as[i]) / k) - (k * (cs[i + 1] + (2 * cs[i])) / 3);
 		ds[i] = (cs[i + 1] - cs[i]) / (3 * k);
 	}
 	valoresSpline resultado;
