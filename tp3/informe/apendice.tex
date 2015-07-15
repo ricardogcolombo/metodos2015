@@ -1,0 +1,30 @@
+\subsection{Compilación y formato de ejecución del programa}
+
+\subsubsection{Compilación}
+
+Como se encuentra mencionado en el archivo $README.txt$, en la carpeta $src$ de la carpeta raíz del trabajo se encuentra un $Makefile$. Así es que ejecutando el comando
+
+\texttt $ make
+
+se genera el ejecutable $tp$.
+
+\subsubsection{Formato de ejecución}
+
+El comando para correr el experimento para una instancia es: 
+
+\texttt	$ ./tp archivoEntrada metodo k
+
+Donde:
+
+\begin{itemize}
+  \item $archivoEntrada$ es la imagen original
+  \item $metodo$ es un entero entre 0 y 2 donde 
+	
+  \begin{itemize}
+    \item 0 es el metodo de vecinos
+    \item 1 es el metodo Bilineal
+    \item 2 es el metodo de Splines
+  \end{itemize}
+
+  \item $k$ es un entero que indica cuanto zoom se hará en la foto
+\end{itemize}
