@@ -85,6 +85,9 @@ En este método, comparado con el anterior que solo replicaba píxeles vecinos, 
 
 \subsection{Interpolación por Splines}
 Por último nos centraremos en la interpolación por splines. Este método, similar al anterior, requiere el cálculo de Splines (al igual que antes, por filas y luego por columnas) para obtener los valores de los casilleros a extender.
+
+Decidimos para este caso utilizar splines naturales. Recordemos que la condición de suavidad de los splines naturales es que $S''(a) = 0$ y $S''(b) = 0$. Esto determina que la interpolación en los bordes va a ser suave.
+
 Además, en este caso, dado que la interpolación por medio de splines trata de generar polinomios para un segmento
 específico de la imagen, realizaremos un análisis sobre el algoritmo de interpolación por splines para tratar de obtener el tamaño de ventana más óptimo. Dado que este algoritmo solo incluye los valores de un recuadro de tamaño específico, creemos que agregar más valores puntos a considerar por el spline, no presentará beneficio alguno porque se estarían dejando de lado los valores de la imagen externos al punto a calcular (que estarían influyendo sobre un polinomio que intenta interpolar valores posiblemente lejos de los suyos).
 
