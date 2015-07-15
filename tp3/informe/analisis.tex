@@ -197,6 +197,25 @@ Una vez mas, los valores de $ECM$ y $PSNR$ son, como era de esperarse, los sigui
 \end{itemize}
 Notese como incluso el metodo tres llega a triplicar el ECM de el metodo inmediatamente superior en cuanto a calidad.
 
+Testeamos con un valor extremo de $k$ para ver cuales son los resultados, para $k=10$ se obtiene:
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Metodo 1]{{\includegraphics[width=5cm]{fotos/paisaje/k10_1.png} }}%
+    \qquad
+    \subfloat[Metodo 2]{{\includegraphics[width=5cm]{fotos/paisaje/k10_2.png} }}%
+    \qquad
+    \subfloat[Metodo 3]{{\includegraphics[width=5cm]{fotos/paisaje/k10_3.png} }}%
+    \caption{Comparacón de metodos para $k = 3$}%
+    \label{fig:example}%
+\end{figure}
+
+%ECM        PSNR
+%2976.63    13.3936
+%1266.65    17.1042
+%1454.78    16.5028
+
+
 \subsection{Analisis de los metodos para rostros}
 
 En esta ultima sección analizamos como se comportan los metodos para fotos de rostros. Centraremos nuestro analisis en el comportamiento de los tres algoritmos frente a rasgos particulares del rostro para poder valorar la calidad de los mismos. Tomamos la siguiente foto:
@@ -271,7 +290,25 @@ Ahora lo hacemos para $k=3$, se obtiene esto:
 %113.193    27.5926
 %metodo 3
 %159.421 26.1054
+Testeamos con un valor extremo de $k$ para ver cuales son los resultados, para $k=10$ se obtiene:
 
+\begin{figure}[H]
+    \centering
+    \subfloat[Metodo 1]{{\includegraphics[width=5cm]{fotos/rostro/k10_1.png} }}%
+    \qquad
+    \subfloat[Metodo 2]{{\includegraphics[width=5cm]{fotos/rostro/k10_2.png} }}%
+    \qquad
+    \subfloat[Metodo 3]{{\includegraphics[width=5cm]{fotos/rostro/k10_3.png} }}%
+    \caption{Comparacón de metodos para $k = 3$}%
+    \label{fig:example}%
+\end{figure}
+%metodo 1
+%ECM        PSNR
+%1563.05    16.1911
+%metodo 2
+%684.334    19.7781
+%metodo 3
+%639.892    20.0697
 
 % \subsection{Análisis de los metodos}
 %Yo diría que esto no va mas
