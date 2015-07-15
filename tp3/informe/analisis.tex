@@ -1,10 +1,48 @@
 A continuación se presenta un análisis comparativo de los tres métodos implementados.
 Cabe mencionar que, dado que la experimentación requería que ambas imágenes (original y modificada) tengan el mismo tamaño para poder realizar un análisis cuantitativo de los algoritmos mediante las medidas de comparación que se mencionaron en la introducción, decidimos achicar la imagen original mediante un script que creamos para luego agrandarla mediante nuestros métodos y poder comparar los resultados obtenidos con la imagen original.
-
+\\
 El recortador de imágenes, que se encuentra en la carpeta $Recortador de imagenes$, toma una imagen como input la cual se quiere achicar para poder comparar con si misma en tamaño original una vez aplicado el algoritmo de zoom y un entero $k$ que es el factor de achicamiento, que debe ser el mismo que usemos a la hora de aplicar zoom sobre esta imagen achicada. Este script lo hicimos utilizando $OpenCV$, de modo similar a las funciones utilizadas para hacer zoom en la experimentación base.
-\\ \\
+\\ 
 Este programa $recortador.cpp$ tiene un funcionamiento sencillo.
 Lo primero que hacemos es contar cuentas filas y columnas va a tener la nueva imagen achicada, esto depende del tamaño del $k$, vamos contando de a k partes, ya que la idea es sacar las k filas y columnas intermedias para poder volver a hacer lo mismo cuando vayamos a agrandar la imagen. Luego creamos una imagen nueva con ese tamaño y vamos copiando los píxeles de las posiciones (i*k, j*k), salteando de a $k$ posiciones y así evitarnos las $k$ columnas y filas para después cuando volvemos a agrandar la imagen, poder llenar esas mismas posiciones faltantes como estaban antes. Así evitamos sesgar los experimentos, ya que achicamos la imagen sin ningún criterio particular, o sea, el criterio para achicar no tiene ninguna relación con el criterio para agrandar la imagen con cualquiera de los 3 métodos. Por lo tanto, ninguno de los 3 métodos va a tener un beneficio dependiendo de como se achicó la imagen.   
+
+\subsection{Correctitud de la implementación}
+
+El primer método para comprobar rápidamente la correctitud de la implementación de nuestros algoritmos fue sencillamente comparar \"a ojo\" las imágenes resultantes con la original, observando el nivel de detalle obtenido. Al comienzo, teniendo errores de implementación, notamos de este modo que la implementación necesitaba mejoras.
+
+Luego, para obtener mayor rigor, procedimos a comparar nuestros algoritmos con aquellos que vienen por defecto en opencv. Consideramos que estos algoritmos son lo suficientemente fiables como para tomarlos como punto de referencia. Tomamos una imagen:
+\begin{figure}[H]
+    \centering
+\subfloat[.]{{\includegraphics[width=7cm]{fotos/opencvvsus/orig.png} }}
+\caption{Imagen Original}
+\end{figure}
+Y la reescalamos en la mismas dimenciones tanto con nuestros algoritmos como con los implementados en opencv.
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Nosotros]{{\includegraphics[width=7cm]{fotos/opencvvsus/1us.png} }}
+    \qquad
+    \subfloat[OpenCV]{{\includegraphics[width=7cm]{fotos/opencvvsus/1open.png} }}
+    \caption{Comparacón de correctitud contra opencv: Vecinos Mas Cercanos}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Nosotros]{{\includegraphics[width=7cm]{fotos/opencvvsus/2us.png} }}
+    \qquad
+    \subfloat[OpenCV]{{\includegraphics[width=7cm]{fotos/opencvvsus/2open.png} }}
+    \caption{Comparacón de correctitud contra opencv: Bilineal}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Nosotros]{{\includegraphics[width=7cm]{fotos/opencvvsus/3us.png} }}
+    \qquad
+    \subfloat[OpenCV]{{\includegraphics[width=7cm]{fotos/opencvvsus/3open.png} }}
+    \caption{Comparacón de correctitud contra opencv: Bicubico con ventanas de $4\times4$ pixels}
+\end{figure}
+
+Como puede verse, nuestros algoritmos arrojan resultados muy parecidos a opencv. Por lo que consideramos que su implementacion es correcta.
 
 \subsection{Ventana óptima para método de Splines}
 Nuestro primer análisis se encargará de encontrar un valor óptimo para la cantidad de las ventanas utilizadas en el método de splines.
@@ -27,53 +65,6 @@ Como puede verse a continuación, agrandar el tamaño de la ventana deja de pres
 A partir de este punto, el algoritmo de splines utiliza una ventana de tamaño cuatro, dado que es la que presenta mejores resultados.
 De todos formas, no es cierto que siempre sea preferible una ventana más chica a una que incluya mas puntos, porque en problemas donde se quieren calcular por ejemplo trayectorias, es deseable considerar mas puntos para tener mas información.
 
-\subsection{Análisis de los metodos}
-
-Empleamos un análisis incremental respecto al valor de los pixeles intermedios introducidos (el valor de $k$) para poder analizar los distintos métodos de forma escalonada y presentar conclusiones mucho más claras. Dado que nuestros algoritmos solo funcionan cuando los valores de las imágenes son divisibles por $k$, no deben asumirse una correlación entre los distintos valores de este debido a que las imágenes a analizar no siempre pudieron ser las mismas.
-
-\subsubsection{K = 2}
-Nuestro primer análisis se concentra en el valor mínimo de $k$ para el cual esperabamos que el comportamiento de los tres métodos se mantenga bastante estable. Nuestra intuición proviene de la idea de que todos ellos ofrecian una perdida en la calidad de la imagen bastanta pequeña en relación al zoom pedido.
-Como podemos apreciar en los gráficos a continuación, nuestra intuición se corresponde con los valores de $PSNR$, donde los tres métodos se comportan relativamente iguales, sin embargo, nos sorprende ver que para el error cuadrático medio (y para $PSNR$ también, pero en menor medida) la técnica de interpolación Bilineal obtuvo resultados muy destacables (de hecho, casi constantes), incluso frente a la técnica de Splines que esperabamos siempre tenga un mejor rendimiento. La conclusión respecto de este fenómeno se explica al final del artículo.
-
-\begin{center}
-\includegraphics[scale=0.50]{imagenes/K2PSNR.png}
-\includegraphics[scale=0.50]{imagenes/K2ECM.png}
-\end{center}
-
-\subsubsection{K = 4}
-Para este segundo caso es cierto que, como esperabamos, el error cuadrático medio del método de los vecinos se dispara rápidamente mientras que los de interpolación bilineal y splines se mantienen prácticamente iguales. Lo mismo sucede para los valores de PSNR, siendo los del método de vecinos los únicos que disminuyen con una diferencia de casi 5 puntos.
-
-\begin{center}
-\includegraphics[scale=0.50]{imagenes/K4PSNR.png}
-\includegraphics[scale=0.50]{imagenes/K4ECM.png}
-\end{center}
-
-\subsubsection{K = 6}
-Entrando en valores de $k$ mucho más elevados, nuestro análisis empezó a dejar de coincidir con lo que creiamos en un primer momento serían los resultados finales, debido a que el método de Splines no logró sacar una diferencia notoria frente al de interpolación Bilineal, sino que incluso ambos métodos se mantuvieron prácticamente constantes.  Al momento de obtener los resultados nos llamaron poderosamente la atención los valores de ECM obtenidos para las tres primeras imágenes, pero luego de hacer un análisis en conjunto de estas, llegamos a la conclusión de que la suba desmesurada en estos valores se debe a la elevada variabilidad de los contrastes en la escena (el interior de un hogar muy decorado, la foto aérea de un barrio, etc). 
-
-\begin{center}
-\includegraphics[scale=0.50]{imagenes/K6PSNR.png}
-\includegraphics[scale=0.50]{imagenes/K6ECM.png}
-\end{center}
-
-\subsubsection{K = 10}
-Por último, para valores que ya se consideran altos de $k$ el método de interpolación Bilineal todavía sigue desempeñandose igual o incluso a veces levemente mejor que el de Splines. Esto no solo contradice nuestra intuición, sino que debido a la performance de ambos, estos resultados colocan al método de interpolación como el más apto en relación benenficio/tiempo, muy por encima del de Splines (ambos ya muy por encima del método de vecinos a esta altura).
-
-\begin{center}
-\includegraphics[scale=0.50]{imagenes/K10PSNR.png}
-\includegraphics[scale=0.50]{imagenes/K10ECM.png}
-\end{center}
-
-\subsection{Análisis de tiempos}
-El análisis de tiempo, a diferencia del de los métodos, no ofreció ninguna respuesta que no hayamos podido intuir durante la codificación de los algoritmos. Es claro que a medida que el método se perfecciona en la búsqueda de resultados más suaves, también aumenta el tiempo necesario de cálculo.
-
-\begin{center}
-\includegraphics[scale=0.50]{imagenes/K2T1.png}
-\includegraphics[scale=0.50]{imagenes/K2T2.png}
-\includegraphics[scale=0.50]{imagenes/K4T.png}
-\includegraphics[scale=0.50]{imagenes/K6T.png}
-\includegraphics[scale=0.50]{imagenes/K10T.png}
-\end{center}
 
 \subsection{Analisis de los metodos para imagenes con simbolos alfanumericos}
 En esta sección analizaremos los tres algoritmos sobre imagenes con simbolos alfanumericos. Para ellos usamos la imagen mostrada mas abajo para la cual aplicaremos los tres metodos con diferentes ks. La caracteristica principal a testear sera la capacidad de dicernimiento de estos simbolos despues de aplicados los metodos de zoom.
@@ -163,7 +154,6 @@ Confirmando nuestra apreciacion, el $ECM$ y $PSNR$ obtenido para cada uno de los
  \item Metodo 3: ECM de $332.629$ y PSNR de $22.9112$
 \end{itemize}
 
-\\
 Ahora lo hacemos para $k=2$, se obtiene esto:
 
 \begin{figure}[H]
@@ -273,6 +263,7 @@ Ahora lo hacemos para $k=3$, se obtiene esto:
     \caption{Comparacón de metodos para $k = 3$}%
     \label{fig:example}%
 \end{figure}
+
 %metodo 1
 %ECM        PSNR
 %389.559    22.2251
@@ -280,3 +271,54 @@ Ahora lo hacemos para $k=3$, se obtiene esto:
 %113.193    27.5926
 %metodo 3
 %159.421 26.1054
+
+
+% \subsection{Análisis de los metodos}
+%Yo diría que esto no va mas
+
+% Empleamos un análisis incremental respecto al valor de los pixeles intermedios introducidos (el valor de $k$) para poder analizar los distintos métodos de forma escalonada y presentar conclusiones mucho más claras. Dado que nuestros algoritmos solo funcionan cuando los valores de las imágenes son divisibles por $k$, no deben asumirse una correlación entre los distintos valores de este debido a que las imágenes a analizar no siempre pudieron ser las mismas.
+
+% \subsubsection{K = 2}
+% Nuestro primer análisis se concentra en el valor mínimo de $k$ para el cual esperabamos que el comportamiento de los tres métodos se mantenga bastante estable. Nuestra intuición proviene de la idea de que todos ellos ofrecian una perdida en la calidad de la imagen bastanta pequeña en relación al zoom pedido.
+% Como podemos apreciar en los gráficos a continuación, nuestra intuición se corresponde con los valores de $PSNR$, donde los tres métodos se comportan relativamente iguales, sin embargo, nos sorprende ver que para el error cuadrático medio (y para $PSNR$ también, pero en menor medida) la técnica de interpolación Bilineal obtuvo resultados muy destacables (de hecho, casi constantes), incluso frente a la técnica de Splines que esperabamos siempre tenga un mejor rendimiento. La conclusión respecto de este fenómeno se explica al final del artículo.
+
+% \begin{center}
+% \includegraphics[scale=0.50]{imagenes/K2PSNR.png}
+% \includegraphics[scale=0.50]{imagenes/K2ECM.png}
+% \end{center}
+
+% \subsubsection{K = 4}
+% Para este segundo caso es cierto que, como esperabamos, el error cuadrático medio del método de los vecinos se dispara rápidamente mientras que los de interpolación bilineal y splines se mantienen prácticamente iguales. Lo mismo sucede para los valores de PSNR, siendo los del método de vecinos los únicos que disminuyen con una diferencia de casi 5 puntos.
+
+% \begin{center}
+% \includegraphics[scale=0.50]{imagenes/K4PSNR.png}
+% \includegraphics[scale=0.50]{imagenes/K4ECM.png}
+% \end{center}
+
+% \subsubsection{K = 6}
+% Entrando en valores de $k$ mucho más elevados, nuestro análisis empezó a dejar de coincidir con lo que creiamos en un primer momento serían los resultados finales, debido a que el método de Splines no logró sacar una diferencia notoria frente al de interpolación Bilineal, sino que incluso ambos métodos se mantuvieron prácticamente constantes.  Al momento de obtener los resultados nos llamaron poderosamente la atención los valores de ECM obtenidos para las tres primeras imágenes, pero luego de hacer un análisis en conjunto de estas, llegamos a la conclusión de que la suba desmesurada en estos valores se debe a la elevada variabilidad de los contrastes en la escena (el interior de un hogar muy decorado, la foto aérea de un barrio, etc). 
+
+% \begin{center}
+% \includegraphics[scale=0.50]{imagenes/K6PSNR.png}
+% \includegraphics[scale=0.50]{imagenes/K6ECM.png}
+% \end{center}
+
+% \subsubsection{K = 10}
+% Por último, para valores que ya se consideran altos de $k$ el método de interpolación Bilineal todavía sigue desempeñandose igual o incluso a veces levemente mejor que el de Splines. Esto no solo contradice nuestra intuición, sino que debido a la performance de ambos, estos resultados colocan al método de interpolación como el más apto en relación benenficio/tiempo, muy por encima del de Splines (ambos ya muy por encima del método de vecinos a esta altura).
+
+% \begin{center}
+% \includegraphics[scale=0.50]{imagenes/K10PSNR.png}
+% \includegraphics[scale=0.50]{imagenes/K10ECM.png}
+% \end{center}
+
+\subsection{Análisis de tiempos}
+El análisis de tiempo, a diferencia del de los métodos, no ofreció ninguna respuesta que no hayamos podido intuir durante la codificación de los algoritmos. Es claro que a medida que el método se perfecciona en la búsqueda de resultados más suaves, también aumenta el tiempo necesario de cálculo.
+
+\begin{center}
+\includegraphics[scale=0.50]{imagenes/K2T1.png}
+\includegraphics[scale=0.50]{imagenes/K2T2.png}
+\includegraphics[scale=0.50]{imagenes/K4T.png}
+\includegraphics[scale=0.50]{imagenes/K6T.png}
+\includegraphics[scale=0.50]{imagenes/K10T.png}
+\end{center}
+

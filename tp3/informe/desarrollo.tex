@@ -4,7 +4,7 @@ A continuación presentaremos el desarrollo de los experimentos que exploran las
 El primer método que analizaremos será el de vecinos. Este consiste en rellenar los valores de cada una de las columnas
 nuevas de la imagen replicando su valor más próximo. La principal ventaja de este método es la simpleza de su implementación, que consta únicamente de dos bucles para iterar la matriz original. Dicha característica también le provee de una eficiencia del orden de O($nxm$) siendo $n$ el alto y m ancho de la imagen destino.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void vecinos(Matriz *image, Matriz *imageRes , int k)}
 \FOR{0 \TO imageRes$\rightarrow$rows - 1}
@@ -150,7 +150,7 @@ $d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
 La implementación del algoritmo bicúbico consta de dos partes muy similares, ya que primero se recorre la matriz por columnas para realizar el método de splines y luego se realiza el metodo por filas para completar la matriz.
 Definimos para él una clase llamada spline donde almacenaremos los arreglos $as$, $bs$, $cs$ y $ds$, estos contienen los coeficientes del polinomio para la posición $i$ de la fila o columna en donde estemos calculando los splines.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]\parskip=1mm
 \caption{void bicubico(matriz A, vector Res,int k)}
   \STATE{Para i$=0..CantFilas-1$}
@@ -176,7 +176,7 @@ La función $saturar$ hace que si el valor es mayor a 255 o menor a 0 los fija e
 Como mencionamos anteriormente se puede ver que de las lineas 1-8 se realiza el splines por columnas, luego en las lineas 9-16 se realiza el splines por filas, por lo tanto solo analizaremos el primer bloque (lineas 1- 8) para el siguiente es análogo.\\
 En la linea 3 se llama al algoritmo de splines pasandole los $n$ puntos de la imagen con el cual vamos a calcular coeficientes para cada polinomio, una vez obtenido esto se recorren los $k$ puntos entre cada par de pixeles de la imagen resultante y se evalua el polinomio en ese punto, logrando asi el valor de cada punto en la imagen resultante. 
 %% si se saca este new page entonces el algoritmo pasa a otra hoja porque no se divide 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]\parskip=1mm
 \caption{spline calcularSpline(int cant,arreglo(int) pixelesOriginales,int k)}
   \STATE{arreglo alfa[cantColumnas]}
@@ -201,40 +201,3 @@ En este algoritmo \cite{burden} estamos calculando los coeficientes del poliniom
 
 Este método, que podría considerarse un refinamiento del anterior, introduce la particularidad de que se le pide al polinomio interpolador que las intersecciones de las funciones que interpolan al punto $n-1$ y $n$ y al $n$ y al $n+1$, sean derivables. Como resultado, se agrega mucha más suavidad entre puntos que con la técnica anterior que solo respetaba que las funciones empiecen y terminen en el mismo punto (dando lugar a posibles picos, como en el caso de que dos puntos se interpolen con una recta ascendente y los siguientes con una descendente). Además, esta técnica evita de forma natural la oscilación del polinomio mencionada en el método anterior dado que siempre se toman polinomios por partes y, como mencionamos, al usar splines naturales podemos garantizar que la interpolación es suave en sus bordes, además de serlo en los bordes generados por los límites de cada spline. Gracias a esto, cuando se intenta reducir el error de interpolación se puede incrementar el número de partes del polinomio que se usa para construir el spline, en lugar de incrementar su grado.
 
-\subsection{Correctitud de la implementación}
-
-El primer método para comprobar rápidamente la correctitud de la implementación de nuestros algoritmos fue sencillamente comparar \"a ojo\" las imágenes resultantes con la original, observando el nivel de detalle obtenido. Al comienzo, teniendo errores de implementación, notamos de este modo que la implementación necesitaba mejoras.
-
-Luego, para obtener mayor rigor, procedimos a comparar nuestros algoritmos con aquellos que vienen por defecto en opencv. Consideramos que estos algoritmos son lo suficientemente fiables como para tomarlos como punto de referencia. Tomamos una imagen:
-\begin{figure}[H]
-    \centering
-\subfloat[.]{{\includegraphics[width=5cm]{fotos/opencvvsus/orig.png} }}
-\caption{Imagen Original}
-\end{figure}
-Y la reescalamos en la mismas dimenciones tanto con nuestros algoritmos como con los implementados en opencv.
-
-\begin{figure}[H]
-    \centering
-    \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/1us.png} }}
-    \qquad
-    \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/1open.png} }}
-    \caption{Comparacón de correctitud contra opencv: Vecinos Mas Cercanos}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/2us.png} }}
-    \qquad
-    \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/2open.png} }}
-    \caption{Comparacón de correctitud contra opencv: Bilineal}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/3us.png} }}
-    \qquad
-    \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/3open.png} }}
-    \caption{Comparacón de correctitud contra opencv: Bicubico con ventanas de $4\times4$ pixels}
-\end{figure}
-
-Como puede verse, nuestros algoritmos arrojan resultados muy parecidos a opencv. Por lo que consideramos que su implementacion es correcta.
