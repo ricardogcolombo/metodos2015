@@ -210,10 +210,12 @@ Testeamos con un valor extremo de $k$ para ver cuales son los resultados, para $
     \label{fig:example}%
 \end{figure}
 
-%ECM        PSNR
-%2976.63    13.3936
-%1266.65    17.1042
-%1454.78    16.5028
+Como esperabamos, ninguna de las tres imagenes es ya reconocible sin sin conocer la foto original. El metodo uno, vecinos, es claramente el mas perjudicado con una imagen final que recuerda a las viejas imagenes de 8bits debido a su alto grado de pixelacion. En el caso del metodo de splines, la imagen es algo mas clara, sin embargo y contrario a nuestra intuición, a este nivel se observan cierto cuadriculado en la imagen, producto de las ventanas que tomamos para su aproximacion. Curiosamente, esperabamos que sea el metodo bilineal quien cuente con este desventaja, producto de la falta de suavizado entre los pixeles vecinos.
+\begin{itemize}
+ \item Metodo 1: ECM de $2976.63$ y PSNR de $13.3936$.
+ \item Metodo 2: ECM de $1266.65$ y PSNR de $17.1042$.
+ \item Metodo 3: ECM de $1454.78$ y PSNR de $16.5028$
+\end{itemize}
 
 
 \subsection{Analisis de los metodos para rostros}
@@ -294,13 +296,15 @@ Testeamos con un valor extremo de $k$ para ver cuales son los resultados, para $
     \caption{Comparacón de metodos para $k = 3$}%
     \label{fig:example}%
 \end{figure}
-%metodo 1
-%ECM        PSNR
-%1563.05    16.1911
-%metodo 2
-%684.334    19.7781
-%metodo 3
-%639.892    20.0697
+
+\begin{itemize}
+ \item Metodo 1: ECM de $1563.05$ y PSNR de $16.1911$.
+ \item Metodo 2: ECM de $684.334$ y PSNR de $19.7781$.
+ \item Metodo 3: ECM de $639.892$ y PSNR de $20.0697$
+\end{itemize}
+
+Una vez mas, vuelve a repetirse el resultado que habiamos obtenido para valores elevados de $k$ en imagenes anteriores. De nuevo el metodo de los vecinos pierde frente a los demas por una gran diferencia (tanto 'visual' como a nivel numerico). Las diferencias entre el metodo bilineal y el metodo de splines, repito exactamente los resultados anteriores.
+
 
 \subsubsection{Conclusiones del analisis de los metodos}
 Como pudimos apreciar a lo largo de los distintos analisis realizados, no existe un metodo que sea claramente un ganador.
