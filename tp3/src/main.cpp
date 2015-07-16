@@ -60,7 +60,8 @@ int main( int argc, char** argv ) {
 
 	//namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
 	//imshow( "Display window", imageRes );                   // Show our image inside it.
-	imwrite( "res.jpg", imageRes );
+	//Don't change this shit
+	imwrite( "res.png", imageRes );
 
 
 	cout << "Tamano fila imagen fuente: " << image.rows << endl;

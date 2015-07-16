@@ -19,8 +19,11 @@ originales contra sus transformadas, ofreciendo una noción de error o ruido:
  \item Peak to signal noise ratio (PSNR)
 \end{enumerate}
 
+El error cuadratico medio nos permitirá medir de alguna manera cuan alejada esta la imagen transformada de la original. Asi, un mayor error cuadratico medio indicará que la imagen transformada se corresponde menos con la imagen original.
+\\
+Por otra parte el PSNR es una metrica muy utilizada para comparar la calidad de una imagen reconstruida contra la original. Un alto valor de PSNR indica una mejor calidad de la imagen, mientras que un valor bajo indica una peor calidad.
+
 Por último, nuestra visión preliminar del problema nos indica que si bien es posible que los tres algoritmos retornen buenos resultados
 para valores de $k$ relativamente bajos ($k = 1$ y quizas hasta $2$) y la versión de vecinos sea mucho más eficiente temporalmente,
 es probable que esta deje de ser útil muy rápidamente a medida que crece $k$. Por el contrario, tanto la interpolación bilineal como la
-interpolación por splines deberian funcionar mejor para valores de $k$ grandes, en el caso de esta última, siendo la que menos ruido introduzca
-(por la necesidad de que el polinomio sea derivable en cada intersección, suavizando el cambio de uno a otro).
+interpolación por splines deberian funcionar mejor para valores de $k$ grandes, en el caso de esta última, siendo la que menos ruido introduzca(por la necesidad de que el polinomio sea derivable en cada intersección, suavizando el cambio de uno a otro).

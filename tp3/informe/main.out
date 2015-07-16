@@ -4,16 +4,20 @@
 \BOOKMARK [2][-]{subsection.2.2}{Interpolaci\363n bilineal}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Interpolaci\363n por Splines}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{An\341lisis}{}% 6
-\BOOKMARK [2][-]{subsection.3.1}{Correctitud de la implementaci\363n}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.2}{Ventana \363ptima para m\351todo de Splines}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.3}{Analisis de los metodos para imagenes con simbolos alfanumericos}{section.3}% 9
-\BOOKMARK [2][-]{subsection.3.4}{Analisis de los metodos para paisajes}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.5}{Analisis de los metodos para rostros}{section.3}% 11
-\BOOKMARK [2][-]{subsection.3.6}{An\341lisis de tiempos}{section.3}% 12
-\BOOKMARK [1][-]{section.4}{Conclusiones}{}% 13
-\BOOKMARK [1][-]{section.5}{Bibliograf\355a}{}% 14
-\BOOKMARK [2][-]{subsection.5.1}{Bibliograf\355a}{section.5}% 15
-\BOOKMARK [1][-]{section.6}{Ap\351ndice}{}% 16
-\BOOKMARK [2][-]{subsection.6.1}{Compilaci\363n y formato de ejecuci\363n del programa}{section.6}% 17
-\BOOKMARK [3][-]{subsubsection.6.1.1}{Compilaci\363n}{subsection.6.1}% 18
-\BOOKMARK [3][-]{subsubsection.6.1.2}{Formato de ejecuci\363n}{subsection.6.1}% 19
+\BOOKMARK [2][-]{subsection.3.1}{Metodolog\355a de testeo}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Artifacts}{subsection.3.1}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Correctitud de la implementaci\363n}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Ventana \363ptima para m\351todo de Splines}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Analisis de los metodos}{section.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Analisis de los metodos para imagenes con simbolos alfanumericos}{subsection.3.4}% 12
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Analisis de los metodos para paisajes}{subsection.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.5}{Analisis de los metodos para rostros}{section.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.5.1}{Conclusiones del analisis de los metodos}{subsection.3.5}% 15
+\BOOKMARK [2][-]{subsection.3.6}{An\341lisis de tiempos}{section.3}% 16
+\BOOKMARK [1][-]{section.4}{Conclusiones}{}% 17
+\BOOKMARK [1][-]{section.5}{Bibliograf\355a}{}% 18
+\BOOKMARK [2][-]{subsection.5.1}{Bibliograf\355a}{section.5}% 19
+\BOOKMARK [1][-]{section.6}{Ap\351ndice}{}% 20
+\BOOKMARK [2][-]{subsection.6.1}{Compilaci\363n y formato de ejecuci\363n del programa}{section.6}% 21
+\BOOKMARK [3][-]{subsubsection.6.1.1}{Compilaci\363n}{subsection.6.1}% 22
+\BOOKMARK [3][-]{subsubsection.6.1.2}{Formato de ejecuci\363n}{subsection.6.1}% 23
