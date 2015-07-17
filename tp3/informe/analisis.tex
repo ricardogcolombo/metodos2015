@@ -6,7 +6,7 @@ El recortador de imágenes, que se encuentra en la carpeta $\textsf{Recortador d
 
 El comportamiento de este programa es sencillo, partiendo de una imagen original toma un pixel cada $k$ pixeles hasta llegar al final de la imagen. De esta manera, al aplicar los algoritmos de zoom, estas $k$ posiciones serán completados nuevamente y podremos comparar como completa cada método la imagen. Puede que algunas columnas del final queden truncadas ya que no siempre es posible partir una imagen perfectamente de esta manera, pero consideramos que esas pocas columnas son despreciables para una imagen lo suficientemente grande. 
 
-Para asegurarnos que todos los cálculos sean lo mas precisos posibles utilizamos la extinción $.png$ para guardar todas las imágenes con as que trabajamos, ya que este formato utiliza un algoritmo de compresión sin pérdida que nos asegura que ninguna información se pierde al momento de guardar las imágenes.
+Para asegurarnos que todos los cálculos sean lo mas precisos posibles utilizamos la extensión $.png$ para guardar todas las imágenes con las que trabajamos, ya que este formato utiliza un algoritmo de compresión sin pérdida que nos asegura que ninguna información se pierde al momento de guardar las imágenes.
 
 \subsubsection{Artifacts}
 
@@ -19,15 +19,15 @@ Además existen variados tipos de artifacts, a continuación describiremos algun
 \begin{itemize}
  \item Ruido:
  \\
- 	El ruido en imágenes digitales es mas claramente visible sobre superficies uniformes donde se pueden observar cierto tipo de granularidades.
+ 	El ruido en imágenes digitales es más claramente visible sobre superficies uniformes donde se pueden observar cierto tipo de granularidades.
  \item Aliasing:
  \\
- 	El aliasing de una imagen puede describirse de manera informal como los 'serruchos' que pueden observarse cerca de los bordes de los objetos.
+ 	El aliasing de una imagen puede describirse de manera informal como los \"serruchos\" que pueden observarse cerca de los bordes de los objetos.
  \item Sharpening:
  \\
- El Sharpening ocurre cuando al agrandar una imagen se sobre dimensionan los bordes de tal manera que la imagen parezca tener mas contraste.
+ El Sharpening ocurre cuando al agrandar una imagen se sobredimensionan los bordes de tal manera que la imagen parezca tener más contraste.
 \end{itemize}
-A continuación se muestra un ejemplo de cada uno de estas aberraciones:
+A continuación se muestra un ejemplo de cada uno de estas patologías:
 \begin{figure}[H]
 \centering
 \subfloat[Ruido]{{\includegraphics[width=3cm]{fotos/artifacts/ruido.jpg} }}
@@ -40,22 +40,22 @@ A continuación se muestra un ejemplo de cada uno de estas aberraciones:
 
 \subsection{Correctitud de la implementación}
 
-El primer método para comprobar rápidamente la correctitud de la implementación de nuestros algoritmos fue sencillamente comparar ''a ojo'' las imágenes resultantes con la original, observando el nivel de detalle obtenido. Al comienzo, teniendo errores de implementación, notamos de este modo que la implementación necesitaba mejoras.
+El primer método para comprobar rápidamente la correctitud de la implementación de nuestros algoritmos fue sencillamente comparar \"a ojo\" las imágenes resultantes con la original, observando el nivel de detalle obtenido. Al comienzo, teniendo errores de implementación, notamos de este modo que la implementación necesitaba mejoras.
 
-Luego, para obtener mayor rigor, procedimos a comparar nuestros algoritmos con aquellos que vienen por defecto en opencv. Consideramos que estos algoritmos son lo suficientemente fiables como para tomarlos como punto de referencia. Tomamos una imagen:
+Luego, para obtener mayor rigor, procedimos a comparar nuestros algoritmos con aquellos que vienen por defecto en $OpenCV$. Consideramos que estos algoritmos son lo suficientemente fiables como para tomarlos como punto de referencia. Tomamos una imagen:
 \begin{figure}[H]
     \centering
 \subfloat[.]{{\includegraphics[width=5cm]{fotos/opencvvsus/orig.png} }}
 \caption{Imagen Original}
 \end{figure}
-Y la reescalamos en la mismas dimensiones tanto con nuestros algoritmos como con los implementados en Opencv.
+Y la reescalamos en la mismas dimensiones tanto con nuestros algoritmos como con los implementados en $OpenCV$.
 
 \begin{figure}[H]
     \centering
     \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/1us.png} }}
     \qquad
     \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/1open.png} }}
-    \caption{Comparación de correctitud contra Opencv: Vecinos Mas Cercanos}
+    \caption{Comparación de correctitud contra $OpenCV$: Vecinos Más Cercanos}
 \end{figure}
 
 \begin{figure}[H]
@@ -63,7 +63,7 @@ Y la reescalamos en la mismas dimensiones tanto con nuestros algoritmos como con
     \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/2us.png} }}
     \qquad
     \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/2open.png} }}
-    \caption{Comparación de correctitud contra Opencv: Bilineal}
+    \caption{Comparación de correctitud contra $OpenCV$: Bilineal}
 \end{figure}
 
 \begin{figure}[H]
@@ -71,16 +71,16 @@ Y la reescalamos en la mismas dimensiones tanto con nuestros algoritmos como con
     \subfloat[Nosotros]{{\includegraphics[width=5cm]{fotos/opencvvsus/3us.png} }}
     \qquad
     \subfloat[OpenCV]{{\includegraphics[width=5cm]{fotos/opencvvsus/3open.png} }}
-    \caption{Comparación de correctitud contra Opencv: Bicubico con ventanas de $4\times4$ píxeles}
+    \caption{Comparación de correctitud contra $OpenCV$: Bicubico con ventanas de $4\times4$ píxeles}
 \end{figure}
 
-Como puede verse, nuestros algoritmos arrojan resultados muy similares a Opencv. Por lo que consideramos que su implementación es correcta.
+Como puede verse, nuestros algoritmos arrojan resultados muy similares a $OpenCV$. Por lo que consideramos que su implementación es correcta.
 
 \subsection{Ventana óptima para método de Splines}
-Nuestro primer análisis se encargará de encontrar un valor óptimo para la cantidad de las ventanas utilizadas en el método de splines.
-Para dicho fin, elegimos correr varias instancias del método con valores de $K$ crecientes para distintos valores de ventana (4, 8, y 16 para poder comparar los resultados). Se presentan entonces los resultados obtenidos. Vale la pena destacar que no se muestra información respecto al PSNR debido a que presentaba exactamente el mismo comportamiento y no ofrecía información extra alguna.
+Nuestro primer análisis se encargará de encontrar un valor óptimo para la cantidad de las ventanas utilizadas en el método de Splines.
+Para dicho fin, elegimos correr varias instancias del método con valores de $K$ crecientes para distintos valores de ventana (4, 8, y 16 para poder comparar los resultados). Se presentan entonces los resultados obtenidos. Vale la pena destacar que no se muestra información respecto al $PSNR$ debido a que presentaba exactamente el mismo comportamiento y no ofrecía información extra alguna.
 \\
-Como habíamos presupuesto en la introducción, agrandar el tamaño de la ventana solo hace que se tengan en cuenta valores para el punto que se quiere calcular que no depende directamente de este. 
+Como habíamos presupuesto en la introducción, agrandar el tamaño de la ventana solo hace que se tengan en cuenta valores para el punto que se quiere calcular que no depende directamente de este.
 
 \begin{center}
 \includegraphics[scale=0.50]{imagenes/VK2.png}
@@ -99,7 +99,7 @@ De todos formas, no es cierto que siempre sea preferible una ventana más chica 
 
 \subsection{Análisis de los métodos}
 \subsubsection{Análisis de los métodos para imágenes con símbolos alfanuméricos}
-En esta sección analizaremos los tres algoritmos sobre imágenes con símbolos alfanuméricos. Para ellos usamos la imagen mostrada mas abajo para la cual aplicaremos los tres algoritmos implementados con diferentes ks.
+En esta sección analizaremos los tres algoritmos sobre imágenes con símbolos alfanuméricos. Para ellos usamos la imagen mostrada más abajo para la cual aplicaremos los tres algoritmos implementados con diferentes valores de $k$.
 
 Para ello, tomamos la imagen original de $256 \times 256$ y reducimos su tamaño de la manera ya mencionada al principio de esta sección. De esta manera al aplicarle el $k$ se obtiene un tamaño similar al original. Para este experimento, las imágenes reconstruidas a través de este procedimiento tendrán un tamaño entre $255 \times 255$ y $226 \times 256$.
 
@@ -124,10 +124,10 @@ Primero realizamos las pruebas con el valor mínimo de $k$ ($k=1$), obteniendo l
     \label{fig:example}
 \end{figure}
 
-Como podemos ver, las tres imágenes introducen artifacts que todavía no desmejoran la imagen a un nivel en el que sea imposible su comprensión, por lo menos en los dígitos mas externos (distinto para los números internos de la imagen que, debido a su tamaño inicial, ya son casi imperceptibles con este $k$ mínimo). Notese como el método $2$ (el algoritmo bilineal), como consecuencia de la nivelación entre los valores de alto contraste del dibujo y su fondo blanco, empieza a introducir una leve cantidad de ruido alrededor de las zonas negras. La misma situación se plantea en el método tres (el algoritmo bicubico), pero con la diferencia de que el difuminado introducido es mucho menos visible.
+Como podemos ver, las tres imágenes introducen artifacts que todavía no desmejoran la imagen a un nivel en el que sea imposible su comprensión, por lo menos en los dígitos mas externos (distinto para los números internos de la imagen que, debido a su tamaño inicial, ya son casi imperceptibles con este $k$ mínimo). Notese como el método $2$ (el algoritmo bilineal), como consecuencia de la nivelación entre los valores de alto contraste del dibujo y su fondo blanco, empieza a introducir una leve cantidad de ruido alrededor de las zonas negras. La misma situación se plantea en el método tres (el algoritmo bicúbico), pero con la diferencia de que el difuminado introducido es mucho menos visible.
 
 
-Observemos los resultados para un $k$ un poco mas elevado ($k=2$):
+Observemos los resultados para un $k$ un poco más elevado ($k=2$):
 
 \begin{figure}[H]
     \centering
@@ -142,7 +142,7 @@ Observemos los resultados para un $k$ un poco mas elevado ($k=2$):
 
 En esta ocasión, el comportamiento sigue los lineamientos generales del caso anterior, con la salvedad de que ninguna de las tres imágenes ya es comprensible. Vemos como el ruido comentado en el caso anterior avanzo rápido en el algoritmo bilineal, para casi difuminar la imagen por completo. En el caso del algoritmo que utiliza splines, se puede empezar a ver un pequeño sombreado alrededor de los bordes de los elementos en la imagen, pero a diferencia del método dos, esta solo se extiende a las cercanías y no avanza por toda la imagen.
 
-Por ultimo, presentamos los resultados para $k=4$:
+Por último, presentamos los resultados para $k=4$:
 
 \begin{figure}[H]
     \centering
@@ -155,13 +155,13 @@ Por ultimo, presentamos los resultados para $k=4$:
     \label{fig:example}
 \end{figure}
 
-Como era de esperarse las tres imágenes resultantes ya perdieron comprensión en su totalidad. Además, el segundo y tercer método, presentan una alta cantidad de ruido por el difuminado producido respecto de la imagen original.
-Queda entonces a la vista una característica que no estábamos considerando hasta entonces en nuestro análisis. El método de los vecinos puede llegar a ofrecer resultados favorables si se cumplen algunas características deseables (nuestra intuición preveía que esta implementación seria superado por los anteriores en cualquier situación) como en este caso. El alto contraste entre las imágenes, hace que en los métodos que introducen cierta correlación o suavizado entre píxeles generen un sombreado que hace mas borrosas las imágenes y que las vuelve menos claras. En contra de nuestros pronósticos, el método de los vecinos podría ser un excelente candidato en estos casos.
+Como era de esperarse, las tres imágenes resultantes ya perdieron comprensión en su totalidad. Además, el segundo y tercer método presentan una alta cantidad de ruido por el difuminado producido respecto de la imagen original.
+Queda entonces a la vista una característica que no estábamos considerando hasta entonces en nuestro análisis. El método de los vecinos puede llegar a ofrecer resultados favorables si se cumplen algunas características deseables (nuestra intuición preveía que esta implementación sería superada por las anteriores en cualquier situación) como en este caso. El alto contraste entre las imágenes hace que en los métodos que introducen cierta correlación o suavizado entre píxeles generen un sombreado que hace más borrosas las imágenes y que las vuelve menos claras. En contra de nuestros pronósticos, el método de los vecinos podría ser un excelente candidato en estos casos.
 
 
 \subsubsection{Análisis de los métodos para paisajes}
 
-En esta sección analizamos como se comportan los algoritmos desarrolados para fotos de paisajes. Consideramos una imagen que no presente grandes contrastes como en el análisis anterior y en la que se puedan analizar tanto detalles puntuales (la definición de las ramas del árbol) así como aquellos mucho mas definidos (piedras y ramas que cubren un gran porcentaje de la imagen). Tomamos la siguiente imagen de $256 \times 256$:
+En esta sección analizamos como se comportan los algoritmos desarrolados para fotos de paisajes. Consideramos una imagen que no presente grandes contrastes como en el análisis anterior y en la que se puedan analizar tanto detalles puntuales (la definición de las ramas del árbol) así como aquellos mucho más definidos (piedras y ramas que cubren un gran porcentaje de la imagen). Tomamos la siguiente imagen de $256 \times 256$:
 
 \begin{figure}[H]
 \centering
@@ -181,7 +181,7 @@ Y reconstruimos la imagen con la metodología ya mencionada en apartados anterio
     \label{fig:example}
 \end{figure}
 
-En este primer ejemplo, con un $k$ mínimo, ninguna de las tres imágenes presenta una calidad demasiado desmejorada. 
+En este primer ejemplo, con un $k$ mínimo, ninguna de las tres imágenes presenta una calidad demasiado desmejorada.
 
 El $ECM$ y $PSNR$ obtenido para cada uno de los métodos fue el siguiente:
 \begin{itemize}
@@ -190,9 +190,9 @@ El $ECM$ y $PSNR$ obtenido para cada uno de los métodos fue el siguiente:
  \item Método 3: ECM de $332.629$ y PSNR de $22.9112$
 \end{itemize}
 
-En particular nos sorprendió ver el ECM de la implementacion que utiliza interpolación por splines, que visualmente esta mas cerca al algoritmo de los vecinos mas cercanos(el cual se perfilaba como el de peor rendimiento de los tres y termino en segundo lugar) que al método dos (de el cual, de hecho, suponíamos era una mejora tanto con el error cuadrático medio como con el PSNR).
+En particular nos sorprendió ver el $ECM$ de la implementacion que utiliza interpolación por Splines, que visualmente esta más cerca al algoritmo de los vecinos mas cercanos (el cual se perfilaba como el de peor rendimiento de los tres y terminó en segundo lugar) que al método dos (del cual, de hecho, suponíamos era una mejora tanto con el error cuadrático medio como con el $PSNR$).
 
-En el método 1 puede notarse ya cierto aliasing en los bordes mas prominentes de la fotografía, como el tronco de la izquierda. Además si se observa la sombra de los arboles, que en la imagen originar resultaba uniforme puede verse ahora como el método 1 y 3 introdujo una gran cantidad de ruido en esos lugares.
+En el método 1 puede notarse ya cierto aliasing en los bordes más prominentes de la fotografía, como el tronco de la izquierda. Además si se observa la sombra de los árboles, que en la imagen original resultaba uniforme puede verse ahora como el método 1 y 3 introdujo una gran cantidad de ruido en esos lugares.
 
 Ahora lo hacemos para $k=2$, se obtiene esto:
 
@@ -207,7 +207,7 @@ Ahora lo hacemos para $k=2$, se obtiene esto:
     \label{fig:example}%
 \end{figure}
 
-En este segundo caso, aun con un pequeño cambio en el $k$, podemos apreciar como el método de los vecinos y el de splines (método 1 y 3 respectivamente) empiezan a introducir una gran cantidad de ruido. En el caso del método dos, a diferencia de lo ocurrido durante el análisis de caracteres alfanuméricos, el suavizado que se produce en la imagen si ayuda a que esta se mantenga entendible y el difuminado termina favoreciendo a la comprensión de la misma (esto no ocurría en los caracteres alfanuméricos, porque este mismo suavizado termina oscureciéndola y quitándole claridad).
+En este segundo caso, aún con un pequeño cambio en el $k$, podemos apreciar como el método de los vecinos y el de splines (métodos 1 y 3 respectivamente) empiezan a introducir una gran cantidad de ruido. En el caso del método dos, a diferencia de lo ocurrido durante el análisis de caracteres alfanuméricos, el suavizado que se produce en la imagen si ayuda a que esta se mantenga entendible y el difuminado termina favoreciendo a la comprensión de la misma (esto no ocurría en los caracteres alfanuméricos, porque este mismo suavizado termina oscureciéndola y quitándole claridad).
 Una vez mas, los valores de error cuadrático medio y la relación signal/ruido apoyan el análisis realizado e incluso demuestran que la diferencia introducida en el ECM se duplica entre cada método.
 
 \begin{itemize}
@@ -230,8 +230,8 @@ Ahora lo hacemos para $k=3$, se obtiene esto:
     \label{fig:example}%
 \end{figure}
 
-En este caso, podemos ver nuevamente como el aumento mínimo del valor de $k$ produce niveles altísimos de perdida de definición en las tres imágenes. Contraria a nuestra intuición, el método dos sigue ofreciendo un mejor desempeño en este caso, incluso contra el método de Splines. El método de los vecinos, que no presenta ningún suavizado, queda rápidamente relegada al ultimo lugar en cuanto a la cantidad de ruido (Notese como ya es difícil diferenciar las zonas de mayor definición como las ramas del árbol e incluso empieza a estar comprometida nuestra capacidad de diferenciar donde empieza la piedra que se encuentra en la zona media izquierda y donde lo hace la superficie del piso). En el método dos podemos confirmar que, como en el caso anterior, a cambio de introducir cierto sombreado en la imagen se consigue la mejor definición colocándolo nuevamente como el de mejor desempeño.
-Una vez mas, los valores de $ECM$ y $PSNR$ son, como era de esperarse, los siguientes:
+En este caso podemos ver nuevamente como el aumento mínimo del valor de $k$ produce niveles altísimos de perdida de definición en las tres imágenes. Contrariamente a nuestra intuición, el método dos sigue ofreciendo un mejor desempeño en este caso, incluso contra el método de Splines. El método de los vecinos, que no presenta ningún suavizado, queda rápidamente relegada al ultimo lugar en cuanto a la cantidad de ruido (Notese como ya es difícil diferenciar las zonas de mayor definición como las ramas del árbol e incluso empieza a estar comprometida nuestra capacidad de diferenciar donde empieza la piedra que se encuentra en la zona media izquierda y donde lo hace la superficie del piso). En el método dos podemos confirmar que, como en el caso anterior, a cambio de introducir cierto sombreado en la imagen se consigue la mejor definición colocándolo nuevamente como el de mejor desempeño.
+Una vez más, los valores de $ECM$ y $PSNR$ son, como era de esperarse, los siguientes:
 \begin{itemize}
  \item Método 1: ECM de $1099.83$ y PSNR de $17.7175$.
  \item Método 2: ECM de $400.854$ y PSNR de $22.1009$.
@@ -252,19 +252,19 @@ Testeamos con un valor extremo de $k$ para ver cuales son los resultados, para $
     \label{fig:example}%
 \end{figure}
 
-Como esperábamos, ninguna de las tres imágenes es ya reconocible. El método uno, vecinos, es claramente el mas perjudicado con una imagen final que recuerda a las viejas imágenes de 8bits debido a su alto grado de aliasing. En el caso del método de splines, la imagen es algo mas clara, sin embargo y contrario a nuestra intuición, a este nivel se observan cierto cuadriculado en la imagen, producto de las ventanas que tomamos para su aproximación. Curiosamente, esperábamos que sea el método Bilineal quien cuente con este desventaja, producto de la falta de suavizado entre los píxeles vecinos.
+Como esperábamos, ninguna de las tres imágenes es ya reconocible. El método uno, vecinos, es claramente el más perjudicado con una imagen final que recuerda a las viejas imágenes de 8 bits debido a su alto grado de aliasing. En el caso del método de splines, la imagen es algo más clara, sin embargo y contrario a nuestra intuición, a este nivel se observan cierto cuadriculado en la imagen, producto de las ventanas que tomamos para su aproximación. Curiosamente, esperábamos que sea el método Bilineal quien cuente con este desventaja, producto de la falta de suavizado entre los píxeles vecinos.
 \begin{itemize}
  \item Método 1: ECM de $2976.63$ y PSNR de $13.3936$.
  \item Método 2: ECM de $1266.65$ y PSNR de $17.1042$.
  \item Método 3: ECM de $1454.78$ y PSNR de $16.5028$
 \end{itemize}
 
-Como puede verse, el método 2 continua siendo el que produce menos ECM y el que obtiene mejor PSNR incluso para estos niveles altísimos de $k$.
+Como puede verse, el método 2 continua siendo el que produce menos $ECM$ y el que obtiene mejor $PSNR$ incluso para estos niveles altísimos de $k$.
 
 \subsection{Análisis de los métodos para rostros}
 
 
-En esta ultima sección analizamos como se comportan los métodos para fotos de rostros. Centraremos nuestro análisis en el comportamiento de los tres algoritmos frente a rasgos particulares del rostro para poder valorar la calidad de los mismos. Tomamos la siguiente fotografía de $256\times 256$:
+En esta última sección analizamos como se comportan los métodos para fotos de rostros. Centraremos nuestro análisis en el comportamiento de los tres algoritmos frente a rasgos particulares del rostro para poder valorar la calidad de los mismos. Tomamos la siguiente fotografía de $256\times 256$:
 
 \begin{figure}[H]
 \centering
@@ -284,7 +284,7 @@ Presentamos el mismo análisis que en las imágenes anteriores ($k=1$, $k=2$ y $
     \label{fig:example}%
 \end{figure}
 
-ECM y PSNR para $k = 1$:
+$ECM$ y $PSNR$ para $k = 1$:
 
 \begin{itemize}
  \item Método 1: ECM de $95.6087$ y PSNR de $28.3258$.
@@ -303,7 +303,7 @@ ECM y PSNR para $k = 1$:
     \label{fig:example}%
 \end{figure}
 
-ECM y PSNR para $k = 2$:
+$ECM$ y $PSNR$ para $k = 2$:
 
 \begin{itemize}
  \item Método 1: ECM de $235.245$ y PSNR de $24.4156$.
@@ -322,7 +322,7 @@ ECM y PSNR para $k = 2$:
     \label{fig:example}
 \end{figure}
 
-ECM y PSNR para $k = 3$:
+$ECM$ y $PSNR$ para $k = 3$:
 
 \begin{itemize}
  \item Método 1: ECM de $389.559$ y PSNR de $22.2251$.
@@ -345,7 +345,7 @@ Testeamos con un valor extremo de $k$ para ver cuales son los resultados, para $
     \label{fig:example}%
 \end{figure}
 
-ECM y PSNR para $k = 10$:
+$ECM$ y $PSNR$ para $k = 10$:
 
 \begin{itemize}
  \item Método 1: ECM de $1563.05$ y PSNR de $16.1911$.
@@ -353,16 +353,16 @@ ECM y PSNR para $k = 10$:
  \item Método 3: ECM de $639.892$ y PSNR de $20.0697$
 \end{itemize}
 
-Una vez mas, vuelve a repetirse resultados similares que en el caso anterior para $k=10$. De nuevo el método de los vecinos pierde frente a los demás por una gran diferencia (tanto 'visual' como con respecto al ECM y el PSNR). Las diferencias entre el método Bilineal y el método de splines es ,muy pequeña aunque en este caso resulta levemente mejor el método 3.
+Una vez más vuelven a repetirse resultados similares que en el caso anterior para $k=10$. De nuevo el método de los vecinos pierde frente a los demás por una gran diferencia (tanto \"visual\" como con respecto al $ECM$ y el $PSNR$). Las diferencias entre el método Bilineal y el método de splines es muy pequeña aunque en este caso resulta levemente mejor el método 3.
 
 
 \subsubsection{Conclusiones del análisis de los métodos}
 Como pudimos apreciar a lo largo de los distintos análisis realizados, no existe un método que sea claramente un ganador.
-Si bien es cierto que el método dos es el que introduce la menor cantidad de errores, una apreciación mas 'subjetiva' y alejada de los números nos deja las siguientes sensaciones:
+Si bien es cierto que el método dos es el que introduce la menor cantidad de errores, una apreciación más \"subjetiva\" y alejada de los números nos deja las siguientes sensaciones:
 \begin{enumerate}
  \item El método de los vecinos puede llegar a mostrar mejores resultados en situaciones de imágenes que consisten en elementos frente a un fondo uniforme con un alto contraste debido a que al no realizar ninguna interpolación entre los píxeles evita introducir sombreados innecesarios.
  \item El método Bilineal, a pesar de ser el mejor en cuanto a errores y la cantidad de ruido introducida en las imágenes, no siempre es considerado el algoritmo óptimo según nuestro análisis. En situaciones donde la imagen presenta regiones de alta cantidad de detalles (como puede ser el rostro de una persona en el caso analizado), genera un sombreado que hace perder definición en estas zonas. Situación que no ocurre para el método de Splines. Sin embargo, en imágenes donde no hay regiones de grandes detalles (como puede ser un paisaje) si lo consideramos el óptimo.
- \item El método de interpolación de Splines, que presenta valores cercanos al mejor candidato (la implementación Bilineal) en la mayoría de los casos, tiene la ventaja de que, al introducir menor cantidad de 'sombreado' que este ultimo, conserva mejor aquellos detalles mencionados en donde el método Bilineal perdía claridad.
+ \item El método de interpolación de Splines, que presenta valores cercanos al mejor candidato (la implementación Bilineal) en la mayoría de los casos, tiene la ventaja de que, al introducir menor cantidad de \"sombreado\" que este último, conserva mejor aquellos detalles mencionados en donde el método Bilineal perdía claridad.
 \end{enumerate}
 
 
