@@ -1,8 +1,8 @@
 A continuación presentaremos el desarrollo de los experimentos que exploran las técnicas mencionadas en la introducción con su respectivo análisis:
 
-\subsection{Vecinos mas cercanos}
-El primer método que analizaremos será el de vecinos. Este consiste en rellenar los valores de cada una de las columnas
-nuevas de la imagen replicando su valor más próximo. La principal ventaja de este método es la simpleza de su implementación, que consta únicamente de dos bucles para iterar la matriz original. Dicha característica también le provee de una eficiencia del orden de O($nxm$) siendo $n$ el alto y m ancho de la imagen destino.
+\subsection{Vecinos más cercanos}
+El primer método que analizaremos será el de vecinos más cercanos. Este consiste en rellenar los valores de cada una de las columnas
+nuevas de la imagen replicando su valor más próximo. La principal ventaja de este método es la simpleza de su implementación, que consta únicamente de dos bucles para iterar la matriz original. Dicha característica también le provee de una eficiencia del orden de O($nxm$) siendo $n$ el alto y $m$ ancho de la imagen destino.
 
 \begin{algorithm}[H]
 \begin{algorithmic}[1]\parskip=1mm
@@ -15,10 +15,10 @@ nuevas de la imagen replicando su valor más próximo. La principal ventaja de e
 \end{algorithmic}
 \end{algorithm}
 
-Como se mencionó anteriormente, a pesar su alta eficiencia temporal en comparación a los demás métodos, nuestra intuición nos dice que este va ser el que presente una mayor cantidad de ruido, debido a que simplemente se están replicando los píxeles de las imágenes. Como resultado, teniendo en cuenta que lo único que se logra es "añadir grosor" a los píxeles, deberían conseguirse imágenes de mayor tamaño pero con una ganancia igual de rápida en los valores de ruido a medida que los valores de $k$ aumentan.
+Como se mencionó anteriormente, a pesar su alta eficiencia temporal en comparación a los demás métodos nuestra intuición nos dice que este va ser el que presente una mayor cantidad de ruido, debido a que simplemente se están replicando los píxeles de las imágenes. Como resultado, teniendo en cuenta que lo único que se logra es \"añadir grosor\" a los píxeles, deberían conseguirse imágenes de mayor tamaño pero con una ganancia igual de rápida en los valores de ruido a medida que los valores de $k$ aumentan.
 
 \subsection{Interpolación Bilineal}
-El segundo método que analizaremos será el de interpolación Bilineal. En este caso, la idea consiste en generar un polinomio entre
+El segundo método que analizaremos será el de interpolación Bilineal. En este caso la idea consiste en generar un polinomio entre
 dos puntos consecutivos de la imagen para, por medio de este, calcular los valores necesarios para la extensión. \\
 Primero realizaremos el cálculo por filas y una vez calculados estos valores, repetiremos el mismo procedimiento por columnas.
 Sean entonces $Q_{11}$, $Q_{12}$, $Q_{21}$, $Q_{22}$ los cuatro puntos de la imagen original sobre los que queremos interpolar, el objetivo es conseguir un polinomio P que valga lo mismo en cada uno de estos puntos y aproxime los nuevos valores intermedios. Usaremos entonces para esto el polinomio interpolador de Lagrange.
@@ -36,7 +36,7 @@ Ahora, realizando el mismo procedimiento pero en el eje Y, obtenemos lo siguient
 \includegraphics[scale=0.75]{imagenes/bilinealY.png}\\
 \end{center}
 
-Si notamos, los puntos que acompañan a las bases polinómicas de Lagrange son los mismos que calculamos sobre el eje X, por lo que podemos realizar el remplazo para llegar a una fórmula cerrada:
+Notamos que los puntos que acompañan a las bases polinómicas de Lagrange son los mismos que calculamos sobre el eje X, por lo que podemos realizar el remplazo para llegar a una fórmula cerrada:
 
 \begin{center}
 \includegraphics[scale=0.75]{imagenes/bilinealXY.png}\\
@@ -48,7 +48,7 @@ Distribuyendo los valores dentro de los paréntesis, obtenemos la ecuación fina
 \includegraphics[scale=0.75]{imagenes/bilinealFinal.png}\\
 \end{center}
 
-Notar que tanto los valores del X e Y de los puntos con los que generamos la formula, como el valor en el punto son constantes que no varían mientras mantengamos los 4 píxeles escogidos con lo cual podríamos reutilizar esto para los demás cálculos y además la distancia de los puntos $x_1$ y $x_2$ es 1 como el de los valores de $y_1$ e $y_2$ por lo que el denominador en la formula se puede quitar, quedándonos una formula de una recta. 
+Notar que tanto los valores del X e Y de los puntos con los que generamos la fórmula, como el valor en el punto son constantes que no varían mientras mantengamos los 4 píxeles escogidos con lo cual podríamos reutilizar esto para los demás cálculos y además la distancia de los puntos $x_1$ y $x_2$ es 1 como el de los valores de $y_1$ e $y_2$ por lo que el denominador en la fermula se puede quitar, quedándonos una fórmula de una recta.
 
 \begin{center}
 $f(x)= Q_{11}.valor* (Q_{22}.x-x)*(Q_{22}.y-y) + Q_{21}.val * (x-Q_{11}.x)*(Q_{22}.y-y)+ Q_{12}.valor* (Q_{22}.x-x)*(y-Q_{11}.y) + Q_{22}.val * (x-Q_{11}.x)*(y-Q_{11}.y) $
@@ -89,7 +89,7 @@ q21 & k &  l & q22\\
 \end{tabular}
 \end{center}
 \end{table}
-Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y podemos realizar la formula con los mismos.
+Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y podemos realizar la fórmula con los mismos.
 
 \begin{algorithm}
 \begin{algorithmic}[H]\parskip=1mm
@@ -106,7 +106,7 @@ Como los valores de q11,q12,q21 y q22 son los valores de la imagen original y po
   \STATE{\quad \quad \quad \quad $Res_{i*(k+1)+x,j*(k+1)+y} =$ valorRes}
 \end{algorithmic}
 \end{algorithm}
-Donde $polinomio interpolador$ es la función que se encarga de generar el polinomio interpolador(que en este caso es una recta) en el punto, de la siguiente manera:
+Donde $polinomio interpolador$ es la función que se encarga de generar el polinomio interpolador (que en este caso es una recta) en el punto, de la siguiente manera:
 \begin{algorithm}
 \begin{algorithmic}[H]\parskip=1mm
 \caption{void polinomioInterpolador(punto q11,punto q12, punto q21, punto q22, int x, int y)}
@@ -118,11 +118,11 @@ Donde $polinomio interpolador$ es la función que se encarga de generar el polin
 \end{algorithm}
 Para el caso del polinomio interpolador se agregaron 2 lineas al final de la rutina, las cuales aplican saturación en caso de ser necesario cuando luego de realizar todas las cuentas el valor que nos queda es mayor a 255, fijándolo en 255, y cuando el valor es menor a 0, fijándolo en 0.
 \\
-En este método, comparado con el anterior que solo replicaba píxeles vecinos, se está calculando un polinomio para tratar de introducir cierto nivel de suavidad entre los puntos de la imagen original a medida que se recorren los píxeles. Un dato importante a tener en cuenta es que dado que el grado del polinomio aumenta a medida que la cantidad de puntos a interpolar es mayor, decidimos que esta se realice entre solo dos puntos de la imagen original, para ofrecer un mejor desempe\~no entre puntos, haciendo que el polinomio calculado sea mas operativo y evitando que este oscile demasiado (situación conocida como Fenómeno de Runge). 
+En este método, comparado con el anterior que solo replicaba píxeles vecinos, se está calculando un polinomio para tratar de introducir cierto nivel de suavidad entre los puntos de la imagen original a medida que se recorren los píxeles. Un dato importante a tener en cuenta es que dado que el grado del polinomio aumenta a medida que la cantidad de puntos a interpolar es mayor, decidimos que esta se realice entre solo dos puntos de la imagen original, para ofrecer un mejor desempeño entre puntos, haciendo que el polinomio calculado sea mas operativo y evitando que este oscile demasiado (situación conocida como Fenómeno de Runge). 
 \\
 \\
-La complejidad de este algoritmo no es alta. Se recorren n filas y para cada una de ellas m columnas para recorrer toda la matriz, luego se fijan 4 puntos a procesar (que eso tiene complejidad O(1) para acceder a la posición de la matriz) y para cada conjunto de puntos, se realizan 2 ciclos de complejidad O(k), cada uno para recorrer los píxeles cercanos. Luego se genera el polinomio interpolador, el denominador se consigue a través de 2 restas y 1 multiplicación, y el numerador tiene un costo de 12 multiplicaciones y 8 restas. Por ultimo, se multiplican el numerador con el denominador, por lo tanto armar el polinomio interpolador cuesta 10 restas y 14 multiplicaciones.
-Si consideramos que las restas y multiplicaciones no son muy costosas y que crear el polinomio cuesta O(1) (a muy grandes rasgos), la complejidad del algoritmo Bilineal seria O(n*m*k\^{2}) con n cantidad de filas, m cantidad de columnas y k cantidad de filas/columnas agregadas entre 2 filas/columnas, que por lo general en la práctica, el k es muchísimo más chico que n y m, el tamaño de la imagen.
+La complejidad de este algoritmo no es alta. Se recorren $n$ filas y para cada una de ellas, $m$ columnas para recorrer toda la matriz, luego se fijan 4 puntos a procesar (que eso tiene complejidad $O(1)$ para acceder a la posición de la matriz) y para cada conjunto de puntos, se realizan 2 ciclos de complejidad $O(k)$, cada uno para recorrer los píxeles cercanos. Luego se genera el polinomio interpolador, el denominador se consigue a través de 2 restas y 1 multiplicación, y el numerador tiene un costo de 12 multiplicaciones y 8 restas. Por último, se multiplican el numerador con el denominador, por lo tanto armar el polinomio interpolador cuesta 10 restas y 14 multiplicaciones.
+Si consideramos que las restas y multiplicaciones no son muy costosas y que crear el polinomio cuesta $O(1)$ (a muy grandes rasgos), la complejidad del algoritmo Bilineal seria $O(n*m*k\^{2})$ con $n$ cantidad de filas, $m$ cantidad de columnas y $k$ cantidad de filas/columnas agregadas entre 2 filas/columnas, que por lo general en la práctica, el $k$ es muchísimo más chico que $n$ y $m$, el tamaño de la imagen.
 
 
 \subsection{Interpolación por Splines}
@@ -147,7 +147,7 @@ $a_j$ es el valor del píxel en la posición $j$ de la imagen original en la fil
 $b_{j} = \frac{1}{k}(a_{j+1} - a_j) - \frac{k}{3}(2c_j + c_{j+1})$ \\ \\
 $d_{j} = \frac{c_{j+1} - c_{j}}{3k} $ \\
 
-La implementación del algoritmo Bicubico consta de dos partes muy similares, ya que primero se recorre la matriz por columnas para realizar el método de splines y luego se realiza el método por filas para completar la matriz.
+La implementación del algoritmo Bicúbico consta de dos partes muy similares, ya que primero se recorre la matriz por columnas para realizar el método de splines y luego se realiza el método por filas para completar la matriz.
 Definimos para él una clase llamada spline donde almacenaremos los arreglos $as$, $bs$, $cs$ y $ds$, estos contienen los coeficientes del polinomio para la posición $i$ de la fila o columna en donde estemos calculando los splines.
 
 \begin{algorithm}[H]
@@ -200,4 +200,3 @@ En la linea 3 se llama al algoritmo de splines pasándole los $n$ puntos de la i
 En este algoritmo \cite{burden} estamos calculando los coeficientes del polinomio dado un arreglo de elementos que van a ser nuestros puntos.\\
 
 Este método, que podría considerarse un refinamiento del anterior, introduce la particularidad de que se le pide al polinomio interpolador que las intersecciones de las funciones que interpolan al punto $n-1$ y $n$ y al $n$ y al $n+1$, sean derivables. Como resultado, se agrega mucha más suavidad entre puntos que con la técnica anterior que solo respetaba que las funciones empiecen y terminen en el mismo punto (dando lugar a posibles picos, como en el caso de que dos puntos se interpolen con una recta ascendente y los siguientes con una descendente). Además, esta técnica evita de forma natural la oscilación del polinomio mencionada en el método anterior dado que siempre se toman polinomios por partes y, como mencionamos, al usar splines naturales podemos garantizar que la interpolación es suave en sus bordes, además de serlo en los bordes generados por los límites de cada spline. Gracias a esto, cuando se intenta reducir el error de interpolación se puede incrementar el número de partes del polinomio que se usa para construir el spline, en lugar de incrementar su grado.
-
